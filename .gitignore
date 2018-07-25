@@ -52,6 +52,9 @@ captures/
 # Google Services (e.g. APIs or Firebase)
 google-services.json
 
+# my keys file
+mykeys.properties
+
 # Freeline
 freeline.py
 freeline/
