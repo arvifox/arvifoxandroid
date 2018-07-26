@@ -8,8 +8,11 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import com.arvifox.arvi.https.HttpsActivity
 import com.arvifox.arvi.phoneinfo.PhoneInfoActivity
+import com.google.android.gms.common.ConnectionResult
+import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.activity_main.*
@@ -36,7 +39,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         nav_view.setNavigationItemSelectedListener(this)
 
         FirebaseInstanceId.getInstance().instanceId
-                .addOnSuccessListener(this, { ins -> val s = ins.token })
+                .addOnSuccessListener(this, { ins ->
+                    Toast.makeText(this, ins.token, Toast.LENGTH_SHORT).show()
+                })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val rc = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this)
+        if (rc != ConnectionResult.SUCCESS) {
+            val d = GoogleApiAvailability.getInstance().getErrorDialog(this, rc, 1234)
+            d.show()
+        }
     }
 
     override fun onBackPressed() {
