@@ -8,45 +8,55 @@ import javax.net.ssl.SSLSocketFactory
 /**
  * {@link https://developer.android.com/reference/javax/net/ssl/SSLSocket.html}
  */
-class TLSSocketFactory(val ssf: SSLSocketFactory) : SSLSocketFactory() {
+class TLSSocketFactory() : SSLSocketFactory() {
 
+    private var factory: SSLSocketFactory? = null
     private var tls12Enabled: Boolean = false
 
+    constructor(ssf: SSLSocketFactory) : this() {
+        factory = ssf
+    }
+
+    constructor(ssf: SSLSocketFactory, tls: Boolean) : this(ssf) {
+        factory = ssf
+        tls12Enabled = tls
+    }
+
     override fun getDefaultCipherSuites(): Array<String> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return factory!!.defaultCipherSuites
     }
 
     override fun getSupportedCipherSuites(): Array<String> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return factory!!.supportedCipherSuites
     }
 
     override fun createSocket(s: Socket?, host: String?, port: Int, autoClose: Boolean): Socket {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return enableTLSOnSocket(factory!!.createSocket(s, host, port, autoClose))
     }
 
     override fun createSocket(): Socket {
-        return super.createSocket()
+        return enableTLSOnSocket(factory!!.createSocket())
     }
 
     override fun createSocket(host: String?, port: Int): Socket {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return enableTLSOnSocket(factory!!.createSocket(host, port))
     }
 
     override fun createSocket(host: String?, port: Int, localHost: InetAddress?, localPort: Int): Socket {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return enableTLSOnSocket(factory!!.createSocket(host, port, localHost, localPort))
     }
 
     override fun createSocket(host: InetAddress?, port: Int): Socket {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return enableTLSOnSocket(factory!!.createSocket(host, port))
     }
 
     override fun createSocket(address: InetAddress?, port: Int, localAddress: InetAddress?, localPort: Int): Socket {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return enableTLSOnSocket(factory!!.createSocket(address, port, localAddress, localPort))
     }
 
     private fun enableTLSOnSocket(socket: Socket): Socket {
         if (socket != null && socket is SSLSocket && tls12Enabled) {
-            (socket as SSLSocket).enabledProtocols = arrayOf("TLSv1.2")
+            socket.enabledProtocols = arrayOf("TLSv1.2")
         }
         return socket
     }
