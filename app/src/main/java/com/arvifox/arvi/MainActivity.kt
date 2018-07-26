@@ -10,6 +10,8 @@ import android.view.Menu
 import android.view.MenuItem
 import com.arvifox.arvi.https.HttpsActivity
 import com.arvifox.arvi.phoneinfo.PhoneInfoActivity
+import com.google.android.gms.tasks.OnSuccessListener
+import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.app_bar_layout.*
@@ -32,6 +34,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
+
+        FirebaseInstanceId.getInstance().instanceId
+                .addOnSuccessListener(this, { ins -> val s = ins.token })
     }
 
     override fun onBackPressed() {
