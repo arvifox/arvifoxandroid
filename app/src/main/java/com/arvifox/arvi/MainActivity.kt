@@ -14,12 +14,15 @@ import com.arvifox.arvi.phoneinfo.PhoneInfoActivity
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.tasks.OnSuccessListener
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.app_bar_layout.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+    private lateinit var fa: FirebaseAnalytics
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +40,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
+
+        fa = FirebaseAnalytics.getInstance(this)
 
         FirebaseInstanceId.getInstance().instanceId
                 .addOnSuccessListener(this, { ins ->
@@ -81,6 +86,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.nav_phoneinfo -> {
+                val b = Bundle()
+                b.putString(FirebaseAnalytics.Param.ITEM_ID, "phoneinfo")
+                b.putString(FirebaseAnalytics.Param.ITEM_NAME, "nav drawer")
+                b.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "click")
+                fa.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, b)
                 startActivity(PhoneInfoActivity.newIntent(this))
             }
             R.id.nav_https -> {
