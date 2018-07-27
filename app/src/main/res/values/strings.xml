@@ -9,4 +9,8 @@
 
     <string name="left_drawer_menu_first">Phone Info</string>
     <string name="left_drawer_menu_https">Https</string>
+    <string name="left_drawer_menu_geo">Geo position</string>
+
+    <string name="provider_gps">GPS</string>
+    <string name="provider_network">Network</string>
 </resources>

@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import com.arvifox.arvi.geoposition.GeoPositionActivity
 import com.arvifox.arvi.https.HttpsActivity
 import com.arvifox.arvi.phoneinfo.PhoneInfoActivity
 import com.google.android.gms.common.ConnectionResult
@@ -96,8 +97,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_https -> {
                 startActivity(HttpsActivity.newIntent(this))
             }
-            R.id.nav_gallery -> {
-
+            R.id.nav_geo_posiiton -> {
+                startActivity(GeoPositionActivity.newIntent(this))
             }
             R.id.nav_slideshow -> {
 
