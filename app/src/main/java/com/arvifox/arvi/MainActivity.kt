@@ -100,8 +100,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_geo_posiiton -> {
                 startActivity(GeoPositionActivity.newIntent(this))
             }
-            R.id.nav_slideshow -> {
-
+            R.id.nav_google_map -> {
+                
             }
             R.id.nav_manage -> {
 
