@@ -10,6 +10,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import com.arvifox.arvi.geoposition.GeoPositionActivity
+import com.arvifox.arvi.googlemaps.GoogleMapsActivity
 import com.arvifox.arvi.https.HttpsActivity
 import com.arvifox.arvi.phoneinfo.PhoneInfoActivity
 import com.google.android.gms.common.ConnectionResult
@@ -101,7 +102,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 startActivity(GeoPositionActivity.newIntent(this))
             }
             R.id.nav_google_map -> {
-                
+                startActivity(GoogleMapsActivity.newIntent(this))
             }
             R.id.nav_manage -> {
 
