@@ -11,6 +11,7 @@
     <string name="left_drawer_menu_https">Https</string>
     <string name="left_drawer_menu_geo">Geo position</string>
     <string name="left_drawer_menu_google_map">Google map</string>
+    <string name="left_drawer_menu_google_ar">Google AR, VR, vision</string>
 
     <string name="provider_gps">GPS</string>
     <string name="provider_network">Network</string>

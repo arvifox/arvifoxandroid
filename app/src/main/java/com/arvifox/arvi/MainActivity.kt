@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import com.arvifox.arvi.arcorevision.ArCoreVisionActivity
 import com.arvifox.arvi.geoposition.GeoPositionActivity
 import com.arvifox.arvi.googlemaps.GoogleMapsActivity
 import com.arvifox.arvi.https.HttpsActivity
@@ -103,6 +104,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             R.id.nav_google_map -> {
                 startActivity(GoogleMapsActivity.newIntent(this))
+            }
+            R.id.nav_google_ar -> {
+                startActivity(ArCoreVisionActivity.newIntent(this))
             }
             R.id.nav_manage -> {
 
