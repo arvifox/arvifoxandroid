@@ -32,6 +32,12 @@
                 android:layout_height="wrap_content"
                 android:text="text2" />
 
+            <TextView
+                android:id="@+id/tvText3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="shapes" />
+
         </LinearLayout>
 
         <fragment

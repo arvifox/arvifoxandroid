@@ -2,6 +2,7 @@ package com.arvifox.arvi.googlemaps
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -53,6 +54,21 @@ class GoogleMapsActivity : AppCompatActivity(), OnMapReadyCallback {
         }
 
         tvText2.setOnClickListener { _ -> mMarker.remove() }
+
+        tvText3.setOnClickListener { _ ->
+            val polylineOptions = PolylineOptions().add(LatLng(66.0, 33.0), LatLng(66.5, 33.5), LatLng(66.7, 33.1))
+                    .color(Color.CYAN).width(1f)
+            mMap.addPolyline(polylineOptions)
+            val polygonOptions = PolygonOptions().add(LatLng(66.0, 33.0), LatLng(65.7, 33.8), LatLng(65.4, 32.1))
+                    .strokeColor(Color.GREEN).strokeWidth(10f).fillColor(Color.MAGENTA)
+            mMap.addPolygon(polygonOptions)
+            val circleOptions = CircleOptions().center(LatLng(66.0, 33.0)).radius(100000.0)
+            mMap.addCircle(circleOptions)
+
+            val ov = GroundOverlayOptions().image(BitmapDescriptorFactory.fromResource(R.drawable.ic_hibin))
+                    .position(LatLng(68.0, 33.0), 100000f, 100000f).transparency(0.5f)
+            mMap.addGroundOverlay(ov)
+        }
     }
 
     /**
