@@ -14,13 +14,14 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.CameraPosition
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.*
+import kotlinx.android.synthetic.main.activity_google_maps.*
 
 class GoogleMapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
+
+    private lateinit var mMarker: Marker
 
     companion object {
         fun newIntent(c: Context): Intent {
@@ -40,6 +41,18 @@ class GoogleMapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager
                 .findFragmentById(R.id.frGoogleMap) as SupportMapFragment
         mapFragment.getMapAsync(this)
+
+        tvText1.setOnClickListener { _ ->
+            mMarker = mMap.addMarker(MarkerOptions()
+                    .position(LatLng(66.0, 33.0))
+                    .title("Where")
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_hibin))
+                    .anchor(0f, 0.3f)
+                    .rotation(30f)
+                    .alpha(0.5f))
+        }
+
+        tvText2.setOnClickListener { _ -> mMarker.remove() }
     }
 
     /**
