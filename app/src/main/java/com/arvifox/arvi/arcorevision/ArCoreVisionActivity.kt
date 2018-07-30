@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.arvifox.arvi.R
+import com.arvifox.arvi.arcorevision.visiontest.VisionApiTestActivity
 import kotlinx.android.synthetic.main.activity_ar_core_vision.*
 import kotlinx.android.synthetic.main.app_bar_layout.*
 
@@ -37,6 +38,10 @@ class ArCoreVisionActivity : AppCompatActivity() {
                 val marketIntent = Intent(Intent.ACTION_VIEW, marketUri)
                 startActivity(marketIntent)
             }
+        }
+
+        btnVisionTestStart.setOnClickListener { _ ->
+            startActivity(VisionApiTestActivity.newIntent(this))
         }
     }
 

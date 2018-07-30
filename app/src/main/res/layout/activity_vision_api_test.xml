@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".arcorevision.ArCoreVisionActivity">
+    tools:context=".arcorevision.visiontest.VisionApiTestActivity">
 
     <include layout="@layout/app_bar_layout" />
 
@@ -14,21 +14,26 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <Button
-            android:id="@+id/btnArCore1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Button1"
+        <ImageView
+            android:id="@+id/ivVisionTest"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/btnVisionTestStart"
+        <TextView
+            android:id="@+id/tvVisionTest"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="VisionStart"
-            app:layout_constraintLeft_toRightOf="@id/btnArCore1" />
+            android:text="Analys"
+            app:layout_constraintTop_toBottomOf="@id/ivVisionTest" />
+
+        <Button
+            android:id="@+id/btnChoose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Choose"
+            app:layout_constraintLeft_toRightOf="@id/ivVisionTest" />
 
     </android.support.constraint.ConstraintLayout>
-
 </android.support.design.widget.CoordinatorLayout>
