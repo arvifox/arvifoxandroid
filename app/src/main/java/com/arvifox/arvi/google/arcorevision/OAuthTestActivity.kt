@@ -10,10 +10,17 @@ import android.os.Bundle
 import android.os.Handler
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
+import android.widget.TextView
 import com.arvifox.arvi.R
-
+import com.arvifox.arvi.utils.FormatUtils.takeString
+import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_oauth_test.*
 import kotlinx.android.synthetic.main.app_bar_layout.*
+import java.net.HttpURLConnection
+import java.net.HttpURLConnection.HTTP_OK
+import java.net.URL
 
 class OAuthTestActivity : AppCompatActivity() {
 
@@ -61,7 +68,29 @@ class OAuthTestActivity : AppCompatActivity() {
     private val handler = Handler()
 
     private fun myToken() {
-        tvOAuth.text = token
+        tvOAuth.setText(token, TextView.BufferType.EDITABLE)
+        val sin: Single<String> = Single.fromCallable {
+            val url = URL("https://www.googleapis.com/tasks/v1/users/@me/lists?key=" + "api key")
+            val con = url.openConnection() as HttpURLConnection
+            con.requestMethod = "GET"
+            con.addRequestProperty("client_id", "[client id OAuth 2.0 from google cloud console console.cloud.google.com]")
+//            con.addRequestProperty("client_secret", "[no need for android]")
+            con.addRequestProperty("Authorization", "OAuth " + token)
+            con.addRequestProperty("X-Android-Package", "com.arvifox.arvi")
+            con.addRequestProperty("X-Android-Cert", "[sha-1 fingerprint]")
+            con.doInput = true
+            con.connect()
+            if (con.responseCode != HTTP_OK) {
+                return@fromCallable "code=" + con.responseCode + " mes=" + con.responseMessage + " \nstr=" + con.errorStream.takeString()
+            }
+            val inp = con.inputStream
+            val res: String = inp.takeString()
+            inp.close()
+            con.disconnect()
+            return@fromCallable res
+        }
+        sin.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe { t1, t2 -> if (t2 != null) tvResult.text = "error" else tvResult.text = t1 }
     }
 
     inner class OnTokenAcquired : AccountManagerCallback<Bundle> {

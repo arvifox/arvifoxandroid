@@ -14,11 +14,18 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <TextView
+        <EditText
             android:id="@+id/tvOAuth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="text" />
+            android:text="foofoo" />
+
+        <TextView
+            android:id="@+id/tvResult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="res"
+            app:layout_constraintTop_toBottomOf="@id/tvOAuth" />
 
     </android.support.constraint.ConstraintLayout>
 
