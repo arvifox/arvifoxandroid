@@ -60,7 +60,7 @@
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".google.arcorevision.ArCoreVisionActivity"
+            android:name=".google.GoogleBaseStartActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -70,20 +70,20 @@
         <activity
             android:name=".google.arcorevision.AccountsActivity"
             android:label="@string/title_activity_accounts"
-            android:parentActivityName=".google.arcorevision.ArCoreVisionActivity"
+            android:parentActivityName=".google.GoogleBaseStartActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.arvifox.arvi.google.arcorevision.ArCoreVisionActivity" />
+                android:value="com.arvifox.arvi.google.GoogleBaseStartActivity" />
         </activity>
         <activity
             android:name=".google.arcorevision.OAuthTestActivity"
             android:label="@string/title_activity_oauth_test"
-            android:parentActivityName=".google.arcorevision.ArCoreVisionActivity"
+            android:parentActivityName=".google.GoogleBaseStartActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.arvifox.arvi.google.arcorevision.ArCoreVisionActivity" />
+                android:value="com.arvifox.arvi.google.GoogleBaseStartActivity" />
         </activity>
     </application>
 
