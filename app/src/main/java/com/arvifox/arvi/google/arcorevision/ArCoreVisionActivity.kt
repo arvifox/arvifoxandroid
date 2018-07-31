@@ -40,11 +40,9 @@ class ArCoreVisionActivity : AppCompatActivity() {
             }
         }
 
-        btnVisionTestStart.setOnClickListener { _ ->
-            startActivity(VisionApiTestActivity.newIntent(this))
-        }
-
+        btnVisionTestStart.setOnClickListener { startActivity(VisionApiTestActivity.newIntent(this)) }
         btnAccounts.setOnClickListener { startActivity(AccountsActivity.newIntent(this)) }
+        btnOAuthTest.setOnClickListener { startActivity(OAuthTestActivity.newIntent(this)) }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

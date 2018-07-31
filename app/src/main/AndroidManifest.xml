@@ -76,6 +76,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.arvifox.arvi.google.arcorevision.ArCoreVisionActivity" />
         </activity>
+        <activity
+            android:name=".google.arcorevision.OAuthTestActivity"
+            android:label="@string/title_activity_oauth_test"
+            android:parentActivityName=".google.arcorevision.ArCoreVisionActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.arvifox.arvi.google.arcorevision.ArCoreVisionActivity" />
+        </activity>
     </application>
 
 </manifest>

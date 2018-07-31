@@ -36,6 +36,14 @@
             android:text="Accounts"
             app:layout_constraintLeft_toRightOf="@id/btnVisionTestStart" />
 
+        <Button
+            android:id="@+id/btnOAuthTest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="OAuth test"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnArCore1" />
+
     </android.support.constraint.ConstraintLayout>
 
 </android.support.design.widget.CoordinatorLayout>
