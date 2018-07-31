@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".google.arcorevision.ArCoreVisionActivity">
+    tools:context=".google.arcorevision.AccountsActivity">
 
     <include layout="@layout/app_bar_layout" />
 
@@ -14,28 +14,22 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <Button
-            android:id="@+id/btnArCore1"
+        <TextView
+            android:id="@+id/tvAccounts"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Button1"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/btnVisionTestStart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="VisionStart"
-            app:layout_constraintLeft_toRightOf="@id/btnArCore1" />
-
-        <Button
-            android:id="@+id/btnAccounts"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Accounts"
-            app:layout_constraintLeft_toRightOf="@id/btnVisionTestStart" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="some text" />
 
     </android.support.constraint.ConstraintLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@android:drawable/ic_dialog_email" />
 
 </android.support.design.widget.CoordinatorLayout>

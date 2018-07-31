@@ -15,4 +15,6 @@
 
     <string name="provider_gps">GPS</string>
     <string name="provider_network">Network</string>
+
+    <string name="title_activity_accounts">AccountsActivity</string>
 </resources>

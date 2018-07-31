@@ -43,6 +43,8 @@ class ArCoreVisionActivity : AppCompatActivity() {
         btnVisionTestStart.setOnClickListener { _ ->
             startActivity(VisionApiTestActivity.newIntent(this))
         }
+
+        btnAccounts.setOnClickListener { startActivity(AccountsActivity.newIntent(this)) }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
