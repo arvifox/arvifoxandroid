@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <!--<uses-permission android:name="android.permission.ACCOUNT_MANAGER" />-->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -43,7 +44,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
         <service
-            android:name=".firebase.FirebaseMessageService"
+            android:name="com.arvifox.arvi.google.firebase.FirebaseMessageService"
             android:stopWithTask="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
@@ -59,11 +60,11 @@
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".arcorevision.ArCoreVisionActivity"
+            android:name="com.arvifox.arvi.google.arcorevision.ArCoreVisionActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".arcorevision.visiontest.VisionApiTestActivity"
+            android:name="com.arvifox.arvi.google.arcorevision.visiontest.VisionApiTestActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>

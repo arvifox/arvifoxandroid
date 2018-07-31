@@ -9,14 +9,13 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
-import com.arvifox.arvi.arcorevision.ArCoreVisionActivity
+import com.arvifox.arvi.google.arcorevision.ArCoreVisionActivity
 import com.arvifox.arvi.geoposition.GeoPositionActivity
 import com.arvifox.arvi.googlemaps.GoogleMapsActivity
 import com.arvifox.arvi.https.HttpsActivity
 import com.arvifox.arvi.phoneinfo.PhoneInfoActivity
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
-import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.activity_main.*
