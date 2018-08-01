@@ -25,6 +25,7 @@
             android:id="@+id/tvVisionTest"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:scrollbars="vertical"
             android:text="Analys"
             app:layout_constraintTop_toBottomOf="@id/ivVisionTest" />
 
@@ -39,6 +40,7 @@
             android:id="@+id/etToken"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:maxLines="1"
             android:text="token"
             app:layout_constraintLeft_toRightOf="@id/btnChoose"
             app:layout_constraintRight_toRightOf="parent" />

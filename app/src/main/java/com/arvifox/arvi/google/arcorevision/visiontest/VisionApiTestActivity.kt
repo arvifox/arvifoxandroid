@@ -4,12 +4,25 @@ import android.accounts.AccountManager
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.text.method.ScrollingMovementMethod
 import android.widget.TextView
 import com.arvifox.arvi.R
+import com.arvifox.arvi.utils.Logger
+import com.google.api.client.extensions.android.http.AndroidHttp
+import com.google.api.client.googleapis.auth.oauth2.GoogleCredential
+import com.google.api.client.json.gson.GsonFactory
+import com.google.api.services.vision.v1.Vision
+import com.google.api.services.vision.v1.model.*
+import io.reactivex.Single
 import kotlinx.android.synthetic.main.app_bar_layout.*
 import kotlinx.android.synthetic.main.activity_vision_api_test.*
+import java.io.InputStream
+import com.arvifox.arvi.utils.FormatUtils.takeByteArray
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 class VisionApiTestActivity : AppCompatActivity() {
 
@@ -20,6 +33,8 @@ class VisionApiTestActivity : AppCompatActivity() {
     }
 
     private val am: AccountManager by lazy { AccountManager.get(this) }
+    private lateinit var mainToken: String
+    private lateinit var iis: ByteArray
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,15 +43,75 @@ class VisionApiTestActivity : AppCompatActivity() {
         val tb = toolbar
         setSupportActionBar(tb)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-    }
+        tvVisionTest.movementMethod = ScrollingMovementMethod()
 
-    override fun onResume() {
-        super.onResume()
+        btnChoose.setOnClickListener { btnclick() }
+
         gettingToken()
     }
 
     fun hasToken(token: String) {
         etToken.setText(token, TextView.BufferType.EDITABLE)
+        mainToken = token
+    }
+
+    private fun btnclick() {
+        val intent = Intent(Intent.ACTION_GET_CONTENT)
+        intent.type = "image/*"
+        startActivityForResult(intent, 845)
+    }
+
+    private fun makeRequest() {
+        val sing: Single<BatchAnnotateImagesResponse> = Single.fromCallable {
+            val credential = GoogleCredential().setAccessToken(mainToken)
+            val httpTransport = AndroidHttp.newCompatibleTransport()
+            val jsonFactory = GsonFactory.getDefaultInstance()
+
+            val builder = Vision.Builder(httpTransport, jsonFactory, credential)
+            val vision = builder.build()
+
+            val featureList = ArrayList<Feature>()
+            val labelDetection = Feature()
+            labelDetection.type = "LABEL_DETECTION"
+            labelDetection.maxResults = 10
+            featureList.add(labelDetection)
+
+            val textDetection = Feature()
+            textDetection.type = "TEXT_DETECTION"
+            textDetection.maxResults = 10
+            featureList.add(textDetection)
+
+            val imageList = ArrayList<AnnotateImageRequest>()
+            val annotateImageRequest = AnnotateImageRequest()
+            val im = Image().encodeContent(iis)
+            annotateImageRequest.image = im
+            annotateImageRequest.features = featureList
+            imageList.add(annotateImageRequest)
+
+            val batchAnnotateImagesRequest = BatchAnnotateImagesRequest()
+            batchAnnotateImagesRequest.requests = imageList
+
+            val annotateRequest = vision.images().annotate(batchAnnotateImagesRequest)
+            annotateRequest.disableGZipContent = true
+            Logger.d("foxx") { "Sending request to Google Cloud" }
+
+            return@fromCallable annotateRequest.execute()
+        }
+        sing.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe { t1, t2 ->
+                    if (t2 != null) {
+                        tvVisionTest.text = t2.message
+                    } else {
+                        val sb = StringBuilder()
+                        sb.append("rs=" + t1.responses.size)
+                        val ir = t1.responses[0]
+                        sb.append("labels=" + ir.labelAnnotations.size)
+                        for (ea in ir.labelAnnotations) {
+                            sb.append("\n" + ea.toPrettyString())
+                        }
+                        tvVisionTest.text = sb.toString()
+                    }
+                }
     }
 
     private fun gettingToken() {
@@ -49,6 +124,13 @@ class VisionApiTestActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 246 && resultCode == Activity.RESULT_OK) {
             gettingToken()
+        }
+        if (requestCode == 845 && resultCode == Activity.RESULT_OK) {
+            val d = this.contentResolver.openInputStream(data!!.data)
+            iis = d.takeByteArray()
+            Logger.d("foxx") { "b=" + iis }
+            ivVisionTest.setImageBitmap(BitmapFactory.decodeStream(d))
+            makeRequest()
         }
     }
 }
