@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.provider.MediaStore
 import android.support.v7.app.AppCompatActivity
 import android.text.method.ScrollingMovementMethod
 import android.widget.TextView
@@ -17,6 +18,7 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleCredential
 import com.google.api.client.json.gson.GsonFactory
 import com.google.api.services.vision.v1.Vision
 import com.google.api.services.vision.v1.model.*
+import com.squareup.picasso.Picasso
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -125,10 +127,16 @@ class VisionApiTestActivity : AppCompatActivity() {
             gettingToken()
         }
         if (requestCode == 845 && resultCode == Activity.RESULT_OK) {
+            Picasso.with(this).load(data!!.data)
+                    .placeholder(R.drawable.ic_hibin)
+                    .error(R.drawable.ic_hibin)
+                    .into(ivVisionTest)
+
             val d = this.contentResolver.openInputStream(data!!.data)
             iis = d.takeByteArray()
-            Logger.d("foxx") { "b=" + iis }
-            ivVisionTest.setImageBitmap(BitmapFactory.decodeStream(d))
+//            ivVisionTest.setImageBitmap(BitmapFactory.decodeStream(d))
+//            MediaStore.Images.Media.getBitmap()
+            d.close()
             makeRequest()
         }
     }
