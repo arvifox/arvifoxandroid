@@ -19,4 +19,15 @@ object FormatUtils {
         }
         return bar.toString("UTF-8")
     }
+
+    fun InputStream.takeByteArray(): ByteArray {
+        val bar = ByteArrayOutputStream()
+        val byar = ByteArray(1024)
+        var len: Int = this.read(byar)
+        while (len != -1) {
+            bar.write(byar, 0, len)
+            len = this.read(byar)
+        }
+        return bar.toByteArray()
+    }
 }
