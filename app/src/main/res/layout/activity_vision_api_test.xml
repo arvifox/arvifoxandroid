@@ -35,5 +35,13 @@
             android:text="Choose"
             app:layout_constraintLeft_toRightOf="@id/ivVisionTest" />
 
+        <EditText
+            android:id="@+id/etToken"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="token"
+            app:layout_constraintLeft_toRightOf="@id/btnChoose"
+            app:layout_constraintRight_toRightOf="parent" />
+
     </android.support.constraint.ConstraintLayout>
 </android.support.design.widget.CoordinatorLayout>

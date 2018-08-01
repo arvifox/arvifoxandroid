@@ -3,6 +3,7 @@ package com.arvifox.arvi.google.arcorevision.visiontest
 import android.accounts.Account
 import android.app.Activity
 import android.os.AsyncTask
+import com.arvifox.arvi.utils.Logger
 import com.google.android.gms.auth.GoogleAuthException
 import com.google.android.gms.auth.GoogleAuthUtil
 import com.google.android.gms.auth.UserRecoverableAuthException
@@ -26,20 +27,22 @@ class GetOAuthToken internal constructor(internal var mActivity: Activity, inter
 
     override fun onPostExecute(result: String?) {
         super.onPostExecute(result)
-
+        (mActivity as VisionApiTestActivity).hasToken(result ?: "empty")
     }
 
     @Throws(IOException::class)
-    protected fun fetchToken(): String? {
+    private fun fetchToken(): String? {
         var accessToken: String
         try {
             accessToken = GoogleAuthUtil.getToken(mActivity, mAccount, mScope)
             GoogleAuthUtil.clearToken(mActivity, accessToken)
             accessToken = GoogleAuthUtil.getToken(mActivity, mAccount, mScope)
+            Logger.d("foxx") { "token=" + accessToken }
             return accessToken
         } catch (userRecoverableException: UserRecoverableAuthException) {
             mActivity.startActivityForResult(userRecoverableException.intent, mRequestCode)
         } catch (fatalException: GoogleAuthException) {
+            Logger.d("foxx") { "auth exception" }
             fatalException.printStackTrace()
         }
 
