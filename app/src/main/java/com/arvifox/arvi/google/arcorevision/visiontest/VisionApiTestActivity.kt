@@ -5,11 +5,12 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.text.method.ScrollingMovementMethod
 import android.widget.TextView
 import com.arvifox.arvi.R
+import com.arvifox.arvi.utils.FormatUtils.takeByteArray
 import com.arvifox.arvi.utils.Logger
 import com.google.api.client.extensions.android.http.AndroidHttp
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential
@@ -17,12 +18,10 @@ import com.google.api.client.json.gson.GsonFactory
 import com.google.api.services.vision.v1.Vision
 import com.google.api.services.vision.v1.model.*
 import io.reactivex.Single
-import kotlinx.android.synthetic.main.app_bar_layout.*
-import kotlinx.android.synthetic.main.activity_vision_api_test.*
-import java.io.InputStream
-import com.arvifox.arvi.utils.FormatUtils.takeByteArray
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.activity_vision_api_test.*
+import kotlinx.android.synthetic.main.app_bar_layout.*
 
 class VisionApiTestActivity : AppCompatActivity() {
 
