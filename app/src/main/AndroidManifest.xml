@@ -3,8 +3,8 @@
     package="com.arvifox.arvi">
 
     <!-- if AR core required then minsdk must be 24 or higher -->
-    <!--<uses-sdk android:minSdkVersion="16" />-->
-    <!--<uses-feature android:name="android.hardware.camera.ar" android:required="true" />-->
+    <!-- <uses-sdk android:minSdkVersion="16" /> -->
+    <!-- <uses-feature android:name="android.hardware.camera.ar" android:required="true" /> -->
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -26,11 +26,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <meta-data
             android:name="com.google.ar.core"
             android:value="optional" />
-            <!--android:value="required" />-->
+        <!-- android:value="required" /> -->
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -91,6 +90,15 @@
         <activity
             android:name=".google.googleapi.OAuthTestActivity"
             android:label="@string/title_activity_oauth_test"
+            android:parentActivityName=".google.GoogleBaseStartActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.arvifox.arvi.google.GoogleBaseStartActivity" />
+        </activity>
+        <activity
+            android:name=".google.ar.StartArActivity"
+            android:label="@string/title_activity_start_ar"
             android:parentActivityName=".google.GoogleBaseStartActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data

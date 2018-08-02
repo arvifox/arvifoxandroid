@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.widget.Toast
 import com.arvifox.arvi.R
+import com.arvifox.arvi.google.ar.StartArActivity
 import com.arvifox.arvi.google.googleapi.AccountsActivity
 import com.arvifox.arvi.google.googleapi.OAuthTestActivity
 import com.arvifox.arvi.google.googleapi.visiontest.VisionApiTestActivity
@@ -65,6 +66,7 @@ class GoogleBaseStartActivity : AppCompatActivity() {
         val arav = ArCoreApk.getInstance().checkAvailability(this)
         if (arav.isTransient) Handler().postDelayed({ checkArEnable() }, 200)
         btnStartArCore.isEnabled = arav.isSupported
-        btnStartArCore.setOnClickListener {  }
+        Toast.makeText(this, "ArCore is not supported", Toast.LENGTH_SHORT).show()
+        btnStartArCore.setOnClickListener { startActivity(StartArActivity.newIntent(this)) }
     }
 }

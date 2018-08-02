@@ -18,4 +18,5 @@
 
     <string name="title_activity_accounts">AccountsActivity</string>
     <string name="title_activity_oauth_test">OAuthTestActivity</string>
+    <string name="title_activity_start_ar">StartArActivity</string>
 </resources>
