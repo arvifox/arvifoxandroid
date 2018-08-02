@@ -68,6 +68,9 @@ android {
     sourceSets {
         main.res.srcDirs += 'src/main/res-some'
     }
+//    ndk {
+//        abiFilters 'arm64-v8a', 'x86'
+//    }
 //    androidExtensions {
 //        experimental = true
 //    }
@@ -85,6 +88,11 @@ dependencies {
 
     //moshi
     implementation 'com.squareup.moshi:moshi-kotlin:1.6.0'
+
+    // AR core, Sceneform
+    implementation 'com.google.ar:core:1.3.0'
+    implementation 'com.google.ar.sceneform:core:1.3.0'
+    implementation 'com.google.ar.sceneform.ux:sceneform-ux:1.3.0'
 
     //firebase
     implementation 'com.google.firebase:firebase-messaging:17.1.0'
@@ -113,6 +121,8 @@ dependencies {
 }
 
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.ar.sceneform.plugin'
+
 repositories {
     mavenCentral()
 }
