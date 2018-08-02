@@ -6,11 +6,13 @@ import android.content.Intent
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.widget.Toast
 import com.arvifox.arvi.R
-import com.arvifox.arvi.google.arcorevision.AccountsActivity
-import com.arvifox.arvi.google.arcorevision.OAuthTestActivity
-import com.arvifox.arvi.google.arcorevision.visiontest.VisionApiTestActivity
+import com.arvifox.arvi.google.googleapi.AccountsActivity
+import com.arvifox.arvi.google.googleapi.OAuthTestActivity
+import com.arvifox.arvi.google.googleapi.visiontest.VisionApiTestActivity
+import com.google.ar.core.ArCoreApk
 import kotlinx.android.synthetic.main.activity_ar_core_vision.*
 import kotlinx.android.synthetic.main.app_bar_layout.*
 
@@ -45,6 +47,8 @@ class GoogleBaseStartActivity : AppCompatActivity() {
         btnVisionTestStart.setOnClickListener { startActivity(VisionApiTestActivity.newIntent(this)) }
         btnAccounts.setOnClickListener { startActivity(AccountsActivity.newIntent(this)) }
         btnOAuthTest.setOnClickListener { startActivity(OAuthTestActivity.newIntent(this)) }
+
+        checkArEnable()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -55,5 +59,12 @@ class GoogleBaseStartActivity : AppCompatActivity() {
                 Toast.makeText(this, content, Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun checkArEnable() {
+        val arav = ArCoreApk.getInstance().checkAvailability(this)
+        if (arav.isTransient) Handler().postDelayed({ checkArEnable() }, 200)
+        btnStartArCore.isEnabled = arav.isSupported
+        btnStartArCore.setOnClickListener {  }
     }
 }
