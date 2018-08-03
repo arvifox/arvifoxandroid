@@ -92,7 +92,7 @@ class VisionApiTestActivity : AppCompatActivity() {
 
             val annotateRequest = vision.images().annotate(batchAnnotateImagesRequest)
             annotateRequest.disableGZipContent = true
-            Logger.d("arvifox") { "Sending request to Google Cloud" }
+            Logger.d { "Sending request to Google Cloud" }
 
             return@fromCallable annotateRequest.execute()
         }

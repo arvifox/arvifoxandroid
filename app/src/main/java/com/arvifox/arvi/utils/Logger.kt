@@ -15,6 +15,8 @@ import java.util.regex.Pattern
  */
 object Logger {
 
+    const val TAG = "tag_arvifox"
+
     fun v(tag: String = callerTag(), message: () -> String) = inDebug {
         Log.v(tag, message())
     }
@@ -89,8 +91,9 @@ object Logger {
         tag = tag.substring(tag.lastIndexOf('.') + 1)
 
         // Tag length limit was removed in API 24.
-        return if (tag.length <= maxTagLength || Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        val res = if (tag.length <= maxTagLength || Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             tag
         } else tag.substring(0, maxTagLength)
+        return TAG + res
     }
 }
