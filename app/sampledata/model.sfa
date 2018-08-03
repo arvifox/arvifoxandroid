@@ -97,7 +97,7 @@
       file: "sampledata/model.fbx",
       name: "model",
       recenter: "root",
-      scale: 0.046536000000000001,
+      scale: 0.032536000000000001,
    },
    version: "0.52:1",
 }

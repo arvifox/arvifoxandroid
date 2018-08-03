@@ -69,6 +69,12 @@ android {
         main.res.srcDirs += 'src/main/res-some'
     }
 //    ndk {
+    /*
+             * Sceneform is available for the following ABIs: arm64-v8a, armv7a,
+             * x86_64 and x86. This sample app enables arm64-v8a to run on
+             * devices and x86 to run on the emulator. Your application should
+             * list the ABIs most appropriate to minimize APK size (arm64-v8a recommended).
+             */
 //        abiFilters 'arm64-v8a', 'x86'
 //    }
 //    androidExtensions {
@@ -97,6 +103,7 @@ dependencies {
     //firebase
     implementation 'com.google.firebase:firebase-messaging:17.1.0'
     implementation 'com.google.firebase:firebase-core:16.0.1'
+    implementation 'com.google.android.gms:play-services-auth:15.0.1'
     implementation 'com.google.android.gms:play-services-base:15.0.1'
     implementation 'com.google.android.gms:play-services-gcm:15.0.1'
     implementation 'com.google.android.gms:play-services-location:15.0.1'
@@ -110,7 +117,6 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.5.2'
 
     //ar vr vision
-    implementation 'com.google.android.gms:play-services-auth:15.0.1'
     implementation 'com.google.apis:google-api-services-vision:v1-rev16-1.22.0'
     implementation('com.google.api-client:google-api-client-android:1.22.0') {
         exclude module: 'httpclient'

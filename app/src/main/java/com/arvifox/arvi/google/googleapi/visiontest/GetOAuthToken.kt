@@ -37,12 +37,12 @@ class GetOAuthToken internal constructor(internal var mActivity: Activity, inter
             accessToken = GoogleAuthUtil.getToken(mActivity, mAccount, mScope)
             GoogleAuthUtil.clearToken(mActivity, accessToken)
             accessToken = GoogleAuthUtil.getToken(mActivity, mAccount, mScope)
-            Logger.d("foxx") { "token=" + accessToken }
+            Logger.d("arvifox") { "token=" + accessToken }
             return accessToken
         } catch (userRecoverableException: UserRecoverableAuthException) {
             mActivity.startActivityForResult(userRecoverableException.intent, mRequestCode)
         } catch (fatalException: GoogleAuthException) {
-            Logger.d("foxx") { "auth exception" }
+            Logger.d("arvifox") { "auth exception" }
             fatalException.printStackTrace()
         }
 
