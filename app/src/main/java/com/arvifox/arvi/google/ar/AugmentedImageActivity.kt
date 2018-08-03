@@ -13,7 +13,6 @@ import com.arvifox.arvi.utils.Logger
 import com.google.ar.core.AugmentedImageDatabase
 import com.google.ar.core.Config
 import com.google.ar.core.Session
-import com.google.ar.sceneform.ArSceneView
 import com.google.ar.sceneform.FrameTime
 import kotlinx.android.synthetic.main.activity_augmented_image.*
 
@@ -21,7 +20,6 @@ import kotlinx.android.synthetic.main.app_bar_layout.*
 import java.io.IOException
 import com.google.ar.core.TrackingState
 import com.google.ar.core.AugmentedImage
-
 
 class AugmentedImageActivity : AppCompatActivity() {
 
@@ -46,7 +44,6 @@ class AugmentedImageActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        createImageDb(config)
         if (arSession == null) {
             arSession = Session(this)
             config = Config(arSession)
