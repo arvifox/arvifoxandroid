@@ -9,7 +9,7 @@ import com.arvifox.arvi.utils.Logger
 
 object ArUtils {
 
-    private val MIN_OPENGL_VERSION = 3.0
+    private const val MIN_OPEN_GL_VERSION = 3.0
 
     /**
      * Returns false and displays an error message if Sceneform can not run, true if Sceneform can run
@@ -27,7 +27,7 @@ object ArUtils {
         val openGlVersionString = (activity.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager)
                 .deviceConfigurationInfo
                 .glEsVersion
-        if (java.lang.Double.parseDouble(openGlVersionString) < MIN_OPENGL_VERSION) {
+        if (java.lang.Double.parseDouble(openGlVersionString) < MIN_OPEN_GL_VERSION) {
             Logger.e("arvifox") { "Sceneform requires OpenGL ES 3.0 later" }
             Toast.makeText(activity, "Sceneform requires OpenGL ES 3.0 or later", Toast.LENGTH_LONG)
                     .show()
