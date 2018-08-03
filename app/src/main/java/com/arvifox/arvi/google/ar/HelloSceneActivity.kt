@@ -9,6 +9,7 @@ import android.view.Gravity
 import android.view.MotionEvent
 import android.widget.Toast
 import com.arvifox.arvi.R
+import com.arvifox.arvi.google.utils.ArUtils
 import com.google.ar.core.HitResult
 import com.google.ar.core.Plane
 import com.google.ar.sceneform.AnchorNode
