@@ -118,6 +118,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.arvifox.arvi.google.ar.StartArActivity" />
         </activity>
+        <activity
+            android:name=".google.ar.AugmentedImageActivity"
+            android:label="@string/title_activity_augmented_image"
+            android:parentActivityName=".google.ar.StartArActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.arvifox.arvi.google.ar.StartArActivity" />
+        </activity>
     </application>
 
 </manifest>

@@ -33,6 +33,7 @@ class StartArActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         btnStartHelloSceneform.setOnClickListener { startActivity(HelloSceneActivity.newIntent(this)) }
+        btnStartAugmImage.setOnClickListener { startActivity(AugmentedImageActivity.newIntent(this)) }
     }
 
     /**

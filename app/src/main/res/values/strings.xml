@@ -20,4 +20,5 @@
     <string name="title_activity_oauth_test">OAuthTestActivity</string>
     <string name="title_activity_start_ar">StartArActivity</string>
     <string name="title_activity_hello_scene">HelloSceneActivity</string>
+    <string name="title_activity_augmented_image">AugmentedImageActivity</string>
 </resources>
