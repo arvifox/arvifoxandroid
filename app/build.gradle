@@ -131,3 +131,9 @@ dokka {
     outputFormat = 'html'
     outputDirectory = "$buildDir/kotlindoc"
 }
+
+
+sceneform.asset('sampledata/model.fbx',
+        'default',
+        'sampledata/model.sfa',
+        'src/main/res/raw/model')
