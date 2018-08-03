@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".google.ar.StartArActivity">
+    tools:context=".google.ar.HelloSceneActivity">
 
     <include layout="@layout/app_bar_layout" />
 
@@ -14,15 +14,7 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <Button
-            android:id="@+id/btnStartHelloSceneform"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="HelloSceneform"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
     </android.support.constraint.ConstraintLayout>
-
 
 </android.support.design.widget.CoordinatorLayout>

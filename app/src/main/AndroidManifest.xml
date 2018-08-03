@@ -105,6 +105,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.arvifox.arvi.google.GoogleBaseStartActivity" />
         </activity>
+        <activity
+            android:name=".google.ar.HelloSceneActivity"
+            android:label="@string/title_activity_hello_scene"
+            android:parentActivityName=".google.ar.StartArActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.arvifox.arvi.google.ar.StartArActivity" />
+        </activity>
     </application>
 
 </manifest>

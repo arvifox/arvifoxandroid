@@ -8,6 +8,7 @@ import com.arvifox.arvi.R
 import com.google.ar.core.ArCoreApk
 import com.google.ar.core.Session
 import com.google.ar.core.exceptions.UnavailableUserDeclinedInstallationException
+import kotlinx.android.synthetic.main.activity_start_ar.*
 
 import kotlinx.android.synthetic.main.app_bar_layout.*
 
@@ -31,7 +32,7 @@ class StartArActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-
+        btnStartHelloSceneform.setOnClickListener { startActivity(HelloSceneActivity.newIntent(this)) }
     }
 
     /**
