@@ -7,19 +7,44 @@
     android:fitsSystemWindows="true"
     tools:context=".phoneinfo.PhoneInfoActivity">
 
-    <include layout="@layout/app_bar_layout"/>
+    <include layout="@layout/app_bar_layout" />
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <TextView
             android:id="@+id/tvPhoneInfo"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="16dp"/>
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:text="phoneinfo" />
 
-    </FrameLayout>
+        <Button
+            android:id="@+id/btnStorage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Storage" />
+
+        <TextView
+            android:id="@+id/tvPathInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="path" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorPrimary" />
+
+        <TextView
+            android:id="@+id/tvIntentInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="intent" />
+
+    </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>
