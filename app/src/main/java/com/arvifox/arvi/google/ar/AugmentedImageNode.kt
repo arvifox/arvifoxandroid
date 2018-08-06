@@ -3,6 +3,7 @@ package com.arvifox.arvi.google.ar
 import android.content.Context
 import android.net.Uri
 import android.os.Build
+import com.arvifox.arvi.R
 import com.arvifox.arvi.utils.Logger
 
 import com.google.ar.core.AugmentedImage
@@ -12,6 +13,7 @@ import com.google.ar.sceneform.Node
 import com.google.ar.sceneform.math.Quaternion
 import com.google.ar.sceneform.math.Vector3
 import com.google.ar.sceneform.rendering.ModelRenderable
+import com.google.ar.sceneform.rendering.ShapeFactory
 
 import java.util.concurrent.CompletableFuture
 
@@ -32,7 +34,7 @@ class AugmentedImageNode(context: Context, filename: String) : AnchorNode() {
         // Upon construction, start loading the modelFuture
         if (modelFuture == null && Build.VERSION.SDK_INT >= 24) {
             modelFuture = ModelRenderable.builder()
-                    .setSource(context, Uri.parse(filename))
+                    .setSource(context, R.raw.model)
                     .build()
         }
     }

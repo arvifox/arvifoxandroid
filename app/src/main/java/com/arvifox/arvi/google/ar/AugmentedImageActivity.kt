@@ -26,7 +26,6 @@ class AugmentedImageActivity : AppCompatActivity() {
     private var arSession: Session? = null
     private lateinit var config: Config
     private var imageIndex: Int = 0
-    private val sbh = SnackbarHelper()
 
     companion object {
         fun newIntent(c: Context): Intent {
@@ -82,7 +81,7 @@ class AugmentedImageActivity : AppCompatActivity() {
         for (augmentedImage in updatedAugmentedImages) {
             if (augmentedImage.trackingState == TrackingState.TRACKING) {
                 // Check camera image matches our reference image
-                if (augmentedImage.getName() == "foo") {
+                if (augmentedImage.name == "foo") {
                     val node = AugmentedImageNode(this, "model.sfb")
                     node.setImageI(augmentedImage)
                     asvView.scene.addChild(node)
