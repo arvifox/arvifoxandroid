@@ -21,4 +21,6 @@
     <string name="title_activity_start_ar">StartArActivity</string>
     <string name="title_activity_hello_scene">HelloSceneActivity</string>
     <string name="title_activity_augmented_image">AugmentedImageActivity</string>
+    <string name="title_activity_simple_misc">SimpleMiscActivity</string>
+    <string name="title_activity_camera_shot">CameraShotActivity</string>
 </resources>

@@ -1,16 +1,16 @@
-package com.arvifox.arvi.phoneinfo
+package com.arvifox.arvi.simplemisc.phoneinfo
 
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.OpenableColumns
+import android.support.v7.app.AppCompatActivity
 import android.util.DisplayMetrics
 import com.arvifox.arvi.R
 import com.arvifox.arvi.utils.AndroidStorage
 import kotlinx.android.synthetic.main.activity_phone_info.*
-import android.provider.OpenableColumns
 
 
 class PhoneInfoActivity : AppCompatActivity() {

@@ -47,7 +47,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".phoneinfo.PhoneInfoActivity"
+            android:name=".simplemisc.phoneinfo.PhoneInfoActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -126,6 +126,24 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.arvifox.arvi.google.ar.StartArActivity" />
+        </activity>
+        <activity
+            android:name=".simplemisc.SimpleMiscActivity"
+            android:label="@string/title_activity_simple_misc"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.arvifox.arvi.MainActivity" />
+        </activity>
+        <activity
+            android:name=".simplemisc.camera.CameraShotActivity"
+            android:label="@string/title_activity_camera_shot"
+            android:parentActivityName=".simplemisc.SimpleMiscActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.arvifox.arvi.simplemisc.SimpleMiscActivity" />
         </activity>
     </application>
 
