@@ -1,15 +1,22 @@
 package com.arvifox.arvi.simplemisc.camera
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import android.hardware.camera2.CameraCaptureSession
+import android.hardware.camera2.CameraCharacteristics
+import android.hardware.camera2.CameraDevice
+import android.hardware.camera2.CameraManager
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.support.v4.content.FileProvider
 import android.support.v7.app.AppCompatActivity
+import android.text.method.ScrollingMovementMethod
+import android.view.Surface
 import android.view.SurfaceHolder
 import com.arvifox.arvi.R
 import kotlinx.android.synthetic.main.activity_camera_shot.*
@@ -26,15 +33,21 @@ class CameraShotActivity : AppCompatActivity() {
     }
 
     private lateinit var directory: File
-
+    private lateinit var cameraManager: CameraManager
     private lateinit var surfaceHolder: SurfaceHolder
     private lateinit var shc: SurfaceHolder.Callback
+    private var cameraDevice: CameraDevice? = null
+    private var cameraCaptureSession: CameraCaptureSession? = null
 
+    private lateinit var sb: StringBuilder
+
+    @SuppressLint("NewApi", "MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_camera_shot)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        tvCameraInfo.movementMethod = ScrollingMovementMethod()
         btnShot.setOnClickListener {
             // image
             val i = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
@@ -50,11 +63,53 @@ class CameraShotActivity : AppCompatActivity() {
         directory = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "MyFolder")
         directory.mkdir()
 
+        cameraManager = getSystemService(Context.CAMERA_SERVICE) as CameraManager
+        val cIdList = cameraManager.cameraIdList
+        sb = StringBuilder()
+        for (s in cIdList) {
+            sb.append("id=").append(s).append(", ")
+        }
+        sb.append("\n")
+        val cc = cameraManager.getCameraCharacteristics("0")
+        val scm = cc[CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP]
+        val sizes = scm.getOutputSizes(SurfaceHolder::class.java)
+//        val sizes = scm.getOutputSizes(ImageFormat.JPEG)
+        sb.append("jpeg: ")
+        for (sz in sizes) {
+            sb.append("h=").append(sz.height).append(" w=").append(sz.width).append("\n")
+        }
+        tvCameraInfo.text = sb.toString()
+
         surfaceHolder = svFromCamera.holder
-        surfaceHolder.addCallback(shc)
+//        surfaceHolder.addCallback(shc)
 
         btnGetCameraImage.setOnClickListener {
+            cameraManager.openCamera("0", object : CameraDevice.StateCallback() {
+                override fun onOpened(camera: CameraDevice?) {
+                    cameraDevice = camera!!
+                    capture()
+                }
+
+                override fun onClosed(camera: CameraDevice?) {
+                    super.onClosed(camera)
+                }
+
+                override fun onDisconnected(camera: CameraDevice?) {
+                    cameraDevice?.close()
+                    cameraDevice = null
+                }
+
+                override fun onError(camera: CameraDevice?, error: Int) {
+                }
+            }, null)
         }
+    }
+
+    @SuppressLint("NewApi", "MissingPermission")
+    override fun onPause() {
+        cameraDevice?.close()
+        cameraDevice = null
+        super.onPause()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -66,6 +121,44 @@ class CameraShotActivity : AppCompatActivity() {
                 ivCameraResult.setImageBitmap(bt)
             }
         }
+    }
+
+    @SuppressLint("NewApi", "MissingPermission")
+    private fun capture() {
+        val crb = cameraDevice?.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW)
+        svFromCamera.holder.setFixedSize(240, 320)
+        val surface = svFromCamera.holder.surface
+        crb?.addTarget(surface)
+        cameraDevice?.createCaptureSession(arrayListOf(surface), object : CameraCaptureSession.StateCallback() {
+            override fun onReady(session: CameraCaptureSession?) {
+                super.onReady(session)
+            }
+
+            override fun onCaptureQueueEmpty(session: CameraCaptureSession?) {
+                super.onCaptureQueueEmpty(session)
+            }
+
+            override fun onConfigureFailed(session: CameraCaptureSession?) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onClosed(session: CameraCaptureSession?) {
+                super.onClosed(session)
+            }
+
+            override fun onSurfacePrepared(session: CameraCaptureSession?, surface: Surface?) {
+                super.onSurfacePrepared(session, surface)
+            }
+
+            override fun onConfigured(session: CameraCaptureSession?) {
+                cameraCaptureSession = session
+                cameraCaptureSession?.setRepeatingRequest(crb?.build(), null, null)
+            }
+
+            override fun onActive(session: CameraCaptureSession?) {
+                super.onActive(session)
+            }
+        }, null)
     }
 
     /**

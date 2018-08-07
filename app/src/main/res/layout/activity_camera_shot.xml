@@ -35,15 +35,27 @@
             android:layout_width="0dp"
             android:layout_height="100dp"
             app:layout_constraintLeft_toRightOf="@id/btnShot"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/tvCameraInfo"
             app:layout_constraintTop_toTopOf="parent" />
 
         <SurfaceView
             android:id="@+id/svFromCamera"
-            android:layout_width="140dp"
-            android:layout_height="150dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ivCameraResult" />
+
+        <TextView
+            android:id="@+id/tvCameraInfo"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:scrollbars="vertical"
+            android:text="camera info"
+            app:layout_constraintLeft_toRightOf="@id/ivCameraResult"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </android.support.constraint.ConstraintLayout>
 
