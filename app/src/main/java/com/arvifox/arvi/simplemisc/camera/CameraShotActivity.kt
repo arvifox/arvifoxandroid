@@ -132,7 +132,7 @@ class CameraShotActivity : AppCompatActivity() {
 
     @SuppressLint("NewApi", "MissingPermission")
     private fun reader() {
-        imageReader = ImageReader.newInstance(320, 240, ImageFormat.YUV_420_888, 2)
+        imageReader = ImageReader.newInstance(320, 240, ImageFormat.JPEG, 1)
         imageReader.setOnImageAvailableListener({ reader: ImageReader ->
             if (!was) {
                 val im = reader.acquireLatestImage()
