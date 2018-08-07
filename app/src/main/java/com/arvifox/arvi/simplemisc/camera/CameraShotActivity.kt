@@ -8,6 +8,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.support.v4.content.FileProvider
 import android.support.v7.app.AppCompatActivity
 import com.arvifox.arvi.R
 import kotlinx.android.synthetic.main.activity_camera_shot.*
@@ -32,6 +33,8 @@ class CameraShotActivity : AppCompatActivity() {
         btnShot.setOnClickListener {
             // image
             val i = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            // if we specify Extra_output, we'll get photo or video in the file, but not in the Intent
+            // and vice versa
             i.putExtra(MediaStore.EXTRA_OUTPUT, generateFileUri("photo"))
             i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
             // video
@@ -54,13 +57,16 @@ class CameraShotActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * [Read about FileProvider](https://developer.android.com/reference/android/support/v4/content/FileProvider)
+     */
     private fun generateFileUri(type: String): Uri {
         var file: File? = null
         when (type) {
             "photo" -> file = File(directory.getPath() + "/" + "photo_" + System.currentTimeMillis() + ".jpg")
             "video" -> file = File(directory.getPath() + "/" + "video_" + System.currentTimeMillis() + ".mp4")
         }
-//        return FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID, file!!)
-        return Uri.fromFile(file)
+        return FileProvider.getUriForFile(this, getString(R.string.file_provider_authority), file!!)
+//        return Uri.fromFile(file)
     }
 }

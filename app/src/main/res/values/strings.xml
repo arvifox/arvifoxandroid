@@ -23,4 +23,6 @@
     <string name="title_activity_augmented_image">AugmentedImageActivity</string>
     <string name="title_activity_simple_misc">SimpleMiscActivity</string>
     <string name="title_activity_camera_shot">CameraShotActivity</string>
+
+    <string name="file_provider_authority" translatable="false">com.arvifox.arvi.FileProvider</string>
 </resources>
