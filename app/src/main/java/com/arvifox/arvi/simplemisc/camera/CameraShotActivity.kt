@@ -5,10 +5,12 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.ImageFormat
 import android.hardware.camera2.CameraCaptureSession
 import android.hardware.camera2.CameraCharacteristics
 import android.hardware.camera2.CameraDevice
 import android.hardware.camera2.CameraManager
+import android.media.ImageReader
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
@@ -19,6 +21,7 @@ import android.text.method.ScrollingMovementMethod
 import android.view.Surface
 import android.view.SurfaceHolder
 import com.arvifox.arvi.R
+import com.arvifox.arvi.utils.FormatUtils.tobitmap
 import kotlinx.android.synthetic.main.activity_camera_shot.*
 import kotlinx.android.synthetic.main.app_bar_layout.*
 import java.io.File
@@ -40,6 +43,9 @@ class CameraShotActivity : AppCompatActivity() {
     private var cameraCaptureSession: CameraCaptureSession? = null
 
     private lateinit var sb: StringBuilder
+    private lateinit var imageReader: ImageReader
+
+    private var was: Boolean = false
 
     @SuppressLint("NewApi", "MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -83,6 +89,7 @@ class CameraShotActivity : AppCompatActivity() {
         surfaceHolder = svFromCamera.holder
 //        surfaceHolder.addCallback(shc)
 
+        reader()
         btnGetCameraImage.setOnClickListener {
             cameraManager.openCamera("0", object : CameraDevice.StateCallback() {
                 override fun onOpened(camera: CameraDevice?) {
@@ -124,12 +131,25 @@ class CameraShotActivity : AppCompatActivity() {
     }
 
     @SuppressLint("NewApi", "MissingPermission")
+    private fun reader() {
+        imageReader = ImageReader.newInstance(320, 240, ImageFormat.YUV_420_888, 2)
+        imageReader.setOnImageAvailableListener({ reader: ImageReader ->
+            if (!was) {
+                val im = reader.acquireLatestImage()
+                was = true
+                ivCameraResult.setImageBitmap(im.tobitmap())
+            }
+        }, null)
+    }
+
+    @SuppressLint("NewApi", "MissingPermission")
     private fun capture() {
         val crb = cameraDevice?.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW)
         svFromCamera.holder.setFixedSize(240, 320)
         val surface = svFromCamera.holder.surface
         crb?.addTarget(surface)
-        cameraDevice?.createCaptureSession(arrayListOf(surface), object : CameraCaptureSession.StateCallback() {
+        crb?.addTarget(imageReader.surface)
+        cameraDevice?.createCaptureSession(arrayListOf(surface, imageReader.surface), object : CameraCaptureSession.StateCallback() {
             override fun onReady(session: CameraCaptureSession?) {
                 super.onReady(session)
             }
@@ -139,7 +159,6 @@ class CameraShotActivity : AppCompatActivity() {
             }
 
             override fun onConfigureFailed(session: CameraCaptureSession?) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
 
             override fun onClosed(session: CameraCaptureSession?) {
