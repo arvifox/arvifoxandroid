@@ -6,10 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.ImageFormat
-import android.hardware.camera2.CameraCaptureSession
-import android.hardware.camera2.CameraCharacteristics
-import android.hardware.camera2.CameraDevice
-import android.hardware.camera2.CameraManager
+import android.hardware.camera2.*
 import android.media.ImageReader
 import android.net.Uri
 import android.os.Bundle
@@ -46,6 +43,11 @@ class CameraShotActivity : AppCompatActivity() {
     private lateinit var imageReader: ImageReader
 
     private var was: Boolean = false
+    private var he: Int = 0
+    private var wi: Int = 0
+
+    private var preCapReq: CaptureRequest? = null
+    private var imgCapReq: CaptureRequest? = null
 
     @SuppressLint("NewApi", "MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,6 +56,7 @@ class CameraShotActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         tvCameraInfo.movementMethod = ScrollingMovementMethod()
+        tvMiscInfo.movementMethod = ScrollingMovementMethod()
         btnShot.setOnClickListener {
             // image
             val i = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
@@ -78,12 +81,14 @@ class CameraShotActivity : AppCompatActivity() {
         sb.append("\n")
         val cc = cameraManager.getCameraCharacteristics("0")
         val scm = cc[CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP]
-        val sizes = scm.getOutputSizes(SurfaceHolder::class.java)
-//        val sizes = scm.getOutputSizes(ImageFormat.JPEG)
+//        val sizes = scm.getOutputSizes(SurfaceHolder::class.java)
+        val sizes = scm.getOutputSizes(ImageFormat.JPEG)
         sb.append("jpeg: ")
         for (sz in sizes) {
             sb.append("h=").append(sz.height).append(" w=").append(sz.width).append("\n")
         }
+        he = sizes[0].height
+        wi = sizes[0].width
         tvCameraInfo.text = sb.toString()
 
         surfaceHolder = svFromCamera.holder
@@ -110,6 +115,37 @@ class CameraShotActivity : AppCompatActivity() {
                 }
             }, null)
         }
+        btnTakeImage.setOnClickListener {
+            cameraCaptureSession?.capture(imgCapReq, object : CameraCaptureSession.CaptureCallback() {
+                override fun onCaptureSequenceAborted(session: CameraCaptureSession?, sequenceId: Int) {
+                    super.onCaptureSequenceAborted(session, sequenceId)
+                }
+
+                override fun onCaptureCompleted(session: CameraCaptureSession?, request: CaptureRequest?, result: TotalCaptureResult?) {
+                    super.onCaptureCompleted(session, request, result)
+                }
+
+                override fun onCaptureFailed(session: CameraCaptureSession?, request: CaptureRequest?, failure: CaptureFailure?) {
+                    super.onCaptureFailed(session, request, failure)
+                }
+
+                override fun onCaptureSequenceCompleted(session: CameraCaptureSession?, sequenceId: Int, frameNumber: Long) {
+                    super.onCaptureSequenceCompleted(session, sequenceId, frameNumber)
+                }
+
+                override fun onCaptureStarted(session: CameraCaptureSession?, request: CaptureRequest?, timestamp: Long, frameNumber: Long) {
+                    super.onCaptureStarted(session, request, timestamp, frameNumber)
+                }
+
+                override fun onCaptureProgressed(session: CameraCaptureSession?, request: CaptureRequest?, partialResult: CaptureResult?) {
+                    super.onCaptureProgressed(session, request, partialResult)
+                }
+
+                override fun onCaptureBufferLost(session: CameraCaptureSession?, request: CaptureRequest?, target: Surface?, frameNumber: Long) {
+                    super.onCaptureBufferLost(session, request, target, frameNumber)
+                }
+            }, null)
+        }
     }
 
     @SuppressLint("NewApi", "MissingPermission")
@@ -132,24 +168,38 @@ class CameraShotActivity : AppCompatActivity() {
 
     @SuppressLint("NewApi", "MissingPermission")
     private fun reader() {
-        imageReader = ImageReader.newInstance(320, 240, ImageFormat.JPEG, 1)
-        imageReader.setOnImageAvailableListener({ reader: ImageReader ->
-            if (!was) {
-                val im = reader.acquireLatestImage()
-                was = true
-                ivCameraResult.setImageBitmap(im.tobitmap())
-            }
-        }, null)
+        imageReader = ImageReader.newInstance(wi, he, ImageFormat.JPEG, 1)
+//        imageReader.setOnImageAvailableListener({ reader: ImageReader ->
+//            if (!was) {
+//                val im = reader.acquireLatestImage()
+//                was = true
+//                ivCameraResult.setImageBitmap(im.tobitmap())
+//            }
+//        }, null)
     }
 
     @SuppressLint("NewApi", "MissingPermission")
     private fun capture() {
-        val crb = cameraDevice?.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW)
         svFromCamera.holder.setFixedSize(240, 320)
-        val surface = svFromCamera.holder.surface
-        crb?.addTarget(surface)
-        crb?.addTarget(imageReader.surface)
-        cameraDevice?.createCaptureSession(arrayListOf(surface, imageReader.surface), object : CameraCaptureSession.StateCallback() {
+
+        val crb = cameraDevice?.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW)
+        crb?.addTarget(svFromCamera.holder.surface)
+
+        val irb = cameraDevice?.createCaptureRequest(CameraDevice.TEMPLATE_STILL_CAPTURE)
+        irb?.addTarget(imageReader.surface)
+        irb?.set(CaptureRequest.CONTROL_AWB_MODE, CaptureRequest.CONTROL_AWB_MODE_INCANDESCENT)
+//        irb?.set(CaptureRequest.CONTROL_EFFECT_MODE, CaptureRequest.CONTROL_EFFECT_MODE_SEPIA)
+        irb?.set(CaptureRequest.CONTROL_EFFECT_MODE, CameraMetadata.CONTROL_EFFECT_MODE_SEPIA)
+        irb?.set(CaptureRequest.FLASH_MODE, CaptureRequest.FLASH_MODE_OFF)
+        // focus
+        irb?.set(CaptureRequest.CONTROL_AF_TRIGGER, CaptureRequest.CONTROL_AF_TRIGGER_START)
+        // exposure
+        irb?.set(CaptureRequest.CONTROL_AE_PRECAPTURE_TRIGGER, CaptureRequest.CONTROL_AE_PRECAPTURE_TRIGGER_START)
+
+        preCapReq = crb?.build()
+        imgCapReq = irb?.build()
+
+        cameraDevice?.createCaptureSession(arrayListOf(svFromCamera.holder.surface, imageReader.surface), object : CameraCaptureSession.StateCallback() {
             override fun onReady(session: CameraCaptureSession?) {
                 super.onReady(session)
             }
@@ -171,7 +221,7 @@ class CameraShotActivity : AppCompatActivity() {
 
             override fun onConfigured(session: CameraCaptureSession?) {
                 cameraCaptureSession = session
-                cameraCaptureSession?.setRepeatingRequest(crb?.build(), null, null)
+                cameraCaptureSession?.setRepeatingRequest(preCapReq, null, null)
             }
 
             override fun onActive(session: CameraCaptureSession?) {
