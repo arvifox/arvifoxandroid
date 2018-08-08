@@ -123,6 +123,7 @@ class CameraShotActivity : AppCompatActivity() {
 
                 override fun onCaptureCompleted(session: CameraCaptureSession?, request: CaptureRequest?, result: TotalCaptureResult?) {
                     super.onCaptureCompleted(session, request, result)
+//                    result?.partialResults?.get(0).
                 }
 
                 override fun onCaptureFailed(session: CameraCaptureSession?, request: CaptureRequest?, failure: CaptureFailure?) {
@@ -169,13 +170,13 @@ class CameraShotActivity : AppCompatActivity() {
     @SuppressLint("NewApi", "MissingPermission")
     private fun reader() {
         imageReader = ImageReader.newInstance(wi, he, ImageFormat.JPEG, 1)
-//        imageReader.setOnImageAvailableListener({ reader: ImageReader ->
-//            if (!was) {
-//                val im = reader.acquireLatestImage()
-//                was = true
-//                ivCameraResult.setImageBitmap(im.tobitmap())
-//            }
-//        }, null)
+        imageReader.setOnImageAvailableListener({ reader: ImageReader ->
+            if (!was) {
+                val im = reader.acquireLatestImage()
+                was = true
+                ivCameraResult.setImageBitmap(im.tobitmap())
+            }
+        }, null)
     }
 
     @SuppressLint("NewApi", "MissingPermission")
