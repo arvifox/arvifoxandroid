@@ -18,9 +18,11 @@ import com.google.ar.sceneform.AnchorNode
 import com.google.ar.sceneform.rendering.Color
 import com.google.ar.sceneform.rendering.MaterialFactory
 import com.google.ar.sceneform.rendering.ModelRenderable
+import com.google.ar.sceneform.rendering.Texture
 import com.google.ar.sceneform.ux.ArFragment
 import com.google.ar.sceneform.ux.TransformableNode
 import kotlinx.android.synthetic.main.app_bar_layout.*
+import java.util.concurrent.CompletableFuture
 
 
 class HelloSceneActivity : AppCompatActivity() {
@@ -86,6 +88,12 @@ class HelloSceneActivity : AppCompatActivity() {
             } else {
                 Logger.d { "material size =" + model?.submeshCount }
                 model?.material?.setFloat3("baseColor", Color(android.graphics.Color.BLUE))
+//                val future = Texture.builder().setSource(this, R.drawable.soccer_bal).build()
+//                future?.thenAccept { f -> model?.getMaterial(0)?.setTexture("baseColorMap", f) }
+//                        ?.exceptionally {
+//                            Logger.d { "error" }
+//                            null
+//                        }
             }
         }
     }
