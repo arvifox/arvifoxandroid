@@ -22,6 +22,7 @@ import com.arvifox.arvi.utils.FormatUtils.tobitmap
 import kotlinx.android.synthetic.main.activity_camera_shot.*
 import kotlinx.android.synthetic.main.app_bar_layout.*
 import java.io.File
+import java.io.FileOutputStream
 
 
 class CameraShotActivity : AppCompatActivity() {
@@ -173,8 +174,11 @@ class CameraShotActivity : AppCompatActivity() {
         imageReader.setOnImageAvailableListener({ reader: ImageReader ->
             if (!was) {
                 val im = reader.acquireLatestImage()
+                val fos = FileOutputStream(generateFile("photo")).channel
+                fos.write(im.planes[0].buffer)
+                im.close()
                 was = true
-                ivCameraResult.setImageBitmap(im.tobitmap())
+//                ivCameraResult.setImageBitmap(im.tobitmap())
             }
         }, null)
     }
@@ -188,14 +192,15 @@ class CameraShotActivity : AppCompatActivity() {
 
         val irb = cameraDevice?.createCaptureRequest(CameraDevice.TEMPLATE_STILL_CAPTURE)
         irb?.addTarget(imageReader.surface)
-        irb?.set(CaptureRequest.CONTROL_AWB_MODE, CaptureRequest.CONTROL_AWB_MODE_INCANDESCENT)
+        irb?.set(CaptureRequest.CONTROL_CAPTURE_INTENT, CaptureRequest.CONTROL_CAPTURE_INTENT_STILL_CAPTURE)
+//        irb?.set(CaptureRequest.CONTROL_AWB_MODE, CaptureRequest.CONTROL_AWB_MODE_INCANDESCENT)
 //        irb?.set(CaptureRequest.CONTROL_EFFECT_MODE, CaptureRequest.CONTROL_EFFECT_MODE_SEPIA)
-        irb?.set(CaptureRequest.CONTROL_EFFECT_MODE, CameraMetadata.CONTROL_EFFECT_MODE_SEPIA)
+//        irb?.set(CaptureRequest.CONTROL_EFFECT_MODE, CameraMetadata.CONTROL_EFFECT_MODE_SEPIA)
         irb?.set(CaptureRequest.FLASH_MODE, CaptureRequest.FLASH_MODE_OFF)
         // focus
-        irb?.set(CaptureRequest.CONTROL_AF_TRIGGER, CaptureRequest.CONTROL_AF_TRIGGER_START)
+//        irb?.set(CaptureRequest.CONTROL_AF_TRIGGER, CaptureRequest.CONTROL_AF_TRIGGER_START)
         // exposure
-        irb?.set(CaptureRequest.CONTROL_AE_PRECAPTURE_TRIGGER, CaptureRequest.CONTROL_AE_PRECAPTURE_TRIGGER_START)
+        irb?.set(CaptureRequest.CONTROL_AE_PRECAPTURE_TRIGGER, CaptureRequest.CONTROL_AE_PRECAPTURE_TRIGGER_IDLE)
 
         preCapReq = crb?.build()
         imgCapReq = irb?.build()
@@ -242,5 +247,14 @@ class CameraShotActivity : AppCompatActivity() {
         }
         return FileProvider.getUriForFile(this, getString(R.string.file_provider_authority), file!!)
 //        return Uri.fromFile(file)
+    }
+
+    private fun generateFile(type: String): File? {
+        var file: File? = null
+        when (type) {
+            "photo" -> file = File(directory.getPath() + "/" + "photo_" + System.currentTimeMillis() + ".jpg")
+            "video" -> file = File(directory.getPath() + "/" + "video_" + System.currentTimeMillis() + ".mp4")
+        }
+        return file
     }
 }
