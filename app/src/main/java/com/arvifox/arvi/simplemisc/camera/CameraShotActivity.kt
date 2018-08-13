@@ -11,6 +11,8 @@ import android.media.ImageReader
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
+import android.os.Handler
+import android.os.HandlerThread
 import android.provider.MediaStore
 import android.support.v4.content.FileProvider
 import android.support.v7.app.AppCompatActivity
@@ -18,11 +20,11 @@ import android.text.method.ScrollingMovementMethod
 import android.view.Surface
 import android.view.SurfaceHolder
 import com.arvifox.arvi.R
-import com.arvifox.arvi.utils.FormatUtils.tobitmap
+import com.arvifox.arvi.utils.FormatUtils.showToast
+import com.arvifox.arvi.utils.Logger
 import kotlinx.android.synthetic.main.activity_camera_shot.*
 import kotlinx.android.synthetic.main.app_bar_layout.*
 import java.io.File
-import java.io.FileOutputStream
 
 
 class CameraShotActivity : AppCompatActivity() {
@@ -33,6 +35,14 @@ class CameraShotActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Whether the current camera device supports Flash or not.
+     */
+    private var flashSupported = false
+
+    private var backgroundThread: HandlerThread? = null
+    private var backgroundHandler: Handler? = null
+
     private lateinit var directory: File
     private lateinit var cameraManager: CameraManager
     private lateinit var surfaceHolder: SurfaceHolder
@@ -41,13 +51,15 @@ class CameraShotActivity : AppCompatActivity() {
     private var cameraCaptureSession: CameraCaptureSession? = null
 
     private lateinit var sb: StringBuilder
-    private lateinit var imageReader: ImageReader
+    private var imageReader: ImageReader? = null
 
     private var was: Boolean = false
     private var he: Int = 0
     private var wi: Int = 0
 
-    private var preCapReq: CaptureRequest? = null
+    private var crb: CaptureRequest.Builder? = null
+    private var irb: CaptureRequest.Builder? = null
+
     private var imgCapReq: CaptureRequest? = null
 
     @SuppressLint("NewApi", "MissingPermission")
@@ -92,8 +104,9 @@ class CameraShotActivity : AppCompatActivity() {
         wi = sizes[0].width
         tvCameraInfo.text = sb.toString()
 
-        surfaceHolder = svFromCamera.holder
+//        surfaceHolder = svFromCamera.holder
 //        surfaceHolder.addCallback(shc)
+        svFromCamera.holder.setFixedSize(240, 320)
 
         reader()
         btnGetCameraImage.setOnClickListener {
@@ -113,8 +126,11 @@ class CameraShotActivity : AppCompatActivity() {
                 }
 
                 override fun onError(camera: CameraDevice?, error: Int) {
+                    onDisconnected(camera)
+                    this@CameraShotActivity.showToast("Camera Error")
+                    finish()
                 }
-            }, null)
+            }, backgroundHandler)
         }
         btnTakeImage.setOnClickListener {
             cameraCaptureSession?.capture(imgCapReq, object : CameraCaptureSession.CaptureCallback() {
@@ -150,10 +166,20 @@ class CameraShotActivity : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        startBackgroundThread()
+    }
+
     @SuppressLint("NewApi", "MissingPermission")
     override fun onPause() {
+        cameraCaptureSession?.close()
+        cameraCaptureSession = null
         cameraDevice?.close()
         cameraDevice = null
+        imageReader?.close()
+        imageReader = null
+        stopBackgroundThread()
         super.onPause()
     }
 
@@ -170,28 +196,38 @@ class CameraShotActivity : AppCompatActivity() {
 
     @SuppressLint("NewApi", "MissingPermission")
     private fun reader() {
-        imageReader = ImageReader.newInstance(wi, he, ImageFormat.JPEG, 1)
-        imageReader.setOnImageAvailableListener({ reader: ImageReader ->
-            if (!was) {
-                val im = reader.acquireLatestImage()
-                val fos = FileOutputStream(generateFile("photo")).channel
-                fos.write(im.planes[0].buffer)
-                im.close()
-                was = true
-//                ivCameraResult.setImageBitmap(im.tobitmap())
-            }
-        }, null)
+        imageReader = ImageReader.newInstance(wi, he, ImageFormat.JPEG, 2).apply {
+            setOnImageAvailableListener({
+                backgroundHandler?.post(ImageSaverToFile(it.acquireLatestImage(), generateFile("photo")!!))
+            }, backgroundHandler)
+        }
+    }
+
+    private fun startBackgroundThread() {
+        backgroundThread = HandlerThread("CameraBackground").also { it.start() }
+        backgroundHandler = Handler(backgroundThread?.looper)
+    }
+
+    @SuppressLint("NewApi")
+    private fun stopBackgroundThread() {
+        backgroundThread?.quitSafely()
+        try {
+            backgroundThread?.join()
+            backgroundThread = null
+            backgroundHandler = null
+        } catch (e: InterruptedException) {
+            Logger.e { e.toString() }
+        }
+
     }
 
     @SuppressLint("NewApi", "MissingPermission")
     private fun capture() {
-        svFromCamera.holder.setFixedSize(240, 320)
-
-        val crb = cameraDevice?.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW)
+        crb = cameraDevice?.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW)
         crb?.addTarget(svFromCamera.holder.surface)
 
-        val irb = cameraDevice?.createCaptureRequest(CameraDevice.TEMPLATE_STILL_CAPTURE)
-        irb?.addTarget(imageReader.surface)
+        irb = cameraDevice?.createCaptureRequest(CameraDevice.TEMPLATE_STILL_CAPTURE)
+        irb?.addTarget(imageReader?.surface)
         irb?.set(CaptureRequest.CONTROL_CAPTURE_INTENT, CaptureRequest.CONTROL_CAPTURE_INTENT_STILL_CAPTURE)
 //        irb?.set(CaptureRequest.CONTROL_AWB_MODE, CaptureRequest.CONTROL_AWB_MODE_INCANDESCENT)
 //        irb?.set(CaptureRequest.CONTROL_EFFECT_MODE, CaptureRequest.CONTROL_EFFECT_MODE_SEPIA)
@@ -202,38 +238,47 @@ class CameraShotActivity : AppCompatActivity() {
         // exposure
         irb?.set(CaptureRequest.CONTROL_AE_PRECAPTURE_TRIGGER, CaptureRequest.CONTROL_AE_PRECAPTURE_TRIGGER_IDLE)
 
-        preCapReq = crb?.build()
         imgCapReq = irb?.build()
 
-        cameraDevice?.createCaptureSession(arrayListOf(svFromCamera.holder.surface, imageReader.surface), object : CameraCaptureSession.StateCallback() {
-            override fun onReady(session: CameraCaptureSession?) {
-                super.onReady(session)
-            }
-
-            override fun onCaptureQueueEmpty(session: CameraCaptureSession?) {
-                super.onCaptureQueueEmpty(session)
-            }
-
+        cameraDevice?.createCaptureSession(arrayListOf(svFromCamera.holder.surface, imageReader?.surface), object : CameraCaptureSession.StateCallback() {
             override fun onConfigureFailed(session: CameraCaptureSession?) {
-            }
-
-            override fun onClosed(session: CameraCaptureSession?) {
-                super.onClosed(session)
-            }
-
-            override fun onSurfacePrepared(session: CameraCaptureSession?, surface: Surface?) {
-                super.onSurfacePrepared(session, surface)
+                this@CameraShotActivity.showToast("session failed")
             }
 
             override fun onConfigured(session: CameraCaptureSession?) {
+                this@CameraShotActivity.showToast("session configured well")
                 cameraCaptureSession = session
-                cameraCaptureSession?.setRepeatingRequest(preCapReq, null, null)
-            }
-
-            override fun onActive(session: CameraCaptureSession?) {
-                super.onActive(session)
+                crb?.set(CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE)
+                setAutoFlash(crb)
+                cameraCaptureSession?.setRepeatingRequest(crb?.build(), null, backgroundHandler)
             }
         }, null)
+    }
+
+    /**
+     * Lock the focus as the first step for a still image capture.
+     */
+    @SuppressLint("NewApi")
+    private fun lockFocus() {
+        try {
+            // This is how to tell the camera to lock focus.
+            crb?.set(CaptureRequest.CONTROL_AF_TRIGGER,
+                    CameraMetadata.CONTROL_AF_TRIGGER_START)
+            // Tell #captureCallback to wait for the lock.
+//            state = STATE_WAITING_LOCK
+//            cameraCaptureSession?.capture(crb?.build(), captureCallback,
+//                    backgroundHandler)
+        } catch (e: CameraAccessException) {
+            Logger.e { e.toString() }
+        }
+    }
+
+    @SuppressLint("NewApi")
+    private fun setAutoFlash(requestBuilder: CaptureRequest.Builder?) {
+        if (flashSupported) {
+            requestBuilder?.set(CaptureRequest.CONTROL_AE_MODE,
+                    CaptureRequest.CONTROL_AE_MODE_ON_AUTO_FLASH)
+        }
     }
 
     /**
