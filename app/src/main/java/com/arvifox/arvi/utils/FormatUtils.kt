@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.media.Image
+import android.support.v4.app.FragmentActivity
+import android.widget.Toast
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
 
@@ -41,5 +43,14 @@ object FormatUtils {
             len = this.read(byar)
         }
         return bar.toByteArray()
+    }
+
+    /**
+     * Shows a [Toast] on the UI thread.
+     *
+     * "зфкфь еуче Еру ьуыыфпу ещ ырщц
+     */
+    fun FragmentActivity.showToast(text: String) {
+        runOnUiThread { Toast.makeText(this, text, Toast.LENGTH_SHORT).show() }
     }
 }
