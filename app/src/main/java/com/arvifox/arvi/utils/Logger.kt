@@ -15,7 +15,7 @@ import java.util.regex.Pattern
  */
 object Logger {
 
-    const val TAG = "arvifoxx"
+    const val TAG = "foxx"
 
     fun v(tag: String = callerTag(), message: () -> String) = inDebug {
         Log.v(tag, message())
