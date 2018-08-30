@@ -145,6 +145,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.arvifox.arvi.simplemisc.SimpleMiscActivity" />
         </activity>
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="@string/file_provider_authority"
@@ -154,6 +155,15 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_provider_paths" />
         </provider>
+
+        <activity
+            android:name=".simplemisc.sensor.SensorActivity"
+            android:parentActivityName=".simplemisc.SimpleMiscActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.arvifox.arvi.simplemisc.SimpleMiscActivity" />
+        </activity>
     </application>
 
 </manifest>
