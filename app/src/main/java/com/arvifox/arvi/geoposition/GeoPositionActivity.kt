@@ -7,7 +7,7 @@ import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.arvifox.arvi.R
 import com.arvifox.arvi.di.SimpleProvider
 import kotlinx.android.synthetic.main.activity_geo_position.*

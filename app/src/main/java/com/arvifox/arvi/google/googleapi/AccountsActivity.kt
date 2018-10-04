@@ -4,10 +4,9 @@ import android.accounts.AccountManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.Snackbar
-import android.support.v7.app.AppCompatActivity
+import com.google.android.material.snackbar.Snackbar
+import androidx.appcompat.app.AppCompatActivity
 import com.arvifox.arvi.R
-
 import kotlinx.android.synthetic.main.activity_accounts.*
 import kotlinx.android.synthetic.main.app_bar_layout.*
 

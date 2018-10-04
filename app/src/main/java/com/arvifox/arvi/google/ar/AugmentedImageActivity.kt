@@ -5,21 +5,20 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.arvifox.arvi.R
 import com.arvifox.arvi.google.utils.FullScreenHelper
-import com.arvifox.arvi.google.utils.SnackbarHelper
 import com.arvifox.arvi.utils.Logger
 import com.google.ar.core.AugmentedImageDatabase
 import com.google.ar.core.Config
 import com.google.ar.core.Session
 import com.google.ar.sceneform.FrameTime
-import kotlinx.android.synthetic.main.activity_augmented_image.*
 
-import kotlinx.android.synthetic.main.app_bar_layout.*
 import java.io.IOException
 import com.google.ar.core.TrackingState
 import com.google.ar.core.AugmentedImage
+import kotlinx.android.synthetic.main.activity_augmented_image.*
+import kotlinx.android.synthetic.main.app_bar_layout.*
 
 class AugmentedImageActivity : AppCompatActivity() {
 

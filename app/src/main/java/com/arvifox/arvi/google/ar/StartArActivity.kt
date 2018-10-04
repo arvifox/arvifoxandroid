@@ -3,13 +3,12 @@ package com.arvifox.arvi.google.ar
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.arvifox.arvi.R
 import com.google.ar.core.ArCoreApk
 import com.google.ar.core.Session
 import com.google.ar.core.exceptions.UnavailableUserDeclinedInstallationException
 import kotlinx.android.synthetic.main.activity_start_ar.*
-
 import kotlinx.android.synthetic.main.app_bar_layout.*
 
 class StartArActivity : AppCompatActivity() {

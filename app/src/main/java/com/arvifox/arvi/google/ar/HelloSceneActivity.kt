@@ -4,8 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import android.view.Gravity
 import android.view.MotionEvent
 import android.widget.Toast
@@ -20,11 +19,11 @@ import com.google.ar.sceneform.math.Vector3
 import com.google.ar.sceneform.rendering.*
 import com.google.ar.sceneform.ux.ArFragment
 import com.google.ar.sceneform.ux.TransformableNode
-import kotlinx.android.synthetic.main.activity_hello_scene.*
-import kotlinx.android.synthetic.main.app_bar_layout.*
 import com.google.ar.sceneform.rendering.ShapeFactory
 import com.google.ar.sceneform.rendering.MaterialFactory
 import com.google.ar.sceneform.math.Quaternion
+import kotlinx.android.synthetic.main.activity_hello_scene.*
+import kotlinx.android.synthetic.main.app_bar_layout.*
 
 
 class HelloSceneActivity : AppCompatActivity() {

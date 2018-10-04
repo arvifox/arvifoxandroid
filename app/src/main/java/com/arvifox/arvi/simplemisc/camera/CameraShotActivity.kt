@@ -14,18 +14,18 @@ import android.os.Environment
 import android.os.Handler
 import android.os.HandlerThread
 import android.provider.MediaStore
-import android.support.v4.content.FileProvider
-import android.support.v7.app.AppCompatActivity
+import androidx.core.content.FileProvider
+import androidx.appcompat.app.AppCompatActivity
 import android.text.method.ScrollingMovementMethod
 import android.view.Surface
 import android.view.SurfaceHolder
 import com.arvifox.arvi.R
-import com.arvifox.arvi.utils.FormatUtils.showToast
 import com.arvifox.arvi.utils.Logger
 import kotlinx.android.synthetic.main.activity_camera_shot.*
 import kotlinx.android.synthetic.main.app_bar_layout.*
 import java.io.File
 
+import com.arvifox.arvi.utils.FormatUtils.showToast
 
 class CameraShotActivity : AppCompatActivity() {
 

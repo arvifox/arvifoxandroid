@@ -3,11 +3,10 @@ package com.arvifox.arvi.googlemaps
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.arvifox.arvi.R
-import kotlinx.android.synthetic.main.app_bar_layout.*
 
 import com.arvifox.arvi.utils.FormatUtils.format
 
@@ -17,6 +16,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
 import kotlinx.android.synthetic.main.activity_google_maps.*
+import kotlinx.android.synthetic.main.app_bar_layout.*
 
 class GoogleMapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
