@@ -2,11 +2,13 @@ package com.arvifox.arvi;
 
 import android.app.Application;
 
+import androidx.multidex.MultiDexApplication;
+
 /**
  * Created by
  */
 
-public class MyApp extends Application {
+public class MyApp extends MultiDexApplication {
 //    private NetComponent mNetComponent;
 
     @Override
