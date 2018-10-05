@@ -15,6 +15,8 @@ import com.arvifox.arvi.googlemaps.GoogleMapsActivity
 import com.arvifox.arvi.https.HttpsActivity
 import com.arvifox.arvi.simplemisc.SimpleMiscActivity
 import com.arvifox.arvi.simplemisc.phoneinfo.PhoneInfoActivity
+import com.arvifox.arvi.siteback.BackUtils
+import com.arvifox.arvi.utils.BaseStorage
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.firebase.analytics.FirebaseAnalytics
@@ -22,6 +24,13 @@ import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_layout.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+import android.app.NotificationManager
+import android.app.NotificationChannel
+import android.content.Context
+import android.content.Context.NOTIFICATION_SERVICE
+import android.graphics.Color
+import android.os.Build
+
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -46,10 +55,27 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         fa = FirebaseAnalytics.getInstance(this)
 
-        FirebaseInstanceId.getInstance().instanceId
-                .addOnSuccessListener(this, { ins ->
-                    Toast.makeText(this, ins.token, Toast.LENGTH_SHORT).show()
-                })
+        if (!BaseStorage.isTokenSent(this)) {
+            FirebaseInstanceId.getInstance().instanceId
+                    .addOnSuccessListener(this) { ins ->
+                        Toast.makeText(this, ins.token, Toast.LENGTH_SHORT).show()
+                        BackUtils.sendToken(ins.token, this)
+                    }
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val nm = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            val channel = NotificationChannel(BaseStorage.notificationChannelID, "Arvifox channel", NotificationManager.IMPORTANCE_DEFAULT)
+            channel.description = "Arvifox channel"
+            channel.enableLights(false)
+            channel.lightColor = Color.RED
+            channel.enableVibration(false)
+            try {
+                nm.createNotificationChannel(channel)
+            } catch (ex: NullPointerException) {
+                ex.printStackTrace()
+            }
+        }
     }
 
     override fun onResume() {
