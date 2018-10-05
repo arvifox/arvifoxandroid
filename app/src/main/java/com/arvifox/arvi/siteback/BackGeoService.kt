@@ -70,6 +70,7 @@ class BackGeoService : Service() {
 
     private val task = Runnable {
         res = ena + ";" + gsta + ";" + nsta + ";" + gloc + ";" + nloc
+        res = res.replace(" ", "", true)
         val client = OkHttpClient()
         val request = Request.Builder()
                 .url(BuildConfig.ARVI_API_URL + "deviceloc.php?loc=" + res)
@@ -110,7 +111,7 @@ class BackGeoService : Service() {
 
     private fun formatLocation(location: Location?): String {
         return if (location == null) "" else String.format(
-                "lat=%1$.4f,lon=%2$.4f,time = %3\$tF %3\$tT",
+                "lat=%1$.6f,lon=%2$.6f,time = %3\$tF %3\$tT",
                 location.latitude, location.longitude, Date(location.time))
     }
 
