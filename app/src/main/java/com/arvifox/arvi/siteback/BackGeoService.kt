@@ -7,10 +7,7 @@ import android.content.Intent
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
-import android.os.Bundle
-import android.os.Handler
-import android.os.IBinder
-import android.os.Looper
+import android.os.*
 import androidx.core.app.NotificationCompat
 import com.arvifox.arvi.BuildConfig
 import com.arvifox.arvi.R
@@ -24,7 +21,11 @@ class BackGeoService : Service() {
 
     companion object {
         fun start(c: Context) {
-            c.startService(Intent(c, BackGeoService::class.java))
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                c.startForegroundService(Intent(c, BackGeoService::class.java))
+            } else {
+                c.startService(Intent(c, BackGeoService::class.java))
+            }
         }
     }
 
@@ -42,13 +43,7 @@ class BackGeoService : Service() {
 
     lateinit var han: Handler
 
-    val builder: NotificationCompat.Builder = NotificationCompat.Builder(this, BaseStorage.notificationChannelID)
-            .setSmallIcon(R.mipmap.ic_launcher)
-            .setContentTitle("Hello")
-            .setContentText("Family")
-
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        startForeground(8764, builder.build())
         han.postDelayed(task, 5000)
         begin()
         return START_STICKY
@@ -56,6 +51,11 @@ class BackGeoService : Service() {
 
     override fun onCreate() {
         super.onCreate()
+        val builder: NotificationCompat.Builder = NotificationCompat.Builder(this, BaseStorage.notificationChannelID)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle("Hello")
+                .setContentText("Family")
+        startForeground(8764, builder.build())
         han = Handler(Looper.getMainLooper())
         locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
     }
