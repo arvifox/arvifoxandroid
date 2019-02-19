@@ -74,7 +74,7 @@ class AugmentedImageActivity : AppCompatActivity() {
     }
 
     private fun onUpdateFrame(frameTime: FrameTime) {
-        val frame = asvView.arFrame
+        val frame = asvView.arFrame!!
         val updatedAugmentedImages = frame.getUpdatedTrackables(AugmentedImage::class.java)
 
         for (augmentedImage in updatedAugmentedImages) {

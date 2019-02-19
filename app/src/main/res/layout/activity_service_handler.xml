@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".simplemisc.SimpleMiscActivity">
+    tools:context=".simplemisc.servicehandler.ServiceHandlerActivity">
 
     <include layout="@layout/app_bar_layout" />
 
@@ -15,29 +15,21 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <Button
-            android:id="@+id/btnCameraStart"
+            android:id="@+id/btnStart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Camera"
+            android:text="Start service"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/btnSensor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sensor"
-            app:layout_constraintLeft_toRightOf="@id/btnCameraStart"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/btnServiceHandler"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ServiceHandler"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnCameraStart" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@android:drawable/ic_dialog_email" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

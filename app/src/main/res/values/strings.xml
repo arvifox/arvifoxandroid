@@ -25,4 +25,5 @@
     <string name="title_activity_camera_shot">CameraShotActivity</string>
 
     <string name="file_provider_authority" translatable="false">com.arvifox.arvi.FileProvider</string>
+    <string name="title_activity_service_handler">ServiceHandlerActivity</string>
 </resources>
