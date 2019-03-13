@@ -56,8 +56,10 @@ class GeoPositionActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         if (pm.checkPermissions(this, *perms)) {
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000 * 10, 10F, locationListener)
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000 * 10, 10F, locationListener)
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
+                    1000 * 10, 10F, locationListener)
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
+                    1000 * 10, 10F, locationListener)
         }
         checkEnabled()
     }

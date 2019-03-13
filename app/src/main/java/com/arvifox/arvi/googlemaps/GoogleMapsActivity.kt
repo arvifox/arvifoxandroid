@@ -1,14 +1,17 @@
 package com.arvifox.arvi.googlemaps
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.arvifox.arvi.R
 
 import com.arvifox.arvi.utils.FormatUtils.format
+import com.google.android.gms.location.*
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -18,11 +21,13 @@ import com.google.android.gms.maps.model.*
 import kotlinx.android.synthetic.main.activity_google_maps.*
 import kotlinx.android.synthetic.main.app_bar_layout.*
 
-class GoogleMapsActivity : AppCompatActivity(), OnMapReadyCallback {
+class GoogleMapsActivity : AppCompatActivity(), OnMapReadyCallback,
+        GoogleMap.OnMyLocationClickListener, GoogleMap.OnMyLocationButtonClickListener {
 
     private lateinit var mMap: GoogleMap
-
     private lateinit var mMarker: Marker
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private lateinit var locationCallback: LocationCallback
 
     companion object {
         fun newIntent(c: Context): Intent {
@@ -30,6 +35,7 @@ class GoogleMapsActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
+    @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_google_maps)
@@ -37,13 +43,17 @@ class GoogleMapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val tb = toolbar
         setSupportActionBar(tb)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
+            updateMapLocation(location)
+        }
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
                 .findFragmentById(R.id.frGoogleMap) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
-        tvText1.setOnClickListener { _ ->
+        tvText1.setOnClickListener {
             mMarker = mMap.addMarker(MarkerOptions()
                     .position(LatLng(66.0, 33.0))
                     .title("Where")
@@ -53,9 +63,9 @@ class GoogleMapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     .alpha(0.5f))
         }
 
-        tvText2.setOnClickListener { _ -> mMarker.remove() }
+        tvText2.setOnClickListener { mMarker.remove() }
 
-        tvText3.setOnClickListener { _ ->
+        tvText3.setOnClickListener {
             val polylineOptions = PolylineOptions().add(LatLng(66.0, 33.0), LatLng(66.5, 33.5), LatLng(66.7, 33.1))
                     .color(Color.CYAN).width(1f)
             mMap.addPolyline(polylineOptions)
@@ -71,6 +81,48 @@ class GoogleMapsActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
+    override fun onMyLocationClick(p0: Location) {
+        Toast.makeText(this, "My location click", Toast.LENGTH_LONG).show()
+    }
+
+    override fun onMyLocationButtonClick(): Boolean {
+        Toast.makeText(this, "My location button click", Toast.LENGTH_LONG).show()
+        return false
+    }
+
+    private fun updateMapLocation(location: Location?) {
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(LatLng(
+                location?.latitude ?: 0.0,
+                location?.longitude ?: 0.0)))
+        mMap.moveCamera(CameraUpdateFactory.zoomTo(15.0f))
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun initLocationTracking() {
+        locationCallback = object : LocationCallback() {
+            override fun onLocationResult(locationResult: LocationResult?) {
+                locationResult ?: return
+                for (location in locationResult.locations) {
+                    updateMapLocation(location)
+                }
+            }
+        }
+        fusedLocationClient.requestLocationUpdates(
+                LocationRequest(), locationCallback, null)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (::mMap.isInitialized) {
+            initLocationTracking()
+        }
+    }
+
+    override fun onPause() {
+        fusedLocationClient.removeLocationUpdates(locationCallback)
+        super.onPause()
+    }
+
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
@@ -82,6 +134,8 @@ class GoogleMapsActivity : AppCompatActivity(), OnMapReadyCallback {
     @SuppressWarnings("MissingPermission")
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
+        mMap.setOnMyLocationClickListener(this)
+        mMap.setOnMyLocationButtonClickListener(this)
 
         // Add a marker in Sydney and move the camera
         val sydney = LatLng(67.57, 33.4)
