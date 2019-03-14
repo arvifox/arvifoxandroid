@@ -38,6 +38,14 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btnCameraStart" />
 
+        <Button
+            android:id="@+id/btnMatComp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MatComp"
+            app:layout_constraintLeft_toRightOf="@id/btnServiceHandler"
+            app:layout_constraintTop_toBottomOf="@id/btnSensor" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

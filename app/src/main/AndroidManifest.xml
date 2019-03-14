@@ -171,9 +171,20 @@
             android:name=".simplemisc.servicehandler.FooService"
             android:enabled="true"
             android:exported="false" />
+
         <activity
             android:name=".simplemisc.servicehandler.ServiceHandlerActivity"
             android:label="@string/title_activity_service_handler"
+            android:parentActivityName=".simplemisc.SimpleMiscActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.arvifox.arvi.simplemisc.SimpleMiscActivity" />
+        </activity>
+
+        <activity
+            android:name=".simplemisc.matcomp.MatCompActivity"
+            android:label="MatComp"
             android:parentActivityName=".simplemisc.SimpleMiscActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
