@@ -111,6 +111,7 @@
         app:fabCradleMargin="4dp"
         app:fabCradleRoundedCornerRadius="16dp"
         app:fabCradleVerticalOffset="4dp"
+        app:hideOnScroll="true"
         app:menu="@menu/bottomappbar_menu"
         app:navigationContentDescription="babnd"
         app:navigationIcon="@android:drawable/ic_dialog_map"

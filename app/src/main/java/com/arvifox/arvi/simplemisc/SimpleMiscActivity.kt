@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.arvifox.arvi.R
+import com.arvifox.arvi.simplemisc.anim.AnimActivity
 import com.arvifox.arvi.simplemisc.camera.CameraShotActivity
 import com.arvifox.arvi.simplemisc.matcomp.MatCompActivity
 import com.arvifox.arvi.simplemisc.sensor.SensorActivity
@@ -29,5 +30,6 @@ class SimpleMiscActivity : AppCompatActivity() {
         btnSensor.setOnClickListener { startActivity(SensorActivity.newIntent(this)) }
         btnServiceHandler.setOnClickListener { startActivity(ServiceHandlerActivity.newIntent(this)) }
         btnMatComp.setOnClickListener { startActivity(MatCompActivity.newIntent(this)) }
+        btnAnim.setOnClickListener { startActivity(AnimActivity.newIntent(this)) }
     }
 }

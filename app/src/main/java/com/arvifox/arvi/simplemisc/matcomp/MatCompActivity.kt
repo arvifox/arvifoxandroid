@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.arvifox.arvi.R
-import com.arvifox.arvi.utils.FormatUtils
 import com.arvifox.arvi.utils.FormatUtils.showToast
 import kotlinx.android.synthetic.main.activity_mat_comp.*
 

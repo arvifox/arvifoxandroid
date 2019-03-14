@@ -46,6 +46,14 @@
             app:layout_constraintLeft_toRightOf="@id/btnServiceHandler"
             app:layout_constraintTop_toBottomOf="@id/btnSensor" />
 
+        <Button
+            android:id="@+id/btnAnim"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Anim"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnServiceHandler" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
