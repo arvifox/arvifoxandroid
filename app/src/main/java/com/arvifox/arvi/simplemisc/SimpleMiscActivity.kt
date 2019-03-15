@@ -31,5 +31,6 @@ class SimpleMiscActivity : AppCompatActivity() {
         btnServiceHandler.setOnClickListener { startActivity(ServiceHandlerActivity.newIntent(this)) }
         btnMatComp.setOnClickListener { startActivity(MatCompActivity.newIntent(this)) }
         btnAnim.setOnClickListener { startActivity(AnimActivity.newIntent(this)) }
+        btnWorkManager.setOnClickListener {  }
     }
 }

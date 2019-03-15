@@ -97,6 +97,9 @@ dependencies {
     //multidex
     implementation 'androidx.multidex:multidex:2.0.1'
 
+    //arch
+    implementation "android.arch.work:work-runtime-ktx:1.0.0"
+
     //moshi
     implementation 'com.squareup.moshi:moshi-kotlin:1.6.0'
 
