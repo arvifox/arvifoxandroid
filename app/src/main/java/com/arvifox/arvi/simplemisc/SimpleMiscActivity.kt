@@ -5,17 +5,15 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.work.*
 import com.arvifox.arvi.R
 import com.arvifox.arvi.simplemisc.anim.AnimActivity
 import com.arvifox.arvi.simplemisc.camera.CameraShotActivity
 import com.arvifox.arvi.simplemisc.matcomp.MatCompActivity
 import com.arvifox.arvi.simplemisc.sensor.SensorActivity
 import com.arvifox.arvi.simplemisc.servicehandler.ServiceHandlerActivity
-import com.arvifox.arvi.simplemisc.workmanager.MyWorker
+import com.arvifox.arvi.simplemisc.workmanager.WorkManagerActivity
 import kotlinx.android.synthetic.main.activity_simple_misc.*
 import kotlinx.android.synthetic.main.app_bar_layout.*
-import java.util.concurrent.TimeUnit
 
 class SimpleMiscActivity : AppCompatActivity() {
 
@@ -36,21 +34,6 @@ class SimpleMiscActivity : AppCompatActivity() {
         btnServiceHandler.setOnClickListener { startActivity(ServiceHandlerActivity.newIntent(this)) }
         btnMatComp.setOnClickListener { startActivity(MatCompActivity.newIntent(this)) }
         btnAnim.setOnClickListener { startActivity(AnimActivity.newIntent(this)) }
-        btnWorkManager.setOnClickListener {
-            // optionally, add constraints like power, network availability
-            val constraints: Constraints = Constraints.Builder()
-                    .setRequiresCharging(true)
-                    .setRequiresDeviceIdle(true)
-                    .setRequiredNetworkType(NetworkType.CONNECTED)
-                    .build()
-            val myOneTimeWorkRequest = OneTimeWorkRequestBuilder<MyWorker>()
-                    .setInitialDelay(20, TimeUnit.MINUTES)
-//                    .setInputData()
-                    .addTag("tratata")
-                    .setBackoffCriteria(BackoffPolicy.LINEAR,
-                            OneTimeWorkRequest.MIN_BACKOFF_MILLIS, TimeUnit.MILLISECONDS)
-                    .setConstraints(constraints).build()
-            WorkManager.getInstance().enqueue(myOneTimeWorkRequest)
-        }
+        btnWorkManager.setOnClickListener { startActivity(WorkManagerActivity.newIntent(this)) }
     }
 }
