@@ -1,13 +1,11 @@
 package com.arvifox.arvi.simplemisc
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.work.Constraints
-import androidx.work.NetworkType
-import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.WorkManager
+import androidx.work.*
 import com.arvifox.arvi.R
 import com.arvifox.arvi.simplemisc.anim.AnimActivity
 import com.arvifox.arvi.simplemisc.camera.CameraShotActivity
@@ -17,6 +15,7 @@ import com.arvifox.arvi.simplemisc.servicehandler.ServiceHandlerActivity
 import com.arvifox.arvi.simplemisc.workmanager.MyWorker
 import kotlinx.android.synthetic.main.activity_simple_misc.*
 import kotlinx.android.synthetic.main.app_bar_layout.*
+import java.util.concurrent.TimeUnit
 
 class SimpleMiscActivity : AppCompatActivity() {
 
@@ -26,6 +25,7 @@ class SimpleMiscActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("NewApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_simple_misc)
@@ -40,9 +40,15 @@ class SimpleMiscActivity : AppCompatActivity() {
             // optionally, add constraints like power, network availability
             val constraints: Constraints = Constraints.Builder()
                     .setRequiresCharging(true)
+                    .setRequiresDeviceIdle(true)
                     .setRequiredNetworkType(NetworkType.CONNECTED)
                     .build()
             val myOneTimeWorkRequest = OneTimeWorkRequestBuilder<MyWorker>()
+                    .setInitialDelay(20, TimeUnit.MINUTES)
+//                    .setInputData()
+                    .addTag("tratata")
+                    .setBackoffCriteria(BackoffPolicy.LINEAR,
+                            OneTimeWorkRequest.MIN_BACKOFF_MILLIS, TimeUnit.MILLISECONDS)
                     .setConstraints(constraints).build()
             WorkManager.getInstance().enqueue(myOneTimeWorkRequest)
         }
