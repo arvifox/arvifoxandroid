@@ -202,6 +202,15 @@
         <activity
             android:name=".simplemisc.workmanager.WorkManagerActivity"
             android:label="Work"
+            android:parentActivityName=".simplemisc.workmanager.WorkManSelectActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.arvifox.arvi.simplemisc.workmanager.WorkManSelectActivity" />
+        </activity>
+        <activity
+            android:name=".simplemisc.workmanager.WorkManSelectActivity"
+            android:label="Work"
             android:parentActivityName=".simplemisc.SimpleMiscActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
