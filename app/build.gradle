@@ -91,8 +91,8 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.0.2'
-//    implementation 'com.google.android.material:material:1.1.0-alpha04'
-    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'com.google.android.material:material:1.1.0-alpha04'
+//    implementation 'com.google.android.material:material:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha3'
     implementation 'androidx.annotation:annotation:1.0.2'
     testImplementation 'junit:junit:4.12'
@@ -145,6 +145,10 @@ dependencies {
     implementation('com.google.http-client:google-http-client-gson:1.20.0') {
         exclude module: 'httpclient'
     }
+}
+
+configurations {
+    all*.exclude group: 'com.google.guava', module: 'listenablefuture'
 }
 
 apply plugin: 'com.google.gms.google-services'

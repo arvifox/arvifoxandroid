@@ -16,11 +16,11 @@ class BlurViewModel : ViewModel() {
     init {
         // This transformation makes sure that whenever the current work Id changes the WorkStatus
         // the UI is listening to changes
-        outputWorkInfoItems = workManager.getWorkInfosByTagLiveData("work_tag")
+        outputWorkInfoItems = workManager.getWorkInfosByTagLiveData("TAG_OUTPUT")
     }
 
     internal fun applyBlur(blurLevel: Int) {
-        workManager.enqueue(OneTimeWorkRequest.from(BlurWorker::class.java))
+//        workManager.enqueue(OneTimeWorkRequest.from(BlurWorker::class.java))
 
         // Add WorkRequest to Cleanup temporary images
         var continuation = workManager
