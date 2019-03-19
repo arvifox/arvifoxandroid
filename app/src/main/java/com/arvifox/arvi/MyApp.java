@@ -1,8 +1,11 @@
 package com.arvifox.arvi;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.multidex.MultiDexApplication;
+import androidx.work.Configuration;
+import androidx.work.WorkManager;
 
 /**
  * Created by
@@ -14,6 +17,12 @@ public class MyApp extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        Configuration configuration = new Configuration.Builder()
+                .setMinimumLoggingLevel(Log.VERBOSE)
+                .build();
+
+        WorkManager.initialize(this, configuration);
 
 //        mNetComponent = DaggerNetComponent.builder()
 //                 list of modules that are part of this component need to be created here too

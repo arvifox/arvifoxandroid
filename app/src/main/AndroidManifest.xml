@@ -158,6 +158,15 @@
                 android:resource="@xml/file_provider_paths" />
         </provider>
 
+        <provider
+            android:name="androidx.work.impl.WorkManagerInitializer"
+            android:authorities="${applicationId}.workmanager-init"
+            android:directBootAware="false"
+            android:exported="false"
+            android:multiprocess="true"
+            tools:node="remove"
+            tools:targetApi="n" />
+
         <activity
             android:name=".simplemisc.sensor.SensorActivity"
             android:parentActivityName=".simplemisc.SimpleMiscActivity"

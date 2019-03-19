@@ -4,8 +4,11 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.Html
+import android.text.Spanned
 import androidx.appcompat.app.AppCompatActivity
 import com.arvifox.arvi.R
 import com.arvifox.arvi.utils.Logger
@@ -63,5 +66,14 @@ class WorkManSelectActivity : AppCompatActivity() {
         val filterIntent = Intent(this, WorkManagerActivity::class.java)
         filterIntent.putExtra("KEY_IMAGE_URI", imageUri.toString())
         startActivity(filterIntent)
+    }
+
+    private fun fromHtml(input: String): Spanned {
+        return if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+            Html.fromHtml(input, Html.FROM_HTML_MODE_COMPACT)
+        } else {
+            // method deprecated at API 24.
+            Html.fromHtml(input)
+        }
     }
 }

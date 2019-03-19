@@ -114,6 +114,9 @@ dependencies {
     //retrofit okhttp
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.squareup.retrofit2:retrofit-mock:2.3.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.0'
 
     // AR core, Sceneform
     implementation 'com.google.ar:core:1.7.0'
@@ -135,6 +138,7 @@ dependencies {
 
     //picasso
     implementation 'com.squareup.picasso:picasso:2.5.2'
+    // glide
     implementation "com.github.bumptech.glide:glide:4.8.0"
 
     //ar vr vision
