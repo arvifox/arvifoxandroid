@@ -19,7 +19,7 @@ class ImgurApi private constructor() {
                 .addInterceptor(AuthInterceptor())
                 .build()
         val retrofit = Retrofit.Builder()
-                .baseUrl("BASE_URL")
+                .baseUrl("https://api.imgur.com/3/")
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()

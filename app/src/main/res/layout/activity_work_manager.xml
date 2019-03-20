@@ -37,7 +37,7 @@
                 <ImageView
                     android:id="@+id/image_view"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:layout_height="300dp"
                     android:layout_weight="1"
                     android:contentDescription="qwe"
                     android:scaleType="fitCenter" />
@@ -49,31 +49,30 @@
                     android:text="blur_title"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
-                <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:id="@+id/radio_blur_group"
-                    android:layout_width="fill_parent"
+                <CheckBox
+                    android:id="@+id/filter_watercolor"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:checkedButton="@+id/radio_blur_lv_1"
-                    android:orientation="vertical">
+                    android:layout_marginTop="8dp"
+                    android:text="filter_watercolor" />
 
-                    <RadioButton
-                        android:id="@+id/radio_blur_lv_1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="blur_1" />
+                <CheckBox
+                    android:id="@+id/filter_grayscale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="filter_grayscale" />
 
-                    <RadioButton
-                        android:id="@+id/radio_blur_lv_2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="blur_2" />
+                <CheckBox
+                    android:id="@+id/filter_blur"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="filter_blur" />
 
-                    <RadioButton
-                        android:id="@+id/radio_blur_lv_3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="blur_3" />
-                </RadioGroup>
+                <TextView
+                    android:id="@+id/destinations_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="destinations_title" />
 
                 <RadioGroup
                     android:id="@+id/destinations"
@@ -81,6 +80,18 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
+                    <RadioButton
+                        android:id="@+id/save"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="destination_save" />
+
+                    <RadioButton
+                        android:id="@+id/upload"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="destination_upload" />
                 </RadioGroup>
 
                 <LinearLayout
@@ -91,38 +102,33 @@
                     android:gravity="center"
                     android:orientation="horizontal">
 
-                    <LinearLayout
+                    <ProgressBar
+                        android:id="@+id/progressBar"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <Button
-                            android:id="@+id/cancel_button"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="cancel work"
-                            android:visibility="gone" />
-
-                        <ProgressBar
-                            android:id="@+id/progress_bar"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:indeterminate="true"
-                            android:visibility="gone" />
-                    </LinearLayout>
+                        android:indeterminate="true"
+                        android:visibility="gone"
+                        tools:visibility="visible" />
 
                     <Button
-                        android:id="@+id/go_button"
+                        android:id="@+id/go"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="go" />
 
                     <Button
-                        android:id="@+id/see_file_button"
+                        android:id="@+id/cancel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="see file"
+                        android:text="cancel"
+                        android:visibility="gone"
+                        tools:visibility="visible" />
+
+                    <Button
+                        android:id="@+id/output"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="output"
                         android:visibility="gone"
                         tools:visibility="visible" />
 

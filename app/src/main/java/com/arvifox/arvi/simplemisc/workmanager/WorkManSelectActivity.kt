@@ -38,6 +38,12 @@ class WorkManSelectActivity : AppCompatActivity() {
             )
             startActivityForResult(chooseIntent, REQUEST_CODE_IMAGE)
         }
+
+        selectStockImage.setOnClickListener {
+            val filterIntent = Intent(this, WorkManagerActivity::class.java)
+            filterIntent.putExtra("KEY_IMAGE_URI", StockImages.randomStockImage())
+            startActivity(filterIntent)
+        }
     }
 
     /** Image Selection  */

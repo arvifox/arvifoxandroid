@@ -19,6 +19,13 @@ class BlurViewModel : ViewModel() {
         outputWorkInfoItems = workManager.getWorkInfosByTagLiveData("TAG_OUTPUT")
     }
 
+    internal val outputStatus: LiveData<List<WorkInfo>>
+        get() = workManager.getWorkInfosByTagLiveData("TAG_OUTPUT")
+
+    internal fun apply(imageOperations: ImageOperations) {
+        imageOperations.continuation.enqueue()
+    }
+
     internal fun applyBlur(blurLevel: Int) {
 //        workManager.enqueue(OneTimeWorkRequest.from(BlurWorker::class.java))
 
