@@ -11,6 +11,7 @@ import com.arvifox.arvi.simplemisc.camera.CameraShotActivity
 import com.arvifox.arvi.simplemisc.matcomp.MatCompActivity
 import com.arvifox.arvi.simplemisc.sensor.SensorActivity
 import com.arvifox.arvi.simplemisc.servicehandler.ServiceHandlerActivity
+import com.arvifox.arvi.simplemisc.view.NestedScrollActivity
 import com.arvifox.arvi.simplemisc.workmanager.WorkManSelectActivity
 import kotlinx.android.synthetic.main.activity_simple_misc.*
 import kotlinx.android.synthetic.main.app_bar_layout.*
@@ -35,5 +36,6 @@ class SimpleMiscActivity : AppCompatActivity() {
         btnMatComp.setOnClickListener { startActivity(MatCompActivity.newIntent(this)) }
         btnAnim.setOnClickListener { startActivity(AnimActivity.newIntent(this)) }
         btnWorkManager.setOnClickListener { startActivity(WorkManSelectActivity.newIntent(this)) }
+        btnNestedScroll.setOnClickListener { startActivity(NestedScrollActivity.newIntent(this)) }
     }
 }

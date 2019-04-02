@@ -91,7 +91,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'com.google.android.material:material:1.1.0-alpha04'
+    implementation 'com.google.android.material:material:1.1.0-alpha05'
 //    implementation 'com.google.android.material:material:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha3'
     implementation 'androidx.annotation:annotation:1.0.2'
@@ -100,17 +100,17 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.2-alpha02'
     androidTestImplementation 'androidx.test:rules:1.1.2-alpha02'
-    androidTestImplementation 'androidx.work:work-testing:2.0.0-rc01'
-    androidTestImplementation 'androidx.arch.core:core-testing:2.0.0'
+    androidTestImplementation 'androidx.work:work-testing:2.0.0'
+    androidTestImplementation 'androidx.arch.core:core-testing:2.0.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0-alpha02'
 
     //multidex
     implementation 'androidx.multidex:multidex:2.0.1'
 
     //arch
-    implementation "androidx.work:work-runtime-ktx:2.0.0-rc01"
-    implementation "androidx.work:work-rxjava2:2.0.0-rc01"
-    androidTestImplementation "androidx.work:work-testing:2.0.0-rc01"
+    implementation "androidx.work:work-runtime-ktx:2.0.0"
+    implementation "androidx.work:work-rxjava2:2.0.0"
+    androidTestImplementation "androidx.work:work-testing:2.0.0"
     implementation 'androidx.lifecycle:lifecycle-viewmodel-savedstate:1.0.0-alpha01'
 
     //moshi
@@ -124,9 +124,9 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:3.9.0'
 
     // AR core, Sceneform
-    implementation 'com.google.ar:core:1.7.0'
-    implementation 'com.google.ar.sceneform:core:1.7.0'
-    implementation 'com.google.ar.sceneform.ux:sceneform-ux:1.7.0'
+    implementation 'com.google.ar:core:1.8.0'
+    implementation 'com.google.ar.sceneform:core:1.8.0'
+    implementation 'com.google.ar.sceneform.ux:sceneform-ux:1.8.0'
 
     //firebase
     implementation 'com.google.firebase:firebase-messaging:17.4.0'
