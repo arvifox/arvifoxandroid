@@ -3,4 +3,8 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+	
+	<color name="slate">#1f1f1f</color>
+	<color name="aqua">#00adef</color>
+    <color name="aquaActive">#0088c6</color>
 </resources>
