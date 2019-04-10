@@ -9,6 +9,7 @@ import com.arvifox.arvi.R
 import com.arvifox.arvi.simplemisc.anim.AnimActivity
 import com.arvifox.arvi.simplemisc.camera.CameraShotActivity
 import com.arvifox.arvi.simplemisc.matcomp.MatCompActivity
+import com.arvifox.arvi.simplemisc.matcomp.TaskColorActivity
 import com.arvifox.arvi.simplemisc.sensor.SensorActivity
 import com.arvifox.arvi.simplemisc.servicehandler.ServiceHandlerActivity
 import com.arvifox.arvi.simplemisc.view.NestedScrollActivity
@@ -37,5 +38,6 @@ class SimpleMiscActivity : AppCompatActivity() {
         btnAnim.setOnClickListener { startActivity(AnimActivity.newIntent(this)) }
         btnWorkManager.setOnClickListener { startActivity(WorkManSelectActivity.newIntent(this)) }
         btnNestedScroll.setOnClickListener { startActivity(NestedScrollActivity.newIntent(this)) }
+        btnTaskColor.setOnClickListener { startActivity(TaskColorActivity.newIntent(this)) }
     }
 }

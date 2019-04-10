@@ -7,4 +7,6 @@
 	<color name="slate">#1f1f1f</color>
 	<color name="aqua">#00adef</color>
     <color name="aquaActive">#0088c6</color>
+    <color name="gunmetal">#9988c6</color>
+    <color name="mediumGrey">#ee88c6</color>
 </resources>

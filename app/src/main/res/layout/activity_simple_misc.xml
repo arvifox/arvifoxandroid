@@ -70,6 +70,14 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btnAnim" />
 
+        <Button
+            android:id="@+id/btnTaskColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TaskColor"
+            app:layout_constraintLeft_toRightOf="@id/btnNestedScroll"
+            app:layout_constraintTop_toBottomOf="@id/btnAnim" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
