@@ -61,6 +61,7 @@ android {
         applicationVariants.all { variant ->
             variant.buildConfigField "String", "ARVI_API_URL", "\"" + keystoreProperties['arviApiUrl'] + "\""
             variant.buildConfigField "String", "FLICKR_KEY", "\"" + keystoreProperties['flickrKey'] + "\""
+            variant.buildConfigField "String", "TMDB_KEY", "\"" + keystoreProperties['tmdb'] + "\""
         }
     }
     compileOptions {
