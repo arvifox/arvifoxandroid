@@ -12,6 +12,7 @@ import com.arvifox.arvi.simplemisc.matcomp.MatCompActivity
 import com.arvifox.arvi.simplemisc.matcomp.TaskColorActivity
 import com.arvifox.arvi.simplemisc.sensor.SensorActivity
 import com.arvifox.arvi.simplemisc.servicehandler.ServiceHandlerActivity
+import com.arvifox.arvi.simplemisc.tmdb.TmdbActivity
 import com.arvifox.arvi.simplemisc.view.NestedScrollActivity
 import com.arvifox.arvi.simplemisc.workmanager.WorkManSelectActivity
 import kotlinx.android.synthetic.main.activity_simple_misc.*
@@ -39,5 +40,6 @@ class SimpleMiscActivity : AppCompatActivity() {
         btnWorkManager.setOnClickListener { startActivity(WorkManSelectActivity.newIntent(this)) }
         btnNestedScroll.setOnClickListener { startActivity(NestedScrollActivity.newIntent(this)) }
         btnTaskColor.setOnClickListener { startActivity(TaskColorActivity.newIntent(this)) }
+        btnTmdb.setOnClickListener { startActivity(TmdbActivity.newIntent(this)) }
     }
 }
