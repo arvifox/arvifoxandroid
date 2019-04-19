@@ -22,6 +22,9 @@ class ViewPager2Activity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        vpViewpager2.adapter = VpAdapter()
+//        vpViewpager2.adapter = VpAdapter()
+//        vpViewpager2.orientation = ViewPager2.ORIENTATION_VERTICAL
+
+        vpViewpager2.adapter = ViewPagerFragmentStateAdapter(this)
     }
 }
