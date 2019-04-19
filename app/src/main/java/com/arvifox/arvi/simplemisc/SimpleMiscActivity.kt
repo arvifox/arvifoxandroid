@@ -14,6 +14,7 @@ import com.arvifox.arvi.simplemisc.sensor.SensorActivity
 import com.arvifox.arvi.simplemisc.servicehandler.ServiceHandlerActivity
 import com.arvifox.arvi.simplemisc.tmdb.TmdbActivity
 import com.arvifox.arvi.simplemisc.view.NestedScrollActivity
+import com.arvifox.arvi.simplemisc.viewpager2.ViewPager2Activity
 import com.arvifox.arvi.simplemisc.workmanager.WorkManSelectActivity
 import kotlinx.android.synthetic.main.activity_simple_misc.*
 import kotlinx.android.synthetic.main.app_bar_layout.*
@@ -41,5 +42,6 @@ class SimpleMiscActivity : AppCompatActivity() {
         btnNestedScroll.setOnClickListener { startActivity(NestedScrollActivity.newIntent(this)) }
         btnTaskColor.setOnClickListener { startActivity(TaskColorActivity.newIntent(this)) }
         btnTmdb.setOnClickListener { startActivity(TmdbActivity.newIntent(this)) }
+        btnViewPager2.setOnClickListener { startActivity(ViewPager2Activity.newIntent(this)) }
     }
 }

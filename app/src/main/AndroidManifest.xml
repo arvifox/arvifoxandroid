@@ -252,6 +252,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.arvifox.arvi.simplemisc.SimpleMiscActivity" />
         </activity>
+        <activity
+            android:name=".simplemisc.viewpager2.ViewPager2Activity"
+            android:label="ViewPager2"
+            android:parentActivityName=".simplemisc.SimpleMiscActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.arvifox.arvi.simplemisc.SimpleMiscActivity" />
+        </activity>
     </application>
 
 </manifest>
