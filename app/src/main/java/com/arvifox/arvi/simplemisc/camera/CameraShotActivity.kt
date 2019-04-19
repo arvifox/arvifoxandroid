@@ -9,23 +9,27 @@ import android.graphics.ImageFormat
 import android.hardware.camera2.*
 import android.media.ImageReader
 import android.net.Uri
-import android.os.Bundle
-import android.os.Environment
-import android.os.Handler
-import android.os.HandlerThread
+import android.os.*
 import android.provider.MediaStore
-import androidx.core.content.FileProvider
-import androidx.appcompat.app.AppCompatActivity
 import android.text.method.ScrollingMovementMethod
 import android.view.Surface
 import android.view.SurfaceHolder
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.FileProvider
 import com.arvifox.arvi.R
+import com.arvifox.arvi.uploadimage.IUploadImageApiMapper
+import com.arvifox.arvi.utils.FormatUtils.showToast
 import com.arvifox.arvi.utils.Logger
 import kotlinx.android.synthetic.main.activity_camera_shot.*
 import kotlinx.android.synthetic.main.app_bar_layout.*
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.io.File
-
-import com.arvifox.arvi.utils.FormatUtils.showToast
 
 class CameraShotActivity : AppCompatActivity() {
 
@@ -43,6 +47,8 @@ class CameraShotActivity : AppCompatActivity() {
     private var backgroundThread: HandlerThread? = null
     private var backgroundHandler: Handler? = null
 
+    private lateinit var uploadmapper: IUploadImageApiMapper
+
     private lateinit var directory: File
     private lateinit var cameraManager: CameraManager
     private lateinit var surfaceHolder: SurfaceHolder
@@ -52,6 +58,8 @@ class CameraShotActivity : AppCompatActivity() {
 
     private lateinit var sb: StringBuilder
     private var imageReader: ImageReader? = null
+
+    private lateinit var lastPhoto: String
 
     private var was: Boolean = false
     private var he: Int = 0
@@ -164,6 +172,21 @@ class CameraShotActivity : AppCompatActivity() {
                 }
             }, null)
         }
+
+        btnUploadImage.setOnClickListener {
+            val f = File(lastPhoto)
+            val name = RequestBody.create(MediaType.parse("multipart/form-data"), f.name)
+            val requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), f)
+            val body = MultipartBody.Part.createFormData("image", f.name, requestFile)
+            val call = uploadmapper.editUser(body, name)
+            call.enqueue(object : Callback<ResponseBody> {
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                }
+
+                override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                }
+            })
+        }
     }
 
     override fun onResume() {
@@ -221,38 +244,40 @@ class CameraShotActivity : AppCompatActivity() {
 
     }
 
-    @SuppressLint("NewApi", "MissingPermission")
+    @SuppressLint("MissingPermission")
     private fun capture() {
-        crb = cameraDevice?.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW)
-        crb?.addTarget(svFromCamera.holder.surface)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            crb = cameraDevice?.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW)
+            crb?.addTarget(svFromCamera.holder.surface)
 
-        irb = cameraDevice?.createCaptureRequest(CameraDevice.TEMPLATE_STILL_CAPTURE)
-        irb?.addTarget(imageReader?.surface)
-        irb?.set(CaptureRequest.CONTROL_CAPTURE_INTENT, CaptureRequest.CONTROL_CAPTURE_INTENT_STILL_CAPTURE)
+            irb = cameraDevice?.createCaptureRequest(CameraDevice.TEMPLATE_STILL_CAPTURE)
+            irb?.addTarget(imageReader?.surface)
+            irb?.set(CaptureRequest.CONTROL_CAPTURE_INTENT, CaptureRequest.CONTROL_CAPTURE_INTENT_STILL_CAPTURE)
 //        irb?.set(CaptureRequest.CONTROL_AWB_MODE, CaptureRequest.CONTROL_AWB_MODE_INCANDESCENT)
 //        irb?.set(CaptureRequest.CONTROL_EFFECT_MODE, CaptureRequest.CONTROL_EFFECT_MODE_SEPIA)
 //        irb?.set(CaptureRequest.CONTROL_EFFECT_MODE, CameraMetadata.CONTROL_EFFECT_MODE_SEPIA)
-        irb?.set(CaptureRequest.FLASH_MODE, CaptureRequest.FLASH_MODE_OFF)
-        // focus
+            irb?.set(CaptureRequest.FLASH_MODE, CaptureRequest.FLASH_MODE_OFF)
+            // focus
 //        irb?.set(CaptureRequest.CONTROL_AF_TRIGGER, CaptureRequest.CONTROL_AF_TRIGGER_START)
-        // exposure
-        irb?.set(CaptureRequest.CONTROL_AE_PRECAPTURE_TRIGGER, CaptureRequest.CONTROL_AE_PRECAPTURE_TRIGGER_IDLE)
+            // exposure
+            irb?.set(CaptureRequest.CONTROL_AE_PRECAPTURE_TRIGGER, CaptureRequest.CONTROL_AE_PRECAPTURE_TRIGGER_IDLE)
 
-        imgCapReq = irb?.build()
+            imgCapReq = irb?.build()
 
-        cameraDevice?.createCaptureSession(arrayListOf(svFromCamera.holder.surface, imageReader?.surface), object : CameraCaptureSession.StateCallback() {
-            override fun onConfigureFailed(session: CameraCaptureSession?) {
-                this@CameraShotActivity.showToast("session failed")
-            }
+            cameraDevice?.createCaptureSession(arrayListOf(svFromCamera.holder.surface, imageReader?.surface), object : CameraCaptureSession.StateCallback() {
+                override fun onConfigureFailed(session: CameraCaptureSession?) {
+                    this@CameraShotActivity.showToast("session failed")
+                }
 
-            override fun onConfigured(session: CameraCaptureSession?) {
-                this@CameraShotActivity.showToast("session configured well")
-                cameraCaptureSession = session
-                crb?.set(CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE)
-                setAutoFlash(crb)
-                cameraCaptureSession?.setRepeatingRequest(crb?.build(), null, backgroundHandler)
-            }
-        }, null)
+                override fun onConfigured(session: CameraCaptureSession?) {
+                    this@CameraShotActivity.showToast("session configured well")
+                    cameraCaptureSession = session
+                    crb?.set(CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE)
+                    setAutoFlash(crb)
+                    cameraCaptureSession?.setRepeatingRequest(crb?.build(), null, backgroundHandler)
+                }
+            }, null)
+        }
     }
 
     /**
@@ -300,6 +325,7 @@ class CameraShotActivity : AppCompatActivity() {
             "photo" -> file = File(directory.getPath() + "/" + "photo_" + System.currentTimeMillis() + ".jpg")
             "video" -> file = File(directory.getPath() + "/" + "video_" + System.currentTimeMillis() + ".mp4")
         }
+        file?.absolutePath?.apply { lastPhoto = this }
         return file
     }
 }

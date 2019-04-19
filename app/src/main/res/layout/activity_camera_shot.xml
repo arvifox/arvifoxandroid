@@ -53,6 +53,14 @@
             app:layout_constraintLeft_toRightOf="@id/svFromCamera"
             app:layout_constraintTop_toBottomOf="@id/ivCameraResult" />
 
+        <Button
+            android:id="@+id/btnUploadImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="upload"
+            app:layout_constraintLeft_toRightOf="@id/svFromCamera"
+            app:layout_constraintTop_toBottomOf="@id/btnTakeImage" />
+
         <TextView
             android:id="@+id/tvCameraInfo"
             android:layout_width="0dp"
