@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.arvifox.arvi.R
+import kotlinx.android.synthetic.main.activity_view_pager2.*
 import kotlinx.android.synthetic.main.app_bar_layout.*
 
 class ViewPager2Activity : AppCompatActivity() {
@@ -20,5 +21,7 @@ class ViewPager2Activity : AppCompatActivity() {
         setContentView(R.layout.activity_view_pager2)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        vpViewpager2.adapter = VpAdapter()
     }
 }
