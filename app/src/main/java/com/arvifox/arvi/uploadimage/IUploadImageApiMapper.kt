@@ -8,9 +8,8 @@ import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
 
-
 interface IUploadImageApiMapper {
     @Multipart
-    @POST("/kjfds")
-    fun editUser(@Part fname: MultipartBody.Part, @Part("id") id: RequestBody): Call<ResponseBody>
+    @POST("uploadimage.php")
+    fun uploadImage(@Part fname: MultipartBody.Part, @Part("id") id: RequestBody): Call<ResponseBody>
 }

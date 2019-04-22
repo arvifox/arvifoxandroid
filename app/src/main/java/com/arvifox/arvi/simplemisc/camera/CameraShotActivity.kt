@@ -17,7 +17,7 @@ import android.view.SurfaceHolder
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import com.arvifox.arvi.R
-import com.arvifox.arvi.uploadimage.IUploadImageApiMapper
+import com.arvifox.arvi.di.SimpleProvider
 import com.arvifox.arvi.utils.FormatUtils.showToast
 import com.arvifox.arvi.utils.Logger
 import kotlinx.android.synthetic.main.activity_camera_shot.*
@@ -47,7 +47,7 @@ class CameraShotActivity : AppCompatActivity() {
     private var backgroundThread: HandlerThread? = null
     private var backgroundHandler: Handler? = null
 
-    private lateinit var uploadmapper: IUploadImageApiMapper
+    private val uploadmapper = SimpleProvider.uploadImageApiMapper
 
     private lateinit var directory: File
     private lateinit var cameraManager: CameraManager
@@ -178,12 +178,15 @@ class CameraShotActivity : AppCompatActivity() {
             val name = RequestBody.create(MediaType.parse("multipart/form-data"), f.name)
             val requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), f)
             val body = MultipartBody.Part.createFormData("image", f.name, requestFile)
-            val call = uploadmapper.editUser(body, name)
+            val call = uploadmapper.uploadImage(body, name)
             call.enqueue(object : Callback<ResponseBody> {
                 override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                    Logger.e { t.localizedMessage }
+                    showToast("Error while upload: ${t.localizedMessage}")
                 }
 
                 override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                    showToast(if (response.isSuccessful) "Upload successful" else "Upload res code = ${response.code()}")
                 }
             })
         }
