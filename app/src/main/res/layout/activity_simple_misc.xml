@@ -94,6 +94,14 @@
             app:layout_constraintLeft_toRightOf="@id/btnTmdb"
             app:layout_constraintTop_toBottomOf="@id/btnNestedScroll" />
 
+        <Button
+            android:id="@+id/btnMoveImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Move Image"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnTmdb" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
