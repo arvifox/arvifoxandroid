@@ -169,6 +169,12 @@ dependencies {
     implementation('com.google.http-client:google-http-client-gson:1.20.0') {
         exclude module: 'httpclient'
     }
+
+    // ConcealerNestedScrollView & ConcealerRecyclerView
+    // A library to make views hide from top and bottom while scrolling a custom NestedScrollView and\or a custom RecyclerView
+    // https://github.com/SIMMORSAL/ConcealerNestedScrollView-ConcealerRecyclerView
+    implementation 'com.simmorsal.library:concealer_nested_scroll_view:2.0.0'
+
 }
 
 configurations {
