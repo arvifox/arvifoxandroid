@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.arvifox.arvi.R
 import com.arvifox.arvi.simplemisc.anim.AnimActivity
 import com.arvifox.arvi.simplemisc.camera.CameraShotActivity
+import com.arvifox.arvi.simplemisc.constrlayout.ConstrLayoutActivity
 import com.arvifox.arvi.simplemisc.matcomp.MatCompActivity
 import com.arvifox.arvi.simplemisc.matcomp.TaskColorActivity
 import com.arvifox.arvi.simplemisc.moveimage.MoveImageActivity
@@ -45,5 +46,6 @@ class SimpleMiscActivity : AppCompatActivity() {
         btnTmdb.setOnClickListener { startActivity(TmdbActivity.newIntent(this)) }
         btnViewPager2.setOnClickListener { startActivity(ViewPager2Activity.newIntent(this)) }
         btnMoveImage.setOnClickListener { startActivity(MoveImageActivity.newIntent(this)) }
+        btnConstrlayout.setOnClickListener { startActivity(ConstrLayoutActivity.newIntent(this)) }
     }
 }
