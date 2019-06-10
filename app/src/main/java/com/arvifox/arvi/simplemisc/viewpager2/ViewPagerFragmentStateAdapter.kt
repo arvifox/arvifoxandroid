@@ -14,7 +14,7 @@ class ViewPagerFragmentStateAdapter(fa: FragmentActivity) : FragmentStateAdapter
             android.R.color.holo_purple
     )
 
-    override fun getItem(position: Int): Fragment = PagerFragment().apply {
+    override fun createFragment(position: Int): Fragment = PagerFragment().apply {
         arguments = bundleOf(
                 "color" to colors[position],
                 "position" to position

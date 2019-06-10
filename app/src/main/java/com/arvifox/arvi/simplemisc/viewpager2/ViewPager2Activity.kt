@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.arvifox.arvi.R
+import com.arvifox.arvi.simplemisc.viewpager2.tabviewpager.TabViewPagerAdapter
 import kotlinx.android.synthetic.main.activity_view_pager2.*
 import kotlinx.android.synthetic.main.app_bar_layout.*
 
@@ -36,6 +37,9 @@ class ViewPager2Activity : AppCompatActivity() {
         setContentView(R.layout.activity_view_pager2)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        vpViewpager.adapter = TabViewPagerAdapter(supportFragmentManager)
+        tlViewpager.setupWithViewPager(vpViewpager, true)
 
 //        vpViewpager2.adapter = VpAdapter()
 //        vpViewpager2.orientation = ViewPager2.ORIENTATION_VERTICAL
