@@ -110,6 +110,14 @@
             app:layout_constraintLeft_toRightOf="@id/btnMoveImage"
             app:layout_constraintTop_toBottomOf="@id/btnViewPager2" />
 
+        <Button
+            android:id="@+id/btnOpenCv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Open cv"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnMoveImage" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
