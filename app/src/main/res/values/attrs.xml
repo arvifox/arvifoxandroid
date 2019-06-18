@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="rectColor" format="color" />
+
+    <declare-styleable name="RectView">
+        <attr name="rectColor" />
+    </declare-styleable>
+</resources>
