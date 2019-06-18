@@ -8,6 +8,13 @@
     <com.arvifox.arvi.simplemisc.view.RectView
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:layout_margin="10dp"
         app:rectColor="@android:color/white" />
+
+    <com.arvifox.arvi.simplemisc.view.RectView
+        style="@style/RectViewStyle"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="10dp" />
 
 </LinearLayout>

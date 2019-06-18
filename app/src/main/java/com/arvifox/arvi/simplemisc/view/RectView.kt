@@ -22,8 +22,8 @@ class RectView @JvmOverloads constructor(
         val typedArray = context.theme.obtainStyledAttributes(
                 attrSet,
                 R.styleable.RectView,
-                0,
-                0
+                R.attr.rectViewStyle,
+                R.style.RectViewStyle
         )
         try {
             paint.color = typedArray.getColor(

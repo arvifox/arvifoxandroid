@@ -5,4 +5,6 @@
     <declare-styleable name="RectView">
         <attr name="rectColor" />
     </declare-styleable>
+
+    <attr name="rectViewStyle" format="reference" />
 </resources>
