@@ -141,6 +141,15 @@
                 android:value="com.arvifox.arvi.MainActivity" />
         </activity>
         <activity
+            android:name=".simplemisc.SimpleMisc2Activity"
+            android:label="@string/title_activity_simple_misc"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.arvifox.arvi.MainActivity" />
+        </activity>
+        <activity
             android:name=".simplemisc.camera.CameraShotActivity"
             android:label="@string/title_activity_camera_shot"
             android:parentActivityName=".simplemisc.SimpleMiscActivity"
