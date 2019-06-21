@@ -49,7 +49,7 @@ class SimpleMisc2Activity : AppCompatActivity() {
             return RecViewHolder(bi)
         }
 
-        override fun getItemCount(): Int = 3
+        override fun getItemCount(): Int = 15
 
         override fun onBindViewHolder(holder: RecViewHolder, position: Int) {
             holder.tv.text = "pos-$position"
