@@ -1,19 +1,26 @@
 package com.arvifox.arvi.simplemisc
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
+import android.animation.PropertyValuesHolder
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.graphics.Rect
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.DecelerateInterpolator
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.arvifox.arvi.R
 import com.arvifox.arvi.simplemisc.misc2.BazDto
+import com.arvifox.arvi.simplemisc.misc2.Misc2Fragment1
 import com.arvifox.arvi.utils.FormatUtils.showToast
 import kotlinx.android.synthetic.main.activity_simple_misc2.*
 import kotlinx.android.synthetic.main.app_bar_layout.*
@@ -34,13 +41,21 @@ class SimpleMisc2Activity : AppCompatActivity(), RecAdapter.OnClickListener {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         misc2_recycler.setHasFixedSize(true)
-        misc2_recycler.itemAnimator = DefaultItemAnimator()
-        misc2_recycler.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
-        misc2_recycler.adapter = RecAdapter(this, arrayListOf(BazDto(2, 3.2), BazDto(3, 2.1)))
+//        misc2_recycler.itemAnimator = DefaultItemAnimator()
+        misc2_recycler.itemAnimator = MyItemAnimator()
+//        misc2_recycler.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
+        misc2_recycler.layoutManager = GridLayoutManager(this, 2, RecyclerView.HORIZONTAL, false)
+//        misc2_recycler.addItemDecoration(DividerItemDecoration(this, RecyclerView.HORIZONTAL))
+        misc2_recycler.addItemDecoration(MyItemDecoration(30))
+        misc2_recycler.adapter = RecAdapter(this, arrayListOf(BazDto(2, 3.2), BazDto(3, 2.1), BazDto(4, 2.1), BazDto(5, 2.1), BazDto(6, 2.1)))
     }
 
     override fun onClick(p: Int, item: BazDto, v: View) {
         this.showToast("pos=$p, item=${item.per}")
+        when (p) {
+            0 -> supportFragmentManager.beginTransaction().replace(R.id.misc2_frame, Misc2Fragment1.newInstance(), "").commit()
+            1 -> supportFragmentManager.beginTransaction().replace(R.id.misc2_frame, Misc2Fragment1.newInstance(), "").commit()
+        }
     }
 }
 
@@ -66,12 +81,95 @@ class RecAdapter(private val l: OnClickListener, private val d: List<BazDto>) : 
         holder.tv.text = "baz=${d[position].per}"
     }
 
-    inner class RecViewHolder(v: View) : RecyclerView.ViewHolder(v) {
-        val tv = v.findViewById<AppCompatTextView>(R.id.tvMisc2)
-
-        init {
-            v.setOnClickListener { l.onClick(adapterPosition, d[adapterPosition], it) }
-        }
+    override fun getItemViewType(position: Int): Int {
+        return position % 2
     }
 
+    inner class RecViewHolder(v: View) : RecyclerView.ViewHolder(v) {
+        val tv = v.findViewById<AppCompatTextView>(R.id.tvMisc2)
+        val like = v.findViewById<AppCompatImageView>(R.id.ivLike)
+
+        init {
+            v.setOnClickListener { if (adapterPosition != RecyclerView.NO_POSITION) l.onClick(adapterPosition, d[adapterPosition], it) }
+            v.setOnLongClickListener {
+                if (adapterPosition != RecyclerView.NO_POSITION) {
+                    notifyItemChanged(adapterPosition, "tra")
+                    true
+                } else {
+                    false
+                }
+            }
+        }
+    }
+}
+
+class MyItemDecoration(val d: Int) : RecyclerView.ItemDecoration() {
+
+    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
+        val lp = view.layoutParams as GridLayoutManager.LayoutParams
+        outRect.top = d
+        if (lp.spanIndex % 2 == 0) {
+            outRect.left = d
+            outRect.right = d / 2
+        } else {
+            outRect.left = d / 2
+            outRect.right = d
+        }
+    }
+}
+
+class MyItemAnimator : DefaultItemAnimator() {
+
+    private val dec = DecelerateInterpolator()
+
+    override fun recordPreLayoutInformation(state: RecyclerView.State,
+                                            viewHolder: RecyclerView.ViewHolder, changeFlags: Int,
+                                            payloads: MutableList<Any>): ItemHolderInfo {
+        if (changeFlags == RecyclerView.ItemAnimator.FLAG_CHANGED) {
+            for (p in payloads) {
+                if (p is String) {
+                    return MyHolderInfo(p)
+                }
+            }
+        }
+        return super.recordPreLayoutInformation(state, viewHolder, changeFlags, payloads)
+    }
+
+    override fun canReuseUpdatedViewHolder(viewHolder: RecyclerView.ViewHolder, payloads: MutableList<Any>): Boolean {
+        return true
+    }
+
+    override fun animateChange(oldHolder: RecyclerView.ViewHolder,
+                               newHolder: RecyclerView.ViewHolder, preInfo: ItemHolderInfo,
+                               postInfo: ItemHolderInfo): Boolean {
+        if (preInfo is MyHolderInfo) {
+            if (preInfo.s.equals("tra", true)) {
+                anim(newHolder as RecAdapter.RecViewHolder)
+            }
+        }
+        return super.animateChange(oldHolder, newHolder, preInfo, postInfo)
+    }
+
+    private fun anim(h: RecAdapter.RecViewHolder) {
+        h.like.visibility = View.VISIBLE
+        h.like.scaleX = 0.0f
+        h.like.scaleY = 0.0f
+        val ani = AnimatorSet()
+        val sli = ObjectAnimator.ofPropertyValuesHolder(h.like,
+                PropertyValuesHolder.ofFloat("scaleX", 0f, 2f),
+                PropertyValuesHolder.ofFloat("scaleY", 0f, 2f),
+                PropertyValuesHolder.ofFloat("alpha", 0.0f, 1.0f, 0.0f))
+        sli.interpolator = dec
+        sli.duration = 1000
+        val slit = ObjectAnimator.ofPropertyValuesHolder(h.tv,
+                PropertyValuesHolder.ofFloat("scaleX", 1f, 0.95f, 1f),
+                PropertyValuesHolder.ofFloat("scaleY", 1f, 0.95f, 1f))
+        slit.interpolator = dec
+        slit.duration = 600
+        ani.playTogether(sli, slit)
+        ani.start()
+    }
+
+    inner class MyHolderInfo(val s: String) : ItemHolderInfo() {
+    }
 }

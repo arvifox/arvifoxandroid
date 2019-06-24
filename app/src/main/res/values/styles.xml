@@ -41,4 +41,8 @@
         <item name="rectColor">@color/colorAccent</item>
     </style>
 
+    <style name="MySwitchStyle" parent="Widget.AppCompat.CompoundButton.Switch">
+        <item name="thumbTint">@color/switch_selector</item>
+    </style>
+
 </resources>

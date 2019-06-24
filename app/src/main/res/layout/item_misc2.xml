@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:gravity="center"
@@ -18,5 +19,16 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         app:srcCompat="@drawable/soccer_bal" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivLike"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:scaleType="center"
+        android:visibility="invisible"
+        app:srcCompat="@drawable/ic_heart_white_60dp"
+        tools:visibility="visible" />
 
 </LinearLayout>
