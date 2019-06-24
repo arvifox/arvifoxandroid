@@ -22,6 +22,7 @@
         <item name="textAppearanceButton">@style/AppTextAppearance.Button</item>
 
         <item name="rectViewStyle">@style/RectViewStyle</item>
+        <item name="switchStyle">@style/MySwitchStyle</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
