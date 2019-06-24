@@ -6,6 +6,9 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import com.arvifox.arvi.R
+import com.arvifox.arvi.utils.AssetUtils
+import com.google.gson.reflect.TypeToken
+import kotlinx.android.synthetic.main.fragment_testcustom.*
 
 class Misc2Fragment1 : Fragment() {
 
@@ -37,6 +40,11 @@ class Misc2Fragment1 : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        misc2_btn.setOnClickListener {
+            val typemy = object : TypeToken<List<Tomapin>>() {}.type
+            val mpr: List<Tomapin> = AssetUtils.loadGsonFromAssets(context!!, "mapping.json", typemy)
+            val s = mpr.size
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
