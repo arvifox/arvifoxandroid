@@ -34,9 +34,10 @@ object AssetUtils {
         val `is` = loadFromAssets(context, fileName)
         val reader = BufferedReader(InputStreamReader(`is`))
         val sb = StringBuilder()
-        var line: String = reader.readLine()
-        while ((line) != null) {
+        var line: String? = reader.readLine()
+        while (line != null) {
             sb.append(line).append("\n")
+            line = reader.readLine()
         }
         reader.close()
         `is`.close()

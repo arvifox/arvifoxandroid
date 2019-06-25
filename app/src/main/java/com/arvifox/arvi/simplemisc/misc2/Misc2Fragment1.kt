@@ -6,9 +6,12 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import com.arvifox.arvi.R
+import com.arvifox.arvi.rep.RetrofitMock
 import com.arvifox.arvi.utils.AssetUtils
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.fragment_testcustom.*
+import retrofit2.Call
+import retrofit2.Callback
 
 class Misc2Fragment1 : Fragment() {
 
@@ -44,6 +47,19 @@ class Misc2Fragment1 : Fragment() {
             val typemy = object : TypeToken<List<Tomapin>>() {}.type
             val mpr: List<Tomapin> = AssetUtils.loadGsonFromAssets(context!!, "mapping.json", typemy)
             val s = mpr.size
+        }
+        misc2_btn2.setOnClickListener {
+            val r = RetrofitMock.getR(AssetUtils.loadStringFromAssets(context!!, "mapping.json")).getRe()
+            r.enqueue(object : Callback<List<Tomapin>> {
+                override fun onFailure(call: Call<List<Tomapin>>, t: Throwable) {
+                    var uu = 23
+                }
+
+                override fun onResponse(call: Call<List<Tomapin>>, response: retrofit2.Response<List<Tomapin>>) {
+                    val rr = response.body()
+                    val rs = rr?.size
+                }
+            })
         }
     }
 
