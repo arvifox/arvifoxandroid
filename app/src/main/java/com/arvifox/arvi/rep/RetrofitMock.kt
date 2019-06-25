@@ -1,7 +1,7 @@
 package com.arvifox.arvi.rep
 
 import com.arvifox.arvi.BuildConfig
-import com.arvifox.arvi.simplemisc.misc2.Tomapin
+import com.arvifox.arvi.simplemisc.misc2.models.DaResponse
 import okhttp3.*
 import retrofit2.Call
 import retrofit2.Retrofit
@@ -26,7 +26,7 @@ object RetrofitMock {
 interface IRetr {
 
     @GET("my_query")
-    fun getRe(): Call<List<Tomapin>>
+    fun getRe(): Call<DaResponse>
 }
 
 class Interc(val answer: String) : Interceptor {
