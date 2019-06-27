@@ -3,16 +3,24 @@ package com.arvifox.arvi.simplemisc.misc2
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.*
 import androidx.fragment.app.Fragment
 import com.arvifox.arvi.R
 import com.arvifox.arvi.rep.RetrofitMock
 import com.arvifox.arvi.simplemisc.misc2.models.DaResponse
+import com.arvifox.arvi.simplemisc.misc2.models.OpeningDayModel
+import com.arvifox.arvi.simplemisc.misc2.models.PriceModel
+import com.arvifox.arvi.simplemisc.misc2.models.StationModel
 import com.arvifox.arvi.utils.AssetUtils
+import com.google.gson.internal.LinkedTreeMap
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.fragment_testcustom.*
 import retrofit2.Call
 import retrofit2.Callback
+import java.text.NumberFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
 class Misc2Fragment1 : Fragment() {
 
@@ -58,7 +66,7 @@ class Misc2Fragment1 : Fragment() {
 
                 override fun onResponse(call: Call<DaResponse>, response: retrofit2.Response<DaResponse>) {
                     val rr = response.body()
-                    val rs = rr?.value?.size
+                    val rs = mapResponseToGasStationModel(rr!!)
                 }
             })
         }
@@ -111,4 +119,76 @@ class Misc2Fragment1 : Fragment() {
     override fun onDetach() {
         super.onDetach()
     }
+
+    //region private
+
+    private fun mapResponseToGasStationModel(response: DaResponse): List<StationModel> {
+        val result = mutableListOf<StationModel>()
+        for (r in response.value) {
+            for (station in r.value) {
+                val stationModel = StationModel()
+                station.value.forEach {
+                    when (it.name) {
+                        "uuid" -> stationModel.id = it.value as String
+                        "station_name" -> stationModel.name = it.value as String
+                        "brand" -> stationModel.brand = it.value as String
+                        "address" -> stationModel.addressLine = it.value as String
+                        "zipcode" -> stationModel.postalCode = it.value as String
+                        "locality" -> stationModel.city = it.value as String
+                        "latitude" -> stationModel.lat = NumberFormat.getNumberInstance(Locale.getDefault()).parse((it.value as String).replace(".", ",")).toDouble()
+                        "longitude" -> stationModel.lon = NumberFormat.getNumberInstance(Locale.getDefault()).parse((it.value as String).replace(".", ",")).toDouble()
+                        "currency" -> stationModel.currency = it.value as String
+                        "timezone" -> stationModel.timeZone = it.value as String
+                        "hours" -> parseOpeningHours(stationModel.openingHours, it.value as String)
+                        "gaz_prices" -> parseGasPrices(stationModel.fuelPrices, it.value)
+                    }
+                }
+                result.add(stationModel)
+            }
+        }
+        return result
+    }
+
+    private fun parseOpeningHours(list: MutableList<OpeningDayModel>, hours: String) {
+        if (TextUtils.isEmpty(hours)) return
+        val s1 = hours.split("]").map { it.replace("[", "", true) }
+        for (s in s1) {
+            if (TextUtils.isEmpty(s)) continue
+            var d: Int = 1
+            var d2: Int = 1
+            var o1 = Date()
+            var c2 = Date()
+            s.split(" ").forEachIndexed { index, ss ->
+                if (index == 0) {
+                    if (ss.length == 1) {
+                        d = ss.toInt()
+                    } else {
+                        ss.split("-").forEachIndexed { index2, s2 -> if (index2 == 0) d = s2.toInt() else d2 = s2.toInt() }
+                    }
+                } else {
+                    ss.split("-").forEachIndexed { index2, s2 ->
+                        if (index2 == 0) o1 = SimpleDateFormat("H:m", Locale.getDefault()).parse(s2) else
+                            c2 = SimpleDateFormat("H:m", Locale.getDefault()).parse(s2)
+                    }
+                }
+            }
+            for (days in d..d2) {
+                list.add(OpeningDayModel(days, o1, c2))
+            }
+        }
+    }
+
+    private fun parseGasPrices(list: MutableList<PriceModel>, gasPrices: Any) {
+        Ted.kdslf(list, gasPrices)
+        if (gasPrices is List<*>) {
+            for (pri in gasPrices) {
+                val p: PriceModel
+                if (pri is LinkedTreeMap<*, *>) {
+
+                }
+            }
+        }
+    }
+
+    //endregion
 }
