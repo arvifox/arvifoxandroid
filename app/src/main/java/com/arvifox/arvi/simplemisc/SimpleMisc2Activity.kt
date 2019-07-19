@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.arvifox.arvi.R
 import com.arvifox.arvi.simplemisc.misc2.BazDto
 import com.arvifox.arvi.simplemisc.misc2.Misc2Fragment1
+import com.arvifox.arvi.simplemisc.misc2.fragment2.Misc2Fragment2
 import com.arvifox.arvi.utils.FormatUtils.showToast
 import kotlinx.android.synthetic.main.activity_simple_misc2.*
 import kotlinx.android.synthetic.main.app_bar_layout.*
@@ -54,7 +55,7 @@ class SimpleMisc2Activity : AppCompatActivity(), RecAdapter.OnClickListener {
         this.showToast("pos=$p, item=${item.per}")
         when (p) {
             0 -> supportFragmentManager.beginTransaction().replace(R.id.misc2_frame, Misc2Fragment1.newInstance(), "").commit()
-            1 -> supportFragmentManager.beginTransaction().replace(R.id.misc2_frame, Misc2Fragment1.newInstance(), "").commit()
+            1 -> supportFragmentManager.beginTransaction().replace(R.id.misc2_frame, Misc2Fragment2.newInstance(), "").commit()
         }
     }
 }
