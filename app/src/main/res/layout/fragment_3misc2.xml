@@ -42,22 +42,29 @@
             android:layout_height="wrap_content" />
     </ScrollView>
 
-    <LinearLayout
-        android:id="@+id/bottomViewToo"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="17dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:alpha="0.5"
         android:background="@color/gunmetal"
-        android:orientation="horizontal"
-        app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
-        app:layout_scrollFlags="scroll|enterAlways">
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="btm1"
-            android:textColor="@color/colorAccent" />
-    </LinearLayout>
+        <com.google.android.material.appbar.MaterialToolbar
+            android:layout_width="match_parent"
+            android:layout_height="17dp"
+            android:background="@color/gunmetal"
+            app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
+            app:layout_scrollFlags="scroll|enterAlways">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="btm1"
+                android:textColor="@color/colorAccent" />
+
+        </com.google.android.material.appbar.MaterialToolbar>
+    </com.google.android.material.appbar.AppBarLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
