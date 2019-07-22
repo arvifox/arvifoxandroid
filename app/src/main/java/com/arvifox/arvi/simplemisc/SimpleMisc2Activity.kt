@@ -15,9 +15,7 @@ import android.view.animation.DecelerateInterpolator
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
-import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.*
 import com.arvifox.arvi.R
 import com.arvifox.arvi.simplemisc.misc2.BazDto
 import com.arvifox.arvi.simplemisc.misc2.Misc2Fragment1
@@ -42,12 +40,12 @@ class SimpleMisc2Activity : AppCompatActivity(), RecAdapter.OnClickListener {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         misc2_recycler.setHasFixedSize(true)
-//        misc2_recycler.itemAnimator = DefaultItemAnimator()
-        misc2_recycler.itemAnimator = MyItemAnimator()
-//        misc2_recycler.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
-        misc2_recycler.layoutManager = GridLayoutManager(this, 2, RecyclerView.HORIZONTAL, false)
-//        misc2_recycler.addItemDecoration(DividerItemDecoration(this, RecyclerView.HORIZONTAL))
-        misc2_recycler.addItemDecoration(MyItemDecoration(30))
+        misc2_recycler.itemAnimator = DefaultItemAnimator()
+//        misc2_recycler.itemAnimator = MyItemAnimator()
+        misc2_recycler.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
+//        misc2_recycler.layoutManager = GridLayoutManager(this, 2, RecyclerView.HORIZONTAL, false)
+        misc2_recycler.addItemDecoration(DividerItemDecoration(this, RecyclerView.HORIZONTAL))
+//        misc2_recycler.addItemDecoration(MyItemDecoration(30))
         misc2_recycler.adapter = RecAdapter(this, arrayListOf(BazDto(2, 3.2), BazDto(3, 2.1), BazDto(4, 2.1), BazDto(5, 2.1), BazDto(6, 2.1)))
     }
 

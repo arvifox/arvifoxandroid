@@ -2,6 +2,7 @@ package com.arvifox.arvi.simplemisc.misc2.fragment2;
 
 import android.animation.Animator;
 import android.app.Activity;
+import android.content.Context;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +32,7 @@ public class ScrollViewBehavior extends CoordinatorLayout.Behavior<ViewGroup> {
      */
     private boolean hideAnimationRunning;
 
-    private Activity rootActivity;
+    private Context rootActivity;
 
     /**
      * Animation listener

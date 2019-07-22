@@ -4,10 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
 import com.arvifox.arvi.R
-import kotlinx.android.synthetic.main.fragment_2misc2.*
 
 class Misc2Fragment2 : Fragment() {
 
@@ -23,7 +21,7 @@ class Misc2Fragment2 : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val laypar = bottomViewToo.layoutParams as CoordinatorLayout.LayoutParams
-        laypar.behavior = ScrollViewBehavior(activity)
+//        val laypar = bottomViewToo.layoutParams as CoordinatorLayout.LayoutParams
+//        laypar.behavior = ScrollViewBehavior(activity)
     }
 }
