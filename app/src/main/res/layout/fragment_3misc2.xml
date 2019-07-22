@@ -18,8 +18,7 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@color/aqua"
             android:theme="@style/AppTheme.PopupOverlay"
-            app:contentInsetStart="0dp"
-            app:layout_scrollFlags="scroll|enterAlways">
+            app:contentInsetStart="0dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -34,6 +33,7 @@
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginLeft="15dp"
         android:layout_marginTop="?attr/actionBarSize"
         android:orientation="vertical">
 
@@ -49,21 +49,12 @@
             android:layout_height="match_parent" />
     </LinearLayout>
 
-
-    <!--<com.google.android.material.bottomnavigation.BottomNavigationView-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior" />-->
-
-    <!--<com.google.android.material.bottomappbar.BottomAppBar-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content" />-->
-
     <LinearLayout
         android:id="@+id/bottomViewToo"
         android:layout_width="match_parent"
         android:layout_height="17dp"
         android:layout_gravity="bottom"
+        android:alpha="0.5"
         android:background="@color/gunmetal"
         android:orientation="horizontal"
         app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
