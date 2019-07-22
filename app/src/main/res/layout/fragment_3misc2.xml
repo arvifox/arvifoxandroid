@@ -18,7 +18,8 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@color/aqua"
             android:theme="@style/AppTheme.PopupOverlay"
-            app:contentInsetStart="0dp">
+            app:contentInsetStart="0dp"
+            app:layout_scrollFlags="scroll|enterAlways">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -29,25 +30,12 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <LinearLayout
-        android:id="@+id/content"
+    <FrameLayout
+        android:id="@+id/containerMisc2Fr3"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="15dp"
-        android:layout_marginTop="?attr/actionBarSize"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/misc2Fr3Text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="tratraadfdf456456" />
-
-        <FrameLayout
-            android:id="@+id/containerMisc2Fr3"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </LinearLayout>
+        android:layout_marginTop="?attr/actionBarSize" />
 
     <LinearLayout
         android:id="@+id/bottomViewToo"

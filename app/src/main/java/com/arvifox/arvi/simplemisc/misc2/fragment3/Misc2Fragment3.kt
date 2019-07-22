@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.arvifox.arvi.R
-import kotlinx.android.synthetic.main.fragment_3misc2.*
 
 class Misc2Fragment3 : Fragment() {
 
@@ -22,8 +21,6 @@ class Misc2Fragment3 : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        misc2Fr3Text.setOnClickListener {
-            childFragmentManager.beginTransaction().replace(R.id.containerMisc2Fr3, Misc2Fragment31.newInstance(), "").commit()
-        }
+        childFragmentManager.beginTransaction().replace(R.id.containerMisc2Fr3, Misc2Fragment31.newInstance(), "").commit()
     }
 }
