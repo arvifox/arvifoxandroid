@@ -15,7 +15,7 @@ object Apifactory {
 
     //Creating Auth Interceptor to add api_key query in front of all the requests.
     private val authInterceptor = Interceptor { chain ->
-        val newUrl = chain.request().url()
+        val newUrl = chain.request().url
                 .newBuilder()
                 .addQueryParameter("api_key", BuildConfig.TMDB_KEY)
                 .build()

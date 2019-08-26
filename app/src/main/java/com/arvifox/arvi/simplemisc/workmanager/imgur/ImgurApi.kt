@@ -2,6 +2,7 @@ package com.arvifox.arvi.simplemisc.workmanager.imgur
 
 import android.net.Uri
 import okhttp3.*
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -37,7 +38,7 @@ class ImgurApi private constructor() {
         @Throws(IOException::class)
         override fun intercept(chain: Interceptor.Chain): Response {
             val request = chain.request()
-            val headers = request.headers().newBuilder()
+            val headers = request.headers.newBuilder()
                     .add("Authorization", "Client-ID " + "IMGUR_CLIENT_ID")
                     .build()
             val authenticatedRequest = request.newBuilder().headers(headers).build()
@@ -46,7 +47,7 @@ class ImgurApi private constructor() {
     }
 
     companion object {
-        private val MEDIA_TYPE_PNG = MediaType.parse("image/png")
+        private val MEDIA_TYPE_PNG = "image/png".toMediaTypeOrNull()
 
         val instance: Lazy<ImgurApi> = lazy { ImgurApi() }
     }

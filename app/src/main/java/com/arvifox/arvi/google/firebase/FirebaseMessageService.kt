@@ -11,7 +11,7 @@ import com.google.firebase.messaging.RemoteMessage
 
 class FirebaseMessageService : FirebaseMessagingService() {
 
-    override fun onMessageReceived(p0: RemoteMessage?) {
+    override fun onMessageReceived(p0: RemoteMessage) {
         val count = p0!!.data.size
         val s1 = p0.data.get("key1")
         if (s1.equals("pos", true)) {
@@ -31,7 +31,7 @@ class FirebaseMessageService : FirebaseMessagingService() {
         }
     }
 
-    override fun onNewToken(p0: String?) {
+    override fun onNewToken(p0: String) {
         super.onNewToken(p0)
     }
 }

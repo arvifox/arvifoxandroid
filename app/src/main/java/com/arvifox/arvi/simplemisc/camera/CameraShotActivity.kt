@@ -22,9 +22,10 @@ import com.arvifox.arvi.utils.FormatUtils.showToast
 import com.arvifox.arvi.utils.Logger
 import kotlinx.android.synthetic.main.activity_camera_shot.*
 import kotlinx.android.synthetic.main.app_bar_layout.*
-import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -175,8 +176,8 @@ class CameraShotActivity : AppCompatActivity() {
 
         btnUploadImage.setOnClickListener {
             val f = File(lastPhoto)
-            val name = RequestBody.create(MediaType.parse("multipart/form-data"), f.name)
-            val requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), f)
+            val name = f.name.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+            val requestFile = f.asRequestBody("multipart/form-data".toMediaTypeOrNull())
             val body = MultipartBody.Part.createFormData("image", f.name, requestFile)
             val call = uploadmapper.uploadImage(body, name)
             call.enqueue(object : Callback<ResponseBody> {

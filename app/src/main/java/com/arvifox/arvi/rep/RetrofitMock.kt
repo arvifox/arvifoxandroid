@@ -2,7 +2,12 @@ package com.arvifox.arvi.rep
 
 import com.arvifox.arvi.BuildConfig
 import com.arvifox.arvi.simplemisc.misc2.models.DaResponse
-import okhttp3.*
+import okhttp3.Interceptor
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.OkHttpClient
+import okhttp3.Protocol
+import okhttp3.Response
+import okhttp3.ResponseBody.Companion.toResponseBody
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -33,7 +38,7 @@ class Interc(val answer: String) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
         if (BuildConfig.DEBUG) {
-            val uri = chain.request().url().uri()
+            val uri = chain.request().url.toUri()
             val qu = uri.query
             val squ = qu?.split("=")
             val re = Response.Builder()
@@ -41,7 +46,7 @@ class Interc(val answer: String) : Interceptor {
                     .message("OK")
                     .request(chain.request())
                     .protocol(Protocol.HTTP_1_0)
-                    .body(ResponseBody.create(MediaType.parse("application/json"), answer))
+                    .body(answer.toResponseBody("application/json".toMediaTypeOrNull()))
                     .addHeader("content-type", "application/json")
                     .build()
             return re
