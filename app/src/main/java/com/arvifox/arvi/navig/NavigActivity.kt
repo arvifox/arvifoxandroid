@@ -26,7 +26,7 @@ class NavigActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean = findNavController(R.id.nav_host_fragment).navigateUp()
 
-    private fun getNavigator(): NavController {
+    fun getNavigator(): NavController {
         return NavHostFragment.findNavController(supportFragmentManager.findFragmentById(R.id.nav_host_fragment)!!)
 //        return Navigation.findNavController(this, R.id.nav_host_fragment)
 //        return Navigation.findNavController(findViewById(R.id.nav_host_fragment))
