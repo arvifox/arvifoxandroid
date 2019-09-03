@@ -11,18 +11,18 @@
         style="@style/Widget.MaterialComponents.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="go" />
+        android:text="go 2" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnNav2GoBack"
         style="@style/Widget.MaterialComponents.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="go back" />
+        android:text="go back 2" />
 
     <com.google.android.material.textview.MaterialTextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:text="hello_blank_fragment 2" />
 
 </LinearLayout>

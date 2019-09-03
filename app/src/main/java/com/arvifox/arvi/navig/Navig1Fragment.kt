@@ -44,7 +44,7 @@ class Navig1Fragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        btnNav1Go.setOnClickListener { (activity as NavigActivity).getNavigator().navigate(R.id.navig2Fra) }
+        btnNav1Go.setOnClickListener { (activity as NavigActivity).getNavigator().navigate(R.id.action_navig1Fra_to_navig2Fra) }
     }
 
     companion object {
