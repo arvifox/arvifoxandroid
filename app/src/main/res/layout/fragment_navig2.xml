@@ -6,22 +6,23 @@
     android:orientation="vertical"
     tools:context=".navig.Navig2Fragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <com.google.android.material.textview.MaterialTextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
-
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnNav2Go"
+        style="@style/Widget.MaterialComponents.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="go" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnNav2GoBack"
+        style="@style/Widget.MaterialComponents.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="go back" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/hello_blank_fragment" />
 
 </LinearLayout>

@@ -34,21 +34,12 @@ class Navig2Fragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        btnNav2Go.setOnClickListener { (activity as NavigActivity).getNavigator().navigate(R.id.navig2Fra) }
+        btnNav2Go.setOnClickListener { (activity as NavigActivity).getNavigator().navigate(R.id.navig3Fra) }
         btnNav2GoBack.setOnClickListener { (activity as NavigActivity).getNavigator().popBackStack() }
     }
 
     fun onButtonPressed(uri: Uri) {
         listener?.onFragmentInteraction(uri)
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is OnFragmentInteractionListener) {
-            listener = context
-        } else {
-            throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
-        }
     }
 
     override fun onDetach() {
