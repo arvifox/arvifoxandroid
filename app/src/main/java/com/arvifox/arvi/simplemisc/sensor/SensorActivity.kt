@@ -126,7 +126,7 @@ class SensorActivity : AppCompatActivity(), SensorEventListener {
     private fun getInfo() {
         val sb = StringBuilder()
         val bat = registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
-        val level = bat.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)
+        val level = bat!!.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)
         val scale = bat.getIntExtra(BatteryManager.EXTRA_SCALE, -1)
         val res = level / scale * 100
         sb.append("battery=").append(res.toString()).append("%").append("\n")

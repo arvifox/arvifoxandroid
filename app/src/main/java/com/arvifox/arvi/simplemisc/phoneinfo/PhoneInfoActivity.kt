@@ -41,8 +41,8 @@ class PhoneInfoActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 452 && resultCode == Activity.RESULT_OK) {
-            val returnCursor = contentResolver.query(data?.data, null, null, null, null)
-            val nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+            val returnCursor = contentResolver.query(data?.data!!, null, null, null, null)
+            val nameIndex = returnCursor!!.getColumnIndex(OpenableColumns.DISPLAY_NAME)
             val sizeIndex = returnCursor.getColumnIndex(OpenableColumns.SIZE)
             returnCursor.moveToFirst()
 
@@ -57,12 +57,12 @@ class PhoneInfoActivity : AppCompatActivity() {
                     "uri query=" + data?.data?.query + "\n" +
                     "uri scheme=" + data?.data?.scheme + "\n" +
                     "uri userInfo=" + data?.data?.userInfo + "\n" +
-                    "uri resolver data type MIME=" + contentResolver.getType(data?.data) + "\n" +
+                    "uri resolver data type MIME=" + contentResolver.getType(data?.data!!) + "\n" +
                     "name = " + returnCursor.getString(nameIndex) + "\n" +
                     "size = " + returnCursor.getLong(sizeIndex) + "\n"
 
             // also we can read from URI
-            val inputStream = contentResolver.openInputStream(data?.data)
+            val inputStream = contentResolver.openInputStream(data?.data!!)
             returnCursor.close()
         }
     }

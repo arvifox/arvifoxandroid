@@ -26,4 +26,7 @@
 
     <string name="file_provider_authority" translatable="false">com.arvifox.arvi.FileProvider</string>
     <string name="title_activity_service_handler">ServiceHandlerActivity</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment 1</string>
 </resources>

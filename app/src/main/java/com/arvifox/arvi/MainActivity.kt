@@ -16,6 +16,7 @@ import com.arvifox.arvi.geoposition.GeoPositionActivity
 import com.arvifox.arvi.google.GoogleBaseStartActivity
 import com.arvifox.arvi.googlemaps.GoogleMapsActivity
 import com.arvifox.arvi.https.HttpsActivity
+import com.arvifox.arvi.navig.NavigActivity
 import com.arvifox.arvi.simplemisc.SimpleMisc2Activity
 import com.arvifox.arvi.simplemisc.SimpleMiscActivity
 import com.arvifox.arvi.simplemisc.phoneinfo.PhoneInfoActivity
@@ -127,6 +128,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             R.id.nav_simple_misc2 -> {
                 startActivity(SimpleMisc2Activity.newIntent(this))
+            }
+            R.id.nav_navig -> {
+                startActivity(NavigActivity.newIntent(this))
             }
             R.id.nav_https -> {
                 startActivity(HttpsActivity.newIntent(this))

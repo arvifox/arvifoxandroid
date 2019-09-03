@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/navig1Fragment">
+
+    <fragment
+        android:id="@+id/navig1Fragment"
+        android:name="com.arvifox.arvi.navig.Navig1Fragment"
+        android:label="fragment_navig1"
+        tools:layout="@layout/fragment_navig1" />
+    <fragment
+        android:id="@+id/navig2Fragment"
+        android:name="com.arvifox.arvi.navig.Navig2Fragment"
+        android:label="fragment_navig2"
+        tools:layout="@layout/fragment_navig2" />
+    <fragment
+        android:id="@+id/navig3Fragment"
+        android:name="com.arvifox.arvi.navig.Navig3Fragment"
+        android:label="fragment_navig3"
+        tools:layout="@layout/fragment_navig3" />
+</navigation>

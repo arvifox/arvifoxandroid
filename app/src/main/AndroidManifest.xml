@@ -2,13 +2,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.arvifox.arvi">
+
     <!-- if AR core required then minsdk must be 24 or higher -->
     <!-- <uses-sdk android:minSdkVersion="16" /> -->
     <!-- <uses-feature android:name="android.hardware.camera.ar" android:required="true" /> -->
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CAMERA" /> <!-- <uses-permission android:name="android.permission.ACCOUNT_MANAGER" /> -->
+<!--     <uses-permission android:name="android.permission.ACCOUNT_MANAGER" /> -->
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -17,7 +20,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
-    <uses-permission android:name="com.android.vending.BILLING"/>
+    <uses-permission android:name="com.android.vending.BILLING" />
 
     <application
         android:name=".MyApp"
@@ -30,13 +33,6 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
 
-        <meta-data
-            android:name="com.google.ar.core"
-            android:value="optional" /> <!-- android:value="required" /> -->
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="${googleGeoApiKey}" />
-
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -46,27 +42,16 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity> <!-- android:value="required" /> -->
         <activity
             android:name=".simplemisc.phoneinfo.PhoneInfoActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".https.HttpsActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
-
-        <service
-            android:name=".google.firebase.FirebaseMessageService"
-            android:stopWithTask="false">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
-        <service
-            android:name=".siteback.BackGeoService"
-            android:exported="false" />
-
         <activity
             android:name=".geoposition.GeoPositionActivity"
             android:label="@string/app_name"
@@ -75,6 +60,7 @@
             android:name=".googlemaps.GoogleMapsActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".google.GoogleBaseStartActivity"
             android:label="@string/app_name"
@@ -83,6 +69,7 @@
             android:name=".google.googleapi.visiontest.VisionApiTestActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".google.googleapi.AccountsActivity"
             android:label="@string/title_activity_accounts"
@@ -150,6 +137,15 @@
                 android:value="com.arvifox.arvi.MainActivity" />
         </activity>
         <activity
+            android:name=".navig.NavigActivity"
+            android:label="@string/title_activity_simple_misc"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.arvifox.arvi.MainActivity" />
+        </activity>
+        <activity
             android:name=".simplemisc.camera.CameraShotActivity"
             android:label="@string/title_activity_camera_shot"
             android:parentActivityName=".simplemisc.SimpleMiscActivity"
@@ -158,25 +154,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.arvifox.arvi.simplemisc.SimpleMiscActivity" />
         </activity>
-
-        <provider
-            android:name="androidx.core.content.FileProvider"
-            android:authorities="@string/file_provider_authority"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_provider_paths" />
-        </provider>
-        <provider
-            android:name="androidx.work.impl.WorkManagerInitializer"
-            android:authorities="${applicationId}.workmanager-init"
-            android:directBootAware="false"
-            android:exported="false"
-            android:multiprocess="true"
-            tools:node="remove"
-            tools:targetApi="n" />
-
         <activity
             android:name=".simplemisc.sensor.SensorActivity"
             android:parentActivityName=".simplemisc.SimpleMiscActivity"
@@ -185,12 +162,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.arvifox.arvi.simplemisc.SimpleMiscActivity" />
         </activity>
-
-        <service
-            android:name=".simplemisc.servicehandler.FooService"
-            android:enabled="true"
-            android:exported="false" />
-
         <activity
             android:name=".simplemisc.servicehandler.ServiceHandlerActivity"
             android:label="@string/title_activity_service_handler"
@@ -218,6 +189,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.arvifox.arvi.simplemisc.SimpleMiscActivity" />
         </activity>
+
         <activity
             android:name=".simplemisc.workmanager.WorkManagerActivity"
             android:label="Work"
@@ -236,6 +208,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.arvifox.arvi.simplemisc.SimpleMiscActivity" />
         </activity>
+
         <activity
             android:name=".simplemisc.view.NestedScrollActivity"
             android:label="Nested"
@@ -245,6 +218,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.arvifox.arvi.simplemisc.SimpleMiscActivity" />
         </activity>
+
         <activity
             android:name=".simplemisc.matcomp.TaskColorActivity"
             android:label="TaskColor"
@@ -254,6 +228,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.arvifox.arvi.simplemisc.SimpleMiscActivity" />
         </activity>
+
         <activity
             android:name=".simplemisc.tmdb.TmdbActivity"
             android:label="Tmdb"
@@ -301,7 +276,42 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.arvifox.arvi.simplemisc.SimpleMiscActivity" />
         </activity>
-
+        <meta-data
+            android:name="com.google.ar.core"
+            android:value="optional" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="${googleGeoApiKey}" />
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="@string/file_provider_authority"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_provider_paths" />
+        </provider>
+        <provider
+            android:name="androidx.work.impl.WorkManagerInitializer"
+            android:authorities="${applicationId}.workmanager-init"
+            android:directBootAware="false"
+            android:exported="false"
+            android:multiprocess="true"
+            tools:node="remove"
+            tools:targetApi="n" />
+        <service
+            android:name=".google.firebase.FirebaseMessageService"
+            android:stopWithTask="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".siteback.BackGeoService"
+            android:exported="false" />
+        <service
+            android:name=".simplemisc.servicehandler.FooService"
+            android:enabled="true"
+            android:exported="false" />
     </application>
-
 </manifest>

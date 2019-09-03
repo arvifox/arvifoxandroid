@@ -11,8 +11,8 @@ data class FooDto constructor(
 ) : Parcelable {
 
     private constructor(parcel: Parcel) : this(parcel.readInt(), parcel.readDouble(),
-            parcel.readParcelable(BazDto::class.java.classLoader),
-            arrayListOf<BazDto>().apply { parcel.readList(this, BazDto::class.java.classLoader) })
+            parcel.readParcelable<BazDto>(BazDto::class.java.classLoader)!!,
+            mutableListOf<BazDto>().apply { parcel.readList(this as List<BazDto>, BazDto::class.java.classLoader) })
 
     override fun writeToParcel(dest: Parcel?, flags: Int) {
         dest?.writeInt(das)

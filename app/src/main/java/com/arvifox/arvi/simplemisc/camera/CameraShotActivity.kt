@@ -104,7 +104,7 @@ class CameraShotActivity : AppCompatActivity() {
         val cc = cameraManager.getCameraCharacteristics("0")
         val scm = cc[CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP]
 //        val sizes = scm.getOutputSizes(SurfaceHolder::class.java)
-        val sizes = scm.getOutputSizes(ImageFormat.JPEG)
+        val sizes = scm!!.getOutputSizes(ImageFormat.JPEG)
         sb.append("jpeg: ")
         for (sz in sizes) {
             sb.append("h=").append(sz.height).append(" w=").append(sz.width).append("\n")
@@ -120,21 +120,21 @@ class CameraShotActivity : AppCompatActivity() {
         reader()
         btnGetCameraImage.setOnClickListener {
             cameraManager.openCamera("0", object : CameraDevice.StateCallback() {
-                override fun onOpened(camera: CameraDevice?) {
-                    cameraDevice = camera!!
+                override fun onOpened(camera: CameraDevice) {
+                    cameraDevice = camera
                     capture()
                 }
 
-                override fun onClosed(camera: CameraDevice?) {
+                override fun onClosed(camera: CameraDevice) {
                     super.onClosed(camera)
                 }
 
-                override fun onDisconnected(camera: CameraDevice?) {
+                override fun onDisconnected(camera: CameraDevice) {
                     cameraDevice?.close()
                     cameraDevice = null
                 }
 
-                override fun onError(camera: CameraDevice?, error: Int) {
+                override fun onError(camera: CameraDevice, error: Int) {
                     onDisconnected(camera)
                     this@CameraShotActivity.showToast("Camera Error")
                     finish()
@@ -142,33 +142,33 @@ class CameraShotActivity : AppCompatActivity() {
             }, backgroundHandler)
         }
         btnTakeImage.setOnClickListener {
-            cameraCaptureSession?.capture(imgCapReq, object : CameraCaptureSession.CaptureCallback() {
-                override fun onCaptureSequenceAborted(session: CameraCaptureSession?, sequenceId: Int) {
+            cameraCaptureSession?.capture(imgCapReq!!, object : CameraCaptureSession.CaptureCallback() {
+                override fun onCaptureSequenceAborted(session: CameraCaptureSession, sequenceId: Int) {
                     super.onCaptureSequenceAborted(session, sequenceId)
                 }
 
-                override fun onCaptureCompleted(session: CameraCaptureSession?, request: CaptureRequest?, result: TotalCaptureResult?) {
+                override fun onCaptureCompleted(session: CameraCaptureSession, request: CaptureRequest, result: TotalCaptureResult) {
                     super.onCaptureCompleted(session, request, result)
 //                    result?.partialResults?.get(0).
                 }
 
-                override fun onCaptureFailed(session: CameraCaptureSession?, request: CaptureRequest?, failure: CaptureFailure?) {
+                override fun onCaptureFailed(session: CameraCaptureSession, request: CaptureRequest, failure: CaptureFailure) {
                     super.onCaptureFailed(session, request, failure)
                 }
 
-                override fun onCaptureSequenceCompleted(session: CameraCaptureSession?, sequenceId: Int, frameNumber: Long) {
+                override fun onCaptureSequenceCompleted(session: CameraCaptureSession, sequenceId: Int, frameNumber: Long) {
                     super.onCaptureSequenceCompleted(session, sequenceId, frameNumber)
                 }
 
-                override fun onCaptureStarted(session: CameraCaptureSession?, request: CaptureRequest?, timestamp: Long, frameNumber: Long) {
+                override fun onCaptureStarted(session: CameraCaptureSession, request: CaptureRequest, timestamp: Long, frameNumber: Long) {
                     super.onCaptureStarted(session, request, timestamp, frameNumber)
                 }
 
-                override fun onCaptureProgressed(session: CameraCaptureSession?, request: CaptureRequest?, partialResult: CaptureResult?) {
+                override fun onCaptureProgressed(session: CameraCaptureSession, request: CaptureRequest, partialResult: CaptureResult) {
                     super.onCaptureProgressed(session, request, partialResult)
                 }
 
-                override fun onCaptureBufferLost(session: CameraCaptureSession?, request: CaptureRequest?, target: Surface?, frameNumber: Long) {
+                override fun onCaptureBufferLost(session: CameraCaptureSession, request: CaptureRequest, target: Surface, frameNumber: Long) {
                     super.onCaptureBufferLost(session, request, target, frameNumber)
                 }
             }, null)
@@ -214,7 +214,7 @@ class CameraShotActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 854 && resultCode == Activity.RESULT_OK && data != null) {
             val b = data.extras
-            val bt = b.get("data")
+            val bt = b!!.get("data")
             if (bt is Bitmap) {
                 ivCameraResult.setImageBitmap(bt)
             }
@@ -255,7 +255,7 @@ class CameraShotActivity : AppCompatActivity() {
             crb?.addTarget(svFromCamera.holder.surface)
 
             irb = cameraDevice?.createCaptureRequest(CameraDevice.TEMPLATE_STILL_CAPTURE)
-            irb?.addTarget(imageReader?.surface)
+            irb?.addTarget(imageReader?.surface!!)
             irb?.set(CaptureRequest.CONTROL_CAPTURE_INTENT, CaptureRequest.CONTROL_CAPTURE_INTENT_STILL_CAPTURE)
 //        irb?.set(CaptureRequest.CONTROL_AWB_MODE, CaptureRequest.CONTROL_AWB_MODE_INCANDESCENT)
 //        irb?.set(CaptureRequest.CONTROL_EFFECT_MODE, CaptureRequest.CONTROL_EFFECT_MODE_SEPIA)
@@ -269,16 +269,16 @@ class CameraShotActivity : AppCompatActivity() {
             imgCapReq = irb?.build()
 
             cameraDevice?.createCaptureSession(arrayListOf(svFromCamera.holder.surface, imageReader?.surface), object : CameraCaptureSession.StateCallback() {
-                override fun onConfigureFailed(session: CameraCaptureSession?) {
+                override fun onConfigureFailed(session: CameraCaptureSession) {
                     this@CameraShotActivity.showToast("session failed")
                 }
 
-                override fun onConfigured(session: CameraCaptureSession?) {
+                override fun onConfigured(session: CameraCaptureSession) {
                     this@CameraShotActivity.showToast("session configured well")
                     cameraCaptureSession = session
                     crb?.set(CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE)
                     setAutoFlash(crb)
-                    cameraCaptureSession?.setRepeatingRequest(crb?.build(), null, backgroundHandler)
+                    cameraCaptureSession?.setRepeatingRequest(crb?.build()!!, null, backgroundHandler)
                 }
             }, null)
         }

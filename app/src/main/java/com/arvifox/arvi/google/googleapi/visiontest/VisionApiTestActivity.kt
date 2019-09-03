@@ -131,8 +131,8 @@ class VisionApiTestActivity : AppCompatActivity() {
                     .error(R.drawable.ic_hibin)
                     .into(ivVisionTest)
 
-            val d = this.contentResolver.openInputStream(data!!.data)
-            iis = d.takeByteArray()
+            val d = this.contentResolver.openInputStream(data.data!!)
+            iis = d?.takeByteArray()!!
 //            ivVisionTest.setImageBitmap(BitmapFactory.decodeStream(d))
 //            MediaStore.Images.Media.getBitmap()
             d.close()
