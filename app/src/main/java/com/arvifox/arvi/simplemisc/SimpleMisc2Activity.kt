@@ -17,6 +17,8 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.*
 import com.arvifox.arvi.R
+import com.arvifox.arvi.simplemisc.anim.ExitAnim.findLocationOfCenterOnTheScreen
+import com.arvifox.arvi.simplemisc.anim.ExitAnimFragment
 import com.arvifox.arvi.simplemisc.misc2.BazDto
 import com.arvifox.arvi.simplemisc.misc2.Misc2Fragment1
 import com.arvifox.arvi.simplemisc.misc2.fragment2.Misc2Fragment2
@@ -47,7 +49,11 @@ class SimpleMisc2Activity : AppCompatActivity(), RecAdapter.OnClickListener {
 //        misc2_recycler.layoutManager = GridLayoutManager(this, 2, RecyclerView.HORIZONTAL, false)
         misc2_recycler.addItemDecoration(DividerItemDecoration(this, RecyclerView.HORIZONTAL))
 //        misc2_recycler.addItemDecoration(MyItemDecoration(30))
-        misc2_recycler.adapter = RecAdapter(this, arrayListOf(BazDto(2, 3.2), BazDto(3, 2.1), BazDto(4, 2.1), BazDto(5, 2.1), BazDto(6, 2.1)))
+        misc2_recycler.adapter = RecAdapter(this, arrayListOf(BazDto(2, 3.2),
+                BazDto(3, 2.1),
+                BazDto(4, 2.1),
+                BazDto(5, 2.1),
+                BazDto(6, 2.1)))
     }
 
     override fun onClick(p: Int, item: BazDto, v: View) {
@@ -56,6 +62,7 @@ class SimpleMisc2Activity : AppCompatActivity(), RecAdapter.OnClickListener {
             0 -> supportFragmentManager.beginTransaction().replace(R.id.misc2_frame, Misc2Fragment1.newInstance(), "").commit()
             1 -> supportFragmentManager.beginTransaction().replace(R.id.misc2_frame, Misc2Fragment2.newInstance(), "").commit()
             2 -> supportFragmentManager.beginTransaction().replace(R.id.misc2_frame, Misc2Fragment3.newInstance(), "").commit()
+            3 -> supportFragmentManager.beginTransaction().replace(R.id.misc2_frame, ExitAnimFragment.newInstance(v.findLocationOfCenterOnTheScreen()), "").commit()
         }
     }
 }
