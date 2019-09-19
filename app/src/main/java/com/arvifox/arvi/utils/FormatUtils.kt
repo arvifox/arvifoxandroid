@@ -4,8 +4,14 @@ import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.media.Image
-import androidx.fragment.app.FragmentActivity
+import android.text.SpannableStringBuilder
 import android.widget.Toast
+import androidx.core.text.bold
+import androidx.core.text.color
+import androidx.core.text.strikeThrough
+import androidx.core.text.superscript
+import androidx.fragment.app.FragmentActivity
+import com.arvifox.arvi.R
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
 
@@ -14,6 +20,13 @@ object FormatUtils {
     fun Double.format(digits: Int) = java.lang.String.format("%.${digits}f", this)
 
     fun Float.format(digits: Int) = java.lang.String.format("%.${digits}f", this)
+
+    fun spannable() = SpannableStringBuilder()
+            .bold { append("bold text") }
+            .color(R.color.colorPrimary) { bold { append("colored bold text") } }
+            .strikeThrough { append("strike") }
+            .superscript { append("super") }
+            .append("regular")
 
     @SuppressLint("NewApi", "MissingPermission")
     fun Image.tobitmap(): Bitmap? {
