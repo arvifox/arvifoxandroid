@@ -9,4 +9,8 @@
     <color name="aquaActive">#0088c6</color>
     <color name="gunmetal">#9988c6</color>
     <color name="mediumGrey">#ee88c6</color>
+
+    <color name="white">#ffff</color>
+    <color name="grey_20">#cccccc</color>
+    <color name="grey_80">#37474F</color>
 </resources>
