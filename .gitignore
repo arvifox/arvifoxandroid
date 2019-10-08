@@ -38,7 +38,11 @@ captures/
 .idea/tasks.xml
 .idea/gradle.xml
 .idea/assetWizardSettings.xml
+.idea/misc.xml
+.idea/kotlinc.xml
+.idea/navEditor.xml
 .idea/dictionaries
+.idea/codeStyles
 .idea/libraries
 .idea/caches
 
