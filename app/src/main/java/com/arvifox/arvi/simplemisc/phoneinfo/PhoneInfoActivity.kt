@@ -6,8 +6,9 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.provider.OpenableColumns
-import androidx.appcompat.app.AppCompatActivity
+import android.provider.Settings
 import android.util.DisplayMetrics
+import androidx.appcompat.app.AppCompatActivity
 import com.arvifox.arvi.R
 import com.arvifox.arvi.utils.AndroidStorage
 import kotlinx.android.synthetic.main.activity_phone_info.*
@@ -79,6 +80,7 @@ class PhoneInfoActivity : AppCompatActivity() {
         sb.append("Density = ").append(dm.density).append("\n")
                 .append("Resolution = (").append(dm.widthPixels / dm.density).append("dp, ")
                 .append(dm.heightPixels / dm.density).append("dp)\n")
+        sb.append("android id=").append(Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID)).append("\n")
         return sb.toString()
     }
 }
