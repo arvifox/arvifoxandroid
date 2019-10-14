@@ -4,9 +4,11 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.os.PowerManager
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import com.arvifox.arvi.R
 import kotlinx.android.synthetic.main.fragment_approx_sensor.*
@@ -54,6 +56,16 @@ class ApproxSensorFragment : Fragment() {
     override fun onPause() {
         wwl?.release()
         super.onPause()
+    }
+
+    private fun screen() {
+        activity?.window?.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        val w = activity?.window
+        val att = w?.attributes
+        att?.screenBrightness = 0F
+        w?.attributes = att
+
+        Settings.System.putInt(activity?.contentResolver, Settings.System.SCREEN_OFF_TIMEOUT, 10)
     }
 
 }
