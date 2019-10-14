@@ -22,6 +22,7 @@ import com.arvifox.arvi.simplemisc.anim.ExitAnimFragment
 import com.arvifox.arvi.simplemisc.anim.FabAnimFragment
 import com.arvifox.arvi.simplemisc.misc2.BazDto
 import com.arvifox.arvi.simplemisc.misc2.Misc2Fragment1
+import com.arvifox.arvi.simplemisc.misc2.approxsensor.ApproxSensorFragment
 import com.arvifox.arvi.simplemisc.misc2.fragment2.Misc2Fragment2
 import com.arvifox.arvi.simplemisc.misc2.fragment3.Misc2Fragment3
 import com.arvifox.arvi.utils.FormatUtils.showToast
@@ -54,7 +55,8 @@ class SimpleMisc2Activity : AppCompatActivity(), RecAdapter.OnClickListener {
                 BazDto(3, 2.1),
                 BazDto(4, 2.1),
                 BazDto(5, 2.1),
-                BazDto(6, 2.1)))
+                BazDto(6, 2.1),
+                BazDto(7, 22.1)))
     }
 
     override fun onClick(p: Int, item: BazDto, v: View) {
@@ -65,6 +67,7 @@ class SimpleMisc2Activity : AppCompatActivity(), RecAdapter.OnClickListener {
             2 -> supportFragmentManager.beginTransaction().replace(R.id.misc2_frame, Misc2Fragment3.newInstance(), "").commit()
             3 -> supportFragmentManager.beginTransaction().replace(R.id.misc2_frame, ExitAnimFragment.newInstance(v.findLocationOfCenterOnTheScreen()), "").commit()
             4 -> supportFragmentManager.beginTransaction().replace(R.id.misc2_frame, FabAnimFragment.newInstance(), "").commit()
+            5 -> supportFragmentManager.beginTransaction().replace(R.id.misc2_frame, ApproxSensorFragment.newInstance(), "").commit()
         }
     }
 }
