@@ -13,7 +13,6 @@ import com.arvifox.arvi.R
 import com.arvifox.arvi.utils.AndroidStorage
 import kotlinx.android.synthetic.main.activity_phone_info.*
 
-
 class PhoneInfoActivity : AppCompatActivity() {
 
     companion object {
