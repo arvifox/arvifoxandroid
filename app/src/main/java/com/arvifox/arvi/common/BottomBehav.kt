@@ -12,6 +12,12 @@ import com.google.android.material.snackbar.Snackbar
 import kotlin.math.max
 import kotlin.math.min
 
+/*
+https://android.jlelse.eu/scrolling-behavior-for-appbars-in-android-41aff9c5c468
+https://habr.com/ru/post/270121/
+https://www.androidauthority.com/using-coordinatorlayout-android-apps-703720/
+ */
+
 class BottomNavigationBehavior111<V : View>(context: Context, attrs: AttributeSet) :
     CoordinatorLayout.Behavior<V>(context, attrs) {
 
