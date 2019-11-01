@@ -14,3 +14,18 @@ object AuthUtils {
         huc.setRequestProperty("Authorization", "Basic $cc")
     }
 }
+
+//class AuthenticationDataRepository constructor(
+//    private val firebaseAuth: FirebaseAuth
+//) {
+//
+//    suspend fun authenticate(
+//        email: String,
+//        password: String
+//    ): FirebaseUser? {
+//        firebaseAuth.signInWithEmailAndPassword(
+//            email, password
+//        ).await()
+//        return firebaseAuth.currentUser ?: throw FirebaseAuthException("", "")
+//    }
+//}
