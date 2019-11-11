@@ -17,6 +17,7 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.*
 import com.arvifox.arvi.R
+import com.arvifox.arvi.simplemisc.anim.BottomNavAnimFragment
 import com.arvifox.arvi.simplemisc.anim.ExitAnim.findLocationOfCenterOnTheScreen
 import com.arvifox.arvi.simplemisc.anim.ExitAnimFragment
 import com.arvifox.arvi.simplemisc.anim.FabAnimFragment
@@ -51,28 +52,63 @@ class SimpleMisc2Activity : AppCompatActivity(), RecAdapter.OnClickListener {
 //        misc2_recycler.layoutManager = GridLayoutManager(this, 2, RecyclerView.HORIZONTAL, false)
         misc2_recycler.addItemDecoration(DividerItemDecoration(this, RecyclerView.HORIZONTAL))
 //        misc2_recycler.addItemDecoration(MyItemDecoration(30))
-        misc2_recycler.adapter = RecAdapter(this, arrayListOf(BazDto(2, 3.2),
+        misc2_recycler.adapter = RecAdapter(
+            this, arrayListOf(
+                BazDto(2, 3.2),
                 BazDto(3, 2.1),
                 BazDto(4, 2.1),
                 BazDto(5, 2.1),
                 BazDto(6, 2.1),
-                BazDto(7, 22.1)))
+                BazDto(7, 22.1),
+                BazDto(8, 8.8)
+            )
+        )
     }
 
     override fun onClick(p: Int, item: BazDto, v: View) {
         this.showToast("pos=$p, item=${item.per}")
         when (p) {
-            0 -> supportFragmentManager.beginTransaction().replace(R.id.misc2_frame, Misc2Fragment1.newInstance(), "").commit()
-            1 -> supportFragmentManager.beginTransaction().replace(R.id.misc2_frame, Misc2Fragment2.newInstance(), "").commit()
-            2 -> supportFragmentManager.beginTransaction().replace(R.id.misc2_frame, Misc2Fragment3.newInstance(), "").commit()
-            3 -> supportFragmentManager.beginTransaction().replace(R.id.misc2_frame, ExitAnimFragment.newInstance(v.findLocationOfCenterOnTheScreen()), "").commit()
-            4 -> supportFragmentManager.beginTransaction().replace(R.id.misc2_frame, FabAnimFragment.newInstance(), "").commit()
-            5 -> supportFragmentManager.beginTransaction().replace(R.id.misc2_frame, ApproxSensorFragment.newInstance(), "").commit()
+            0 -> supportFragmentManager.beginTransaction().replace(
+                R.id.misc2_frame,
+                Misc2Fragment1.newInstance(),
+                ""
+            ).commit()
+            1 -> supportFragmentManager.beginTransaction().replace(
+                R.id.misc2_frame,
+                Misc2Fragment2.newInstance(),
+                ""
+            ).commit()
+            2 -> supportFragmentManager.beginTransaction().replace(
+                R.id.misc2_frame,
+                Misc2Fragment3.newInstance(),
+                ""
+            ).commit()
+            3 -> supportFragmentManager.beginTransaction().replace(
+                R.id.misc2_frame,
+                ExitAnimFragment.newInstance(v.findLocationOfCenterOnTheScreen()),
+                ""
+            ).commit()
+            4 -> supportFragmentManager.beginTransaction().replace(
+                R.id.misc2_frame,
+                FabAnimFragment.newInstance(),
+                ""
+            ).commit()
+            5 -> supportFragmentManager.beginTransaction().replace(
+                R.id.misc2_frame,
+                ApproxSensorFragment.newInstance(),
+                ""
+            ).commit()
+            6 -> supportFragmentManager.beginTransaction().replace(
+                R.id.misc2_frame,
+                BottomNavAnimFragment.newInstance(),
+                ""
+            ).commit()
         }
     }
 }
 
-class RecAdapter(private val l: OnClickListener, private val d: List<BazDto>) : RecyclerView.Adapter<RecAdapter.RecViewHolder>() {
+class RecAdapter(private val l: OnClickListener, private val d: List<BazDto>) :
+    RecyclerView.Adapter<RecAdapter.RecViewHolder>() {
 
     interface OnClickListener {
         fun onClick(p: Int, item: BazDto, v: View)
@@ -103,7 +139,13 @@ class RecAdapter(private val l: OnClickListener, private val d: List<BazDto>) : 
         val like = v.findViewById<AppCompatImageView>(R.id.ivLike)
 
         init {
-            v.setOnClickListener { if (adapterPosition != RecyclerView.NO_POSITION) l.onClick(adapterPosition, d[adapterPosition], it) }
+            v.setOnClickListener {
+                if (adapterPosition != RecyclerView.NO_POSITION) l.onClick(
+                    adapterPosition,
+                    d[adapterPosition],
+                    it
+                )
+            }
             v.setOnLongClickListener {
                 if (adapterPosition != RecyclerView.NO_POSITION) {
                     notifyItemChanged(adapterPosition, "tra")
@@ -118,7 +160,12 @@ class RecAdapter(private val l: OnClickListener, private val d: List<BazDto>) : 
 
 class MyItemDecoration(val d: Int) : RecyclerView.ItemDecoration() {
 
-    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
+    override fun getItemOffsets(
+        outRect: Rect,
+        view: View,
+        parent: RecyclerView,
+        state: RecyclerView.State
+    ) {
         val lp = view.layoutParams as GridLayoutManager.LayoutParams
         outRect.top = d
         if (lp.spanIndex % 2 == 0) {
@@ -135,9 +182,11 @@ class MyItemAnimator : DefaultItemAnimator() {
 
     private val dec = DecelerateInterpolator()
 
-    override fun recordPreLayoutInformation(state: RecyclerView.State,
-                                            viewHolder: RecyclerView.ViewHolder, changeFlags: Int,
-                                            payloads: MutableList<Any>): ItemHolderInfo {
+    override fun recordPreLayoutInformation(
+        state: RecyclerView.State,
+        viewHolder: RecyclerView.ViewHolder, changeFlags: Int,
+        payloads: MutableList<Any>
+    ): ItemHolderInfo {
         if (changeFlags == RecyclerView.ItemAnimator.FLAG_CHANGED) {
             for (p in payloads) {
                 if (p is String) {
@@ -148,13 +197,18 @@ class MyItemAnimator : DefaultItemAnimator() {
         return super.recordPreLayoutInformation(state, viewHolder, changeFlags, payloads)
     }
 
-    override fun canReuseUpdatedViewHolder(viewHolder: RecyclerView.ViewHolder, payloads: MutableList<Any>): Boolean {
+    override fun canReuseUpdatedViewHolder(
+        viewHolder: RecyclerView.ViewHolder,
+        payloads: MutableList<Any>
+    ): Boolean {
         return true
     }
 
-    override fun animateChange(oldHolder: RecyclerView.ViewHolder,
-                               newHolder: RecyclerView.ViewHolder, preInfo: ItemHolderInfo,
-                               postInfo: ItemHolderInfo): Boolean {
+    override fun animateChange(
+        oldHolder: RecyclerView.ViewHolder,
+        newHolder: RecyclerView.ViewHolder, preInfo: ItemHolderInfo,
+        postInfo: ItemHolderInfo
+    ): Boolean {
         if (preInfo is MyHolderInfo) {
             if (preInfo.s.equals("tra", true)) {
                 anim(newHolder as RecAdapter.RecViewHolder)
@@ -168,15 +222,19 @@ class MyItemAnimator : DefaultItemAnimator() {
         h.like.scaleX = 0.0f
         h.like.scaleY = 0.0f
         val ani = AnimatorSet()
-        val sli = ObjectAnimator.ofPropertyValuesHolder(h.like,
-                PropertyValuesHolder.ofFloat("scaleX", 0f, 2f),
-                PropertyValuesHolder.ofFloat("scaleY", 0f, 2f),
-                PropertyValuesHolder.ofFloat("alpha", 0.0f, 1.0f, 0.0f))
+        val sli = ObjectAnimator.ofPropertyValuesHolder(
+            h.like,
+            PropertyValuesHolder.ofFloat("scaleX", 0f, 2f),
+            PropertyValuesHolder.ofFloat("scaleY", 0f, 2f),
+            PropertyValuesHolder.ofFloat("alpha", 0.0f, 1.0f, 0.0f)
+        )
         sli.interpolator = dec
         sli.duration = 1000
-        val slit = ObjectAnimator.ofPropertyValuesHolder(h.tv,
-                PropertyValuesHolder.ofFloat("scaleX", 1f, 0.95f, 1f),
-                PropertyValuesHolder.ofFloat("scaleY", 1f, 0.95f, 1f))
+        val slit = ObjectAnimator.ofPropertyValuesHolder(
+            h.tv,
+            PropertyValuesHolder.ofFloat("scaleX", 1f, 0.95f, 1f),
+            PropertyValuesHolder.ofFloat("scaleY", 1f, 0.95f, 1f)
+        )
         slit.interpolator = dec
         slit.duration = 600
         ani.playTogether(sli, slit)

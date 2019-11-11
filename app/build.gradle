@@ -46,8 +46,8 @@ android {
         vectorDrawables {
             useSupportLibrary true
         }
-        minSdkVersion 19
-        targetSdkVersion 29
+        minSdkVersion 21
+        targetSdkVersion 21
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -212,7 +212,7 @@ dependencies {
     implementation 'com.microsoft.cognitiveservices.speech:client-sdk:1.7.0'
 
     //biometric
-    def biometric_version= '1.0.0-rc02'
+    def biometric_version = '1.0.0-rc02'
     implementation "androidx.biometric:biometric:$biometric_version"
 }
 

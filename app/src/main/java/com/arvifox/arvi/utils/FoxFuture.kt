@@ -6,11 +6,11 @@ import java.util.concurrent.Future
 
 object FoxFuture {
 
-    fun getinfuture(): Future<String> {
-
-    }
-
-    fun getlist(): ListenableFuture<String> {
-        return CallbackToFutureAdapter.getFuture()
-    }
+//    fun getinfuture(): Future<String> {
+//
+//    }
+//
+//    fun getlist(): ListenableFuture<String> {
+//        return CallbackToFutureAdapter.getFuture()
+//    }
 }
