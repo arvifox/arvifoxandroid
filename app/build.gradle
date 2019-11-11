@@ -210,6 +210,10 @@ dependencies {
 
     // Speech SDK
     implementation 'com.microsoft.cognitiveservices.speech:client-sdk:1.7.0'
+
+    //biometric
+    def biometric_version= '1.0.0-rc02'
+    implementation "androidx.biometric:biometric:$biometric_version"
 }
 
 configurations {
