@@ -39,4 +39,9 @@
     <string name="strike_mask_start">M0,0H24V24H0Z M4,4L4,4L5,3L5,3Z</string>
     <string name="strike_mask_full">M0,0H24V24H0Z M4,4L20,20L21,19L5,3Z</string>
     <string name="strike_mask_end">M0,0H24V24H0Z M20,20L20,20L21,19L21,19Z</string>
+
+    <string-array name="strarra">
+        <item>sldjf</item>
+        <item>cvxcv</item>
+    </string-array>
 </resources>

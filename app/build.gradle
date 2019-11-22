@@ -188,7 +188,7 @@ dependencies {
     implementation "com.github.bumptech.glide:glide:4.9.0"
 
     // viewpager
-    implementation "androidx.viewpager2:viewpager2:1.0.0-beta04"
+    implementation "androidx.viewpager2:viewpager2:1.0.0-beta05"
 
     //ar vr vision
     implementation 'com.google.apis:google-api-services-vision:v1-rev16-1.22.0'
