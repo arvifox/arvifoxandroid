@@ -1,4 +1,4 @@
-package com.arvifox.arvi.domain
+package com.arvifox.arvi.domain.corou
 
 //import kotlinx.coroutines.FlowPreview
 //import kotlinx.coroutines.flow.Flow
