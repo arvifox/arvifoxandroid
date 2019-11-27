@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import com.arvifox.arvi.domain.corou.Arv01
 import com.arvifox.arvi.geoposition.GeoPositionActivity
 import com.arvifox.arvi.google.GoogleBaseStartActivity
 import com.arvifox.arvi.googlemaps.GoogleMapsActivity
@@ -31,6 +32,7 @@ import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_layout.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.content_main.*
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -44,11 +46,20 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+                .setAction("Action", null).show()
+        }
+
+        btnMainButton01.setOnClickListener {
+            Arv01.main()
         }
 
         val toggle = ActionBarDrawerToggle(
-                this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+            this,
+            drawer_layout,
+            toolbar,
+            R.string.navigation_drawer_open,
+            R.string.navigation_drawer_close
+        )
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
 
@@ -58,15 +69,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         if (!BaseStorage.isTokenSent(this)) {
             FirebaseInstanceId.getInstance().instanceId
-                    .addOnSuccessListener(this) { ins ->
-                        Toast.makeText(this, ins.token, Toast.LENGTH_SHORT).show()
-                        BackUtils.sendToken(ins.token, this)
-                    }
+                .addOnSuccessListener(this) { ins ->
+                    Toast.makeText(this, ins.token, Toast.LENGTH_SHORT).show()
+                    BackUtils.sendToken(ins.token, this)
+                }
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val nm = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            val channel = NotificationChannel(BaseStorage.notificationChannelID, "Arvifox channel", NotificationManager.IMPORTANCE_DEFAULT)
+            val channel = NotificationChannel(
+                BaseStorage.notificationChannelID,
+                "Arvifox channel",
+                NotificationManager.IMPORTANCE_DEFAULT
+            )
             channel.description = "Arvifox channel"
             channel.enableLights(false)
             channel.lightColor = Color.RED
