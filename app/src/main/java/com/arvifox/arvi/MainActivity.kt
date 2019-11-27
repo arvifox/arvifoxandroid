@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import com.arvifox.arvi.domain.Arvi00
 import com.arvifox.arvi.domain.corou.Arv01
 import com.arvifox.arvi.domain.corou.Arv02
 import com.arvifox.arvi.domain.corou.Arv03
@@ -53,7 +54,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
 
         btnMainButton01.setOnClickListener {
-            Arv07.main()
+            Arvi00.sdff()
         }
 
         val toggle = ActionBarDrawerToggle(
