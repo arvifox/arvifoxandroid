@@ -13,6 +13,9 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import com.arvifox.arvi.domain.corou.Arv01
+import com.arvifox.arvi.domain.corou.Arv02
+import com.arvifox.arvi.domain.corou.Arv03
+import com.arvifox.arvi.domain.corou.Arv07
 import com.arvifox.arvi.geoposition.GeoPositionActivity
 import com.arvifox.arvi.google.GoogleBaseStartActivity
 import com.arvifox.arvi.googlemaps.GoogleMapsActivity
@@ -50,7 +53,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
 
         btnMainButton01.setOnClickListener {
-            Arv01.main()
+            Arv07.main()
         }
 
         val toggle = ActionBarDrawerToggle(

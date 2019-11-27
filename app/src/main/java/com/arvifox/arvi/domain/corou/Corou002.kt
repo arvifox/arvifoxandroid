@@ -5,27 +5,30 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.newFixedThreadPoolContext
 import kotlinx.coroutines.runBlocking
 
-object Arv01 {
+object Arv02 {
 
-    @Volatile
-    var fooCounter: Int = 0
+    var sharedCounter = 0
+    @Synchronized
+    fun updateCounter() {
+        sharedCounter++
+    }
 
     fun main() = runBlocking {
-        var sharedCounter = 0
         val scope = CoroutineScope(newFixedThreadPoolContext(4, "synchronizationPool"))
         scope.launch {
             val coroutines = 1.rangeTo(1000).map {
                 launch {
                     for (i in 1..1000) {
-                        sharedCounter++
+                        updateCounter()
                     }
                 }
             }
+
             coroutines.forEach { corotuine ->
                 corotuine.join()
             }
         }.join()
 
-        println("The number of shared counter should be 10000000, but actually is $sharedCounter")
+        println("The number of shared counter is $sharedCounter")
     }
 }
