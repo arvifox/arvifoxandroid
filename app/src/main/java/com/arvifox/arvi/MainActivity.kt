@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
 
         btnMainButton01.setOnClickListener {
-            Arv10.getPP()
+            Arv10.getWW()
         }
 
         val toggle = ActionBarDrawerToggle(

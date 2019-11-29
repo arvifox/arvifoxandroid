@@ -135,6 +135,7 @@ dependencies {
     // optional - Test helpers for LiveData
     testImplementation "androidx.arch.core:core-testing:$lifecycle_version"
     implementation 'androidx.lifecycle:lifecycle-viewmodel-savedstate:1.0.0-rc02'
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0"
 
     def nav_version = "2.2.0-rc02"
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
@@ -213,7 +214,7 @@ dependencies {
     implementation 'com.android.billingclient:billing:1.2'
 
     // Speech SDK
-    implementation 'com.microsoft.cognitiveservices.speech:client-sdk:1.7.0'
+    implementation 'com.microsoft.cognitiveservices.speech:client-sdk:1.8.0'
 
     //biometric
     def biometric_version = '1.0.0'

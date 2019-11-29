@@ -31,12 +31,19 @@ object Arv10 {
 
     fun getPP() {
         val b = runBlocking {
-            val bb = async { getUp() }.await()
-            println("after await ${Thread.currentThread().name}")
-            return@runBlocking "sdlsf$bb"
+//            val bb = async { getUp() }.await()
+            val bb = launch { getUp() }
+            println("after coro ${Thread.currentThread().name}")
+            return@runBlocking "sdlsf"
         }
         println("${Thread.currentThread().name} =$b")
         val job11 = 7
+    }
+
+    fun getWW() {
+        println("${Thread.currentThread().name} =start")
+        getPP()
+        println("${Thread.currentThread().name} =stop")
     }
 
     fun glo() {
