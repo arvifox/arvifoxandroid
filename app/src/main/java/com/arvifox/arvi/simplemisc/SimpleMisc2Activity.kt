@@ -8,6 +8,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Rect
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,6 +27,7 @@ import com.arvifox.arvi.simplemisc.misc2.Misc2Fragment1
 import com.arvifox.arvi.simplemisc.misc2.approxsensor.ApproxSensorFragment
 import com.arvifox.arvi.simplemisc.misc2.fragment2.Misc2Fragment2
 import com.arvifox.arvi.simplemisc.misc2.fragment3.Misc2Fragment3
+import com.arvifox.arvi.simplemisc.webviewbug.WebViewBugFragment
 import com.arvifox.arvi.utils.FormatUtils.showToast
 import kotlinx.android.synthetic.main.activity_simple_misc2.*
 import kotlinx.android.synthetic.main.app_bar_layout.*
@@ -54,13 +56,14 @@ class SimpleMisc2Activity : AppCompatActivity(), RecAdapter.OnClickListener {
 //        misc2_recycler.addItemDecoration(MyItemDecoration(30))
         misc2_recycler.adapter = RecAdapter(
             this, arrayListOf(
-                BazDto(2, 3.2),
+                BazDto(0, 3.2),
+                BazDto(1, 2.1),
+                BazDto(2, 2.1),
                 BazDto(3, 2.1),
                 BazDto(4, 2.1),
-                BazDto(5, 2.1),
-                BazDto(6, 2.1),
-                BazDto(7, 22.1),
-                BazDto(8, 8.8)
+                BazDto(5, 22.1),
+                BazDto(6, 8.8),
+                BazDto(7, 7.77)
             )
         )
     }
@@ -103,7 +106,27 @@ class SimpleMisc2Activity : AppCompatActivity(), RecAdapter.OnClickListener {
                 BottomNavAnimFragment.newInstance(),
                 ""
             ).commit()
+            7 -> supportFragmentManager.beginTransaction().replace(
+                R.id.misc2_frame,
+                WebViewBugFragment.newInstance(),
+                ""
+            ).commit()
         }
+    }
+
+    override fun onPause() {
+        Log.d("foxx", "sma 2 on pause")
+        super.onPause()
+    }
+
+    override fun onStop() {
+        Log.d("foxx", "sma 2 on stop")
+        super.onStop()
+    }
+
+    override fun onDestroy() {
+        Log.d("foxx", "sma 2 on destroy")
+        super.onDestroy()
     }
 }
 

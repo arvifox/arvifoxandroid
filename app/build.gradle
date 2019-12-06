@@ -219,6 +219,10 @@ dependencies {
     //biometric
     def biometric_version = '1.0.0'
     implementation "androidx.biometric:biometric:$biometric_version"
+
+    // Play Install Referrer Library
+    // https://developer.android.com/google/play/installreferrer/library.html
+    implementation 'com.android.installreferrer:installreferrer:1.1'
 }
 
 configurations {

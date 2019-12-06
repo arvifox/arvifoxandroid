@@ -32,7 +32,13 @@ public class MyApp extends MultiDexApplication {
 //                .build();
     }
 
-//    public NetComponent getNetComponent() {
+    @Override
+    public void onTerminate() {
+        Log.d("foxx", "appl on terminate");
+        super.onTerminate();
+    }
+
+    //    public NetComponent getNetComponent() {
 //        return mNetComponent;
 //    }
 }
