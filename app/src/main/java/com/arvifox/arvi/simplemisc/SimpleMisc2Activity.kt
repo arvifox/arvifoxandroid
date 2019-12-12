@@ -27,6 +27,7 @@ import com.arvifox.arvi.simplemisc.misc2.Misc2Fragment1
 import com.arvifox.arvi.simplemisc.misc2.approxsensor.ApproxSensorFragment
 import com.arvifox.arvi.simplemisc.misc2.fragment2.Misc2Fragment2
 import com.arvifox.arvi.simplemisc.misc2.fragment3.Misc2Fragment3
+import com.arvifox.arvi.simplemisc.recypad.RecyPadFragment
 import com.arvifox.arvi.simplemisc.webviewbug.WebViewBugFragment
 import com.arvifox.arvi.utils.FormatUtils.showToast
 import kotlinx.android.synthetic.main.activity_simple_misc2.*
@@ -63,7 +64,8 @@ class SimpleMisc2Activity : AppCompatActivity(), RecAdapter.OnClickListener {
                 BazDto(4, 2.1),
                 BazDto(5, 22.1),
                 BazDto(6, 8.8),
-                BazDto(7, 7.77)
+                BazDto(7, 7.77),
+                BazDto(8, 7.88)
             )
         )
     }
@@ -109,6 +111,11 @@ class SimpleMisc2Activity : AppCompatActivity(), RecAdapter.OnClickListener {
             7 -> supportFragmentManager.beginTransaction().replace(
                 R.id.misc2_frame,
                 WebViewBugFragment.newInstance(),
+                ""
+            ).commit()
+            8 -> supportFragmentManager.beginTransaction().replace(
+                R.id.misc2_frame,
+                RecyPadFragment.newInstance(),
                 ""
             ).commit()
         }
