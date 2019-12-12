@@ -3,6 +3,7 @@ package com.arvifox.arvi.google
 import android.content.Context
 import com.android.billingclient.api.BillingClient
 import com.android.billingclient.api.BillingClientStateListener
+import com.android.billingclient.api.BillingResult
 
 class Billing {
 
@@ -12,9 +13,7 @@ class Billing {
 
     private fun bil() {
         billingClient = BillingClient.newBuilder(cont!!).setListener { responseCode, purchases ->
-            if (responseCode == BillingClient.BillingResponse.OK) {
-
-            }
+//            if (responseCode == ) { }
         }.build()
 
         billingClient?.startConnection(object : BillingClientStateListener {
@@ -22,7 +21,7 @@ class Billing {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
 
-            override fun onBillingSetupFinished(responseCode: Int) {
+            override fun onBillingSetupFinished(p0: BillingResult?) {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
         })
