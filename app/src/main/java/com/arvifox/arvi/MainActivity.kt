@@ -30,7 +30,7 @@ import com.arvifox.arvi.simplemisc.SimpleMiscActivity
 import com.arvifox.arvi.simplemisc.phoneinfo.PhoneInfoActivity
 import com.arvifox.arvi.siteback.BackUtils
 import com.arvifox.arvi.utils.BaseStorage
-import com.arvifox.arvi.utils.TextDrawable
+import com.arvifox.arvi.utils.views.TextDrawable
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.material.navigation.NavigationView

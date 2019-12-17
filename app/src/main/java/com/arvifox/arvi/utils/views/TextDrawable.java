@@ -1,4 +1,4 @@
-package com.arvifox.arvi.utils;
+package com.arvifox.arvi.utils.views;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
