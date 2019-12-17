@@ -8,6 +8,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
@@ -29,6 +30,7 @@ import com.arvifox.arvi.simplemisc.SimpleMiscActivity
 import com.arvifox.arvi.simplemisc.phoneinfo.PhoneInfoActivity
 import com.arvifox.arvi.siteback.BackUtils
 import com.arvifox.arvi.utils.BaseStorage
+import com.arvifox.arvi.utils.TextDrawable
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.material.navigation.NavigationView
@@ -138,6 +140,26 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 ex.printStackTrace()
             }
         }
+
+        btnMainButton02.setImageDrawable(
+            TextDrawable(
+                btnMainButton02.context,
+                "sdff",
+                ColorStateList.valueOf(Color.RED),
+                32f,
+                TextDrawable.VerticalAlignment.BASELINE
+            )
+        )
+
+        btnMainFloating.setImageDrawable(
+            TextDrawable(
+                btnMainFloating.context,
+                "kjlkjlkj",
+                ColorStateList.valueOf(Color.RED),
+                32f,
+                TextDrawable.VerticalAlignment.BASELINE
+            )
+        )
     }
 
     override fun onResume() {
