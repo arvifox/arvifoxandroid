@@ -21,3 +21,5 @@
 #-renamesourcefileattribute SourceFile
 -printusage r8_usage_r8.txt
 -printconfiguration r8_configuration.txt
+
+#-dontwarn okhttp3.**

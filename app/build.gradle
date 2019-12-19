@@ -153,13 +153,13 @@ dependencies {
     kapt "com.squareup.moshi:moshi-kotlin-codegen:1.8.0"
 
     //retrofit okhttp
-    implementation 'com.squareup.retrofit2:retrofit:2.6.1'
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.5.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.6.1'
+    implementation 'com.squareup.retrofit2:retrofit:2.7.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.7.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.7.0'
     implementation 'com.squareup.retrofit2:converter-moshi:2.3.0'
     implementation 'com.squareup.retrofit2:retrofit-mock:2.3.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.0'
-    implementation 'com.squareup.okhttp3:okhttp:4.0.1'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.2.2'
+    implementation 'com.squareup.okhttp3:okhttp:4.2.2'
     implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2"
 
     // AR core, Sceneform
@@ -178,7 +178,7 @@ dependencies {
 
     //rx
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.10'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.15'
 
     //concurrent
     implementation 'androidx.concurrent:concurrent-futures:1.0.0'
