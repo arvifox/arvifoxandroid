@@ -54,8 +54,12 @@ android {
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
         manifestPlaceholders = [googleGeoApiKey: keystoreProperties['googleGeoApiKey']]
+        resConfigs "en", "fr", "ru", "en_XA", "ar_XB"
     }
     buildTypes {
+        debug {
+            pseudoLocalesEnabled true
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
