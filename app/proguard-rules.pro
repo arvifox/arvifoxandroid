@@ -19,3 +19,5 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+-printusage r8_usage_r8.txt
+-printconfiguration r8_configuration.txt
