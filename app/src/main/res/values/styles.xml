@@ -46,4 +46,9 @@
         <item name="thumbTint">@color/switch_selector</item>
     </style>
 
+    <style name="ShapeAppp" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">0px</item>
+    </style>
+
 </resources>

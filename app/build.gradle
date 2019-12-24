@@ -221,6 +221,8 @@ dependencies {
     // A library to make views hide from top and bottom while scrolling a custom NestedScrollView and\or a custom RecyclerView
     // https://github.com/SIMMORSAL/ConcealerNestedScrollView-ConcealerRecyclerView
     implementation 'com.simmorsal.library:concealer_nested_scroll_view:2.0.0'
+    implementation 'com.dc.easyadapter:easyadapter:2.0.3'
+
     implementation project(path: ':openCVLibrary343')
 
     // billing lib
