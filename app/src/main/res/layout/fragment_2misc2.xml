@@ -285,30 +285,33 @@
     </androidx.core.widget.NestedScrollView>
 
 
-    <!--<com.google.android.material.bottomnavigation.BottomNavigationView-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior" />-->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="match_parent"
+        android:layout_height="27dp"
+        android:layout_gravity="bottom"
+        app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
+        app:layout_scrollFlags="scroll|enterAlways"
+        app:menu="@menu/nav_anim" />
 
     <!--<com.google.android.material.bottomappbar.BottomAppBar-->
     <!--android:layout_width="match_parent"-->
     <!--android:layout_height="wrap_content" />-->
 
-    <LinearLayout
-        android:id="@+id/bottomViewToo"
-        android:layout_width="match_parent"
-        android:layout_height="17dp"
-        android:layout_gravity="bottom"
-        android:background="@color/gunmetal"
-        android:orientation="horizontal"
-        app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
-        app:layout_scrollFlags="scroll|enterAlways">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="btm1"
-            android:textColor="@color/colorAccent" />
-    </LinearLayout>
+    <!--    <LinearLayout-->
+    <!--        android:id="@+id/bottomViewToo"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="17dp"-->
+    <!--        android:layout_gravity="bottom"-->
+    <!--        android:background="@color/gunmetal"-->
+    <!--        android:orientation="horizontal"-->
+    <!--        app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"-->
+    <!--        app:layout_scrollFlags="scroll|enterAlways">-->
+    <!---->
+    <!--        <TextView-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:text="btm1"-->
+    <!--            android:textColor="@color/colorAccent" />-->
+    <!--    </LinearLayout>-->
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
