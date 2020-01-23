@@ -1,16 +1,17 @@
 package com.arvifox.arvi.utils
 
 import android.graphics.Rect
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.ViewTreeObserver
 import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
 import com.arvifox.arvi.R
 import com.arvifox.arvi.utils.Qwe.afterMeasured
 import kotlin.math.abs
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -51,6 +52,18 @@ class MainActivity : AppCompatActivity() {
         }
 
         ffdf()
+    }
+
+    override fun onAttachedToWindow() {
+        val statusBar: Int
+        statusBar = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            window.decorView.rootWindowInsets.stableInsetTop
+        } else {
+            val v = window.decorView
+                .findViewById<View>(android.R.id.statusBarBackground)
+            v.height
+        }
+        super.onAttachedToWindow()
     }
 
     private fun eee() {

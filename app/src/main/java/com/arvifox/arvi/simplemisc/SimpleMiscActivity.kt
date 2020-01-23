@@ -11,6 +11,7 @@ import com.arvifox.arvi.simplemisc.camera.CameraShotActivity
 import com.arvifox.arvi.simplemisc.constrlayout.ConstrLayoutActivity
 import com.arvifox.arvi.simplemisc.matcomp.MatCompActivity
 import com.arvifox.arvi.simplemisc.matcomp.TaskColorActivity
+import com.arvifox.arvi.simplemisc.misc4window.WindowActivity
 import com.arvifox.arvi.simplemisc.moveimage.MoveImageActivity
 import com.arvifox.arvi.simplemisc.opencv.OpencvActivity
 import com.arvifox.arvi.simplemisc.sensor.SensorActivity
@@ -49,5 +50,6 @@ class SimpleMiscActivity : AppCompatActivity() {
         btnMoveImage.setOnClickListener { startActivity(MoveImageActivity.newIntent(this)) }
         btnConstrlayout.setOnClickListener { startActivity(ConstrLayoutActivity.newIntent(this)) }
         btnOpenCv.setOnClickListener { startActivity(OpencvActivity.newIntent(this)) }
+        btnWindow.setOnClickListener { startActivity(WindowActivity.newIntent(this)) }
     }
 }

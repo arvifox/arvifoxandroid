@@ -2,15 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.arvifox.arvi">
-
     <!-- if AR core required then minsdk must be 24 or higher -->
     <!-- <uses-sdk android:minSdkVersion="16" /> -->
     <!-- <uses-feature android:name="android.hardware.camera.ar" android:required="true" /> -->
-
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <!--     <uses-permission android:name="android.permission.ACCOUNT_MANAGER" /> -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- <uses-permission android:name="android.permission.ACCOUNT_MANAGER" /> -->
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
@@ -40,7 +37,10 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-
+        <activity
+            android:name=".simplemisc.misc4window.WindowActivity"
+            android:label="Herher"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -55,7 +55,6 @@
             android:name=".simplemisc.phoneinfo.PhoneInfoActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".https.HttpsActivity"
             android:label="@string/app_name"
@@ -68,7 +67,6 @@
             android:name=".googlemaps.GoogleMapsActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".google.GoogleBaseStartActivity"
             android:label="@string/app_name"
@@ -77,7 +75,6 @@
             android:name=".google.googleapi.visiontest.VisionApiTestActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".google.googleapi.AccountsActivity"
             android:label="@string/title_activity_accounts"
@@ -197,7 +194,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.arvifox.arvi.simplemisc.SimpleMiscActivity" />
         </activity>
-
         <activity
             android:name=".simplemisc.workmanager.WorkManagerActivity"
             android:label="Work"
@@ -216,7 +212,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.arvifox.arvi.simplemisc.SimpleMiscActivity" />
         </activity>
-
         <activity
             android:name=".simplemisc.view.NestedScrollActivity"
             android:label="Nested"
@@ -226,7 +221,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.arvifox.arvi.simplemisc.SimpleMiscActivity" />
         </activity>
-
         <activity
             android:name=".simplemisc.matcomp.TaskColorActivity"
             android:label="TaskColor"
@@ -236,7 +230,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.arvifox.arvi.simplemisc.SimpleMiscActivity" />
         </activity>
-
         <activity
             android:name=".simplemisc.tmdb.TmdbActivity"
             android:label="Tmdb"
@@ -328,19 +321,21 @@
             <intent-filter>
                 <action android:name="android.accounts.AccountAuthenticator" />
             </intent-filter>
+
             <meta-data
                 android:name="android.accounts.AccountAuthenticator"
                 android:resource="@xml/stub_authen" />
         </service>
-
         <service
             android:name=".syncadapter.MySyncAdapterFoxService"
             android:exported="true"
             android:process=":sync">
             <intent-filter>
-                <action android:name="android.content.SyncAdapter"/>
+                <action android:name="android.content.SyncAdapter" />
             </intent-filter>
-            <meta-data android:name="android.content.SyncAdapter"
+
+            <meta-data
+                android:name="android.content.SyncAdapter"
                 android:resource="@xml/syncadapter" />
         </service>
 
@@ -354,8 +349,10 @@
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_ADDED" />
                 <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
                 <data android:scheme="com.arvifox.arvi" />
             </intent-filter>
         </receiver>
     </application>
+
 </manifest>
