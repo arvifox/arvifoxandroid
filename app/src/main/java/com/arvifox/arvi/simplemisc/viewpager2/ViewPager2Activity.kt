@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
 import androidx.viewpager2.widget.ViewPager2
 import com.arvifox.arvi.R
 import com.arvifox.arvi.simplemisc.viewpager2.tabviewpager.TabViewPagerAdapter
@@ -39,12 +40,31 @@ class ViewPager2Activity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         vpViewpager.adapter = TabViewPagerAdapter(supportFragmentManager)
+        vpViewpager.pageMargin = 30
         tlViewpager.setupWithViewPager(vpViewpager, true)
 
-//        vpViewpager2.adapter = VpAdapter()
-//        vpViewpager2.orientation = ViewPager2.ORIENTATION_VERTICAL
+        vpViewpager2.adapter = VpAdapter()
+        vpViewpager2.orientation = ViewPager2.ORIENTATION_VERTICAL
+        vpViewpager2.clipChildren = false
+        vpViewpager2.clipToPadding = false
+        vpViewpager2.offscreenPageLimit = 3
 
-        vpViewpager2.adapter = ViewPagerFragmentStateAdapter(this)
+        val pageMargin = resources.getDimensionPixelOffset(R.dimen.pageMargin)
+        val offset = resources.getDimensionPixelOffset(R.dimen.offset)
+        vpViewpager2.setPageTransformer { page, position ->
+            val vp = page.parent.parent as ViewPager2
+            val of = position * -(2 * offset + pageMargin)
+            if (vp.orientation == ViewPager2.ORIENTATION_HORIZONTAL) {
+                if (ViewCompat.getLayoutDirection(vp) == ViewCompat.LAYOUT_DIRECTION_RTL) {
+                    page.translationX = -of
+                } else {
+                    page.translationX = of
+                }
+            } else {
+                page.translationY = of
+            }
+        }
+//        vpViewpager2.adapter = ViewPagerFragmentStateAdapter(this)
     }
 
     override fun onResume() {
