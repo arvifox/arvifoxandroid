@@ -258,12 +258,14 @@ dependencies {
     implementation 'com.microsoft.cognitiveservices.speech:client-sdk:1.8.0'
 
     //biometric
-    def biometric_version = '1.0.0'
+    def biometric_version = '1.0.1'
     implementation "androidx.biometric:biometric:$biometric_version"
+
+    implementation 'androidx.browser:browser:1.2.0'
 
     // Play Install Referrer Library
     // https://developer.android.com/google/play/installreferrer/library.html
-    implementation 'com.android.installreferrer:installreferrer:1.1'
+    implementation 'com.android.installreferrer:installreferrer:1.1.1'
 }
 
 configurations {
