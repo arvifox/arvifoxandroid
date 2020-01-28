@@ -2,9 +2,9 @@ package com.arvifox.arvi.domain.flow
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.*
+import java.util.concurrent.Executors
 
 object dfff {
 
@@ -31,4 +31,50 @@ object dfff {
         // producer block finishes here, stream will be closed
     }
 
+}
+
+object ccorfgf {
+    fun obser(): Flow<Int> {
+        return flow {
+            emit(123)
+        }
+    }
+
+    val d = CoroutineScope(Job() + Dispatchers.Main).launch {
+        obser()
+            .flowOn(Dispatchers.IO)
+            .onEach { result ->
+                println("$result")
+            }
+            .launchIn(this)
+
+        obser()
+            .flowOn(Dispatchers.IO)
+            .onEach { result ->
+                println("$result second")
+            }
+            .launchIn(this)
+    }
+}
+
+object iuuwe {
+    val dd = Executors.newFixedThreadPool(3).asCoroutineDispatcher()
+
+    val d = CoroutineScope(Job() + Dispatchers.Main).launch {
+        flowOf(1, 2, 3)
+            .onEach { printThread("1") }
+            .flowOn(Dispatchers.IO)
+            .onEach { printThread("2") }
+            .flowOn(Dispatchers.Default)
+            .flatMapMerge {
+                flowOf(4, 5, 6)
+                    .onEach { printThread("inner 1") }
+            }
+            .onEach { printThread("3") }
+            .collect { printThread("end") }
+    }
+
+    fun printThread(s: String) {
+        println("thread $s, ${Thread.currentThread().name}")
+    }
 }
