@@ -1,6 +1,7 @@
 package com.arvifox.arvi.utils
 
 import android.annotation.SuppressLint
+import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.media.Image
@@ -22,11 +23,11 @@ object FormatUtils {
     fun Float.format(digits: Int) = java.lang.String.format("%.${digits}f", this)
 
     fun spannable() = SpannableStringBuilder()
-            .bold { append("bold text") }
-            .color(R.color.colorPrimary) { bold { append("colored bold text") } }
-            .strikeThrough { append("strike") }
-            .superscript { append("super") }
-            .append("regular")
+        .bold { append("bold text") }
+        .color(R.color.colorPrimary) { bold { append("colored bold text") } }
+        .strikeThrough { append("strike") }
+        .superscript { append("super") }
+        .append("regular")
 
     @SuppressLint("NewApi", "MissingPermission")
     fun Image.tobitmap(): Bitmap? {
@@ -65,5 +66,13 @@ object FormatUtils {
      */
     fun FragmentActivity.showToast(text: String) {
         runOnUiThread { Toast.makeText(this, text, Toast.LENGTH_SHORT).show() }
+    }
+
+    fun dpToPx(dp: Int): Int {
+        return (dp * Resources.getSystem().displayMetrics.density).toInt()
+    }
+
+    fun pxToDp(px: Int): Int {
+        return (px / Resources.getSystem().displayMetrics.density).toInt()
     }
 }
