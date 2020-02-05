@@ -113,9 +113,9 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.1.0'
     implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'com.google.android.material:material:1.2.0-alpha02'
+    implementation 'com.google.android.material:material:1.2.0-alpha04'
 //    implementation 'com.google.android.material:material:1.0.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta3'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta4'
     implementation 'androidx.annotation:annotation:1.1.0'
 
     //test
@@ -123,7 +123,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test:rules:1.2.0'
-    androidTestImplementation 'androidx.work:work-testing:2.2.0'
+    androidTestImplementation 'androidx.work:work-testing:2.3.0'
     androidTestImplementation 'androidx.arch.core:core-testing:2.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
@@ -133,9 +133,9 @@ dependencies {
     implementation 'androidx.palette:palette:1.0.0'
 
     //arch
-    implementation "androidx.work:work-runtime-ktx:2.2.0"
-    implementation "androidx.work:work-rxjava2:2.2.0"
-    androidTestImplementation "androidx.work:work-testing:2.2.0"
+    implementation "androidx.work:work-runtime-ktx:2.3.0"
+    implementation "androidx.work:work-rxjava2:2.3.0"
+    androidTestImplementation "androidx.work:work-testing:2.3.0"
 
     //lifecycler
     def lifecycle_version = "2.1.0"
@@ -229,7 +229,7 @@ dependencies {
         exclude group: "com.android.support"
     }
     // glide
-    implementation "com.github.bumptech.glide:glide:4.9.0"
+    implementation "com.github.bumptech.glide:glide:4.10.0"
 
     // viewpager
     implementation "androidx.viewpager2:viewpager2:1.0.0"
