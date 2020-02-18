@@ -27,6 +27,7 @@ import com.arvifox.arvi.simplemisc.misc2.Misc2Fragment1
 import com.arvifox.arvi.simplemisc.misc2.approxsensor.ApproxSensorFragment
 import com.arvifox.arvi.simplemisc.misc2.fragment2.Misc2Fragment2
 import com.arvifox.arvi.simplemisc.misc2.fragment3.Misc2Fragment3
+import com.arvifox.arvi.simplemisc.misc2.packlist.PackListFragment
 import com.arvifox.arvi.simplemisc.recypad.RecyPadFragment
 import com.arvifox.arvi.simplemisc.webviewbug.WebViewBugFragment
 import com.arvifox.arvi.utils.FormatUtils.showToast
@@ -65,7 +66,8 @@ class SimpleMisc2Activity : AppCompatActivity(), RecAdapter.OnClickListener {
                 BazDto(5, 22.1),
                 BazDto(6, 8.8),
                 BazDto(7, 7.77),
-                BazDto(8, 7.88)
+                BazDto(8, 7.88),
+                BazDto(9, 7.12)
             )
         )
     }
@@ -116,6 +118,11 @@ class SimpleMisc2Activity : AppCompatActivity(), RecAdapter.OnClickListener {
             8 -> supportFragmentManager.beginTransaction().replace(
                 R.id.misc2_frame,
                 RecyPadFragment.newInstance(),
+                ""
+            ).commit()
+            9 -> supportFragmentManager.beginTransaction().replace(
+                R.id.misc2_frame,
+                PackListFragment.newInstance(),
                 ""
             ).commit()
         }
