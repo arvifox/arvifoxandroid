@@ -54,31 +54,31 @@ internal class ImageOperations private constructor(val continuation: WorkContinu
 
             if (mApplyWaterColor) {
 
-                val waterColor = OneTimeWorkRequestBuilder<WaterColorFilterWorker>()
-                        .setInputData(createInputData())
-                        .build()
-                continuation = continuation.then(waterColor)
+//                val waterColor = OneTimeWorkRequestBuilder<WaterColorFilterWorker>()
+//                        .setInputData(createInputData())
+//                        .build()
+//                continuation = continuation.then(waterColor)
                 hasInputData = true
             }
 
             if (mApplyGrayScale) {
-                val grayScaleBuilder = OneTimeWorkRequestBuilder<GrayScaleFilterWorker>()
-                if (!hasInputData) {
-                    grayScaleBuilder.setInputData(createInputData())
-                    hasInputData = true
-                }
-                val grayScale = grayScaleBuilder.build()
-                continuation = continuation.then(grayScale)
+//                val grayScaleBuilder = OneTimeWorkRequestBuilder<GrayScaleFilterWorker>()
+//                if (!hasInputData) {
+//                    grayScaleBuilder.setInputData(createInputData())
+//                    hasInputData = true
+//                }
+//                val grayScale = grayScaleBuilder.build()
+//                continuation = continuation.then(grayScale)
             }
 
             if (mApplyBlur) {
-                val blurBuilder = OneTimeWorkRequestBuilder<BlurEffectFilterWorker>()
-                if (!hasInputData) {
-                    blurBuilder.setInputData(createInputData())
-                    hasInputData = true
-                }
-                val blur = blurBuilder.build()
-                continuation = continuation.then(blur)
+//                val blurBuilder = OneTimeWorkRequestBuilder<BlurEffectFilterWorker>()
+//                if (!hasInputData) {
+//                    blurBuilder.setInputData(createInputData())
+//                    hasInputData = true
+//                }
+//                val blur = blurBuilder.build()
+//                continuation = continuation.then(blur)
             }
 
             if (mApplySave) {

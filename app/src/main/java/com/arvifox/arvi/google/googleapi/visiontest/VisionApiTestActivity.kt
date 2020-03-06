@@ -5,10 +5,11 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import android.text.method.ScrollingMovementMethod
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import com.arvifox.arvi.R
+import com.arvifox.arvi.utils.FormatUtils.takeByteArray
 import com.arvifox.arvi.utils.Logger
 import com.google.api.client.extensions.android.http.AndroidHttp
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential
@@ -21,8 +22,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_vision_api_test.*
 import kotlinx.android.synthetic.main.app_bar_layout.*
-
-import com.arvifox.arvi.utils.FormatUtils.takeByteArray
 
 class VisionApiTestActivity : AppCompatActivity() {
 
@@ -98,25 +97,27 @@ class VisionApiTestActivity : AppCompatActivity() {
             return@fromCallable annotateRequest.execute()
         }
         sing.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe { t1, t2 ->
-                    if (t2 != null) {
-                        tvVisionTest.text = t2.message
-                    } else {
-                        val sb = StringBuilder()
-                        sb.append("rs=" + t1.responses.size)
-                        val ir = t1.responses[0]
-                        sb.append("labels=" + ir.labelAnnotations.size)
-                        for (ea in ir.labelAnnotations) {
-                            sb.append("\n" + ea.toPrettyString())
-                        }
-                        tvVisionTest.text = sb.toString()
+            .subscribe { t1, t2 ->
+                if (t2 != null) {
+                    tvVisionTest.text = t2.message
+                } else {
+                    val sb = StringBuilder()
+                    sb.append("rs=" + t1.responses.size)
+                    val ir = t1.responses[0]
+                    sb.append("labels=" + ir.labelAnnotations.size)
+                    for (ea in ir.labelAnnotations) {
+                        sb.append("\n" + ea.toPrettyString())
                     }
+                    tvVisionTest.text = sb.toString()
                 }
+            }
     }
 
     private fun gettingToken() {
-        val getOAuthToken = GetOAuthToken(this, am.getAccountsByType("com.google")[0],
-                "oauth2:https://www.googleapis.com/auth/cloud-vision", 246)
+        val getOAuthToken = GetOAuthToken(
+            this, am.getAccountsByType("com.google")[0],
+            "oauth2:https://www.googleapis.com/auth/cloud-vision", 246
+        )
         getOAuthToken.execute(null as Void?)
     }
 
@@ -126,10 +127,10 @@ class VisionApiTestActivity : AppCompatActivity() {
             gettingToken()
         }
         if (requestCode == 845 && resultCode == Activity.RESULT_OK) {
-            Picasso.with(this).load(data!!.data)
-                    .placeholder(R.drawable.ic_hibin)
-                    .error(R.drawable.ic_hibin)
-                    .into(ivVisionTest)
+            Picasso.Builder(this).build().load(data!!.data)
+                .placeholder(R.drawable.ic_hibin)
+                .error(R.drawable.ic_hibin)
+                .into(ivVisionTest)
 
             val d = this.contentResolver.openInputStream(data.data!!)
             iis = d?.takeByteArray()!!

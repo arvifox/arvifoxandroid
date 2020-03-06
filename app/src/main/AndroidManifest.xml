@@ -269,17 +269,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.arvifox.arvi.simplemisc.SimpleMiscActivity" />
         </activity>
-        <activity
-            android:name=".simplemisc.opencv.OpencvActivity"
-            android:configChanges="keyboardHidden|orientation"
-            android:label="open cv"
-            android:parentActivityName=".simplemisc.SimpleMiscActivity"
-            android:screenOrientation="landscape"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.arvifox.arvi.simplemisc.SimpleMiscActivity" />
-        </activity>
 
         <meta-data
             android:name="com.google.ar.core"
