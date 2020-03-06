@@ -1,13 +1,22 @@
 package com.arvifox.arvi.utils.views
 
-import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
+import android.graphics.*
 import android.widget.ImageView
+import androidx.databinding.BindingAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 object Viewuu {
+
+    @BindingAdapter("app:filter")
+    fun ImageView.applyFilter(prev: String, value: String) {
+        colorFilter = null
+        if (value == "grey") {
+            val matrix = ColorMatrix()
+            matrix.setSaturation(0.0F)
+            val cf = ColorMatrixColorFilter(matrix)
+            colorFilter = cf
+        }
+    }
 
     fun textAsBitmap(text: String, textSize: Float, textColor: Int): Bitmap? {
         val paint = Paint(Paint.ANTI_ALIAS_FLAG)
