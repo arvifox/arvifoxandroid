@@ -118,7 +118,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test:rules:1.2.0'
-    androidTestImplementation 'androidx.work:work-testing:2.3.2'
+    androidTestImplementation 'androidx.work:work-testing:2.3.4'
     androidTestImplementation 'androidx.arch.core:core-testing:2.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
@@ -128,9 +128,9 @@ dependencies {
     implementation 'androidx.palette:palette:1.0.0'
 
     //arch
-    implementation "androidx.work:work-runtime-ktx:2.3.2"
-    implementation "androidx.work:work-rxjava2:2.3.2"
-    androidTestImplementation "androidx.work:work-testing:2.3.2"
+    implementation "androidx.work:work-runtime-ktx:2.3.4"
+    implementation "androidx.work:work-rxjava2:2.3.4"
+    androidTestImplementation "androidx.work:work-testing:2.3.4"
 
     //lifecycler
     def lifecycle_version = "2.2.0"
@@ -143,21 +143,21 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-reactivestreams-ktx:$lifecycle_version"
     // optional - Test helpers for LiveData
     testImplementation "androidx.arch.core:core-testing:2.1.0"
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-savedstate:1.0.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-savedstate:2.2.0'
     // view model scope
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
     // lifecycle scope
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.1.0"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0"
     // livedata scope
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
 
-    def nav_version = "2.2.0-rc04"
+    def nav_version = "2.3.0-alpha04"
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
     // room
 
-    def room_version = "2.2.3"
+    def room_version = "2.2.5"
 
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
@@ -189,15 +189,15 @@ dependencies {
     implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2"
 
     // AR core, Sceneform
-    implementation 'com.google.ar:core:1.13.0'
-    implementation("com.google.ar.sceneform:core:1.13.0")
-    implementation 'com.google.ar.sceneform.ux:sceneform-ux:1.13.0'
+    implementation 'com.google.ar:core:1.15.0'
+    implementation("com.google.ar.sceneform:core:1.15.0")
+    implementation 'com.google.ar.sceneform.ux:sceneform-ux:1.15.0'
 
     //firebase
-    implementation 'com.google.firebase:firebase-messaging:20.1.0'
-    implementation 'com.google.firebase:firebase-core:17.2.1'
+    implementation 'com.google.firebase:firebase-messaging:20.1.3'
+    implementation 'com.google.firebase:firebase-core:17.2.3'
     implementation 'com.google.android.gms:play-services-auth:17.0.0'
-    implementation 'com.google.android.gms:play-services-base:17.1.0'
+    implementation 'com.google.android.gms:play-services-base:17.2.0'
     implementation 'com.google.android.gms:play-services-gcm:17.0.0'
     implementation 'com.google.android.gms:play-services-location:17.0.0'
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
@@ -231,12 +231,8 @@ dependencies {
 
     //ar vr vision
     implementation 'com.google.apis:google-api-services-vision:v1-rev16-1.22.0'
-    implementation('com.google.api-client:google-api-client-android:1.22.0') {
-        exclude module: 'httpclient'
-    }
-    implementation('com.google.http-client:google-http-client-gson:1.20.0') {
-        exclude module: 'httpclient'
-    }
+    implementation('com.google.api-client:google-api-client-android:1.22.0')
+    implementation('com.google.http-client:google-http-client-gson:1.20.0')
 
     // ConcealerNestedScrollView & ConcealerRecyclerView
     // A library to make views hide from top and bottom while scrolling a custom NestedScrollView and\or a custom RecyclerView
@@ -262,7 +258,7 @@ dependencies {
 
     // Play Install Referrer Library
     // https://developer.android.com/google/play/installreferrer/library.html
-    implementation 'com.android.installreferrer:installreferrer:1.1.1'
+    implementation 'com.android.installreferrer:installreferrer:1.1.2'
 }
 
 configurations {

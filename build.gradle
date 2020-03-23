@@ -7,10 +7,10 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.6.1'
+        classpath 'com.android.tools.build:gradle:4.0.0-beta03'
         classpath 'com.google.gms:google-services:4.3.3'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath 'com.google.ar.sceneform:plugin:1.13.0'
+        classpath 'com.google.ar.sceneform:plugin:1.15.0'
         classpath "android.arch.navigation:navigation-safe-args-gradle-plugin:1.0.0"
 
         // NOTE: Do not place your application dependencies here; they belong
