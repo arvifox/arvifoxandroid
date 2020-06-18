@@ -262,6 +262,7 @@ dependencies {
 
 configurations {
     all*.exclude group: 'com.google.guava', module: 'listenablefuture'
+	arvifoxconf.extendsFrom implementation
 }
 
 apply plugin: 'com.google.gms.google-services'
@@ -281,3 +282,8 @@ sceneform.asset('sampledata/model.fbx',
         'default',
         'sampledata/model.sfa',
         'src/main/res/raw/model')
+
+task copyDeps(type: Copy) {
+  from configurations.arvifoxconf
+  into './depsdir'
+}
