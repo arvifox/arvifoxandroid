@@ -232,7 +232,7 @@ class CameraShotActivity : AppCompatActivity() {
 
     private fun startBackgroundThread() {
         backgroundThread = HandlerThread("CameraBackground").also { it.start() }
-        backgroundHandler = Handler(backgroundThread?.looper)
+        backgroundHandler = Handler(backgroundThread?.looper!!)
     }
 
     @SuppressLint("NewApi")

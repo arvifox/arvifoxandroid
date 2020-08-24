@@ -34,7 +34,7 @@ class FooService : Service() {
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
         val msg = myServiceHandler?.obtainMessage()
         msg?.arg1 = startId
-        myServiceHandler?.sendMessage(msg)
+        myServiceHandler?.sendMessage(msg!!)
         Toast.makeText(this, "FooService Started.", Toast.LENGTH_SHORT).show()
         //If service is killed while starting, it restarts.
         return Service.START_STICKY

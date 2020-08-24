@@ -21,7 +21,7 @@ class Billing {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
 
-            override fun onBillingSetupFinished(p0: BillingResult?) {
+            override fun onBillingSetupFinished(p0: BillingResult) {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
         })
