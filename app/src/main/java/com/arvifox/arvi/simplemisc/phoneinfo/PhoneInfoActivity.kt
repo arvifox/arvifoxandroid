@@ -3,6 +3,7 @@ package com.arvifox.arvi.simplemisc.phoneinfo
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.provider.OpenableColumns
@@ -70,16 +71,30 @@ class PhoneInfoActivity : AppCompatActivity() {
     private fun composeProperties(): String {
         val sb = StringBuilder()
         sb.append("Manufacturer = ").append(Build.MANUFACTURER).append("\n")
-                .append("Model = ").append(Build.MODEL).append("\n")
-                .append("Version = ").append(Build.VERSION.RELEASE).append("\n")
-                .append("API Level = ").append(Build.VERSION.SDK_INT).append("\n")
-                .append("Architecture = ").append(Build.CPU_ABI).append("\n")
+            .append("Model = ").append(Build.MODEL).append("\n")
+            .append("Version = ").append(Build.VERSION.RELEASE).append("\n")
+            .append("API Level = ").append(Build.VERSION.SDK_INT).append("\n")
+            .append("Architecture = ").append(Build.CPU_ABI).append("\n")
         val dm = DisplayMetrics()
         windowManager.defaultDisplay.getMetrics(dm)
         sb.append("Density = ").append(dm.density).append("\n")
-                .append("Resolution = (").append(dm.widthPixels / dm.density).append("dp, ")
-                .append(dm.heightPixels / dm.density).append("dp)\n")
-        sb.append("android id=").append(Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID)).append("\n")
+            .append("Resolution = (").append(dm.widthPixels / dm.density).append("dp, ")
+            .append(dm.heightPixels / dm.density).append("dp)\n")
+        sb.append("android id=")
+            .append(Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID))
+            .append("\n")
+        sb.append("pn=").append(getOsName()).append("\n")
         return sb.toString()
+    }
+
+    private fun getOsName(): String {
+        val dd = packageManager.resolveActivity(
+//            Intent("android.intent.action.MAIN").apply { addCategory("android.intent.category.HOME") },
+            Intent(Intent.ACTION_MAIN).apply { addCategory(Intent.CATEGORY_HOME) },
+            PackageManager.MATCH_DEFAULT_ONLY
+        )
+        return dd?.activityInfo?.packageName?.let {
+            it + " " + packageManager.getPackageInfo(it, 0).versionName
+        } ?: "- -"
     }
 }
