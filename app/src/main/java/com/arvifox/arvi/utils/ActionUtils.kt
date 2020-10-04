@@ -422,7 +422,7 @@ object ActionUtils {
         shareIntent.action = Intent.ACTION_SEND
         shareIntent.putExtra(
             Intent.EXTRA_STREAM,
-            getFileProviderUri(fragment.context!!, file)
+            getFileProviderUri(fragment.requireContext(), file)
         )
         shareIntent.type = "*/*"
         fragment.startActivityForResult(
@@ -458,7 +458,7 @@ object ActionUtils {
      * @param uri     uri to package of app
      * @return installed or not
      */
-    fun appInstalledOrNot(context: Context, uri: String?): Boolean {
+    fun appInstalledOrNot(context: Context, uri: String): Boolean {
         val pm = context.packageManager
         val isAppInstalled: Boolean
         isAppInstalled = try {
@@ -555,7 +555,7 @@ object ActionUtils {
         intent.addCategory(Intent.CATEGORY_HOME)
         val resolveInfo = context.packageManager
             .resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY)
-        return resolveInfo.activityInfo.packageName
+        return resolveInfo?.activityInfo?.packageName.orEmpty()
     }
 
     /**
@@ -942,7 +942,7 @@ object ActionUtils {
      */
     fun grantPermissionsForIntent(
         ctx: Context?,
-        intent: Intent?,
+        intent: Intent,
         uri: Uri?
     ) {
         val resInfoList =

@@ -37,12 +37,12 @@ android {
             storePassword keystoreProperties['storePassword']
         }
     }
-    compileSdkVersion 29
+    compileSdkVersion 30
     buildToolsVersion '29.0.3'
     defaultConfig {
         applicationId "com.arvifox.arvi"
         minSdkVersion 21
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -106,18 +106,18 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.2.0'
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'com.google.android.material:material:1.2.0-alpha06'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta5'
+    implementation 'androidx.core:core-ktx:1.3.1'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.google.android.material:material:1.3.0-alpha02'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0'
     implementation 'androidx.annotation:annotation:1.1.0'
 
     //test
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test:rules:1.2.0'
-    androidTestImplementation 'androidx.work:work-testing:2.3.4'
+    androidTestImplementation 'androidx.work:work-testing:2.4.0'
     androidTestImplementation 'androidx.arch.core:core-testing:2.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
@@ -127,9 +127,9 @@ dependencies {
     implementation 'androidx.palette:palette:1.0.0'
 
     //arch
-    implementation "androidx.work:work-runtime-ktx:2.3.4"
-    implementation "androidx.work:work-rxjava2:2.3.4"
-    androidTestImplementation "androidx.work:work-testing:2.3.4"
+    implementation "androidx.work:work-runtime-ktx:2.4.0"
+    implementation "androidx.work:work-rxjava2:2.4.0"
+    androidTestImplementation "androidx.work:work-testing:2.4.0"
 
     //lifecycler
     def lifecycle_version = "2.2.0"
@@ -150,7 +150,7 @@ dependencies {
     // livedata scope
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
 
-    def nav_version = "2.3.0-alpha06"
+    def nav_version = "2.3.0"
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
@@ -172,9 +172,17 @@ dependencies {
 
     //room end
 
+    def camerax_version = "1.0.0-beta07"
+    // CameraX core library using camera2 implementation
+    implementation "androidx.camera:camera-camera2:$camerax_version"
+    // CameraX Lifecycle Library
+    implementation "androidx.camera:camera-lifecycle:$camerax_version"
+    // CameraX View class
+    implementation "androidx.camera:camera-view:1.0.0-alpha15"
+
     //moshi
-    implementation 'com.squareup.moshi:moshi-kotlin:1.8.0'
-    kapt "com.squareup.moshi:moshi-kotlin-codegen:1.8.0"
+    implementation 'com.squareup.moshi:moshi-kotlin:1.9.2'
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:1.9.2"
 
     //retrofit okhttp
     implementation 'com.squareup.retrofit2:retrofit:2.7.1'
@@ -203,16 +211,16 @@ dependencies {
 
     //rx
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.15'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.19'
     implementation 'io.reactivex.rxjava2:rxkotlin:2.4.0'
 
     //concurrent
-    implementation 'androidx.concurrent:concurrent-futures:1.0.0'
+    implementation 'androidx.concurrent:concurrent-futures:1.1.0'
 
     // Kotlin Coroutines
-    def coroutines_version = '1.3.3'
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.3"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.3"
+    def coroutines_version = '1.3.7'
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.7"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.8"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.1.1"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-debug:$coroutines_version"
@@ -223,7 +231,7 @@ dependencies {
         exclude group: "com.android.support"
     }
     // glide
-    implementation "com.github.bumptech.glide:glide:4.10.0"
+    implementation "com.github.bumptech.glide:glide:4.11.0"
 
     // viewpager
     implementation "androidx.viewpager2:viewpager2:1.0.0"
@@ -241,7 +249,7 @@ dependencies {
 
 
     // billing lib
-    implementation 'com.android.billingclient:billing:2.2.0'
+    implementation 'com.android.billingclient:billing:3.0.0'
 
     // Speech SDK
     implementation 'com.microsoft.cognitiveservices.speech:client-sdk:1.8.0'
@@ -253,15 +261,16 @@ dependencies {
     implementation 'androidx.browser:browser:1.2.0'
 
     // https://github.com/stfalcon-studio/StfalconImageViewer
-    implementation 'com.github.stfalcon:stfalcon-imageviewer:1.0.0'
+    implementation 'com.github.stfalcon:stfalcon-imageviewer:1.0.1'
 
     // Play Install Referrer Library
     // https://developer.android.com/google/play/installreferrer/library.html
-    implementation 'com.android.installreferrer:installreferrer:1.1.2'
+    implementation 'com.android.installreferrer:installreferrer:2.1'
 }
 
 configurations {
     all*.exclude group: 'com.google.guava', module: 'listenablefuture'
+	arvifoxconf.extendsFrom implementation
 }
 
 apply plugin: 'com.google.gms.google-services'
@@ -281,3 +290,8 @@ sceneform.asset('sampledata/model.fbx',
         'default',
         'sampledata/model.sfa',
         'src/main/res/raw/model')
+
+task copyDeps(type: Copy) {
+  from configurations.arvifoxconf
+  into './depsdir'
+}

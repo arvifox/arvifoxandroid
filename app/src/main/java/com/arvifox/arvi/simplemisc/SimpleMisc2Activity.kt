@@ -22,6 +22,7 @@ import com.arvifox.arvi.simplemisc.anim.BottomNavAnimFragment
 import com.arvifox.arvi.simplemisc.anim.ExitAnim.findLocationOfCenterOnTheScreen
 import com.arvifox.arvi.simplemisc.anim.ExitAnimFragment
 import com.arvifox.arvi.simplemisc.anim.FabAnimFragment
+import com.arvifox.arvi.simplemisc.camera.camerax.CamexFragment
 import com.arvifox.arvi.simplemisc.misc2.BazDto
 import com.arvifox.arvi.simplemisc.misc2.Misc2Fragment1
 import com.arvifox.arvi.simplemisc.misc2.approxsensor.ApproxSensorFragment
@@ -48,7 +49,7 @@ class SimpleMisc2Activity : AppCompatActivity(), RecAdapter.OnClickListener {
         setContentView(R.layout.activity_simple_misc2)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
+        externalMediaDirs
         misc2_recycler.setHasFixedSize(true)
         misc2_recycler.itemAnimator = DefaultItemAnimator()
 //        misc2_recycler.itemAnimator = MyItemAnimator()
@@ -67,7 +68,8 @@ class SimpleMisc2Activity : AppCompatActivity(), RecAdapter.OnClickListener {
                 BazDto(6, 8.8),
                 BazDto(7, 7.77),
                 BazDto(8, 7.88),
-                BazDto(9, 7.12)
+                BazDto(9, 7.12),
+                BazDto(10, 6.23)
             )
         )
     }
@@ -123,6 +125,11 @@ class SimpleMisc2Activity : AppCompatActivity(), RecAdapter.OnClickListener {
             9 -> supportFragmentManager.beginTransaction().replace(
                 R.id.misc2_frame,
                 PackListFragment.newInstance(),
+                ""
+            ).commit()
+            10 -> supportFragmentManager.beginTransaction().replace(
+                R.id.misc2_frame,
+                CamexFragment(),
                 ""
             ).commit()
         }

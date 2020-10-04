@@ -38,8 +38,8 @@ class MatCompActivity : AppCompatActivity() {
         bottomAppBar.setNavigationOnClickListener { showToast("navi clicked") }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        if (item?.itemId == android.R.id.home) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
             showToast("home clicked")
             return true
         }

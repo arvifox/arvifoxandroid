@@ -116,7 +116,7 @@ class BackGeoService : Service() {
     }
 
     private val locationListener = object : LocationListener {
-        override fun onLocationChanged(location: Location?) {
+        override fun onLocationChanged(location: Location) {
             showLocation(location)
         }
 
@@ -129,12 +129,12 @@ class BackGeoService : Service() {
         }
 
         @SuppressWarnings("MissingPermission")
-        override fun onProviderEnabled(provider: String?) {
+        override fun onProviderEnabled(provider: String) {
             checkEnabled()
             showLocation(locationManager.getLastKnownLocation(provider))
         }
 
-        override fun onProviderDisabled(provider: String?) {
+        override fun onProviderDisabled(provider: String) {
             checkEnabled()
         }
     }

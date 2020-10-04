@@ -7,6 +7,8 @@ import android.util.TypedValue;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.arvifox.arvi.utils.NpeUtils;
+
 import java.lang.reflect.Array;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -31,8 +33,7 @@ public final class ConvertUtils {
     @NonNull
     public static <T> List<T> toList(@Nullable T[] array) {
         List<T> list = new ArrayList<>();
-
-        if (!NpeUtils.isEmpty(array)) {
+        if (NpeUtils.isEmpty(array)) {
             Collections.addAll(list, array);
         }
         return list;
