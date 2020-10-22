@@ -22,6 +22,7 @@ import com.arvifox.arvi.simplemisc.anim.BottomNavAnimFragment
 import com.arvifox.arvi.simplemisc.anim.ExitAnim.findLocationOfCenterOnTheScreen
 import com.arvifox.arvi.simplemisc.anim.ExitAnimFragment
 import com.arvifox.arvi.simplemisc.anim.FabAnimFragment
+import com.arvifox.arvi.simplemisc.anim.rev.AteneFragment
 import com.arvifox.arvi.simplemisc.camera.camerax.CamexFragment
 import com.arvifox.arvi.simplemisc.misc2.BazDto
 import com.arvifox.arvi.simplemisc.misc2.Misc2Fragment1
@@ -69,7 +70,8 @@ class SimpleMisc2Activity : AppCompatActivity(), RecAdapter.OnClickListener {
                 BazDto(7, 7.77),
                 BazDto(8, 7.88),
                 BazDto(9, 7.12),
-                BazDto(10, 6.23)
+                BazDto(10, 6.23),
+                BazDto(11, 2.83),
             )
         )
     }
@@ -131,6 +133,11 @@ class SimpleMisc2Activity : AppCompatActivity(), RecAdapter.OnClickListener {
                 R.id.misc2_frame,
                 CamexFragment(),
                 ""
+            ).commit()
+            11 -> supportFragmentManager.beginTransaction().replace(
+                R.id.misc2_frame,
+                AteneFragment(),
+                "atene"
             ).commit()
         }
     }

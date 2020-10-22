@@ -89,6 +89,9 @@ android {
         main.jni.srcDirs += ['src/main/jniLibs']
         main.jniLibs.srcDirs += ['src/main/jniLibs']
     }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 //    ndk {
     /*
              * Sceneform is available for the following ABIs: arm64-v8a, armv7a,

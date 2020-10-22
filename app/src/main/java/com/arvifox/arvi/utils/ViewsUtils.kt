@@ -1,6 +1,8 @@
 package com.arvifox.arvi.utils
 
 import android.text.Editable
+import android.util.DisplayMetrics
+import android.util.TypedValue
 import android.view.View
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
@@ -14,17 +16,23 @@ inline fun <reified T> Editable.removeSpans() {
     }
 }
 
-fun View.postDelayedSafe(delayMillis: Long, block: () -> Unit) {
-        val runnable = Runnable { block() }
-        postDelayed(runnable, delayMillis)
-        addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
-            override fun onViewAttachedToWindow(view: View) {}
+fun Float.dpToPx(dp: DisplayMetrics): Int =
+    TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, this, dp).toInt()
 
-            override fun onViewDetachedFromWindow(view: View) {
-                removeOnAttachStateChangeListener(this)
-                view.removeCallbacks(runnable)
-            }
-        })
+fun View.dip2px(dip: Int): Float = dip * resources.displayMetrics.density
+fun View.dip2px(dip: Float): Float = dip2px(dip.toInt())
+
+fun View.postDelayedSafe(delayMillis: Long, block: () -> Unit) {
+    val runnable = Runnable { block() }
+    postDelayed(runnable, delayMillis)
+    addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
+        override fun onViewAttachedToWindow(view: View) {}
+
+        override fun onViewDetachedFromWindow(view: View) {
+            removeOnAttachStateChangeListener(this)
+            view.removeCallbacks(runnable)
+        }
+    })
 }
 
 class BaseFragment(@LayoutRes layoutRes: Int) : Fragment(layoutRes), CoroutineScope by MainScope() {
