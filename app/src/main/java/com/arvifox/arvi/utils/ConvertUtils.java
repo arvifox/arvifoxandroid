@@ -1,4 +1,4 @@
-package com.arvifox.arvi;
+package com.arvifox.arvi.utils;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
