@@ -30,8 +30,6 @@
     <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" />
     <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />
 
-<!--    <uses-feature android:name="android.hardware.camera.any" />-->
-
     <application
         android:name=".MyApp"
         android:allowBackup="true"
@@ -39,52 +37,56 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
+        android:theme="@style/Arvifox"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".simplemisc.misc4window.WindowActivity"
-            android:label="Herher"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:name=".splash.SplashActivity"
+            android:theme="@style/Arvifox.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- android:value="required" /> -->
+        </activity>
+        <activity
+            android:name=".simplemisc.misc4window.WindowActivity"
+            android:label="Herher"
+            android:theme="@style/Arvifox" />
+        <activity
+            android:name=".MainActivity"
+            android:clearTaskOnLaunch="true"
+            android:label="@string/app_name"
+            android:theme="@style/Arvifox"></activity> <!-- android:value="required" /> -->
         <activity
             android:name=".simplemisc.phoneinfo.PhoneInfoActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/Arvifox" />
         <activity
             android:name=".https.HttpsActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/Arvifox" />
         <activity
             android:name=".geoposition.GeoPositionActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/Arvifox" />
         <activity
             android:name=".googlemaps.GoogleMapsActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/Arvifox" />
         <activity
             android:name=".google.GoogleBaseStartActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/Arvifox" />
         <activity
             android:name=".google.googleapi.visiontest.VisionApiTestActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/Arvifox" />
         <activity
             android:name=".google.googleapi.AccountsActivity"
             android:label="@string/title_activity_accounts"
             android:parentActivityName=".google.GoogleBaseStartActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/Arvifox">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.arvifox.arvi.google.GoogleBaseStartActivity" />
@@ -93,7 +95,7 @@
             android:name=".google.googleapi.OAuthTestActivity"
             android:label="@string/title_activity_oauth_test"
             android:parentActivityName=".google.GoogleBaseStartActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/Arvifox">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.arvifox.arvi.google.GoogleBaseStartActivity" />
@@ -102,7 +104,7 @@
             android:name=".google.ar.StartArActivity"
             android:label="@string/title_activity_start_ar"
             android:parentActivityName=".google.GoogleBaseStartActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/Arvifox">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.arvifox.arvi.google.GoogleBaseStartActivity" />
@@ -114,7 +116,7 @@
             android:label="@string/title_activity_hello_scene"
             android:parentActivityName=".google.ar.StartArActivity"
             android:screenOrientation="locked"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/Arvifox">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.arvifox.arvi.google.ar.StartArActivity" />
@@ -123,7 +125,7 @@
             android:name=".google.ar.AugmentedImageActivity"
             android:label="@string/title_activity_augmented_image"
             android:parentActivityName=".google.ar.StartArActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/Arvifox">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.arvifox.arvi.google.ar.StartArActivity" />
@@ -132,7 +134,7 @@
             android:name=".simplemisc.SimpleMiscActivity"
             android:label="@string/title_activity_simple_misc"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/Arvifox">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.arvifox.arvi.MainActivity" />
@@ -141,7 +143,7 @@
             android:name=".simplemisc.SimpleMisc2Activity"
             android:label="@string/title_activity_simple_misc"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/Arvifox">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.arvifox.arvi.MainActivity" />
@@ -150,7 +152,7 @@
             android:name=".navig.NavigActivity"
             android:label="@string/title_activity_simple_misc"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/Arvifox">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.arvifox.arvi.MainActivity" />
@@ -159,7 +161,7 @@
             android:name=".simplemisc.camera.CameraShotActivity"
             android:label="@string/title_activity_camera_shot"
             android:parentActivityName=".simplemisc.SimpleMiscActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/Arvifox">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.arvifox.arvi.simplemisc.SimpleMiscActivity" />
@@ -167,7 +169,7 @@
         <activity
             android:name=".simplemisc.sensor.SensorActivity"
             android:parentActivityName=".simplemisc.SimpleMiscActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/Arvifox">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.arvifox.arvi.simplemisc.SimpleMiscActivity" />
@@ -176,7 +178,7 @@
             android:name=".simplemisc.servicehandler.ServiceHandlerActivity"
             android:label="@string/title_activity_service_handler"
             android:parentActivityName=".simplemisc.SimpleMiscActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/Arvifox">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.arvifox.arvi.simplemisc.SimpleMiscActivity" />
@@ -185,7 +187,7 @@
             android:name=".simplemisc.matcomp.MatCompActivity"
             android:label="MatComp"
             android:parentActivityName=".simplemisc.SimpleMiscActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/Arvifox">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.arvifox.arvi.simplemisc.SimpleMiscActivity" />
@@ -194,7 +196,7 @@
             android:name=".simplemisc.anim.AnimActivity"
             android:label="Anim"
             android:parentActivityName=".simplemisc.SimpleMiscActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/Arvifox">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.arvifox.arvi.simplemisc.SimpleMiscActivity" />
@@ -203,7 +205,7 @@
             android:name=".simplemisc.workmanager.WorkManagerActivity"
             android:label="Work"
             android:parentActivityName=".simplemisc.workmanager.WorkManSelectActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/Arvifox">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.arvifox.arvi.simplemisc.workmanager.WorkManSelectActivity" />
@@ -212,7 +214,7 @@
             android:name=".simplemisc.workmanager.WorkManSelectActivity"
             android:label="Work"
             android:parentActivityName=".simplemisc.SimpleMiscActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/Arvifox">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.arvifox.arvi.simplemisc.SimpleMiscActivity" />
@@ -221,7 +223,7 @@
             android:name=".simplemisc.view.NestedScrollActivity"
             android:label="Nested"
             android:parentActivityName=".simplemisc.SimpleMiscActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/Arvifox">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.arvifox.arvi.simplemisc.SimpleMiscActivity" />
@@ -230,7 +232,7 @@
             android:name=".simplemisc.matcomp.TaskColorActivity"
             android:label="TaskColor"
             android:parentActivityName=".simplemisc.SimpleMiscActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/Arvifox">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.arvifox.arvi.simplemisc.SimpleMiscActivity" />
@@ -239,7 +241,7 @@
             android:name=".simplemisc.tmdb.TmdbActivity"
             android:label="Tmdb"
             android:parentActivityName=".simplemisc.SimpleMiscActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/Arvifox">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.arvifox.arvi.simplemisc.SimpleMiscActivity" />
@@ -248,7 +250,7 @@
             android:name=".simplemisc.viewpager2.ViewPager2Activity"
             android:label="ViewPager2"
             android:parentActivityName=".simplemisc.SimpleMiscActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/Arvifox">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.arvifox.arvi.simplemisc.SimpleMiscActivity" />
@@ -257,7 +259,7 @@
             android:name=".simplemisc.moveimage.MoveImageActivity"
             android:label="Move Image"
             android:parentActivityName=".simplemisc.SimpleMiscActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/Arvifox">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.arvifox.arvi.simplemisc.SimpleMiscActivity" />
@@ -266,7 +268,7 @@
             android:name=".simplemisc.constrlayout.ConstrLayoutActivity"
             android:label="Constr layout"
             android:parentActivityName=".simplemisc.SimpleMiscActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/Arvifox">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.arvifox.arvi.simplemisc.SimpleMiscActivity" />
