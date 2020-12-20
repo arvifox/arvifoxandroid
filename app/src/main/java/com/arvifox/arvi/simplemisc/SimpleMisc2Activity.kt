@@ -24,6 +24,7 @@ import com.arvifox.arvi.simplemisc.anim.ExitAnimFragment
 import com.arvifox.arvi.simplemisc.anim.FabAnimFragment
 import com.arvifox.arvi.simplemisc.anim.rev.AteneFragment
 import com.arvifox.arvi.simplemisc.camera.camerax.CamexFragment
+import com.arvifox.arvi.simplemisc.cry.CryFragment
 import com.arvifox.arvi.simplemisc.misc2.BazDto
 import com.arvifox.arvi.simplemisc.misc2.Misc2Fragment1
 import com.arvifox.arvi.simplemisc.misc2.approxsensor.ApproxSensorFragment
@@ -72,6 +73,7 @@ class SimpleMisc2Activity : AppCompatActivity(), RecAdapter.OnClickListener {
                 BazDto(9, 7.12),
                 BazDto(10, 6.23),
                 BazDto(11, 2.83),
+                BazDto(12, 7.13),
             )
         )
     }
@@ -138,6 +140,11 @@ class SimpleMisc2Activity : AppCompatActivity(), RecAdapter.OnClickListener {
                 R.id.misc2_frame,
                 AteneFragment(),
                 "atene"
+            ).commit()
+            12 -> supportFragmentManager.beginTransaction().replace(
+                R.id.misc2_frame,
+                CryFragment.getInstance(),
+                "cryfra"
             ).commit()
         }
     }

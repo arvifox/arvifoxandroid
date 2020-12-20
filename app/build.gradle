@@ -271,6 +271,11 @@ dependencies {
     // Play Install Referrer Library
     // https://developer.android.com/google/play/installreferrer/library.html
     implementation 'com.android.installreferrer:installreferrer:2.1'
+
+    //crypto
+
+    //https://github.com/str4d/ed25519-java
+    implementation "net.i2p.crypto:eddsa:0.3.0"
 }
 
 configurations {

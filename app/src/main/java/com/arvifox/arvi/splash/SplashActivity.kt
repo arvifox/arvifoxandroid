@@ -40,6 +40,6 @@ class SplashActivity : AppCompatActivity() {
         super.onResume()
         Handler(Looper.getMainLooper()).postDelayed({
             startActivity(Intent(this, MainActivity::class.java))
-        }, 4000)
+        }, 1000)
     }
 }
