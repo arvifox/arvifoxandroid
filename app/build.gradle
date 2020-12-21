@@ -276,6 +276,9 @@ dependencies {
 
     //https://github.com/str4d/ed25519-java
     implementation "net.i2p.crypto:eddsa:0.3.0"
+
+    // Pure Java implementation of EdDSA-SHA3
+    implementation "com.github.warchant:ed25519-sha3-java:2.0.1"
 }
 
 configurations {
