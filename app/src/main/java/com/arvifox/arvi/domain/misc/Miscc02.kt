@@ -16,18 +16,18 @@ object Miscc02 {
         val w = Widd()
         val li = { wi: Widd -> println("wii = $wi") }
         w.addLis(li)
-        println("count=${w.count}")
+        println("count=${w.getCount()}")
         w.removeLis(li)
-        println("count=${w.count}")
+        println("count=${w.getCount()}")
     }
 
     fun dfdf22() {
         val w = Widd()
         val li = Widd.Listener { wi: Widd -> println("wii = $wi") }
         w.addLis(li)
-        println("count=${w.count}")
+        println("count=${w.getCount()}")
         w.removeLis(li)
-        println("count=${w.count}")
+        println("count=${w.getCount()}")
     }
 }
 
