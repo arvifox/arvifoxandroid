@@ -27,6 +27,7 @@ class CryFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        viewLifecycleOwner
         super.onViewCreated(view, savedInstanceState)
         tvProvidersList.text = cryMana.getProviders().joinToString(separator = "\n")
         tvDigest1.text = cryMana.digest("first string to digest").run { "$first\n$second" }
