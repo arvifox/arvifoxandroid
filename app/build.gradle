@@ -153,7 +153,7 @@ dependencies {
     // livedata scope
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.3.1"
 
-    def nav_version = "2.3.4"
+    def nav_version = "2.3.5"
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
@@ -206,8 +206,8 @@ dependencies {
     implementation 'com.google.ar.sceneform.ux:sceneform-ux:1.17.1'
 
     //firebase
-    implementation 'com.google.firebase:firebase-messaging:21.0.1'
-    implementation 'com.google.firebase:firebase-core:18.0.2'
+    implementation 'com.google.firebase:firebase-messaging:21.1.0'
+    implementation 'com.google.firebase:firebase-core:18.0.3'
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
     implementation 'com.google.android.gms:play-services-base:17.6.0'
     implementation 'com.google.android.gms:play-services-gcm:17.0.0'
