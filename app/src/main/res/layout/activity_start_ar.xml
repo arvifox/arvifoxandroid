@@ -1,36 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context=".google.ar.StartArActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <include layout="@layout/app_bar_layout" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:fitsSystemWindows="true"
+        tools:context=".google.ar.StartArActivity">
 
-        <Button
-            android:id="@+id/btnStartHelloSceneform"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="HelloSceneform"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <include
+            android:id="@+id/incluAp"
+            layout="@layout/app_bar_layout" />
 
-        <Button
-            android:id="@+id/btnStartAugmImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Augment image"
-            app:layout_constraintLeft_toRightOf="@id/btnStartHelloSceneform"
-            app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <Button
+                android:id="@+id/btnStartHelloSceneform"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="HelloSceneform"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/btnStartAugmImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Augment image"
+                app:layout_constraintLeft_toRightOf="@id/btnStartHelloSceneform"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

@@ -4,18 +4,16 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.widget.Toast
-import com.arvifox.arvi.R
+import androidx.appcompat.app.AppCompatActivity
+import com.arvifox.arvi.databinding.ActivityArCoreVisionBinding
 import com.arvifox.arvi.google.ar.StartArActivity
 import com.arvifox.arvi.google.googleapi.AccountsActivity
 import com.arvifox.arvi.google.googleapi.OAuthTestActivity
 import com.arvifox.arvi.google.googleapi.visiontest.VisionApiTestActivity
 import com.google.ar.core.ArCoreApk
-import kotlinx.android.synthetic.main.activity_ar_core_vision.*
-import kotlinx.android.synthetic.main.app_bar_layout.*
 
 class GoogleBaseStartActivity : AppCompatActivity() {
 
@@ -25,15 +23,18 @@ class GoogleBaseStartActivity : AppCompatActivity() {
         }
     }
 
+    private lateinit var binding: ActivityArCoreVisionBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_ar_core_vision)
+        binding = ActivityArCoreVisionBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val tb = toolbar
+        val tb = binding.inclAppB.toolbar
         setSupportActionBar(tb)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
-        btnArCore1.setOnClickListener { _ ->
+        binding.btnArCore1.setOnClickListener { _ ->
             try {
                 val intent = Intent("com.google.zxing.client.android.SCAN")
                 intent.putExtra("SCAN_MODE", "QR_CODE_MODE") // "PRODUCT_MODE for bar codes
@@ -45,9 +46,15 @@ class GoogleBaseStartActivity : AppCompatActivity() {
             }
         }
 
-        btnVisionTestStart.setOnClickListener { startActivity(VisionApiTestActivity.newIntent(this)) }
-        btnAccounts.setOnClickListener { startActivity(AccountsActivity.newIntent(this)) }
-        btnOAuthTest.setOnClickListener { startActivity(OAuthTestActivity.newIntent(this)) }
+        binding.btnVisionTestStart.setOnClickListener {
+            startActivity(
+                VisionApiTestActivity.newIntent(
+                    this
+                )
+            )
+        }
+        binding.btnAccounts.setOnClickListener { startActivity(AccountsActivity.newIntent(this)) }
+        binding.btnOAuthTest.setOnClickListener { startActivity(OAuthTestActivity.newIntent(this)) }
 
         checkArEnable()
     }
@@ -65,8 +72,8 @@ class GoogleBaseStartActivity : AppCompatActivity() {
     private fun checkArEnable() {
         val arav = ArCoreApk.getInstance().checkAvailability(this)
         if (arav.isTransient) Handler().postDelayed({ checkArEnable() }, 200)
-        btnStartArCore.isEnabled = arav.isSupported
+        binding.btnStartArCore.isEnabled = arav.isSupported
         Toast.makeText(this, "ArCore is not supported", Toast.LENGTH_SHORT).show()
-        btnStartArCore.setOnClickListener { startActivity(StartArActivity.newIntent(this)) }
+        binding.btnStartArCore.setOnClickListener { startActivity(StartArActivity.newIntent(this)) }
     }
 }

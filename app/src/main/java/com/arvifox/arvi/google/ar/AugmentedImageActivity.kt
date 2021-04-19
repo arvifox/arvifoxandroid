@@ -6,19 +6,12 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.arvifox.arvi.R
+import com.arvifox.arvi.databinding.ActivityAugmentedImageBinding
 import com.arvifox.arvi.google.utils.FullScreenHelper
 import com.arvifox.arvi.utils.Logger
-import com.google.ar.core.AugmentedImageDatabase
-import com.google.ar.core.Config
-import com.google.ar.core.Session
+import com.google.ar.core.*
 import com.google.ar.sceneform.FrameTime
-
 import java.io.IOException
-import com.google.ar.core.TrackingState
-import com.google.ar.core.AugmentedImage
-import kotlinx.android.synthetic.main.activity_augmented_image.*
-import kotlinx.android.synthetic.main.app_bar_layout.*
 
 class AugmentedImageActivity : AppCompatActivity() {
 
@@ -32,10 +25,13 @@ class AugmentedImageActivity : AppCompatActivity() {
         }
     }
 
+    private lateinit var binding: ActivityAugmentedImageBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_augmented_image)
-        setSupportActionBar(toolbar)
+        binding = ActivityAugmentedImageBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        setSupportActionBar(binding.inApBa.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         initializeSceneView()
     }
@@ -48,15 +44,15 @@ class AugmentedImageActivity : AppCompatActivity() {
             createImageDb(config)
             config.updateMode = Config.UpdateMode.LATEST_CAMERA_IMAGE
             arSession?.configure(config)
-            asvView.setupSession(arSession)
+            binding.asvView.setupSession(arSession)
         }
         arSession?.resume()
-        asvView.resume()
+        binding.asvView.resume()
     }
 
     override fun onPause() {
         if (arSession != null) {
-            asvView.pause()
+            binding.asvView.pause()
             arSession?.pause()
         }
         super.onPause()
@@ -70,11 +66,11 @@ class AugmentedImageActivity : AppCompatActivity() {
     //region private
 
     private fun initializeSceneView() {
-        asvView.scene.addOnUpdateListener { fr -> onUpdateFrame(fr) }
+        binding.asvView.scene.addOnUpdateListener { fr -> onUpdateFrame(fr) }
     }
 
     private fun onUpdateFrame(frameTime: FrameTime) {
-        val frame = asvView.arFrame!!
+        val frame = binding.asvView.arFrame!!
         val updatedAugmentedImages = frame.getUpdatedTrackables(AugmentedImage::class.java)
 
         for (augmentedImage in updatedAugmentedImages) {
@@ -83,7 +79,7 @@ class AugmentedImageActivity : AppCompatActivity() {
                 if (augmentedImage.name == "foo") {
                     val node = AugmentedImageNode(this, "model.sfb")
                     node.setImageI(augmentedImage)
-                    asvView.scene.addChild(node)
+                    binding.asvView.scene.addChild(node)
                 }
 
             }

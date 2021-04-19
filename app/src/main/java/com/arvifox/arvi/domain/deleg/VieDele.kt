@@ -2,12 +2,12 @@ package com.arvifox.arvi.domain.deleg
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ProgressBar
 import android.widget.TextView
-import com.arvifox.arvi.R
-import kotlinx.android.synthetic.main.custom_view.view.*
+import com.arvifox.arvi.databinding.CustomViewBinding
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
@@ -32,13 +32,12 @@ object sdf {
         attrs: AttributeSet? = null
     ) : FrameLayout(context, attrs) {
 
-        init {
-            inflate(context, R.layout.custom_view, this)
-        }
+        private var binding: CustomViewBinding =
+            CustomViewBinding.inflate(LayoutInflater.from(context), this, false)
 
-        var title by tvTitle.text()
-        var subtitle by tvSubtitle.text()
-        var description by tvDescription.text()
+        var title by binding.tvTitle.text()
+        var subtitle by binding.tvSubtitle.text()
+        var description by binding.tvDescription.text()
     }
 
     fun View.isVisible(keepBounds: Boolean): ReadWriteProperty<Any, Boolean> =

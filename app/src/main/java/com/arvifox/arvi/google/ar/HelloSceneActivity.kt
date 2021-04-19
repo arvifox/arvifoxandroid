@@ -4,27 +4,23 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import android.view.Gravity
 import android.view.MotionEvent
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.arvifox.arvi.R
+import com.arvifox.arvi.databinding.ActivityHelloSceneBinding
 import com.arvifox.arvi.google.utils.ArUtils
 import com.arvifox.arvi.utils.Logger
 import com.google.ar.core.HitResult
 import com.google.ar.core.Plane
 import com.google.ar.sceneform.AnchorNode
 import com.google.ar.sceneform.Node
+import com.google.ar.sceneform.math.Quaternion
 import com.google.ar.sceneform.math.Vector3
 import com.google.ar.sceneform.rendering.*
 import com.google.ar.sceneform.ux.ArFragment
 import com.google.ar.sceneform.ux.TransformableNode
-import com.google.ar.sceneform.rendering.ShapeFactory
-import com.google.ar.sceneform.rendering.MaterialFactory
-import com.google.ar.sceneform.math.Quaternion
-import kotlinx.android.synthetic.main.activity_hello_scene.*
-import kotlinx.android.synthetic.main.app_bar_layout.*
-
 
 class HelloSceneActivity : AppCompatActivity() {
 
@@ -40,6 +36,8 @@ class HelloSceneActivity : AppCompatActivity() {
         }
     }
 
+    private lateinit var binding: ActivityHelloSceneBinding
+
     // CompletableFuture requires api level 24
     // FutureReturnValueIgnored is not valid
     @SuppressLint("NewApi")
@@ -48,28 +46,30 @@ class HelloSceneActivity : AppCompatActivity() {
         if (!ArUtils.checkIsSupportedDeviceOrFinish(this)) {
             return
         }
-        setContentView(R.layout.activity_hello_scene)
-        setSupportActionBar(toolbar)
+        binding = ActivityHelloSceneBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        setSupportActionBar(binding.inAppBarr.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        btnDrawPlane.setOnClickListener { drawPlane() }
+        binding.btnDrawPlane.setOnClickListener { drawPlane() }
         arFragment = supportFragmentManager.findFragmentById(R.id.arFragment) as ArFragment
 
         // When you build a Renderable, Sceneform loads its resources in the background while returning
         // a CompletableFuture. Call thenAccept(), handle(), or check isDone() before calling get().
         ModelRenderable.builder()
-                .setSource(this, R.raw.model)
-                .build()
-                .thenAccept { renderable -> model = renderable }
-                .exceptionally()
-                { _ ->
-                    val toast = Toast.makeText(this, "Unable to load renderable", Toast.LENGTH_LONG)
-                    toast.setGravity(Gravity.CENTER, 0, 0)
-                    toast.show()
-                    null
-                }
+            .setSource(this, R.raw.model)
+            .build()
+            .thenAccept { renderable -> model = renderable }
+            .exceptionally()
+            { _ ->
+                val toast = Toast.makeText(this, "Unable to load renderable", Toast.LENGTH_LONG)
+                toast.setGravity(Gravity.CENTER, 0, 0)
+                toast.show()
+                null
+            }
 
-        MaterialFactory.makeOpaqueWithColor(this, Color(android.graphics.Color.BLUE)).thenAccept { mat -> m = mat }
+        MaterialFactory.makeOpaqueWithColor(this, Color(android.graphics.Color.BLUE))
+            .thenAccept { mat -> m = mat }
 
         arFragment?.setOnTapArPlaneListener { hitResult: HitResult, plane: Plane, motionEvent: MotionEvent ->
             Logger.d { "tap plane" }
@@ -126,8 +126,20 @@ class HelloSceneActivity : AppCompatActivity() {
         andy.renderable = model
 //        andy.select()
         val sz = tr?.polygon?.array()?.size!!
-        val fp1 = tr.centerPose.transformPoint(floatArrayOf(tr?.polygon?.array()?.get(0)!!, 0f, tr?.polygon?.array()?.get(1)!!))
-        val fp2 = tr.centerPose.transformPoint(floatArrayOf(tr?.polygon?.array()?.get(sz / 2)!!, 0f, tr?.polygon?.array()?.get(sz / 2 + 1)!!))
+        val fp1 = tr.centerPose.transformPoint(
+            floatArrayOf(
+                tr?.polygon?.array()?.get(0)!!,
+                0f,
+                tr?.polygon?.array()?.get(1)!!
+            )
+        )
+        val fp2 = tr.centerPose.transformPoint(
+            floatArrayOf(
+                tr?.polygon?.array()?.get(sz / 2)!!,
+                0f,
+                tr?.polygon?.array()?.get(sz / 2 + 1)!!
+            )
+        )
         drawLine(Vector3(fp1[0], fp1[1], fp1[2]), Vector3(fp2[0], fp2[1], fp2[2]), ann)
     }
 
@@ -139,14 +151,16 @@ class HelloSceneActivity : AppCompatActivity() {
         val directionFromTopToBottom = difference.normalized()
         val rotationFromAToB = Quaternion.lookRotation(directionFromTopToBottom, Vector3.up())
         MaterialFactory.makeOpaqueWithColor(this, Color(android.graphics.Color.GREEN))
-                .thenAccept { material ->
-                    val lineRenderable = ShapeFactory.makeCube(Vector3(.01f, .01f, difference.length()),
-                            Vector3.zero(), material)
-                    lineNode.setParent(arFragment?.arSceneView?.scene)
-                    lineNode.renderable = lineRenderable
+            .thenAccept { material ->
+                val lineRenderable = ShapeFactory.makeCube(
+                    Vector3(.01f, .01f, difference.length()),
+                    Vector3.zero(), material
+                )
+                lineNode.setParent(arFragment?.arSceneView?.scene)
+                lineNode.renderable = lineRenderable
 //                    lineNode.localPosition = Vector3.add(v1, v2).scaled(.5f)
-                    lineNode.localPosition = v1
-                    lineNode.localRotation = rotationFromAToB
-                }
+                lineNode.localPosition = v1
+                lineNode.localRotation = rotationFromAToB
+            }
     }
 }

@@ -4,12 +4,10 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.arvifox.arvi.R
+import com.arvifox.arvi.databinding.ActivityStartArBinding
 import com.google.ar.core.ArCoreApk
 import com.google.ar.core.Session
 import com.google.ar.core.exceptions.UnavailableUserDeclinedInstallationException
-import kotlinx.android.synthetic.main.activity_start_ar.*
-import kotlinx.android.synthetic.main.app_bar_layout.*
 
 class StartArActivity : AppCompatActivity() {
 
@@ -24,15 +22,30 @@ class StartArActivity : AppCompatActivity() {
         }
     }
 
+    private lateinit var binding: ActivityStartArBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_start_ar)
-        setSupportActionBar(toolbar)
+        binding = ActivityStartArBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        setSupportActionBar(binding.incluAp.toolbar)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        btnStartHelloSceneform.setOnClickListener { startActivity(HelloSceneActivity.newIntent(this)) }
-        btnStartAugmImage.setOnClickListener { startActivity(AugmentedImageActivity.newIntent(this)) }
+        binding.btnStartHelloSceneform.setOnClickListener {
+            startActivity(
+                HelloSceneActivity.newIntent(
+                    this
+                )
+            )
+        }
+        binding.btnStartAugmImage.setOnClickListener {
+            startActivity(
+                AugmentedImageActivity.newIntent(
+                    this
+                )
+            )
+        }
     }
 
     /**
