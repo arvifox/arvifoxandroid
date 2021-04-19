@@ -5,6 +5,11 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
+/**
+ * [https://medium.com/androiddevelopers/using-and-testing-room-kotlin-apis-4d69438f9334]
+ * [https://developer.android.com/training/data-storage/room]
+ * [https://developer.android.com/codelabs/android-room-with-a-view-kotlin]
+ */
 @Database(entities = [User::class], version = 1)
 abstract class UsersDatabase : RoomDatabase() {
 

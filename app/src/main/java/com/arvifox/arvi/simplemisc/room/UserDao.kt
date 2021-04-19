@@ -7,11 +7,12 @@ import androidx.room.Query
 import io.reactivex.Completable
 
 import io.reactivex.Flowable
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface UserDao {
 
-    @Query("SELECT * FROM Users WHERE userid = :id")
+    @Query("SELECT * FROM Users WHERE userid = :id ORDER BY username ASC")
     fun getUserById(id: String): Flowable<User>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -19,4 +20,10 @@ interface UserDao {
 
     @Query("DELETE FROM Users")
     fun deleteAllUsers()
+
+    @Query("SELECT * FROM Users WHERE userid = :id ORDER BY username ASC")
+    fun getUsersFlow(): Flow<List<User>>
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insert(u: User)
 }
