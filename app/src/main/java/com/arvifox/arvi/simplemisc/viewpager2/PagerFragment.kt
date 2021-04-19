@@ -5,19 +5,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.arvifox.arvi.R
-import kotlinx.android.synthetic.main.item_viewpager_test.*
+import com.arvifox.arvi.databinding.ItemViewpagerTestBinding
 
 class PagerFragment : Fragment() {
 
+    private lateinit var binding: ItemViewpagerTestBinding
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.item_viewpager_test, container, false)
+        binding = ItemViewpagerTestBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         arguments?.let {
-            ivViewPager.setBackgroundResource(it.getInt("color"))
-            tvTitle.text = "Item ${it.getInt("position")}"
+            binding.ivViewPager.setBackgroundResource(it.getInt("color"))
+            binding.tvTitle.text = "Item ${it.getInt("position")}"
         }
     }
 }

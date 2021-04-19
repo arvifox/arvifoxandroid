@@ -6,12 +6,13 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.arvifox.arvi.R
-import kotlinx.android.synthetic.main.app_bar_layout.*
+import com.arvifox.arvi.databinding.ActivityTmdbBinding
 
 class TmdbActivity : AppCompatActivity() {
 
     private lateinit var tmdbViewModel: TmdbViewModel
+
+    private lateinit var binding: ActivityTmdbBinding
 
     companion object {
         fun newIntent(c: Context): Intent {
@@ -21,8 +22,9 @@ class TmdbActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_tmdb)
-        setSupportActionBar(toolbar)
+        binding = ActivityTmdbBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        setSupportActionBar(binding.incApBaLa.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         tmdbViewModel = ViewModelProviders.of(this).get(TmdbViewModel::class.java)

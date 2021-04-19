@@ -19,6 +19,7 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import com.arvifox.arvi.databinding.ActivityMainBinding
 import com.arvifox.arvi.domain.corou.Arv10
 import com.arvifox.arvi.geoposition.GeoPositionActivity
 import com.arvifox.arvi.google.GoogleBaseStartActivity
@@ -41,8 +42,10 @@ import com.google.firebase.iid.FirebaseInstanceId
 // Constants
 // The authority for the sync adapter's content provider
 const val AUTHORITY = "com.arvifox.arvi.provider"
+
 // An account type, in the form of a domain name
 const val ACCOUNT_TYPE = "arvifox.com"
+
 // The account name
 const val ACCOUNT = "arvifoxAccount"
 
@@ -79,34 +82,37 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        setSupportActionBar(binding.incAppBar.incAppBarLayout.toolbar)
 
         // Create the dummy account
         mAccount = createSyncAccount()
 
-        fab.setOnClickListener { view ->
+        binding.incAppBar.fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }
 
-        btnMainButton01.setOnClickListener {
+        binding.incAppBar.incContMan.btnMainButton01.setOnClickListener {
             Arv10.getWW()
         }
 
         val toggle = ActionBarDrawerToggle(
             this,
-            drawer_layout,
-            toolbar,
+            binding.drawerLayout,
+            binding.incAppBar.incAppBarLayout.toolbar,
             R.string.navigation_drawer_open,
             R.string.navigation_drawer_close
         )
-        drawer_layout.addDrawerListener(toggle)
+        binding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
-        nav_view.setNavigationItemSelectedListener(this)
+        binding.navView.setNavigationItemSelectedListener(this)
 
         fa = FirebaseAnalytics.getInstance(this)
 
@@ -136,9 +142,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
         }
 
-        btnMainButton02.setImageDrawable(
+        binding.incAppBar.incContMan.btnMainButton02.setImageDrawable(
             TextDrawable(
-                btnMainButton02.context,
+                binding.incAppBar.incContMan.btnMainButton02.context,
                 "sdff",
                 ColorStateList.valueOf(Color.RED),
                 32f,
@@ -146,9 +152,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             )
         )
 
-        btnMainFloating.setImageDrawable(
+        binding.incAppBar.incContMan.btnMainFloating.setImageDrawable(
             TextDrawable(
-                btnMainFloating.context,
+                binding.incAppBar.incContMan.btnMainFloating.context,
                 "kjlkjlkj",
                 ColorStateList.valueOf(Color.RED),
                 32f,
@@ -180,8 +186,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onBackPressed() {
-        if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
-            drawer_layout.closeDrawer(GravityCompat.START)
+        if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
         } else {
             super.onBackPressed()
         }
@@ -246,7 +252,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
         }
 
-        drawer_layout.closeDrawer(GravityCompat.START)
+        binding.drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
 

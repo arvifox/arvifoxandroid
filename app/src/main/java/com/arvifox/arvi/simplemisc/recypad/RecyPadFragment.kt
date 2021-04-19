@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.arvifox.arvi.R
+import com.arvifox.arvi.databinding.FragmentRecyPadBinding
 import com.arvifox.arvi.utils.FormatUtils.showToast
-import kotlinx.android.synthetic.main.fragment_recy_pad.*
 
 class RecyPadFragment : Fragment() {
 
@@ -22,21 +22,24 @@ class RecyPadFragment : Fragment() {
         }
     }
 
+    private lateinit var binding: FragmentRecyPadBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_recy_pad, container, false)
+        binding = FragmentRecyPadBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        rvRecypad.setHasFixedSize(true)
-        rvRecypad.itemAnimator = DefaultItemAnimator()
-        rvRecypad.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        rvRecypad.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
-        rvRecypad.adapter = RecypadAdapter(
+        binding.rvRecypad.setHasFixedSize(true)
+        binding.rvRecypad.itemAnimator = DefaultItemAnimator()
+        binding.rvRecypad.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+        binding.rvRecypad.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
+        binding.rvRecypad.adapter = RecypadAdapter(
             arrayListOf(
                 "qwe",
                 "sdf",
@@ -58,7 +61,7 @@ class RecyPadFragment : Fragment() {
                 "xcnmdsad"
             )
         )
-        tvRecypad.setOnClickListener {
+        binding.tvRecypad.setOnClickListener {
             activity?.showToast("click nul")
         }
     }
