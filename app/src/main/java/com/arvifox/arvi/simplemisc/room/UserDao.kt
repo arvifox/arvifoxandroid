@@ -21,7 +21,7 @@ interface UserDao {
     @Query("DELETE FROM Users")
     fun deleteAllUsers()
 
-    @Query("SELECT * FROM Users WHERE userid = :id ORDER BY username ASC")
+    @Query("SELECT * FROM Users ORDER BY username ASC")
     fun getUsersFlow(): Flow<List<User>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)

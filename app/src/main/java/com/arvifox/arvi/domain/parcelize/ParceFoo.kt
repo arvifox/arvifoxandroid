@@ -2,7 +2,7 @@ package com.arvifox.arvi.domain.parcelize
 
 import android.os.Parcel
 import android.os.Parcelable
-import kotlinx.android.parcel.*
+import kotlinx.parcelize.*
 import java.util.*
 
 @Parcelize
