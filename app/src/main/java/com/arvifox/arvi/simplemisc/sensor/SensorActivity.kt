@@ -14,8 +14,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.text.method.ScrollingMovementMethod
 import com.arvifox.arvi.R
 import com.arvifox.arvi.utils.FormatUtils.format
-import kotlinx.android.synthetic.main.activity_sensor.*
-import kotlinx.android.synthetic.main.app_bar_layout.*
 
 class SensorActivity : AppCompatActivity(), SensorEventListener {
 
