@@ -6,7 +6,16 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.ImageFormat
-import android.hardware.camera2.*
+import android.hardware.camera2.CameraAccessException
+import android.hardware.camera2.CameraCaptureSession
+import android.hardware.camera2.CameraCharacteristics
+import android.hardware.camera2.CameraDevice
+import android.hardware.camera2.CameraManager
+import android.hardware.camera2.CameraMetadata
+import android.hardware.camera2.CaptureFailure
+import android.hardware.camera2.CaptureRequest
+import android.hardware.camera2.CaptureResult
+import android.hardware.camera2.TotalCaptureResult
 import android.media.ImageReader
 import android.net.Uri
 import android.os.*
@@ -17,11 +26,10 @@ import android.view.SurfaceHolder
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import com.arvifox.arvi.R
+import com.arvifox.arvi.databinding.ActivityCameraShotBinding
 import com.arvifox.arvi.di.SimpleProvider
 import com.arvifox.arvi.utils.FormatUtils.showToast
 import com.arvifox.arvi.utils.Logger
-import kotlinx.android.synthetic.main.activity_camera_shot.*
-import kotlinx.android.synthetic.main.app_bar_layout.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -71,15 +79,21 @@ class CameraShotActivity : AppCompatActivity() {
 
     private var imgCapReq: CaptureRequest? = null
 
+    private var bindingNull: ActivityCameraShotBinding? = null
+    private val binding: ActivityCameraShotBinding by lazy {
+        bindingNull!!
+    }
+
     @SuppressLint("NewApi", "MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_camera_shot)
-        setSupportActionBar(toolbar)
+        bindingNull = ActivityCameraShotBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        setSupportActionBar(binding.cameraToolbar.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        tvCameraInfo.movementMethod = ScrollingMovementMethod()
-        tvMiscInfo.movementMethod = ScrollingMovementMethod()
-        btnShot.setOnClickListener {
+        binding.tvCameraInfo.movementMethod = ScrollingMovementMethod()
+        binding.tvMiscInfo.movementMethod = ScrollingMovementMethod()
+        binding.btnShot.setOnClickListener {
             // image
             val i = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             // if we specify Extra_output, we'll get photo or video in the file, but not in the Intent
@@ -91,7 +105,10 @@ class CameraShotActivity : AppCompatActivity() {
 //            i.putExtra(MediaStore.EXTRA_OUTPUT, generateFileUri("video"))
             startActivityForResult(i, 854)
         }
-        directory = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "MyFolder")
+        directory = File(
+            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+            "MyFolder"
+        )
         directory.mkdir()
 
         cameraManager = getSystemService(Context.CAMERA_SERVICE) as CameraManager
@@ -111,14 +128,14 @@ class CameraShotActivity : AppCompatActivity() {
         }
         he = sizes[0].height
         wi = sizes[0].width
-        tvCameraInfo.text = sb.toString()
+        binding.tvCameraInfo.text = sb.toString()
 
 //        surfaceHolder = svFromCamera.holder
 //        surfaceHolder.addCallback(shc)
-        svFromCamera.holder.setFixedSize(240, 320)
+        binding.svFromCamera.holder.setFixedSize(240, 320)
 
         reader()
-        btnGetCameraImage.setOnClickListener {
+        binding.btnGetCameraImage.setOnClickListener {
             cameraManager.openCamera("0", object : CameraDevice.StateCallback() {
                 override fun onOpened(camera: CameraDevice) {
                     cameraDevice = camera
@@ -141,40 +158,73 @@ class CameraShotActivity : AppCompatActivity() {
                 }
             }, backgroundHandler)
         }
-        btnTakeImage.setOnClickListener {
-            cameraCaptureSession?.capture(imgCapReq!!, object : CameraCaptureSession.CaptureCallback() {
-                override fun onCaptureSequenceAborted(session: CameraCaptureSession, sequenceId: Int) {
-                    super.onCaptureSequenceAborted(session, sequenceId)
-                }
+        binding.btnTakeImage.setOnClickListener {
+            cameraCaptureSession?.capture(
+                imgCapReq!!,
+                object : CameraCaptureSession.CaptureCallback() {
+                    override fun onCaptureSequenceAborted(
+                        session: CameraCaptureSession,
+                        sequenceId: Int
+                    ) {
+                        super.onCaptureSequenceAborted(session, sequenceId)
+                    }
 
-                override fun onCaptureCompleted(session: CameraCaptureSession, request: CaptureRequest, result: TotalCaptureResult) {
-                    super.onCaptureCompleted(session, request, result)
+                    override fun onCaptureCompleted(
+                        session: CameraCaptureSession,
+                        request: CaptureRequest,
+                        result: TotalCaptureResult
+                    ) {
+                        super.onCaptureCompleted(session, request, result)
 //                    result?.partialResults?.get(0).
-                }
+                    }
 
-                override fun onCaptureFailed(session: CameraCaptureSession, request: CaptureRequest, failure: CaptureFailure) {
-                    super.onCaptureFailed(session, request, failure)
-                }
+                    override fun onCaptureFailed(
+                        session: CameraCaptureSession,
+                        request: CaptureRequest,
+                        failure: CaptureFailure
+                    ) {
+                        super.onCaptureFailed(session, request, failure)
+                    }
 
-                override fun onCaptureSequenceCompleted(session: CameraCaptureSession, sequenceId: Int, frameNumber: Long) {
-                    super.onCaptureSequenceCompleted(session, sequenceId, frameNumber)
-                }
+                    override fun onCaptureSequenceCompleted(
+                        session: CameraCaptureSession,
+                        sequenceId: Int,
+                        frameNumber: Long
+                    ) {
+                        super.onCaptureSequenceCompleted(session, sequenceId, frameNumber)
+                    }
 
-                override fun onCaptureStarted(session: CameraCaptureSession, request: CaptureRequest, timestamp: Long, frameNumber: Long) {
-                    super.onCaptureStarted(session, request, timestamp, frameNumber)
-                }
+                    override fun onCaptureStarted(
+                        session: CameraCaptureSession,
+                        request: CaptureRequest,
+                        timestamp: Long,
+                        frameNumber: Long
+                    ) {
+                        super.onCaptureStarted(session, request, timestamp, frameNumber)
+                    }
 
-                override fun onCaptureProgressed(session: CameraCaptureSession, request: CaptureRequest, partialResult: CaptureResult) {
-                    super.onCaptureProgressed(session, request, partialResult)
-                }
+                    override fun onCaptureProgressed(
+                        session: CameraCaptureSession,
+                        request: CaptureRequest,
+                        partialResult: CaptureResult
+                    ) {
+                        super.onCaptureProgressed(session, request, partialResult)
+                    }
 
-                override fun onCaptureBufferLost(session: CameraCaptureSession, request: CaptureRequest, target: Surface, frameNumber: Long) {
-                    super.onCaptureBufferLost(session, request, target, frameNumber)
-                }
-            }, null)
+                    override fun onCaptureBufferLost(
+                        session: CameraCaptureSession,
+                        request: CaptureRequest,
+                        target: Surface,
+                        frameNumber: Long
+                    ) {
+                        super.onCaptureBufferLost(session, request, target, frameNumber)
+                    }
+                },
+                null
+            )
         }
 
-        btnUploadImage.setOnClickListener {
+        binding.btnUploadImage.setOnClickListener {
             val f = File(lastPhoto)
             val name = f.name.toRequestBody("multipart/form-data".toMediaTypeOrNull())
             val requestFile = f.asRequestBody("multipart/form-data".toMediaTypeOrNull())
@@ -186,7 +236,10 @@ class CameraShotActivity : AppCompatActivity() {
                     showToast("Error while upload: ${t.localizedMessage}")
                 }
 
-                override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                override fun onResponse(
+                    call: Call<ResponseBody>,
+                    response: Response<ResponseBody>
+                ) {
                     showToast(if (response.isSuccessful) "Upload successful" else "Upload res code = ${response.code()}")
                 }
             })
@@ -216,7 +269,7 @@ class CameraShotActivity : AppCompatActivity() {
             val b = data.extras
             val bt = b!!.get("data")
             if (bt is Bitmap) {
-                ivCameraResult.setImageBitmap(bt)
+                binding.ivCameraResult.setImageBitmap(bt)
             }
         }
     }
@@ -225,7 +278,12 @@ class CameraShotActivity : AppCompatActivity() {
     private fun reader() {
         imageReader = ImageReader.newInstance(wi, he, ImageFormat.JPEG, 2).apply {
             setOnImageAvailableListener({
-                backgroundHandler?.post(ImageSaverToFile(it.acquireLatestImage(), generateFile("photo")!!))
+                backgroundHandler?.post(
+                    ImageSaverToFile(
+                        it.acquireLatestImage(),
+                        generateFile("photo")!!
+                    )
+                )
             }, backgroundHandler)
         }
     }
@@ -252,11 +310,14 @@ class CameraShotActivity : AppCompatActivity() {
     private fun capture() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             crb = cameraDevice?.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW)
-            crb?.addTarget(svFromCamera.holder.surface)
+            crb?.addTarget(binding.svFromCamera.holder.surface)
 
             irb = cameraDevice?.createCaptureRequest(CameraDevice.TEMPLATE_STILL_CAPTURE)
             irb?.addTarget(imageReader?.surface!!)
-            irb?.set(CaptureRequest.CONTROL_CAPTURE_INTENT, CaptureRequest.CONTROL_CAPTURE_INTENT_STILL_CAPTURE)
+            irb?.set(
+                CaptureRequest.CONTROL_CAPTURE_INTENT,
+                CaptureRequest.CONTROL_CAPTURE_INTENT_STILL_CAPTURE
+            )
 //        irb?.set(CaptureRequest.CONTROL_AWB_MODE, CaptureRequest.CONTROL_AWB_MODE_INCANDESCENT)
 //        irb?.set(CaptureRequest.CONTROL_EFFECT_MODE, CaptureRequest.CONTROL_EFFECT_MODE_SEPIA)
 //        irb?.set(CaptureRequest.CONTROL_EFFECT_MODE, CameraMetadata.CONTROL_EFFECT_MODE_SEPIA)
@@ -264,23 +325,38 @@ class CameraShotActivity : AppCompatActivity() {
             // focus
 //        irb?.set(CaptureRequest.CONTROL_AF_TRIGGER, CaptureRequest.CONTROL_AF_TRIGGER_START)
             // exposure
-            irb?.set(CaptureRequest.CONTROL_AE_PRECAPTURE_TRIGGER, CaptureRequest.CONTROL_AE_PRECAPTURE_TRIGGER_IDLE)
+            irb?.set(
+                CaptureRequest.CONTROL_AE_PRECAPTURE_TRIGGER,
+                CaptureRequest.CONTROL_AE_PRECAPTURE_TRIGGER_IDLE
+            )
 
             imgCapReq = irb?.build()
 
-            cameraDevice?.createCaptureSession(arrayListOf(svFromCamera.holder.surface, imageReader?.surface), object : CameraCaptureSession.StateCallback() {
-                override fun onConfigureFailed(session: CameraCaptureSession) {
-                    this@CameraShotActivity.showToast("session failed")
-                }
+            cameraDevice?.createCaptureSession(
+                arrayListOf(
+                    binding.svFromCamera.holder.surface,
+                    imageReader?.surface
+                ), object : CameraCaptureSession.StateCallback() {
+                    override fun onConfigureFailed(session: CameraCaptureSession) {
+                        this@CameraShotActivity.showToast("session failed")
+                    }
 
-                override fun onConfigured(session: CameraCaptureSession) {
-                    this@CameraShotActivity.showToast("session configured well")
-                    cameraCaptureSession = session
-                    crb?.set(CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE)
-                    setAutoFlash(crb)
-                    cameraCaptureSession?.setRepeatingRequest(crb?.build()!!, null, backgroundHandler)
-                }
-            }, null)
+                    override fun onConfigured(session: CameraCaptureSession) {
+                        this@CameraShotActivity.showToast("session configured well")
+                        cameraCaptureSession = session
+                        crb?.set(
+                            CaptureRequest.CONTROL_AF_MODE,
+                            CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE
+                        )
+                        setAutoFlash(crb)
+                        cameraCaptureSession?.setRepeatingRequest(
+                            crb?.build()!!,
+                            null,
+                            backgroundHandler
+                        )
+                    }
+                }, null
+            )
         }
     }
 
@@ -291,8 +367,10 @@ class CameraShotActivity : AppCompatActivity() {
     private fun lockFocus() {
         try {
             // This is how to tell the camera to lock focus.
-            crb?.set(CaptureRequest.CONTROL_AF_TRIGGER,
-                    CameraMetadata.CONTROL_AF_TRIGGER_START)
+            crb?.set(
+                CaptureRequest.CONTROL_AF_TRIGGER,
+                CameraMetadata.CONTROL_AF_TRIGGER_START
+            )
             // Tell #captureCallback to wait for the lock.
 //            state = STATE_WAITING_LOCK
 //            cameraCaptureSession?.capture(crb?.build(), captureCallback,
@@ -305,8 +383,10 @@ class CameraShotActivity : AppCompatActivity() {
     @SuppressLint("NewApi")
     private fun setAutoFlash(requestBuilder: CaptureRequest.Builder?) {
         if (flashSupported) {
-            requestBuilder?.set(CaptureRequest.CONTROL_AE_MODE,
-                    CaptureRequest.CONTROL_AE_MODE_ON_AUTO_FLASH)
+            requestBuilder?.set(
+                CaptureRequest.CONTROL_AE_MODE,
+                CaptureRequest.CONTROL_AE_MODE_ON_AUTO_FLASH
+            )
         }
     }
 
@@ -316,8 +396,10 @@ class CameraShotActivity : AppCompatActivity() {
     private fun generateFileUri(type: String): Uri {
         var file: File? = null
         when (type) {
-            "photo" -> file = File(directory.getPath() + "/" + "photo_" + System.currentTimeMillis() + ".jpg")
-            "video" -> file = File(directory.getPath() + "/" + "video_" + System.currentTimeMillis() + ".mp4")
+            "photo" -> file =
+                File(directory.getPath() + "/" + "photo_" + System.currentTimeMillis() + ".jpg")
+            "video" -> file =
+                File(directory.getPath() + "/" + "video_" + System.currentTimeMillis() + ".mp4")
         }
         return FileProvider.getUriForFile(this, getString(R.string.file_provider_authority), file!!)
 //        return Uri.fromFile(file)
@@ -326,8 +408,10 @@ class CameraShotActivity : AppCompatActivity() {
     private fun generateFile(type: String): File? {
         var file: File? = null
         when (type) {
-            "photo" -> file = File(directory.getPath() + "/" + "photo_" + System.currentTimeMillis() + ".jpg")
-            "video" -> file = File(directory.getPath() + "/" + "video_" + System.currentTimeMillis() + ".mp4")
+            "photo" -> file =
+                File(directory.getPath() + "/" + "photo_" + System.currentTimeMillis() + ".jpg")
+            "video" -> file =
+                File(directory.getPath() + "/" + "video_" + System.currentTimeMillis() + ".mp4")
         }
         file?.absolutePath?.apply { lastPhoto = this }
         return file

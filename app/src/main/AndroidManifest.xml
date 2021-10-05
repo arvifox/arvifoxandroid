@@ -42,6 +42,7 @@
         tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name=".splash.SplashActivity"
+            android:exported="true"
             android:theme="@style/Arvifox.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -51,39 +52,48 @@
         </activity>
         <activity
             android:name=".simplemisc.misc4window.WindowActivity"
+            android:exported="false"
             android:label="Herher"
             android:theme="@style/Arvifox" />
         <activity
             android:name=".MainActivity"
             android:clearTaskOnLaunch="true"
+            android:exported="false"
             android:label="@string/app_name"
             android:theme="@style/Arvifox"></activity> <!-- android:value="required" /> -->
         <activity
             android:name=".simplemisc.phoneinfo.PhoneInfoActivity"
+            android:exported="false"
             android:label="@string/app_name"
             android:theme="@style/Arvifox" />
         <activity
             android:name=".https.HttpsActivity"
+            android:exported="false"
             android:label="@string/app_name"
             android:theme="@style/Arvifox" />
         <activity
             android:name=".geoposition.GeoPositionActivity"
+            android:exported="false"
             android:label="@string/app_name"
             android:theme="@style/Arvifox" />
         <activity
             android:name=".googlemaps.GoogleMapsActivity"
+            android:exported="false"
             android:label="@string/app_name"
             android:theme="@style/Arvifox" />
         <activity
             android:name=".google.GoogleBaseStartActivity"
+            android:exported="false"
             android:label="@string/app_name"
             android:theme="@style/Arvifox" />
         <activity
             android:name=".google.googleapi.visiontest.VisionApiTestActivity"
+            android:exported="false"
             android:label="@string/app_name"
             android:theme="@style/Arvifox" />
         <activity
             android:name=".google.googleapi.AccountsActivity"
+            android:exported="false"
             android:label="@string/title_activity_accounts"
             android:parentActivityName=".google.GoogleBaseStartActivity"
             android:theme="@style/Arvifox">
@@ -93,6 +103,7 @@
         </activity>
         <activity
             android:name=".google.googleapi.OAuthTestActivity"
+            android:exported="false"
             android:label="@string/title_activity_oauth_test"
             android:parentActivityName=".google.GoogleBaseStartActivity"
             android:theme="@style/Arvifox">
@@ -102,6 +113,7 @@
         </activity>
         <activity
             android:name=".google.ar.StartArActivity"
+            android:exported="false"
             android:label="@string/title_activity_start_ar"
             android:parentActivityName=".google.GoogleBaseStartActivity"
             android:theme="@style/Arvifox">
@@ -123,6 +135,7 @@
         </activity>
         <activity
             android:name=".google.ar.AugmentedImageActivity"
+            android:exported="false"
             android:label="@string/title_activity_augmented_image"
             android:parentActivityName=".google.ar.StartArActivity"
             android:theme="@style/Arvifox">
@@ -132,6 +145,7 @@
         </activity>
         <activity
             android:name=".simplemisc.SimpleMiscActivity"
+            android:exported="false"
             android:label="@string/title_activity_simple_misc"
             android:parentActivityName=".MainActivity"
             android:theme="@style/Arvifox">
@@ -141,6 +155,7 @@
         </activity>
         <activity
             android:name=".simplemisc.SimpleMisc2Activity"
+            android:exported="false"
             android:label="@string/title_activity_simple_misc"
             android:parentActivityName=".MainActivity"
             android:theme="@style/Arvifox">
@@ -150,6 +165,7 @@
         </activity>
         <activity
             android:name=".navig.NavigActivity"
+            android:exported="false"
             android:label="@string/title_activity_simple_misc"
             android:parentActivityName=".MainActivity"
             android:theme="@style/Arvifox">
@@ -159,6 +175,7 @@
         </activity>
         <activity
             android:name=".simplemisc.camera.CameraShotActivity"
+            android:exported="false"
             android:label="@string/title_activity_camera_shot"
             android:parentActivityName=".simplemisc.SimpleMiscActivity"
             android:theme="@style/Arvifox">
@@ -168,6 +185,7 @@
         </activity>
         <activity
             android:name=".simplemisc.sensor.SensorActivity"
+            android:exported="false"
             android:parentActivityName=".simplemisc.SimpleMiscActivity"
             android:theme="@style/Arvifox">
             <meta-data
@@ -176,6 +194,7 @@
         </activity>
         <activity
             android:name=".simplemisc.servicehandler.ServiceHandlerActivity"
+            android:exported="false"
             android:label="@string/title_activity_service_handler"
             android:parentActivityName=".simplemisc.SimpleMiscActivity"
             android:theme="@style/Arvifox">
@@ -185,6 +204,7 @@
         </activity>
         <activity
             android:name=".simplemisc.matcomp.MatCompActivity"
+            android:exported="false"
             android:label="MatComp"
             android:parentActivityName=".simplemisc.SimpleMiscActivity"
             android:theme="@style/Arvifox">
@@ -194,6 +214,7 @@
         </activity>
         <activity
             android:name=".simplemisc.anim.AnimActivity"
+            android:exported="false"
             android:label="Anim"
             android:parentActivityName=".simplemisc.SimpleMiscActivity"
             android:theme="@style/Arvifox">
@@ -203,6 +224,7 @@
         </activity>
         <activity
             android:name=".simplemisc.workmanager.WorkManagerActivity"
+            android:exported="false"
             android:label="Work"
             android:parentActivityName=".simplemisc.workmanager.WorkManSelectActivity"
             android:theme="@style/Arvifox">
@@ -212,6 +234,7 @@
         </activity>
         <activity
             android:name=".simplemisc.workmanager.WorkManSelectActivity"
+            android:exported="false"
             android:label="Work"
             android:parentActivityName=".simplemisc.SimpleMiscActivity"
             android:theme="@style/Arvifox">
@@ -221,6 +244,7 @@
         </activity>
         <activity
             android:name=".simplemisc.view.NestedScrollActivity"
+            android:exported="false"
             android:label="Nested"
             android:parentActivityName=".simplemisc.SimpleMiscActivity"
             android:theme="@style/Arvifox">
@@ -230,6 +254,7 @@
         </activity>
         <activity
             android:name=".simplemisc.matcomp.TaskColorActivity"
+            android:exported="false"
             android:label="TaskColor"
             android:parentActivityName=".simplemisc.SimpleMiscActivity"
             android:theme="@style/Arvifox">
@@ -239,6 +264,7 @@
         </activity>
         <activity
             android:name=".simplemisc.tmdb.TmdbActivity"
+            android:exported="false"
             android:label="Tmdb"
             android:parentActivityName=".simplemisc.SimpleMiscActivity"
             android:theme="@style/Arvifox">
@@ -248,6 +274,7 @@
         </activity>
         <activity
             android:name=".simplemisc.viewpager2.ViewPager2Activity"
+            android:exported="false"
             android:label="ViewPager2"
             android:parentActivityName=".simplemisc.SimpleMiscActivity"
             android:theme="@style/Arvifox">
@@ -257,6 +284,7 @@
         </activity>
         <activity
             android:name=".simplemisc.moveimage.MoveImageActivity"
+            android:exported="false"
             android:label="Move Image"
             android:parentActivityName=".simplemisc.SimpleMiscActivity"
             android:theme="@style/Arvifox">
@@ -266,6 +294,7 @@
         </activity>
         <activity
             android:name=".simplemisc.constrlayout.ConstrLayoutActivity"
+            android:exported="false"
             android:label="Constr layout"
             android:parentActivityName=".simplemisc.SimpleMiscActivity"
             android:theme="@style/Arvifox">
@@ -301,6 +330,7 @@
 
         <service
             android:name=".google.firebase.FirebaseMessageService"
+            android:exported="true"
             android:stopWithTask="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
@@ -313,7 +343,9 @@
             android:name=".simplemisc.servicehandler.FooService"
             android:enabled="true"
             android:exported="false" />
-        <service android:name=".syncadapter.StubAuthenService">
+        <service
+            android:name=".syncadapter.StubAuthenService"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.accounts.AccountAuthenticator" />
             </intent-filter>
@@ -341,7 +373,9 @@
             android:exported="false"
             android:syncable="true" />
 
-        <receiver android:name=".simplemisc.webviewbug.AppReceiver">
+        <receiver
+            android:name=".simplemisc.webviewbug.AppReceiver"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_ADDED" />
                 <action android:name="android.intent.action.PACKAGE_REMOVED" />

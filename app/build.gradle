@@ -84,8 +84,9 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_11
     }
-    dataBinding {
-        enabled = true
+    buildFeatures {
+        //viewBinding true
+        dataBinding true
     }
     sourceSets {
         main.res.srcDirs += ['src/main/res-some']

@@ -4,22 +4,19 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import io.reactivex.Completable
-
-import io.reactivex.Flowable
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface UserDao {
 
     @Query("SELECT * FROM Users WHERE userid = :id ORDER BY username ASC")
-    fun getUserById(id: String): Flowable<User>
+    suspend fun getUserById(id: String): User
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertUser(user: User): Completable
+    suspend fun insertUser(user: User)
 
     @Query("DELETE FROM Users")
-    fun deleteAllUsers()
+    suspend fun deleteAllUsers()
 
     @Query("SELECT * FROM Users ORDER BY username ASC")
     fun getUsersFlow(): Flow<List<User>>
