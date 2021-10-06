@@ -1,8 +1,13 @@
 package com.arvifox.arvi.utils
 
+import android.content.ContentValues
 import android.content.Context
+import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Environment
+import android.provider.MediaStore
 import java.io.File
+import java.io.IOException
 import java.nio.charset.Charset
 
 object AndroidStorage {
@@ -18,7 +23,10 @@ object AndroidStorage {
     }
 
     fun pictureDirPublic(): File? {
-        val f = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "myPicture")
+        val f = File(
+            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+            "myPicture"
+        )
         f.mkdir()
         return f
     }
@@ -32,8 +40,11 @@ object AndroidStorage {
 
     fun getPrivateAlbumStorageDir(context: Context, albumName: String = "myAlbumPrivate"): File? {
         // Get the directory for the app's private pictures directory.
-        val file = File(context.getExternalFilesDir(
-                Environment.DIRECTORY_PICTURES), albumName)
+        val file = File(
+            context.getExternalFilesDir(
+                Environment.DIRECTORY_PICTURES
+            ), albumName
+        )
         if (!file.mkdirs()) {
             Logger.d { "Directory not created" }
         }
@@ -69,5 +80,41 @@ object AndroidStorage {
     private fun isExternalStorageReadable(): Boolean {
         return Environment.getExternalStorageState() in
                 setOf(Environment.MEDIA_MOUNTED, Environment.MEDIA_MOUNTED_READ_ONLY)
+    }
+
+    @Throws(IOException::class)
+    fun saveBitmap(
+        context: Context, bitmap: Bitmap, format: Bitmap.CompressFormat,
+        mimeType: String, displayName: String
+    ): Uri {
+
+        val values = ContentValues().apply {
+            put(MediaStore.MediaColumns.DISPLAY_NAME, displayName)
+            put(MediaStore.MediaColumns.MIME_TYPE, mimeType)
+            put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DCIM)
+        }
+
+        var uri: Uri? = null
+
+        return runCatching {
+            with(context.contentResolver) {
+                insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)?.also {
+                    uri = it // Keep uri reference so it can be removed on failure
+
+                    openOutputStream(it)?.use { stream ->
+                        if (!bitmap.compress(format, 95, stream))
+                            throw IOException("Failed to save bitmap.")
+                    } ?: throw IOException("Failed to open output stream.")
+
+                } ?: throw IOException("Failed to create new MediaStore record.")
+            }
+        }.getOrElse {
+            uri?.let { orphanUri ->
+                // Don't leave an orphan entry in the MediaStore
+                context.contentResolver.delete(orphanUri, null, null)
+            }
+
+            throw it
+        }
     }
 }

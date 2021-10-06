@@ -37,7 +37,7 @@ import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.iid.FirebaseInstanceId
+import com.google.firebase.messaging.FirebaseMessaging
 
 // Constants
 // The authority for the sync adapter's content provider
@@ -117,10 +117,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         fa = FirebaseAnalytics.getInstance(this)
 
         if (!BaseStorage.isTokenSent(this)) {
-            FirebaseInstanceId.getInstance().instanceId
-                .addOnSuccessListener(this) { ins ->
-                    Toast.makeText(this, ins.token, Toast.LENGTH_SHORT).show()
-                    BackUtils.sendToken(ins.token, this)
+            FirebaseMessaging.getInstance().token
+                .addOnCompleteListener() { task ->
+                    Toast.makeText(this, task.result, Toast.LENGTH_SHORT).show()
+                    BackUtils.sendToken(task.result, this)
                 }
         }
 

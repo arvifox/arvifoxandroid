@@ -11,9 +11,8 @@ import android.view.ViewGroup
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
-import com.arvifox.arvi.R
+import com.arvifox.arvi.databinding.FragmentWebViewBugBinding
 import com.arvifox.arvi.utils.FormatUtils.showToast
-import kotlinx.android.synthetic.main.fragment_web_view_bug.*
 
 /**
  * A simple [Fragment] subclass.
@@ -26,22 +25,26 @@ class WebViewBugFragment : Fragment() {
         }
     }
 
+    private var bi: FragmentWebViewBugBinding? = null
+    private val binding by lazy { bi!! }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_web_view_bug, container, false)
+        bi = FragmentWebViewBugBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val se = wvWeb.settings
+        val se = binding.wvWeb.settings
         se.javaScriptEnabled = true
         se.domStorageEnabled = true
-        wvWeb.loadUrl("https://www.hibiny.com")
+        binding.wvWeb.loadUrl("https://www.hibiny.com")
 
-        wvWeb.webViewClient = object : WebViewClient() {
+        binding.wvWeb.webViewClient = object : WebViewClient() {
 
 
             override fun onPageFinished(view: WebView?, url: String?) {

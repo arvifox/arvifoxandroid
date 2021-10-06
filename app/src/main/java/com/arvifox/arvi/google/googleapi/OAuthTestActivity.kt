@@ -8,16 +8,13 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import com.google.android.material.snackbar.Snackbar
-import androidx.appcompat.app.AppCompatActivity
 import android.widget.TextView
-import com.arvifox.arvi.R
+import androidx.appcompat.app.AppCompatActivity
+import com.arvifox.arvi.databinding.ActivityOauthTestBinding
 import com.arvifox.arvi.utils.FormatUtils.takeString
-import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_oauth_test.*
-import kotlinx.android.synthetic.main.app_bar_layout.*
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.net.HttpURLConnection
 import java.net.HttpURLConnection.HTTP_OK
 import java.net.URL
@@ -32,14 +29,18 @@ class OAuthTestActivity : AppCompatActivity() {
         }
     }
 
+    private var bindingNull: ActivityOauthTestBinding? = null
+    private val binding by lazy { bindingNull!! }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_oauth_test)
-        setSupportActionBar(toolbar)
+        bindingNull = ActivityOauthTestBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        setSupportActionBar(binding.incOauth.toolbar)
 
-        fab.setOnClickListener { view ->
+        binding.fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+                .setAction("Action", null).show()
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
@@ -67,13 +68,16 @@ class OAuthTestActivity : AppCompatActivity() {
 
     private val handler = Handler()
 
-    private fun myToken() {
-        tvOAuth.setText(token, TextView.BufferType.EDITABLE)
-        val sin: Single<String> = Single.fromCallable {
+    private suspend fun myToken() {
+        binding.tvOAuth.setText(token, TextView.BufferType.EDITABLE)
+        val sin = {
             val url = URL("https://www.googleapis.com/tasks/v1/users/@me/lists?key=" + "api key")
             val con = url.openConnection() as HttpURLConnection
             con.requestMethod = "GET"
-            con.addRequestProperty("client_id", "[client id OAuth 2.0 from google cloud console console.cloud.google.com]")
+            con.addRequestProperty(
+                "client_id",
+                "[client id OAuth 2.0 from google cloud console console.cloud.google.com]"
+            )
 //            con.addRequestProperty("client_secret", "[no need for android]")
             con.addRequestProperty("Authorization", "OAuth " + token)
             con.addRequestProperty("X-Android-Package", "com.arvifox.arvi")
@@ -81,16 +85,18 @@ class OAuthTestActivity : AppCompatActivity() {
             con.doInput = true
             con.connect()
             if (con.responseCode != HTTP_OK) {
-                return@fromCallable "code=" + con.responseCode + " mes=" + con.responseMessage + " \nstr=" + con.errorStream.takeString()
+                "code=" + con.responseCode + " mes=" + con.responseMessage + " \nstr=" + con.errorStream.takeString()
+            } else {
+                val inp = con.inputStream
+                val res: String = inp.takeString()
+                inp.close()
+                con.disconnect()
+                res
             }
-            val inp = con.inputStream
-            val res: String = inp.takeString()
-            inp.close()
-            con.disconnect()
-            return@fromCallable res
         }
-        sin.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe { t1, t2 -> if (t2 != null) tvResult.text = "error" else tvResult.text = t1 }
+        sin.invoke().let {
+            binding.tvResult.text = it
+        }
     }
 
     inner class OnTokenAcquired : AccountManagerCallback<Bundle> {
@@ -106,7 +112,9 @@ class OAuthTestActivity : AppCompatActivity() {
             }
             val b = future?.result
             token = b?.getString(AccountManager.KEY_AUTHTOKEN) ?: ""
-            myToken()
+            GlobalScope.launch {
+                myToken()
+            }
         }
     }
 }

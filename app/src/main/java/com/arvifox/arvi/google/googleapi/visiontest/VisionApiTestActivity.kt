@@ -9,6 +9,7 @@ import android.text.method.ScrollingMovementMethod
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.arvifox.arvi.R
+import com.arvifox.arvi.databinding.ActivityVisionApiTestBinding
 import com.arvifox.arvi.utils.FormatUtils.takeByteArray
 import com.arvifox.arvi.utils.Logger
 import com.google.api.client.extensions.android.http.AndroidHttp
@@ -17,11 +18,6 @@ import com.google.api.client.json.gson.GsonFactory
 import com.google.api.services.vision.v1.Vision
 import com.google.api.services.vision.v1.model.*
 import com.squareup.picasso.Picasso
-import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_vision_api_test.*
-import kotlinx.android.synthetic.main.app_bar_layout.*
 
 class VisionApiTestActivity : AppCompatActivity() {
 
@@ -35,22 +31,26 @@ class VisionApiTestActivity : AppCompatActivity() {
     private lateinit var mainToken: String
     private lateinit var iis: ByteArray
 
+    private var bindingNull: ActivityVisionApiTestBinding? = null
+    private val binding by lazy { bindingNull!! }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_vision_api_test)
+        bindingNull = ActivityVisionApiTestBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val tb = toolbar
+        val tb = binding.incVisionApi.toolbar
         setSupportActionBar(tb)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        tvVisionTest.movementMethod = ScrollingMovementMethod()
+        binding.tvVisionTest.movementMethod = ScrollingMovementMethod()
 
-        btnChoose.setOnClickListener { btnclick() }
+        binding.btnChoose.setOnClickListener { btnclick() }
 
         gettingToken()
     }
 
     fun hasToken(token: String) {
-        etToken.setText(token, TextView.BufferType.EDITABLE)
+        binding.etToken.setText(token, TextView.BufferType.EDITABLE)
         mainToken = token
     }
 
@@ -61,7 +61,7 @@ class VisionApiTestActivity : AppCompatActivity() {
     }
 
     private fun makeRequest() {
-        val sing: Single<BatchAnnotateImagesResponse> = Single.fromCallable {
+        runCatching {
             val credential = GoogleCredential().setAccessToken(mainToken)
             val httpTransport = AndroidHttp.newCompatibleTransport()
             val jsonFactory = GsonFactory.getDefaultInstance()
@@ -94,22 +94,20 @@ class VisionApiTestActivity : AppCompatActivity() {
             annotateRequest.disableGZipContent = true
             Logger.d { "Sending request to Google Cloud" }
 
-            return@fromCallable annotateRequest.execute()
+            annotateRequest.execute()
         }
-        sing.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-            .subscribe { t1, t2 ->
-                if (t2 != null) {
-                    tvVisionTest.text = t2.message
-                } else {
-                    val sb = StringBuilder()
-                    sb.append("rs=" + t1.responses.size)
-                    val ir = t1.responses[0]
-                    sb.append("labels=" + ir.labelAnnotations.size)
-                    for (ea in ir.labelAnnotations) {
-                        sb.append("\n" + ea.toPrettyString())
-                    }
-                    tvVisionTest.text = sb.toString()
+            .onFailure {
+                binding.tvVisionTest.text = it.message
+            }
+            .onSuccess {
+                val sb = StringBuilder()
+                sb.append("rs=" + it.responses.size)
+                val ir = it.responses[0]
+                sb.append("labels=" + ir.labelAnnotations.size)
+                for (ea in ir.labelAnnotations) {
+                    sb.append("\n" + ea.toPrettyString())
                 }
+                binding.tvVisionTest.text = sb.toString()
             }
     }
 
@@ -130,7 +128,7 @@ class VisionApiTestActivity : AppCompatActivity() {
             Picasso.Builder(this).build().load(data!!.data)
                 .placeholder(R.drawable.ic_hibin)
                 .error(R.drawable.ic_hibin)
-                .into(ivVisionTest)
+                .into(binding.ivVisionTest)
 
             val d = this.contentResolver.openInputStream(data.data!!)
             iis = d?.takeByteArray()!!

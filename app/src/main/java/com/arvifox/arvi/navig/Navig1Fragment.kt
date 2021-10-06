@@ -1,14 +1,12 @@
 package com.arvifox.arvi.navig
 
-import android.content.Context
-import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.arvifox.arvi.R
-import kotlinx.android.synthetic.main.fragment_navig1.*
+import com.arvifox.arvi.databinding.FragmentNavig1Binding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -28,6 +26,9 @@ class Navig1Fragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private var bi: FragmentNavig1Binding? = null
+    private val binding by lazy { bi!! }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -36,15 +37,20 @@ class Navig1Fragment : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_navig1, container, false)
+        bi = FragmentNavig1Binding.inflate(inflater, container, false)
+        return bi?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        btnNav1Go.setOnClickListener { (activity as NavigActivity).getNavigator().navigate(R.id.action_navig1Fra_to_navig2Fra) }
+        binding.btnNav1Go.setOnClickListener {
+            (activity as NavigActivity).getNavigator().navigate(R.id.action_navig1Fra_to_navig2Fra)
+        }
     }
 
     companion object {
@@ -59,11 +65,11 @@ class Navig1Fragment : Fragment() {
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-                Navig1Fragment().apply {
-                    arguments = Bundle().apply {
-                        putString(ARG_PARAM1, param1)
-                        putString(ARG_PARAM2, param2)
-                    }
+            Navig1Fragment().apply {
+                arguments = Bundle().apply {
+                    putString(ARG_PARAM1, param1)
+                    putString(ARG_PARAM2, param2)
                 }
+            }
     }
 }

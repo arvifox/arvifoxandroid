@@ -10,9 +10,8 @@ import android.provider.OpenableColumns
 import android.provider.Settings
 import android.util.DisplayMetrics
 import androidx.appcompat.app.AppCompatActivity
-import com.arvifox.arvi.R
+import com.arvifox.arvi.databinding.ActivityPhoneInfoBinding
 import com.arvifox.arvi.utils.AndroidStorage
-import kotlinx.android.synthetic.main.activity_phone_info.*
 
 class PhoneInfoActivity : AppCompatActivity() {
 
@@ -22,11 +21,15 @@ class PhoneInfoActivity : AppCompatActivity() {
         }
     }
 
+    private var bi: ActivityPhoneInfoBinding? = null
+    private val binding by lazy { bi!! }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_phone_info)
-        tvPhoneInfo.text = composeProperties()
-        btnStorage.setOnClickListener {
+        bi = ActivityPhoneInfoBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        binding.tvPhoneInfo.text = composeProperties()
+        binding.btnStorage.setOnClickListener {
             val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
             intent.type = "*/*"
             startActivityForResult(intent, 452)
@@ -34,7 +37,7 @@ class PhoneInfoActivity : AppCompatActivity() {
                 internal(this@PhoneInfoActivity)
                 pictureDirPublic()
                 getPrivateAlbumStorageDir(this@PhoneInfoActivity)
-                tvPathInfo.text = getPathInfo(this@PhoneInfoActivity)
+                binding.tvPathInfo.text = getPathInfo(this@PhoneInfoActivity)
             }
         }
     }
@@ -47,7 +50,7 @@ class PhoneInfoActivity : AppCompatActivity() {
             val sizeIndex = returnCursor.getColumnIndex(OpenableColumns.SIZE)
             returnCursor.moveToFirst()
 
-            tvIntentInfo.text = "action=" + data?.action + "\n" +
+            binding.tvIntentInfo.text = "action=" + data?.action + "\n" +
                     "package=" + data?.`package` + "\n" +
                     "type=" + data?.type + "\n" +
                     "scheme=" + data?.scheme + "\n" +

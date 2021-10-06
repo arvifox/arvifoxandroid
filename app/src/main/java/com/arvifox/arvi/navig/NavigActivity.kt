@@ -5,11 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.arvifox.arvi.R
-import kotlinx.android.synthetic.main.activity_navig.*
 
 class NavigActivity : AppCompatActivity() {
 
@@ -24,7 +22,8 @@ class NavigActivity : AppCompatActivity() {
         setContentView(R.layout.activity_navig)
     }
 
-    override fun onSupportNavigateUp(): Boolean = findNavController(R.id.nav_host_fragment).navigateUp()
+    override fun onSupportNavigateUp(): Boolean =
+        findNavController(R.id.nav_host_fragment).navigateUp()
 
     fun getNavigator(): NavController {
         return NavHostFragment.findNavController(supportFragmentManager.findFragmentById(R.id.nav_host_fragment)!!)

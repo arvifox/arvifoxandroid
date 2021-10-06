@@ -1,131 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context=".simplemisc.SimpleMiscActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <include layout="@layout/app_bar_layout" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:fitsSystemWindows="true"
+        tools:context=".simplemisc.SimpleMiscActivity">
 
-        <Button
-            android:id="@+id/btnCameraStart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Camera"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <include
+            android:id="@+id/incSimpl1"
+            layout="@layout/app_bar_layout" />
 
-        <Button
-            android:id="@+id/btnSensor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sensor"
-            app:layout_constraintLeft_toRightOf="@id/btnCameraStart"
-            app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <Button
-            android:id="@+id/btnServiceHandler"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ServiceHandler"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnCameraStart" />
+            <Button
+                android:id="@+id/btnCameraStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Camera"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/btnMatComp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="MatComp"
-            app:layout_constraintLeft_toRightOf="@id/btnServiceHandler"
-            app:layout_constraintTop_toBottomOf="@id/btnSensor" />
+            <Button
+                android:id="@+id/btnSensor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sensor"
+                app:layout_constraintLeft_toRightOf="@id/btnCameraStart"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/btnAnim"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Anim"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnServiceHandler" />
+            <Button
+                android:id="@+id/btnServiceHandler"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ServiceHandler"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnCameraStart" />
 
-        <Button
-            android:id="@+id/btnWorkManager"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="WorkManager"
-            app:layout_constraintLeft_toRightOf="@id/btnAnim"
-            app:layout_constraintTop_toBottomOf="@id/btnMatComp" />
+            <Button
+                android:id="@+id/btnMatComp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="MatComp"
+                app:layout_constraintLeft_toRightOf="@id/btnServiceHandler"
+                app:layout_constraintTop_toBottomOf="@id/btnSensor" />
 
-        <Button
-            android:id="@+id/btnNestedScroll"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="NestedScroll"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnAnim" />
+            <Button
+                android:id="@+id/btnAnim"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Anim"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnServiceHandler" />
 
-        <Button
-            android:id="@+id/btnTaskColor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TaskColor"
-            app:layout_constraintLeft_toRightOf="@id/btnNestedScroll"
-            app:layout_constraintTop_toBottomOf="@id/btnAnim" />
+            <Button
+                android:id="@+id/btnWorkManager"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="WorkManager"
+                app:layout_constraintLeft_toRightOf="@id/btnAnim"
+                app:layout_constraintTop_toBottomOf="@id/btnMatComp" />
 
-        <Button
-            android:id="@+id/btnTmdb"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tmdb"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnNestedScroll" />
+            <Button
+                android:id="@+id/btnNestedScroll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NestedScroll"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnAnim" />
 
-        <Button
-            android:id="@+id/btnViewPager2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ViewPager2"
-            app:layout_constraintLeft_toRightOf="@id/btnTmdb"
-            app:layout_constraintTop_toBottomOf="@id/btnNestedScroll" />
+            <Button
+                android:id="@+id/btnTaskColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TaskColor"
+                app:layout_constraintLeft_toRightOf="@id/btnNestedScroll"
+                app:layout_constraintTop_toBottomOf="@id/btnAnim" />
 
-        <Button
-            android:id="@+id/btnMoveImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Move Image"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnTmdb" />
+            <Button
+                android:id="@+id/btnTmdb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tmdb"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnNestedScroll" />
 
-        <Button
-            android:id="@+id/btnConstrlayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Constrlayout"
-            app:layout_constraintLeft_toRightOf="@id/btnMoveImage"
-            app:layout_constraintTop_toBottomOf="@id/btnViewPager2" />
+            <Button
+                android:id="@+id/btnViewPager2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ViewPager2"
+                app:layout_constraintLeft_toRightOf="@id/btnTmdb"
+                app:layout_constraintTop_toBottomOf="@id/btnNestedScroll" />
 
-        <Button
-            android:id="@+id/btnOpenCv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Open cv"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnMoveImage" />
+            <Button
+                android:id="@+id/btnMoveImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Move Image"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnTmdb" />
 
-        <Button
-            android:id="@+id/btnWindow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Window"
-            app:layout_constraintLeft_toRightOf="@id/btnOpenCv"
-            app:layout_constraintTop_toBottomOf="@id/btnConstrlayout" />
+            <Button
+                android:id="@+id/btnConstrlayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Constrlayout"
+                app:layout_constraintLeft_toRightOf="@id/btnMoveImage"
+                app:layout_constraintTop_toBottomOf="@id/btnViewPager2" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <Button
+                android:id="@+id/btnOpenCv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Open cv"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnMoveImage" />
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+            <Button
+                android:id="@+id/btnWindow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Window"
+                app:layout_constraintLeft_toRightOf="@id/btnOpenCv"
+                app:layout_constraintTop_toBottomOf="@id/btnConstrlayout" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

@@ -16,8 +16,13 @@ import android.view.animation.DecelerateInterpolator
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
-import androidx.recyclerview.widget.*
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.arvifox.arvi.R
+import com.arvifox.arvi.databinding.ActivitySimpleMisc2Binding
 import com.arvifox.arvi.simplemisc.anim.BottomNavAnimFragment
 import com.arvifox.arvi.simplemisc.anim.ExitAnim.findLocationOfCenterOnTheScreen
 import com.arvifox.arvi.simplemisc.anim.ExitAnimFragment
@@ -34,8 +39,6 @@ import com.arvifox.arvi.simplemisc.misc2.packlist.PackListFragment
 import com.arvifox.arvi.simplemisc.recypad.RecyPadFragment
 import com.arvifox.arvi.simplemisc.webviewbug.WebViewBugFragment
 import com.arvifox.arvi.utils.FormatUtils.showToast
-import kotlinx.android.synthetic.main.activity_simple_misc2.*
-import kotlinx.android.synthetic.main.app_bar_layout.*
 
 class SimpleMisc2Activity : AppCompatActivity(), RecAdapter.OnClickListener {
 
@@ -45,21 +48,31 @@ class SimpleMisc2Activity : AppCompatActivity(), RecAdapter.OnClickListener {
         }
     }
 
+    private var bi: ActivitySimpleMisc2Binding? = null
+    private val binding by lazy { bi!! }
+
     @SuppressLint("NewApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_simple_misc2)
-        setSupportActionBar(toolbar)
+        bi = ActivitySimpleMisc2Binding.inflate(layoutInflater)
+        setContentView(binding.root)
+        setSupportActionBar(binding.incSimpl2.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         externalMediaDirs
-        misc2_recycler.setHasFixedSize(true)
-        misc2_recycler.itemAnimator = DefaultItemAnimator()
+        binding.misc2Recycler.setHasFixedSize(true)
+        binding.misc2Recycler.itemAnimator = DefaultItemAnimator()
 //        misc2_recycler.itemAnimator = MyItemAnimator()
-        misc2_recycler.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
+        binding.misc2Recycler.layoutManager =
+            LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
 //        misc2_recycler.layoutManager = GridLayoutManager(this, 2, RecyclerView.HORIZONTAL, false)
-        misc2_recycler.addItemDecoration(DividerItemDecoration(this, RecyclerView.HORIZONTAL))
+        binding.misc2Recycler.addItemDecoration(
+            DividerItemDecoration(
+                this,
+                RecyclerView.HORIZONTAL
+            )
+        )
 //        misc2_recycler.addItemDecoration(MyItemDecoration(30))
-        misc2_recycler.adapter = RecAdapter(
+        binding.misc2Recycler.adapter = RecAdapter(
             this, arrayListOf(
                 BazDto(0, 3.2),
                 BazDto(1, 2.1),

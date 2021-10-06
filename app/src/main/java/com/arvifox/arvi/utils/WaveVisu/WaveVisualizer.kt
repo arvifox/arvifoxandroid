@@ -26,7 +26,8 @@ class WaveVisualizer(context: Context, attrs: AttributeSet) : View(context, attr
             try {
                 borderColor = getColor(R.styleable.WaveVisualizer_borderColor, DEFAULT_BORDER_COLOR)
                 bgColor = getColor(R.styleable.WaveVisualizer_bgColor, DEFAULT_BG_COLOR)
-                delimiterColor = getColor(R.styleable.WaveVisualizer_delimiterColor, DEFAULT_DELIMITER_COLOR)
+                delimiterColor =
+                    getColor(R.styleable.WaveVisualizer_delimiterColor, DEFAULT_DELIMITER_COLOR)
                 barsColor = getColor(R.styleable.WaveVisualizer_barsColor, DEFAULT_BARS_COLOR)
                 barWidth = getDimension(R.styleable.WaveVisualizer_barWidth, 16f)
                 barsOffset = getDimension(R.styleable.WaveVisualizer_barsOffset, 8f)
@@ -61,7 +62,13 @@ class WaveVisualizer(context: Context, attrs: AttributeSet) : View(context, attr
         canvas.drawRect(borderRect, paint)
 
         paint.color = delimiterColor
-        canvas.drawLine(borderRect.left, borderRect.height() / 2f, borderRect.right, borderRect.height() / 2f, paint)
+        canvas.drawLine(
+            borderRect.left,
+            borderRect.height() / 2f,
+            borderRect.right,
+            borderRect.height() / 2f,
+            paint
+        )
 
         paint.apply {
             style = Paint.Style.FILL
@@ -71,7 +78,7 @@ class WaveVisualizer(context: Context, attrs: AttributeSet) : View(context, attr
         var x = barsOffset / 2f
         var y: Float
         var h: Float
-        val maxAmp = amplitudes.max()?.toFloat() ?: 255f
+        val maxAmp = amplitudes.maxOrNull()?.toFloat() ?: 255f
         var frac: Float
 
         amplitudes.forEach {
@@ -97,14 +104,16 @@ class WaveVisualizer(context: Context, attrs: AttributeSet) : View(context, attr
         /* Hardcoded for 2 channels */
         val barsNumber = (borderRect.width() / (barWidth + barsOffset)).toInt()
         val samplesPerBar = waveReader.waveSamples / barsNumber
-        var readSamples = (waveReader.bytesRead - WaveReader.HEADER_SIZE) / (waveReader.bitsPerSample / 8)
+        var readSamples =
+            (waveReader.bytesRead - WaveReader.HEADER_SIZE) / (waveReader.bitsPerSample / 8)
 
         while (readSamples < waveReader.waveSamples) {
             val toRead = min(samplesPerBar, waveReader.waveSamples - readSamples)
             val average = waveReader.readAverage(toRead)[0]
             amplitudes.add(abs(average.toInt()))
 
-            readSamples = (waveReader.bytesRead - WaveReader.HEADER_SIZE) / (waveReader.bitsPerSample / 8)
+            readSamples =
+                (waveReader.bytesRead - WaveReader.HEADER_SIZE) / (waveReader.bitsPerSample / 8)
         }
 
         return true
