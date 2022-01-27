@@ -16,9 +16,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.work.*
 import com.arvifox.arvi.R
+import com.arvifox.arvi.databinding.ActivityWorkManagerBinding
 import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.activity_work_manager.*
-import kotlinx.android.synthetic.main.app_bar_layout.*
 import java.util.concurrent.TimeUnit
 
 class WorkManagerActivity : AppCompatActivity() {
@@ -36,12 +35,14 @@ class WorkManagerActivity : AppCompatActivity() {
 
     private var mImageUri: Uri? = null
     private var mOutputImageUri: Uri? = null
+    private lateinit var binding: ActivityWorkManagerBinding
 
     @SuppressLint("NewApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_work_manager)
-        setSupportActionBar(toolbar)
+        binding = ActivityWorkManagerBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        setSupportActionBar(binding.incAppBar.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         // Get the ViewModel
@@ -88,27 +89,29 @@ class WorkManagerActivity : AppCompatActivity() {
         mImageUri = Uri.parse(imageUriExtra)
         viewModel.setImageUri(imageUriExtra)
         viewModel.imageUri?.let { imageUri ->
-            Glide.with(this).load(imageUri).into(image_view)
+            Glide.with(this).load(imageUri).into(binding.imageView)
         }
 
-        btnStart1.setOnClickListener {
+        binding.btnStart1.setOnClickListener {
             // optionally, add constraints like power, network availability
             val constraints: Constraints = Constraints.Builder()
-                    .setRequiresCharging(true)
-                    .setRequiresDeviceIdle(true)
-                    .setRequiredNetworkType(NetworkType.CONNECTED)
-                    .build()
+                .setRequiresCharging(true)
+                .setRequiresDeviceIdle(true)
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                .build()
             val myOneTimeWorkRequest = OneTimeWorkRequestBuilder<MyWorker>()
-                    .setInitialDelay(20, TimeUnit.MINUTES)
+                .setInitialDelay(20, TimeUnit.MINUTES)
 //                    .setInputData()
-                    .addTag("tratata")
-                    .setBackoffCriteria(BackoffPolicy.LINEAR,
-                            OneTimeWorkRequest.MIN_BACKOFF_MILLIS, TimeUnit.MILLISECONDS)
-                    .setConstraints(constraints).build()
+                .addTag("tratata")
+                .setBackoffCriteria(
+                    BackoffPolicy.LINEAR,
+                    OneTimeWorkRequest.MIN_BACKOFF_MILLIS, TimeUnit.MILLISECONDS
+                )
+                .setConstraints(constraints).build()
             WorkManager.getInstance().enqueue(myOneTimeWorkRequest)
         }
 
-        go.setOnClickListener {
+        binding.go.setOnClickListener {
             val applyWaterColor = isChecked(R.id.filter_watercolor)
             val applyGrayScale = isChecked(R.id.filter_grayscale)
             val applyBlur = isChecked(R.id.filter_blur)
@@ -116,19 +119,19 @@ class WorkManagerActivity : AppCompatActivity() {
             val upload = isChecked(R.id.upload)
 
             val imageOperations = ImageOperations.Builder(mImageUri!!)
-                    .setApplyWaterColor(applyWaterColor)
-                    .setApplyGrayScale(applyGrayScale)
-                    .setApplyBlur(applyBlur)
-                    .setApplySave(save)
-                    .setApplyUpload(upload)
-                    .build()
+                .setApplyWaterColor(applyWaterColor)
+                .setApplyGrayScale(applyGrayScale)
+                .setApplyBlur(applyBlur)
+                .setApplySave(save)
+                .setApplyUpload(upload)
+                .build()
 
             viewModel.apply(imageOperations)
 //            viewModel.applyBlur(blurLevel)
         }
 
         // Setup view output image file button
-        output.setOnClickListener {
+        binding.output.setOnClickListener {
             if (mOutputImageUri != null) {
                 val actionView = Intent(Intent.ACTION_VIEW, mOutputImageUri)
                 if (actionView.resolveActivity(packageManager) != null) {
@@ -144,7 +147,7 @@ class WorkManagerActivity : AppCompatActivity() {
         }
 
         // Hookup the Cancel button
-        cancel.setOnClickListener { viewModel.cancelWork() }
+        binding.cancel.setOnClickListener { viewModel.cancelWork() }
     }
 
     private fun workInfosObserver(): Observer<List<WorkInfo>> {

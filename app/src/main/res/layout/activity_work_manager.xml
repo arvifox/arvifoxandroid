@@ -1,143 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context=".simplemisc.workmanager.WorkManagerActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <include layout="@layout/app_bar_layout" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:fitsSystemWindows="true"
+        tools:context=".simplemisc.workmanager.WorkManagerActivity">
 
-        <ScrollView
+        <include
+            android:id="@+id/incAppBar"
+            layout="@layout/app_bar_layout" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fillViewport="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <LinearLayout
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <Button
-                    android:id="@+id/btnStart1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Start 1" />
-
-                <ImageView
-                    android:id="@+id/image_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="300dp"
-                    android:layout_weight="1"
-                    android:contentDescription="qwe"
-                    android:scaleType="fitCenter" />
-
-                <TextView
-                    android:id="@+id/filters_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="blur_title"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-
-                <CheckBox
-                    android:id="@+id/filter_watercolor"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="filter_watercolor" />
-
-                <CheckBox
-                    android:id="@+id/filter_grayscale"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="filter_grayscale" />
-
-                <CheckBox
-                    android:id="@+id/filter_blur"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="filter_blur" />
-
-                <TextView
-                    android:id="@+id/destinations_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="destinations_title" />
-
-                <RadioGroup
-                    android:id="@+id/destinations"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <RadioButton
-                        android:id="@+id/save"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checked="true"
-                        android:text="destination_save" />
-
-                    <RadioButton
-                        android:id="@+id/upload"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="destination_upload" />
-                </RadioGroup>
+                android:layout_height="match_parent"
+                android:fillViewport="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="16dp"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <ProgressBar
-                        android:id="@+id/progressBar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:indeterminate="true"
-                        android:visibility="gone"
-                        tools:visibility="visible" />
+                    android:orientation="vertical">
 
                     <Button
-                        android:id="@+id/go"
+                        android:id="@+id/btnStart1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="go" />
+                        android:text="Start 1" />
 
-                    <Button
-                        android:id="@+id/cancel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="cancel"
-                        android:visibility="gone"
-                        tools:visibility="visible" />
+                    <ImageView
+                        android:id="@+id/image_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:layout_weight="1"
+                        android:contentDescription="qwe"
+                        android:scaleType="fitCenter" />
 
-                    <Button
-                        android:id="@+id/output"
+                    <TextView
+                        android:id="@+id/filters_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="output"
-                        android:visibility="gone"
-                        tools:visibility="visible" />
+                        android:text="blur_title"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+                    <CheckBox
+                        android:id="@+id/filter_watercolor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="filter_watercolor" />
+
+                    <CheckBox
+                        android:id="@+id/filter_grayscale"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="filter_grayscale" />
+
+                    <CheckBox
+                        android:id="@+id/filter_blur"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="filter_blur" />
+
+                    <TextView
+                        android:id="@+id/destinations_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="destinations_title" />
+
+                    <RadioGroup
+                        android:id="@+id/destinations"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <RadioButton
+                            android:id="@+id/save"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:text="destination_save" />
+
+                        <RadioButton
+                            android:id="@+id/upload"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="destination_upload" />
+                    </RadioGroup>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="16dp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <ProgressBar
+                            android:id="@+id/progressBar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:indeterminate="true"
+                            android:visibility="gone"
+                            tools:visibility="visible" />
+
+                        <Button
+                            android:id="@+id/go"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="go" />
+
+                        <Button
+                            android:id="@+id/cancel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="cancel"
+                            android:visibility="gone"
+                            tools:visibility="visible" />
+
+                        <Button
+                            android:id="@+id/output"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="output"
+                            android:visibility="gone"
+                            tools:visibility="visible" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
-            </LinearLayout>
+            </ScrollView>
 
-        </ScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

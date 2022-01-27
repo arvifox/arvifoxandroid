@@ -11,9 +11,8 @@ import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.arvifox.arvi.R
+import com.arvifox.arvi.databinding.ActivityViewPager2Binding
 import com.arvifox.arvi.simplemisc.viewpager2.tabviewpager.TabViewPagerAdapter
-import kotlinx.android.synthetic.main.activity_view_pager2.*
-import kotlinx.android.synthetic.main.app_bar_layout.*
 import kotlin.math.abs
 import kotlin.math.max
 
@@ -49,25 +48,28 @@ class ViewPager2Activity : AppCompatActivity() {
         }
     }
 
+    private lateinit var binding: ActivityViewPager2Binding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_view_pager2)
-        setSupportActionBar(toolbar)
+        binding = ActivityViewPager2Binding.inflate(layoutInflater)
+        setContentView(binding.root)
+        setSupportActionBar(binding.incAppBar.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        vpViewpager.adapter = TabViewPagerAdapter(supportFragmentManager)
-        vpViewpager.pageMargin = 30
-        tlViewpager.setupWithViewPager(vpViewpager, true)
+        binding.vpViewpager.adapter = TabViewPagerAdapter(supportFragmentManager)
+        binding.vpViewpager.pageMargin = 30
+        binding.tlViewpager.setupWithViewPager(binding.vpViewpager, true)
 
-        vpViewpager2.adapter = VpAdapter()
-        vpViewpager2.orientation = ViewPager2.ORIENTATION_VERTICAL
-        vpViewpager2.clipChildren = false
-        vpViewpager2.clipToPadding = false
-        vpViewpager2.offscreenPageLimit = 3
+        binding.vpViewpager2.adapter = VpAdapter()
+        binding.vpViewpager2.orientation = ViewPager2.ORIENTATION_VERTICAL
+        binding.vpViewpager2.clipChildren = false
+        binding.vpViewpager2.clipToPadding = false
+        binding.vpViewpager2.offscreenPageLimit = 3
 
         val pageMargin = resources.getDimensionPixelOffset(R.dimen.pageMargin)
         val offset = resources.getDimensionPixelOffset(R.dimen.offset)
-        vpViewpager2.setPageTransformer { page, position ->
+        binding.vpViewpager2.setPageTransformer { page, position ->
             val vp = page.parent.parent as ViewPager2
             val of = position * -(2 * offset + pageMargin)
             if (vp.orientation == ViewPager2.ORIENTATION_HORIZONTAL) {
@@ -85,11 +87,11 @@ class ViewPager2Activity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        vpViewpager2.registerOnPageChangeCallback(pageCallback)
+        binding.vpViewpager2.registerOnPageChangeCallback(pageCallback)
     }
 
     override fun onPause() {
-        vpViewpager2.unregisterOnPageChangeCallback(pageCallback)
+        binding.vpViewpager2.unregisterOnPageChangeCallback(pageCallback)
         super.onPause()
     }
 }

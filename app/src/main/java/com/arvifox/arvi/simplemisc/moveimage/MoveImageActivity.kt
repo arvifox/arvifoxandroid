@@ -12,9 +12,7 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.arvifox.arvi.R
-import kotlinx.android.synthetic.main.activity_move_image.*
-import kotlinx.android.synthetic.main.app_bar_layout.*
+import com.arvifox.arvi.databinding.ActivityMoveImageBinding
 
 class MoveImageActivity : AppCompatActivity() {
 
@@ -27,13 +25,16 @@ class MoveImageActivity : AppCompatActivity() {
     private var xDelta: Int = 0
     private var yDelta: Int = 0
 
+    private lateinit var binding: ActivityMoveImageBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_move_image)
-        setSupportActionBar(toolbar)
+        binding = ActivityMoveImageBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        setSupportActionBar(binding.incAppBar.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        btnImageAdd.setOnClickListener {
+        binding.btnImageAdd.setOnClickListener {
             val intent = Intent(Intent.ACTION_GET_CONTENT)
             intent.type = "image/*"
             startActivityForResult(intent, 1234)
@@ -59,7 +60,7 @@ class MoveImageActivity : AppCompatActivity() {
         iv.layoutParams = prm
         iv.setImageBitmap(b)
         iv.setOnTouchListener(onTouchListener)
-        framelayoutimagemove.addView(iv)
+        binding.framelayoutimagemove.addView(iv)
     }
 
     private val onTouchListener = View.OnTouchListener { v, event ->
@@ -75,13 +76,15 @@ class MoveImageActivity : AppCompatActivity() {
                     yDelta = y - lParams.topMargin
                 }
                 MotionEvent.ACTION_UP -> {
-                    Toast.makeText(applicationContext, "Объект перемещён", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(applicationContext, "Объект перемещён", Toast.LENGTH_SHORT)
+                        .show()
                 }
                 MotionEvent.ACTION_MOVE -> {
-                    if (x - xDelta + v.width <= framelayoutimagemove.width
-                            && y - yDelta + v.height <= framelayoutimagemove.height
-                            && x - xDelta >= 0
-                            && y - yDelta >= 0) {
+                    if (x - xDelta + v.width <= binding.framelayoutimagemove.width
+                        && y - yDelta + v.height <= binding.framelayoutimagemove.height
+                        && x - xDelta >= 0
+                        && y - yDelta >= 0
+                    ) {
                         val layoutParams = v.layoutParams as FrameLayout.LayoutParams
                         layoutParams.leftMargin = x - xDelta
                         layoutParams.topMargin = y - yDelta
@@ -91,7 +94,7 @@ class MoveImageActivity : AppCompatActivity() {
                     }
                 }
             }
-            framelayoutimagemove.invalidate()
+            binding.framelayoutimagemove.invalidate()
             true
         } else false
     }

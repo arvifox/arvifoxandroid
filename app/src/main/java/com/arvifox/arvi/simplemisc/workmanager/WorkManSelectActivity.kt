@@ -10,10 +10,8 @@ import android.provider.MediaStore
 import android.text.Html
 import android.text.Spanned
 import androidx.appcompat.app.AppCompatActivity
-import com.arvifox.arvi.R
+import com.arvifox.arvi.databinding.ActivityWorkManSelectBinding
 import com.arvifox.arvi.utils.Logger
-import kotlinx.android.synthetic.main.activity_work_man_select.*
-import kotlinx.android.synthetic.main.app_bar_layout.*
 
 class WorkManSelectActivity : AppCompatActivity() {
 
@@ -25,21 +23,24 @@ class WorkManSelectActivity : AppCompatActivity() {
 
     private val REQUEST_CODE_IMAGE = 100
 
+    private lateinit var binding: ActivityWorkManSelectBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_work_man_select)
-        setSupportActionBar(toolbar)
+        binding = ActivityWorkManSelectBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        setSupportActionBar(binding.incAppBar.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        btnSelect.setOnClickListener {
+        binding.btnSelect.setOnClickListener {
             val chooseIntent = Intent(
-                    Intent.ACTION_PICK,
-                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+                Intent.ACTION_PICK,
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI
             )
             startActivityForResult(chooseIntent, REQUEST_CODE_IMAGE)
         }
 
-        selectStockImage.setOnClickListener {
+        binding.selectStockImage.setOnClickListener {
             val filterIntent = Intent(this, WorkManagerActivity::class.java)
             filterIntent.putExtra("KEY_IMAGE_URI", StockImages.randomStockImage())
             startActivity(filterIntent)

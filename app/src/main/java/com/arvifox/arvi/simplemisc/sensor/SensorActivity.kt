@@ -13,6 +13,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.text.method.ScrollingMovementMethod
 import com.arvifox.arvi.R
+import com.arvifox.arvi.databinding.ActivitySensorBinding
 import com.arvifox.arvi.utils.FormatUtils.format
 
 class SensorActivity : AppCompatActivity(), SensorEventListener {
@@ -33,12 +34,15 @@ class SensorActivity : AppCompatActivity(), SensorEventListener {
     private val mRotationMatrix = FloatArray(9)
     private val mOrientationAngles = FloatArray(3)
 
+    private lateinit var binding: ActivitySensorBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sensor)
-        setSupportActionBar(toolbar)
+        binding = ActivitySensorBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        setSupportActionBar(binding.incAppBar.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        tvSensor.movementMethod = ScrollingMovementMethod()
+        binding.tvSensor.movementMethod = ScrollingMovementMethod()
     }
 
     @SuppressLint("NewApi")
@@ -88,7 +92,7 @@ class SensorActivity : AppCompatActivity(), SensorEventListener {
             sb.append("abgles:\n").append(mOrientationAngles[0].format(2)).append(";\n")
                     .append(mOrientationAngles[1].format(2)).append(";\n")
                     .append(mOrientationAngles[2].format(2)).append(";\n")
-            tvSensor.text = sb.toString()
+            binding.tvSensor.text = sb.toString()
             curTimer = timer
         }
     }
@@ -137,6 +141,6 @@ class SensorActivity : AppCompatActivity(), SensorEventListener {
         for (s in sensorlist) {
             sb.append(s?.name).append("; ")
         }
-        tvSeInfo.text = sb.toString()
+        binding.tvSeInfo.text = sb.toString()
     }
 }

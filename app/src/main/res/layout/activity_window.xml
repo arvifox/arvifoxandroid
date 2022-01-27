@@ -1,38 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="false"
-    tools:context=".simplemisc.misc4window.WindowActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <include layout="@layout/app_bar_layout" />
-
-    <LinearLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:fitsSystemWindows="false"
+        tools:context=".simplemisc.misc4window.WindowActivity">
 
-        <Button
-            android:id="@+id/btnWindow1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="window1" />
+        <include
+            android:id="@+id/incAppBar"
+            layout="@layout/app_bar_layout" />
 
-        <Button
-            android:id="@+id/btnWindow2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="window2" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <Button
-            android:id="@+id/btnWindow3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="window3" />
+            <Button
+                android:id="@+id/btnWindow1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="window1" />
 
-    </LinearLayout>
+            <Button
+                android:id="@+id/btnWindow2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="window2" />
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+            <Button
+                android:id="@+id/btnWindow3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="window3" />
+
+        </LinearLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

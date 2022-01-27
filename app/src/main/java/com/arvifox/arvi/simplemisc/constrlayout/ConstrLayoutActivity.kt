@@ -6,9 +6,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.transition.TransitionManager
-import com.arvifox.arvi.R
-import kotlinx.android.synthetic.main.activity_constr_layout.*
-import kotlinx.android.synthetic.main.app_bar_layout.*
+import com.arvifox.arvi.databinding.ActivityConstrLayoutBinding
 
 class ConstrLayoutActivity : AppCompatActivity() {
 
@@ -19,15 +17,17 @@ class ConstrLayoutActivity : AppCompatActivity() {
     }
 
     private var showView: Boolean = false
+    private lateinit var binding: ActivityConstrLayoutBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_constr_layout)
-        setSupportActionBar(toolbar)
+        binding = ActivityConstrLayoutBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        setSupportActionBar(binding.incAppBar.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        btnConstrdo.setOnClickListener {
-            TransitionManager.beginDelayedTransition(clConstLayout)
-            txt_worst.visibility = if (showView) View.VISIBLE else View.GONE
+        binding.btnConstrdo.setOnClickListener {
+            TransitionManager.beginDelayedTransition(binding.clConstLayout)
+            binding.txtWorst.visibility = if (showView) View.VISIBLE else View.GONE
             showView = !showView
         }
     }

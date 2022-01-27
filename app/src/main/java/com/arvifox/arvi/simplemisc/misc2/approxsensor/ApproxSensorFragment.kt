@@ -10,8 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.fragment.app.Fragment
-import com.arvifox.arvi.R
-import kotlinx.android.synthetic.main.fragment_approx_sensor.*
+import com.arvifox.arvi.databinding.FragmentApproxSensorBinding
 
 class ApproxSensorFragment : Fragment() {
 
@@ -24,11 +23,16 @@ class ApproxSensorFragment : Fragment() {
     private lateinit var pm: PowerManager
     private var wwl: PowerManager.WakeLock? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    private lateinit var binding: FragmentApproxSensorBinding
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         // Inflate the layout for this fragment
         pm = context?.getSystemService(Context.POWER_SERVICE) as PowerManager
-        return inflater.inflate(R.layout.fragment_approx_sensor, container, false)
+        binding = FragmentApproxSensorBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     @SuppressLint("NewApi")
@@ -39,7 +43,7 @@ class ApproxSensorFragment : Fragment() {
 //            wl.acquire() // switch off
 //            wl.release() // switch on
 //        }
-        btnApproxOn1.setOnClickListener {
+        binding.btnApproxOn1.setOnClickListener {
             wwl = if (pm.isWakeLockLevelSupported(PowerManager.PROXIMITY_SCREEN_OFF_WAKE_LOCK)) {
                 pm.newWakeLock(PowerManager.PROXIMITY_SCREEN_OFF_WAKE_LOCK, "arvifox:appwake")
             } else {
@@ -48,7 +52,7 @@ class ApproxSensorFragment : Fragment() {
             wwl?.setReferenceCounted(false)
             wwl?.acquire(1000 * 60 * 2)
         }
-        btnApproxOff1.setOnClickListener {
+        binding.btnApproxOff1.setOnClickListener {
             wwl?.release()
         }
     }

@@ -5,10 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.arvifox.arvi.R
+import com.arvifox.arvi.databinding.FragmentExitAnimBinding
 import com.arvifox.arvi.simplemisc.anim.ExitAnim.exitCircularReveal
 import com.arvifox.arvi.simplemisc.anim.ExitAnim.startCircularReveal
-import kotlinx.android.synthetic.main.fragment_exit_anim.*
 
 class ExitAnimFragment : Fragment(), ExitAnim.ExitWithAnimation {
 
@@ -21,15 +20,20 @@ class ExitAnimFragment : Fragment(), ExitAnim.ExitWithAnimation {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    private lateinit var binding: FragmentExitAnimBinding
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_exit_anim, container, false)
+        binding = FragmentExitAnimBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(vi: View, savedInstanceState: Bundle?) {
         super.onViewCreated(vi, savedInstanceState)
-        exitanimfragm.setOnClickListener {
+        binding.exitanimfragm.setOnClickListener {
             view?.exitCircularReveal(posX!!, posY!!) {
                 activity?.onBackPressed()
             }

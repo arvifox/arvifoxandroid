@@ -1,47 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <com.arvifox.arvi.simplemisc.view.RectView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_margin="10dp"
-        app:rectColor="@android:color/white" />
+        <com.arvifox.arvi.simplemisc.view.RectView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            app:rectColor="@android:color/white" />
 
-    <com.arvifox.arvi.simplemisc.view.RectView
-        style="@style/RectViewStyle"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_margin="10dp" />
+        <com.arvifox.arvi.simplemisc.view.RectView
+            style="@style/RectViewStyle"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp" />
 
-    <androidx.appcompat.widget.SwitchCompat
-        style="@style/MySwitchStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:checked="true" />
+        <androidx.appcompat.widget.SwitchCompat
+            style="@style/MySwitchStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:checked="true" />
 
-    <Switch
-        style="@style/MySwitchStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:checked="true" />
+        <Switch
+            style="@style/MySwitchStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:checked="true" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/misc2_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="qweasd" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/misc2_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="qweasd" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/misc2_btn2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="zxca" />
-
-
-</LinearLayout>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/misc2_btn2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="zxca" />
+    </LinearLayout>
+</layout>

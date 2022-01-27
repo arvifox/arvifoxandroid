@@ -1,58 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context=".simplemisc.anim.AnimActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <include layout="@layout/app_bar_layout" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:fitsSystemWindows="true"
+        tools:context=".simplemisc.anim.AnimActivity">
 
-        <TextView
-            android:id="@+id/tvSome1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="some text"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <include
+            android:id="@+id/incAppBar"
+            layout="@layout/app_bar_layout" />
 
-        <Button
-            android:id="@+id/btnSome"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvSome1" />
-
-        <LinearLayout
-            android:id="@+id/llTransition"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnSome">
-
-            <Button
-                android:id="@+id/btnTrans"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="click" />
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <TextView
-                android:id="@+id/tvTrans"
+                android:id="@+id/tvSome1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="trans text"
-                android:visibility="gone" />
-        </LinearLayout>
+                android:text="some text"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <Button
+                android:id="@+id/btnSome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvSome1" />
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+            <LinearLayout
+                android:id="@+id/llTransition"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnSome">
+
+                <Button
+                    android:id="@+id/btnTrans"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="click" />
+
+                <TextView
+                    android:id="@+id/tvTrans"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="trans text"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

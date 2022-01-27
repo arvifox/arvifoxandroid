@@ -36,11 +36,11 @@ public class MyApp extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
 
-        Configuration configuration = new Configuration.Builder()
-                .setMinimumLoggingLevel(Log.VERBOSE)
-                .build();
-
-        WorkManager.initialize(this, configuration);
+//        Configuration configuration = new Configuration.Builder()
+//                .setMinimumLoggingLevel(Log.VERBOSE)
+//                .build();
+//
+//        WorkManager.initialize(this, configuration);
 
 //        mNetComponent = DaggerNetComponent.builder()
 //                 list of modules that are part of this component need to be created here too

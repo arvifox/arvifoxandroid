@@ -4,8 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.arvifox.arvi.R
-import kotlinx.android.synthetic.main.app_bar_layout.*
+import com.arvifox.arvi.databinding.ActivityNestedScrollBinding
 
 class NestedScrollActivity : AppCompatActivity() {
 
@@ -15,10 +14,13 @@ class NestedScrollActivity : AppCompatActivity() {
         }
     }
 
+    private lateinit var binding: ActivityNestedScrollBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_nested_scroll)
-        setSupportActionBar(toolbar)
+        binding = ActivityNestedScrollBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        setSupportActionBar(binding.incAppBar.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 }

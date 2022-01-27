@@ -6,8 +6,8 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.arvifox.arvi.R
+import com.arvifox.arvi.databinding.ActivityMatCompBinding
 import com.arvifox.arvi.utils.FormatUtils.showToast
-import kotlinx.android.synthetic.main.activity_mat_comp.*
 
 class MatCompActivity : AppCompatActivity() {
 
@@ -17,12 +17,15 @@ class MatCompActivity : AppCompatActivity() {
         }
     }
 
+    private lateinit var binding: ActivityMatCompBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_mat_comp)
-        setSupportActionBar(bottomAppBar)
+        binding = ActivityMatCompBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        setSupportActionBar(binding.bottomAppBar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        bottomAppBar.setOnMenuItemClickListener { item ->
+        binding.bottomAppBar.setOnMenuItemClickListener { item ->
             when (item.itemId) {
                 R.id.bottomAppBarMenuItem1 -> {
                     // Do something for menu item 1
@@ -35,7 +38,7 @@ class MatCompActivity : AppCompatActivity() {
                 else -> false
             }
         }
-        bottomAppBar.setNavigationOnClickListener { showToast("navi clicked") }
+        binding.bottomAppBar.setNavigationOnClickListener { showToast("navi clicked") }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

@@ -7,9 +7,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
-import com.arvifox.arvi.R
-import kotlinx.android.synthetic.main.activity_window.*
-import kotlinx.android.synthetic.main.app_bar_layout.*
+import com.arvifox.arvi.databinding.ActivityWindowBinding
 
 class WindowActivity : AppCompatActivity() {
 
@@ -19,13 +17,16 @@ class WindowActivity : AppCompatActivity() {
         }
     }
 
+    private lateinit var binding: ActivityWindowBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_window)
-        setSupportActionBar(toolbar)
+        binding = ActivityWindowBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        setSupportActionBar(binding.incAppBar.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        btnWindow1.setOnClickListener {
+        binding.btnWindow1.setOnClickListener {
             val w = window
             w.setFlags(
                 WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION,
@@ -48,7 +49,7 @@ class WindowActivity : AppCompatActivity() {
             }
         }
 
-        btnWindow2.setOnClickListener {
+        binding.btnWindow2.setOnClickListener {
             val w = window
             w.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
             w.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
@@ -56,10 +57,11 @@ class WindowActivity : AppCompatActivity() {
             w.decorView.systemUiVisibility = 0
         }
 
-        btnWindow3.setOnClickListener {
+        binding.btnWindow3.setOnClickListener {
             val w = window
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                w.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR + View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                w.decorView.systemUiVisibility =
+                    View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR + View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
             }
         }
     }

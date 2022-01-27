@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.view.*
 import androidx.fragment.app.Fragment
-import com.arvifox.arvi.R
+import com.arvifox.arvi.databinding.FragmentTestcustomBinding
 import com.arvifox.arvi.rep.RetrofitMock
 import com.arvifox.arvi.simplemisc.misc2.models.DaResponse
 import com.arvifox.arvi.simplemisc.misc2.models.OpeningDayModel
@@ -15,7 +15,6 @@ import com.arvifox.arvi.simplemisc.misc2.models.StationModel
 import com.arvifox.arvi.utils.AssetUtils
 import com.google.gson.internal.LinkedTreeMap
 import com.google.gson.reflect.TypeToken
-import kotlinx.android.synthetic.main.fragment_testcustom.*
 import retrofit2.Call
 import retrofit2.Callback
 import java.text.NumberFormat
@@ -29,6 +28,8 @@ class Misc2Fragment1 : Fragment() {
             return Misc2Fragment1()
         }
     }
+
+    private lateinit var binding: FragmentTestcustomBinding
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -46,25 +47,35 @@ class Misc2Fragment1 : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_testcustom, container, false)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentTestcustomBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        misc2_btn.setOnClickListener {
+        binding.misc2Btn.setOnClickListener {
             val typemy = object : TypeToken<List<Tomapin>>() {}.type
-            val mpr: List<Tomapin> = AssetUtils.loadGsonFromAssets(context!!, "mapping.json", typemy)
+            val mpr: List<Tomapin> =
+                AssetUtils.loadGsonFromAssets(requireContext(), "mapping.json", typemy)
             val s = mpr.size
         }
-        misc2_btn2.setOnClickListener {
-            val r = RetrofitMock.getR(AssetUtils.loadStringFromAssets(context!!, "2.json")).getRe()
+        binding.misc2Btn2.setOnClickListener {
+            val r = RetrofitMock.getR(AssetUtils.loadStringFromAssets(requireContext(), "2.json"))
+                .getRe()
             r.enqueue(object : Callback<DaResponse> {
                 override fun onFailure(call: Call<DaResponse>, t: Throwable) {
                     var uu = 23
                 }
 
-                override fun onResponse(call: Call<DaResponse>, response: retrofit2.Response<DaResponse>) {
+                override fun onResponse(
+                    call: Call<DaResponse>,
+                    response: retrofit2.Response<DaResponse>
+                ) {
                     val rr = response.body()
                     val rs = mapResponseToGasStationModel(rr!!)
                 }
@@ -92,7 +103,11 @@ class Misc2Fragment1 : Fragment() {
         super.onOptionsMenuClosed(menu)
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
@@ -135,8 +150,12 @@ class Misc2Fragment1 : Fragment() {
                         "address" -> stationModel.addressLine = it.value as String
                         "zipcode" -> stationModel.postalCode = it.value as String
                         "locality" -> stationModel.city = it.value as String
-                        "latitude" -> stationModel.lat = NumberFormat.getNumberInstance(Locale.getDefault()).parse((it.value as String).replace(".", ",")).toDouble()
-                        "longitude" -> stationModel.lon = NumberFormat.getNumberInstance(Locale.getDefault()).parse((it.value as String).replace(".", ",")).toDouble()
+                        "latitude" -> stationModel.lat =
+                            NumberFormat.getNumberInstance(Locale.getDefault())
+                                .parse((it.value as String).replace(".", ",")).toDouble()
+                        "longitude" -> stationModel.lon =
+                            NumberFormat.getNumberInstance(Locale.getDefault())
+                                .parse((it.value as String).replace(".", ",")).toDouble()
                         "currency" -> stationModel.currency = it.value as String
                         "timezone" -> stationModel.timeZone = it.value as String
                         "hours" -> parseOpeningHours(stationModel.openingHours, it.value as String)
@@ -163,11 +182,14 @@ class Misc2Fragment1 : Fragment() {
                     if (ss.length == 1) {
                         d = ss.toInt()
                     } else {
-                        ss.split("-").forEachIndexed { index2, s2 -> if (index2 == 0) d = s2.toInt() else d2 = s2.toInt() }
+                        ss.split("-").forEachIndexed { index2, s2 ->
+                            if (index2 == 0) d = s2.toInt() else d2 = s2.toInt()
+                        }
                     }
                 } else {
                     ss.split("-").forEachIndexed { index2, s2 ->
-                        if (index2 == 0) o1 = SimpleDateFormat("H:m", Locale.getDefault()).parse(s2) else
+                        if (index2 == 0) o1 =
+                            SimpleDateFormat("H:m", Locale.getDefault()).parse(s2) else
                             c2 = SimpleDateFormat("H:m", Locale.getDefault()).parse(s2)
                     }
                 }
