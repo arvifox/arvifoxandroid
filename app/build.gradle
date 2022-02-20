@@ -52,7 +52,7 @@ android {
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
         manifestPlaceholders = [googleGeoApiKey: keystoreProperties['googleGeoApiKey']]
-        resConfigs "en", "fr", "ru", "en_XA", "ar_XB"
+        resConfigs 'en', 'fr', 'ru', 'en_XA', 'ar_XB'
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = [
@@ -90,7 +90,6 @@ android {
     }
     sourceSets {
         main.res.srcDirs += ['src/main/res-some']
-        main.jni.srcDirs += ['src/main/jniLibs']
         main.jniLibs.srcDirs += ['src/main/jniLibs']
     }
     testOptions {
