@@ -29,4 +29,12 @@
         <attr name="barWidth" format="dimension"/>
         <attr name="barsOffset" format="dimension"/>
     </declare-styleable>
+
+    <declare-styleable name="MuTextView">
+        <attr name="style1" format="reference" />
+        <attr name="style2" format="reference" />
+        <attr name="style3" format="reference" />
+        <attr name="style4" format="reference" />
+        <attr name="style5" format="reference" />
+    </declare-styleable>
 </resources>
