@@ -19,9 +19,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
 
-public final class ConvertUtils {
+public final class ConvertUtilss {
 
-    private ConvertUtils() {
+    private ConvertUtilss() {
     }
 
     /**

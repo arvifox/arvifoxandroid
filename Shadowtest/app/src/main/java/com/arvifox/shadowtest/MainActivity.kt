@@ -17,6 +17,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        if (Build.Version. > )
+
         val sa = ShapeAppearanceModel.builder()
             .setAllCorners(CornerFamily.ROUNDED, 40f)
             .build()

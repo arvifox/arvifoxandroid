@@ -9,6 +9,17 @@ import androidx.fragment.app.Fragment
 import kotlinx.coroutines.*
 import java.lang.Runnable
 
+fun sdf(v: View) {
+    v.setOnLongClickListener {
+        GlobalScope.launch(Dispatchers.Main.immediate) {
+            while (it.isPressed) {
+                // click in progress
+            }
+        }
+        true
+    }
+}
+
 inline fun <reified T> Editable.removeSpans() {
     val allSpans = getSpans(0, length, T::class.java)
     for (span in allSpans) {

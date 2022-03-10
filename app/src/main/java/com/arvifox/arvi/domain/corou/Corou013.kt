@@ -25,6 +25,10 @@ class MyViewModel : ViewModel() {
     fun longtask() {
         viewModelScope.launch(Dispatchers.IO) {
             // some task
+
+            val a = withTimeout(123) {
+
+            }
         }
     }
 

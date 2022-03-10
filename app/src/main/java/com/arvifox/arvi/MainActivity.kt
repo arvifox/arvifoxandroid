@@ -15,7 +15,9 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -90,6 +92,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setContentView(binding.root)
         setSupportActionBar(binding.incAppBar.incAppBarLayout.toolbar)
 
+        // avoid showing your splash activity on android 12
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            findViewById<View>(android.R.id.content).viewTreeObserver.addOnPreDrawListener { false }
+        }
+
         // Create the dummy account
         mAccount = createSyncAccount()
 
@@ -163,12 +170,22 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         )
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
+    private fun openAdjacent() {
+        val intent = Intent(this, SimpleMisc2Activity::class.java)
+        intent.addFlags(
+            Intent.FLAG_ACTIVITY_LAUNCH_ADJACENT or
+                    Intent.FLAG_ACTIVITY_NEW_TASK
+        )
+        startActivity(intent)
+    }
+
     override fun onResume() {
         super.onResume()
         val rc = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this)
         if (rc != ConnectionResult.SUCCESS) {
             val d = GoogleApiAvailability.getInstance().getErrorDialog(this, rc, 1234)
-            d.show()
+            d?.show()
         }
 
         val intentFilter = IntentFilter()

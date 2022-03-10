@@ -1,17 +1,13 @@
 package com.arvifox.arvi.kotlinpu
 
 import com.arvifox.arvi.domain.corou.qwefd
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.delay
+import com.arvifox.arvi.domain.inlinekotlin.isA
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.onCompletion
-import kotlinx.coroutines.test.TestCoroutineDispatcher
-import kotlinx.coroutines.test.resetMain
-import kotlinx.coroutines.test.runBlockingTest
-import kotlinx.coroutines.test.setMain
+import kotlinx.coroutines.test.*
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -36,6 +32,27 @@ class Corte {
             println("qwqwe")
             val d = qwefd.loadData()
         }
+    }
+
+    @Test
+    fun qerwr() = runTest {
+        val scopeJob = Job()
+        val scope = CoroutineScope(scopeJob + Dispatchers.Default)
+        val job1 = scope.launch {
+            withContext(NonCancellable) {
+                var itera = 1
+                while (isActive && itera <= 5) {
+                    println("itera $itera")
+                    itera++
+                    delay(50)
+                }
+            }
+        }
+        val job2 = scope.launch {
+            delay(100)
+            job1.cancel()
+        }
+        joinAll(job1, job2)
     }
 
     @ExperimentalCoroutinesApi
