@@ -1,0 +1,14 @@
+{
+    "chainId": "chain id 3",
+    "name": "chain name 3",
+    "nodes": [
+        {
+            "url": "wss://chain url 123",
+            "name": "chain 3 node 1 name"
+        },
+        {
+            "url": "wss://chain url 223",
+            "name": "chain 3 node 2 name"
+        }
+    ]
+}
