@@ -1,20 +1,30 @@
 {
-  "chains.json": {
-    "ios": [
-      {
-        "2.0.0": "ios/2.0.0/"
-      },
-      {
-        "2.0.6": "ios/2.0.6/"
-      }
-    ],
-    "android": [
-      {
-        "2.0.0": "android/2.0.0/"
-      },
-      {
-        "2.0.6": "android/2.0.6/"
-      }
-    ]
-  }
+  "platformVersions": [
+    {
+      "platform": "ios",
+      "versions": [
+        {
+          "v": "2.0.0",
+          "path": "ios/2.0.0/"
+        },
+        {
+          "v": "2.0.6",
+          "path": "ios/2.0.6/"
+        }
+      ]
+    },
+    {
+      "platform": "android",
+      "versions": [
+        {
+          "v": "2.0.0",
+          "path": "android/2.0.0/"
+        },
+        {
+          "v": "2.0.6",
+          "path": "android/2.0.6/"
+        }
+      ]
+    }
+  ]
 }
