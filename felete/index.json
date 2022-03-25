@@ -4,12 +4,12 @@
       "platform": "ios",
       "versions": [
         {
-          "v": "2.0.0",
-          "path": "ios/2.0.0/chains.json"
-        },
-        {
           "v": "2.0.6",
           "path": "ios/2.0.6/chains.json"
+        },
+        {
+          "v": "2.0.0",
+          "path": "ios/2.0.0/chains.json"
         }
       ]
     },
@@ -17,12 +17,12 @@
       "platform": "android",
       "versions": [
         {
-          "v": "2.0.0",
-          "path": "android/2.0.0/chains.json"
-        },
-        {
           "v": "2.0.6",
           "path": "android/2.0.6/chains.json"
+        },
+        {
+          "v": "2.0.0",
+          "path": "android/2.0.0/chains.json"
         }
       ]
     }
