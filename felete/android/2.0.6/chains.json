@@ -1,5 +1,5 @@
 [
-    {"chains/main.json": "qwe"},
-    {"chains/slave.json": "asd"},
-    {"chains/third.json": "zxc"}
+    {"chain": "chains/main.json", "hash": "qwe"},
+    {"chain": "chains/slave.json", "hash": "asd"},
+    {"chain": "chains/third.json", "hash": "zxc"}
 ]
