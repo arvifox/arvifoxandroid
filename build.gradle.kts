@@ -39,10 +39,6 @@ tasks.register("clean", Delete::class) {
     delete(rootProject.buildDir)
 }
 
-//tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-//    kotlinOptions.jvmTarget = "11"
-//}
-//
 //tasks.processResources.configure {
 //    duplicatesStrategy = DuplicatesStrategy.INCLUDE
 //    from("gradle/libs.versions.toml")

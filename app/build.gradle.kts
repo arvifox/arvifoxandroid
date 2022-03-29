@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 buildscript {
     repositories {
         //jcenter()
@@ -22,9 +24,9 @@ plugins {
 
 // Creates a variable called keystorePropertiesFile, and initializes it to the
 // keys.properties file.
-//val keystorePropertiesFile = rootProject.file("mykeys.properties")
+val keystorePropertiesFile = rootProject.file("mykeys.properties")
 // Initializes a new Properties() object called keystoreProperties.
-//val keystoreProperties = new Properties()
+val keystoreProperties = gradleLocalProperties(keystorePropertiesFile)
 // Loads the keys.properties file into the keystoreProperties object.
 //keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
@@ -48,8 +50,8 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled = true
-//        manifestPlaceholders = [googleGeoApiKey: keystoreProperties['googleGeoApiKey']]
-//        resConfigs 'en', 'fr', 'ru', 'en_XA', 'ar_XB'
+        manifestPlaceholders["googleGeoApiKey"] = keystoreProperties.getProperty("googleGeoApiKey").orEmpty()
+        resourceConfigurations.addAll(listOf("en", "fr", "ru", "en_XA", "ar_XB"))
 //        javaCompileOptions {
 //            annotationProcessorOptions {
 //                arguments = [
@@ -70,11 +72,11 @@ android {
             )
             //signingConfig = signingConfigs.configrelease
         }
-//        applicationVariants.all { variant ->
-//            variant.buildConfigField "String", "ARVI_API_URL", "\"" + keystoreProperties['arviApiUrl'] + "\""
-//            variant.buildConfigField "String", "FLICKR_KEY", "\"" + keystoreProperties['flickrKey'] + "\""
-//            variant.buildConfigField "String", "TMDB_KEY", "\"" + keystoreProperties['tmdb'] + "\""
-//        }
+        applicationVariants.all {
+            buildConfigField("String", "ARVI_API_URL", "\"" + keystoreProperties.getProperty("arviApiUrl") + "\"")
+            buildConfigField("String", "FLICKR_KEY", "\"" + keystoreProperties.getProperty("flickrKey") + "\"")
+            buildConfigField("String", "TMDB_KEY", "\"" + keystoreProperties.getProperty("tmdb") + "\"")
+        }
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
