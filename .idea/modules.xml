@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/arvifoxandroid.iml" filepath="$PROJECT_DIR$/.idea/modules/arvifoxandroid.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/arvifoxandroid.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/arvifoxandroid.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/arvifoxandroid.buildSrc.iml" filepath="$PROJECT_DIR$/.idea/modules/arvifoxandroid.buildSrc.iml" />
     </modules>
   </component>
 </project>
