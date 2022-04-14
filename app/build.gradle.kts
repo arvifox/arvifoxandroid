@@ -15,7 +15,7 @@ plugins {
     id("com.android.application")
     kotlin("android")
     //id("androidx.navigation.safeargs")
-    id("kotlin-kapt")
+    kotlin("kapt")
     id("kotlin-parcelize")
     //id("org.jetbrains.dokka-android")
     id("com.google.gms.google-services")
@@ -62,10 +62,10 @@ android {
 //        }
     }
     buildTypes {
-        getByName("debug") {
-            //pseudoLocalesEnabled = true
+        debug {
+            isPseudoLocalesEnabled = true
         }
-        getByName("release") {
+        release {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
@@ -82,14 +82,21 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
-    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-        kotlinOptions {
-            jvmTarget = JavaVersion.VERSION_11.toString()
-        }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_11.toString()
     }
     buildFeatures {
         //viewBinding true
         dataBinding = true
+        //compose = true
+    }
+//    composeOptions {
+//        kotlinCompilerExtensionVersion = "compose version"
+//    }
+    packagingOptions {
+        resources {
+            excludes += "/META-INF"
+        }
     }
 //    sourceSets {
 //        main.res.srcDirs += ['src/main/res-some']
@@ -289,10 +296,6 @@ configurations {
 }
 
 val arvifoxconf by configurations.creating
-
-repositories {
-    mavenCentral()
-}
 
 //dokka {
 //    outputFormat = 'html'
