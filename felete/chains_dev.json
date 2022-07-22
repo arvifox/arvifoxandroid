@@ -215,7 +215,7 @@
     "icon": "https://raw.githubusercontent.com/soramitsu/fearless-utils/master/icons/chains/white/Westend.svg",
     "addressPrefix": 69,
     "types": {
-      "url": "https://raw.githubusercontent.com/soramitsu/fearless-utils/master/type_registry/westend.json",
+      "url": "https://raw.githubusercontent.com/arvifox/arvifoxandroid/develop/felete/types.json",
       "overridesCommon": true
     },
     "options": [
