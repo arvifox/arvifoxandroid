@@ -1,0 +1,32 @@
+[
+  {
+    "id": "887a17c7-1370-4de0-97dd-5422e294fa75",
+    "symbol": "dot",
+    "chainId": "91b171bb158e2d3848fa23a9f1c25182fb8e20313b2c1eb49219da7a70ce90c3",
+    "precision": 10,
+    "priceId": "polkadot",
+    "icon": "https://raw.githubusercontent.com/soramitsu/fearless-utils/master/icons/chains/white/Polkadot.svg"
+  },
+  {
+    "id": "1e0c2ec6-935f-49bd-a854-5e12ee6c9f1b",
+    "symbol": "ksm",
+    "chainId": "b0a8d493285c2df73290dfb7e61f870f17b41801197a149ca93654499ea3dafe",
+    "precision": 12,
+    "priceId": "kusama",
+    "icon": "https://raw.githubusercontent.com/soramitsu/fearless-utils/master/icons/chains/white/Kusama.svg"
+  },
+  {
+    "id": "a3868e1b-922e-42d4-b73e-b41712f0843c",
+    "symbol": "wnd",
+    "chainId": "e143f23803ac50e8f6f8e62695d1ce9e4e1d68aa36c1cd2cfd15340213f3423e",
+    "precision": 12,
+    "icon": "https://raw.githubusercontent.com/soramitsu/fearless-utils/master/icons/chains/white/Westend.svg"
+  },
+  {
+    "id": "soradevassetid",
+    "symbol": "xor",
+    "chainId": "soradevenvchainid",
+    "precision": 18,
+    "icon": "https://raw.githubusercontent.com/soramitsu/fearless-utils/master/icons/chains/white/Westend.svg"
+  }
+]
