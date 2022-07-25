@@ -12,5 +12,12 @@
     "chainId": "soradevenvchainid",
     "precision": 18,
     "icon": "https://raw.githubusercontent.com/soramitsu/fearless-utils/master/icons/chains/white/Westend.svg"
+  },
+  {
+    "id": "7dae28e2-9f5e-49ff-9140-aa750a9579ea",
+    "symbol": "bsx",
+    "chainId": "a85cfb9b9fd4d622a5b28289a02347af987d8f73fa3108450e2b4a11c1ce5755",
+    "precision": 12,
+    "icon": "https://raw.githubusercontent.com/soramitsu/fearless-utils/master/icons/chains/white/Basilisk.svg"
   }
 ]
