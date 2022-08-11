@@ -1,4 +1,6 @@
 import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+import org.jetbrains.kotlin.konan.properties.Properties
+import java.io.FileInputStream
 
 buildscript {
     repositories {
@@ -24,9 +26,10 @@ plugins {
 
 // Creates a variable called keystorePropertiesFile, and initializes it to the
 // keys.properties file.
-val keystorePropertiesFile = rootProject.file("mykeys.properties")
+val keystoreProperties = Properties()
+keystoreProperties.load(FileInputStream("mykeys.properties"))
 // Initializes a new Properties() object called keystoreProperties.
-val keystoreProperties = gradleLocalProperties(keystorePropertiesFile)
+//val keystoreProperties = gradleLocalProperties(qwe)
 // Loads the keys.properties file into the keystoreProperties object.
 //keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
