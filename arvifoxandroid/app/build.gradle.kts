@@ -1,4 +1,3 @@
-import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 import org.jetbrains.kotlin.konan.properties.Properties
 import java.io.FileInputStream
 
@@ -42,12 +41,12 @@ android {
 //            storePassword keystoreProperties['storePassword']
 //        }
 //    }
-    compileSdk = 32
-    buildToolsVersion = "32.0.0"
+    compileSdk = 33
+    buildToolsVersion = "33.0.0"
     defaultConfig {
         applicationId = "com.arvifox.arvi"
-        minSdk = Configs.minSdkVersion
-        targetSdk = 32
+        minSdk = 24
+        targetSdk = 33
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -142,9 +141,9 @@ android {
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 //    implementation(files("/path/path/file.jat"))
-    implementation(Deps.kotlin)
-    implementation("androidx.core:core-ktx:1.8.0")
-    implementation("androidx.appcompat:appcompat:1.4.2")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.10")
+    implementation("androidx.core:core-ktx:1.9.0")
+    implementation("androidx.appcompat:appcompat:1.5.1")
     implementation("com.google.android.material:material:1.6.1")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.annotation:annotation:1.4.0")
@@ -210,7 +209,7 @@ dependencies {
     // CameraX Lifecycle Library
     implementation("androidx.camera:camera-lifecycle:$camerax_version")
     // CameraX View class
-    implementation("androidx.camera:camera-view:1.2.0-alpha04")
+    implementation("androidx.camera:camera-view:1.2.0-beta01")
 
     //moshi
     implementation("com.squareup.moshi:moshi-kotlin:1.9.2")
@@ -231,14 +230,14 @@ dependencies {
     implementation("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2")
 
     // AR core, Sceneform
-    implementation("com.google.ar:core:1.32.0")
+    implementation("com.google.ar:core:1.33.0")
     implementation("com.google.ar.sceneform:core:1.17.1")
     implementation("com.google.ar.sceneform.ux:sceneform-ux:1.17.1")
 
     //firebase
-    implementation("com.google.firebase:firebase-messaging:23.0.6")
-    implementation("com.google.firebase:firebase-core:21.1.0")
-    implementation("com.google.android.gms:play-services-auth:20.2.0")
+    implementation("com.google.firebase:firebase-messaging:23.0.8")
+    implementation("com.google.firebase:firebase-core:21.1.1")
+    implementation("com.google.android.gms:play-services-auth:20.3.0")
     implementation("com.google.android.gms:play-services-base:18.1.0")
     implementation("com.google.android.gms:play-services-gcm:17.0.0")
     implementation("com.google.android.gms:play-services-location:20.0.0")

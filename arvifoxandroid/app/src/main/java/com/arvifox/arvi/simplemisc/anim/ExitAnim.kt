@@ -47,7 +47,7 @@ object ExitAnim {
             duration = 350
             interpolator = DecelerateInterpolator(1f)
             addListener(object : AnimatorListenerAdapter() {
-                override fun onAnimationEnd(animation: Animator?) {
+                override fun onAnimationEnd(animation: Animator) {
                     block()
                     super.onAnimationEnd(animation)
                 }

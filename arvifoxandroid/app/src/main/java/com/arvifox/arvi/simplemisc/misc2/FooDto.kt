@@ -14,11 +14,11 @@ data class FooDto constructor(
             parcel.readParcelable<BazDto>(BazDto::class.java.classLoader)!!,
             mutableListOf<BazDto>().apply { parcel.readList(this as List<BazDto>, BazDto::class.java.classLoader) })
 
-    override fun writeToParcel(dest: Parcel?, flags: Int) {
-        dest?.writeInt(das)
-        dest?.writeDouble(qsx)
-        dest?.writeParcelable(inper, flags)
-        dest?.writeList(inlis)
+    override fun writeToParcel(dest: Parcel, flags: Int) {
+        dest.writeInt(das)
+        dest.writeDouble(qsx)
+        dest.writeParcelable(inper, flags)
+        dest.writeList(inlis)
     }
 
     override fun describeContents(): Int {

@@ -10,9 +10,9 @@ data class BazDto constructor(
 
     private constructor(parcel: Parcel) : this(parcel.readInt(), parcel.readDouble())
 
-    override fun writeToParcel(dest: Parcel?, flags: Int) {
-        dest?.writeInt(per)
-        dest?.writeDouble(wer)
+    override fun writeToParcel(dest: Parcel, flags: Int) {
+        dest.writeInt(per)
+        dest.writeDouble(wer)
     }
 
     override fun describeContents(): Int {

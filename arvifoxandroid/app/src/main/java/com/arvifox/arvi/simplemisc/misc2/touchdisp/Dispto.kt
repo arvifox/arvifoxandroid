@@ -12,22 +12,22 @@ class Diact : AppCompatActivity() {
 
     val sc = sd()
 
-    override fun onTouchEvent(event: MotionEvent?): Boolean {
+    override fun onTouchEvent(event: MotionEvent): Boolean {
         sc.onTouchEvent(event)
         return super.onTouchEvent(event)
     }
 
     fun sd(): ScaleGestureDetector {
         return ScaleGestureDetector(this, object : ScaleGestureDetector.OnScaleGestureListener {
-            override fun onScaleBegin(p0: ScaleGestureDetector?): Boolean {
+            override fun onScaleBegin(p0: ScaleGestureDetector): Boolean {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
 
-            override fun onScaleEnd(p0: ScaleGestureDetector?) {
+            override fun onScaleEnd(p0: ScaleGestureDetector) {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
 
-            override fun onScale(p0: ScaleGestureDetector?): Boolean {
+            override fun onScale(p0: ScaleGestureDetector): Boolean {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
         })

@@ -1,5 +1,6 @@
 package com.arvifox.arvi
 
+import android.Manifest.permission.POST_NOTIFICATIONS
 import android.accounts.Account
 import android.accounts.AccountManager
 import android.app.NotificationChannel
@@ -17,9 +18,11 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationManagerCompat
 import androidx.core.view.GravityCompat
 import com.arvifox.arvi.databinding.ActivityMainBinding
 import com.arvifox.arvi.domain.corou.Arv10
@@ -40,6 +43,7 @@ import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.messaging.FirebaseMessaging
+import android.Manifest.permission.POST_NOTIFICATIONS
 
 // Constants
 // The authority for the sync adapter's content provider
@@ -57,6 +61,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     // Instance fields
     private lateinit var mAccount: Account
+
+    private val notificationPermission = registerForActivityResult(ActivityResultContracts.RequestPermission()) { permissionGranted ->
+        if (permissionGranted) {
+            // do
+        }
+    }
 
     /**
      * Create a new dummy account for the sync adapter
@@ -101,6 +111,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         mAccount = createSyncAccount()
 
         binding.incAppBar.fab.setOnClickListener { view ->
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                if(NotificationManagerCompat.from(this).areNotificationsEnabled()) {
+                    notificationPermission.launch(POST_NOTIFICATIONS)
+                }
+            }
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }
