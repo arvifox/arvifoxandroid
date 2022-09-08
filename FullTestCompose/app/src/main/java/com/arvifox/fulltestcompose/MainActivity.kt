@@ -3,11 +3,14 @@ package com.arvifox.fulltestcompose
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.material.Button
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -28,7 +31,14 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Greeting("Android")
+                    Column(
+                        modifier = Modifier
+                            .fillMaxHeight()
+                            .fillMaxWidth()
+                    ) {
+                        Greeting("Android")
+                        Blur()
+                    }
                 }
             }
         }
@@ -37,16 +47,25 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Greeting(name: String) {
-    Text(text = "Hello $name!", modifier = Modifier.fillMaxHeight(), textAlign = TextAlign.Center)
+    Text(
+        text = "Hello $name!",
+        modifier = Modifier
+            .fillMaxWidth()
+            .wrapContentHeight(),
+        textAlign = TextAlign.Center
+    )
 }
 
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     FullTestComposeTheme {
-        Button(onClick = { /*TODO*/ }, contentPadding = PaddingValues(0.dp), modifier = Modifier.height(28.dp)) {
-
-            Greeting(name = "check")
+        Box(
+            modifier = Modifier
+                .height(50.dp)
+                .width(50.dp)
+        ) {
+            Blur()
         }
     }
 }
