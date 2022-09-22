@@ -146,7 +146,7 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.5.1")
     implementation("com.google.android.material:material:1.6.1")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("androidx.annotation:annotation:1.4.0")
+    implementation("androidx.annotation:annotation:1.5.0")
 
     //test
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
@@ -209,7 +209,7 @@ dependencies {
     // CameraX Lifecycle Library
     implementation("androidx.camera:camera-lifecycle:$camerax_version")
     // CameraX View class
-    implementation("androidx.camera:camera-view:1.2.0-beta01")
+    implementation("androidx.camera:camera-view:1.2.0-beta02")
 
     //moshi
     implementation("com.squareup.moshi:moshi-kotlin:1.9.2")

@@ -103,9 +103,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setSupportActionBar(binding.incAppBar.incAppBarLayout.toolbar)
 
         // avoid showing your splash activity on android 12
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            findViewById<View>(android.R.id.content).viewTreeObserver.addOnPreDrawListener { false }
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+//            findViewById<View>(android.R.id.content).viewTreeObserver.addOnPreDrawListener { false }
+//        }
 
         // Create the dummy account
         mAccount = createSyncAccount()
