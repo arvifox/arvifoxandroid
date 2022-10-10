@@ -217,7 +217,7 @@ dependencies {
 
     //implementation 'org.jetbrains.kotlinx:kotlinx-datetime:0.1.0'
 
-    implementation("androidx.exifinterface:exifinterface:1.3.3")
+    implementation("androidx.exifinterface:exifinterface:1.3.4")
 
     //retrofit okhttp
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
