@@ -144,19 +144,19 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.10")
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.5.1")
-    implementation("com.google.android.material:material:1.6.1")
+    implementation("com.google.android.material:material:1.7.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.annotation:annotation:1.5.0")
 
     //test
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
-    implementation("androidx.test.ext:junit:1.1.3")
+    implementation("androidx.test.ext:junit:1.1.4")
     testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test:runner:1.4.0")
-    androidTestImplementation("androidx.test:rules:1.4.0")
+    androidTestImplementation("androidx.test:runner:1.5.1")
+    androidTestImplementation("androidx.test:rules:1.5.0")
     androidTestImplementation("androidx.work:work-testing:2.7.1")
     androidTestImplementation("androidx.arch.core:core-testing:2.1.0")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.0")
 
     //multidex
     //implementation("androidx.multidex:multidex:2.0.1")
@@ -209,7 +209,7 @@ dependencies {
     // CameraX Lifecycle Library
     implementation("androidx.camera:camera-lifecycle:$camerax_version")
     // CameraX View class
-    implementation("androidx.camera:camera-view:1.2.0-beta02")
+    implementation("androidx.camera:camera-view:1.3.0-alpha01")
 
     //moshi
     implementation("com.squareup.moshi:moshi-kotlin:1.9.2")
@@ -217,7 +217,7 @@ dependencies {
 
     //implementation 'org.jetbrains.kotlinx:kotlinx-datetime:0.1.0'
 
-    implementation("androidx.exifinterface:exifinterface:1.3.4")
+    implementation("androidx.exifinterface:exifinterface:1.3.5")
 
     //retrofit okhttp
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
@@ -230,17 +230,17 @@ dependencies {
     implementation("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2")
 
     // AR core, Sceneform
-    implementation("com.google.ar:core:1.33.0")
+    implementation("com.google.ar:core:1.34.0")
     implementation("com.google.ar.sceneform:core:1.17.1")
     implementation("com.google.ar.sceneform.ux:sceneform-ux:1.17.1")
 
     //firebase
-    implementation("com.google.firebase:firebase-messaging:23.0.8")
+    implementation("com.google.firebase:firebase-messaging:23.1.0")
     implementation("com.google.firebase:firebase-core:21.1.1")
     implementation("com.google.android.gms:play-services-auth:20.3.0")
     implementation("com.google.android.gms:play-services-base:18.1.0")
     implementation("com.google.android.gms:play-services-gcm:17.0.0")
-    implementation("com.google.android.gms:play-services-location:20.0.0")
+    implementation("com.google.android.gms:play-services-location:21.0.1")
     implementation("com.google.android.gms:play-services-maps:18.1.0")
 
     //concurrent
@@ -278,7 +278,7 @@ dependencies {
 
 
     // billing lib
-    implementation("com.android.billingclient:billing:5.0.0")
+    implementation("com.android.billingclient:billing:5.1.0")
 
     // Speech SDK
     implementation("com.microsoft.cognitiveservices.speech:client-sdk:1.8.0")
