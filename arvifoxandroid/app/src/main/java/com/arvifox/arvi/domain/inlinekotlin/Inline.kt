@@ -4,14 +4,16 @@ package com.arvifox.arvi.domain.inlinekotlin
 https://medium.com/androiddevelopers/zero-cost-abstractions-in-kotlin-19b953f3a936
  */
 
-inline class DogId(val id: Long)
+@JvmInline
+value class DogId(val id: Long)
 
 object Inline {
     class Dog(val id: DogId)
 }
 
 interface Id
-inline class DoggoId(val id: Long) : Id {
+@JvmInline
+value class DoggoId(val id: Long) : Id {
 
     val stringId
         get() = id.toString()

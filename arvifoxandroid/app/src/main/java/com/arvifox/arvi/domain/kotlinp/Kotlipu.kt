@@ -65,9 +65,8 @@ object Kotlipu {
     fun start07() {
         fun f(x: Boolean) {
             when (x) {
-                x == true -> println("$x TRUE")
-                x == false -> println("$x FALSE")
-                else -> {}
+                (x) -> println("$x TRUE")
+                else -> println("$x FALSE")
             }
         }
         f(true)

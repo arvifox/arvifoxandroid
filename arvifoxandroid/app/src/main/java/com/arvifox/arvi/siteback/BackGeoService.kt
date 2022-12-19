@@ -122,9 +122,9 @@ class BackGeoService : Service() {
 
         override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
             if (provider.equals(LocationManager.GPS_PROVIDER)) {
-                gsta = "gsta:" + status
+                gsta = "gsta:$status"
             } else if (provider.equals(LocationManager.NETWORK_PROVIDER)) {
-                nsta = "nsta:" + status
+                nsta = "nsta:$status"
             }
         }
 

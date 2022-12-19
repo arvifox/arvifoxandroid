@@ -1,6 +1,7 @@
 package com.arvifox.arvi.domain.misc
 
-inline class Color(private val c: Int) {
+@JvmInline
+value class Color(private val c: Int) {
     val a get() = (c shr 24) and 0xff
     val r get() = (c shr 16) and 0xff
     val g get() = (c shr 8) and 0xff

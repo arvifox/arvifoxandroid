@@ -141,7 +141,7 @@ android {
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 //    implementation(files("/path/path/file.jat"))
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.10")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.21")
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.5.1")
     implementation("com.google.android.material:material:1.7.0")
@@ -167,14 +167,13 @@ dependencies {
     implementation("androidx.work:work-runtime-ktx:2.7.1")
 
     //lifecycler
-    val lifecycle_version = "2.4.1"
     // ViewModel and LiveData
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
     //kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version" // For Kotlin use kapt instead of annotationProcessor
     // alternately - if using Java8, use the following instead of lifecycle-compiler
-    implementation("androidx.lifecycle:lifecycle-common-java8:$lifecycle_version")
+    implementation("androidx.lifecycle:lifecycle-common-java8:2.5.1")
     // optional - ReactiveStreams support for LiveData
-    implementation("androidx.lifecycle:lifecycle-reactivestreams-ktx:$lifecycle_version")
+    implementation("androidx.lifecycle:lifecycle-reactivestreams-ktx:2.5.1")
     // optional - Test helpers for LiveData
     testImplementation("androidx.arch.core:core-testing:2.1.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate:2.5.1")
@@ -185,9 +184,8 @@ dependencies {
     // livedata scope
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.5.1")
 
-    val nav_version = "2.4.1"
-    implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
-    implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.5.3")
+    implementation("androidx.navigation:navigation-ui-ktx:2.5.3")
 
     // room
 
@@ -203,13 +201,12 @@ dependencies {
 
     //room end
 
-    val camerax_version = "1.1.0-alpha09"
     // CameraX core library using camera2 implementation
-    implementation("androidx.camera:camera-camera2:$camerax_version")
+    implementation("androidx.camera:camera-camera2:1.3.0-alpha02")
     // CameraX Lifecycle Library
-    implementation("androidx.camera:camera-lifecycle:$camerax_version")
+    implementation("androidx.camera:camera-lifecycle:1.3.0-alpha02")
     // CameraX View class
-    implementation("androidx.camera:camera-view:1.3.0-alpha01")
+    implementation("androidx.camera:camera-view:1.3.0-alpha02")
 
     //moshi
     implementation("com.squareup.moshi:moshi-kotlin:1.9.2")
@@ -230,14 +227,14 @@ dependencies {
     implementation("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2")
 
     // AR core, Sceneform
-    implementation("com.google.ar:core:1.34.0")
+    implementation("com.google.ar:core:1.35.0")
     implementation("com.google.ar.sceneform:core:1.17.1")
     implementation("com.google.ar.sceneform.ux:sceneform-ux:1.17.1")
 
     //firebase
-    implementation("com.google.firebase:firebase-messaging:23.1.0")
+    implementation("com.google.firebase:firebase-messaging:23.1.1")
     implementation("com.google.firebase:firebase-core:21.1.1")
-    implementation("com.google.android.gms:play-services-auth:20.3.0")
+    implementation("com.google.android.gms:play-services-auth:20.4.0")
     implementation("com.google.android.gms:play-services-base:18.1.0")
     implementation("com.google.android.gms:play-services-gcm:17.0.0")
     implementation("com.google.android.gms:play-services-location:21.0.1")
@@ -247,11 +244,10 @@ dependencies {
     implementation("androidx.concurrent:concurrent-futures:1.1.0")
 
     // Kotlin Coroutines
-    val coroutines_version = "1.6.0"
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.4")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-debug:1.6.4")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
 
@@ -260,7 +256,7 @@ dependencies {
         exclude("com.android.support")
     }
     // glide
-    implementation("com.github.bumptech.glide:glide:4.11.0")
+    implementation("com.github.bumptech.glide:glide:4.13.2")
 
     // viewpager
     implementation("androidx.viewpager2:viewpager2:1.0.0")
@@ -284,8 +280,7 @@ dependencies {
     implementation("com.microsoft.cognitiveservices.speech:client-sdk:1.8.0")
 
     //biometric
-    val biometric_version = "1.1.0"
-    implementation("androidx.biometric:biometric:$biometric_version")
+    implementation("androidx.biometric:biometric:1.1.0")
 
     implementation("androidx.browser:browser:1.4.0")
 
