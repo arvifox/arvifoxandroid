@@ -117,6 +117,7 @@ android {
     sourceSets.getByName("main") {
         res.srcDirs("src/main/res", "src/main/res-some")
     }
+    namespace = "com.arvifox.arvi"
 //    sourceSets {
 //        main.res.srcDirs += ['src/main/res-some']
 //        main.jniLibs.srcDirs += ['src/main/jniLibs']
@@ -143,20 +144,20 @@ dependencies {
 //    implementation(files("/path/path/file.jat"))
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.21")
     implementation("androidx.core:core-ktx:1.9.0")
-    implementation("androidx.appcompat:appcompat:1.5.1")
-    implementation("com.google.android.material:material:1.7.0")
+    implementation("androidx.appcompat:appcompat:1.6.0")
+    implementation("com.google.android.material:material:1.8.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.annotation:annotation:1.5.0")
 
     //test
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
-    implementation("androidx.test.ext:junit:1.1.4")
+    implementation("androidx.test.ext:junit:1.1.5")
     testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test:runner:1.5.1")
+    androidTestImplementation("androidx.test:runner:1.5.2")
     androidTestImplementation("androidx.test:rules:1.5.0")
     androidTestImplementation("androidx.work:work-testing:2.7.1")
     androidTestImplementation("androidx.arch.core:core-testing:2.1.0")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.0")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
     //multidex
     //implementation("androidx.multidex:multidex:2.0.1")
@@ -189,24 +190,24 @@ dependencies {
 
     // room
 
-    implementation("androidx.room:room-runtime:2.4.3")
-    kapt("androidx.room:room-compiler:2.4.3")
+    implementation("androidx.room:room-runtime:2.5.0")
+    kapt("androidx.room:room-compiler:2.5.0")
     // For Kotlin use kapt instead of annotationProcessor
     // optional - Kotlin Extensions and Coroutines support for Room
-    implementation("androidx.room:room-ktx:2.4.3")
+    implementation("androidx.room:room-ktx:2.5.0")
     // optional - Guava support for Room, including Optional and ListenableFuture
     //implementation "androidx.room:room-guava:$room_version"
     // Test helpers
-    testImplementation("androidx.room:room-testing:2.4.3")
+    testImplementation("androidx.room:room-testing:2.5.0")
 
     //room end
 
     // CameraX core library using camera2 implementation
-    implementation("androidx.camera:camera-camera2:1.3.0-alpha02")
+    implementation("androidx.camera:camera-camera2:1.3.0-alpha03")
     // CameraX Lifecycle Library
-    implementation("androidx.camera:camera-lifecycle:1.3.0-alpha02")
+    implementation("androidx.camera:camera-lifecycle:1.3.0-alpha03")
     // CameraX View class
-    implementation("androidx.camera:camera-view:1.3.0-alpha02")
+    implementation("androidx.camera:camera-view:1.3.0-alpha03")
 
     //moshi
     implementation("com.squareup.moshi:moshi-kotlin:1.9.2")
@@ -234,7 +235,7 @@ dependencies {
     //firebase
     implementation("com.google.firebase:firebase-messaging:23.1.1")
     implementation("com.google.firebase:firebase-core:21.1.1")
-    implementation("com.google.android.gms:play-services-auth:20.4.0")
+    implementation("com.google.android.gms:play-services-auth:20.4.1")
     implementation("com.google.android.gms:play-services-base:18.1.0")
     implementation("com.google.android.gms:play-services-gcm:17.0.0")
     implementation("com.google.android.gms:play-services-location:21.0.1")
