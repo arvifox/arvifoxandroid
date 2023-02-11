@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -21,8 +22,13 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import com.arvifox.fulltestcompose.io.buildSvgImage
+import com.arvifox.fulltestcompose.screens.old.OldScreen
+import com.arvifox.fulltestcompose.screens.shadow.ShadowScreen
 import com.arvifox.fulltestcompose.ui.theme.FullTestComposeTheme
 
 class MainActivity : ComponentActivity() {
@@ -35,34 +41,34 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Column(
-                        modifier = Modifier
-                            .fillMaxHeight()
-                            .fillMaxWidth()
+                    val navController = rememberNavController()
+                    NavHost(
+                        modifier = Modifier.fillMaxSize(),
+                        navController = navController,
+                        startDestination = "start"
                     ) {
-                        Greeting("Android")
-                        //Blur()
-                        AsyncImage(
-                            model = buildSvgImage(LocalContext.current),
-                            contentDescription = null,
-                            modifier = Modifier.size(42.dp),
-                        )
+                        composable("old") {
+                            OldScreen()
+                        }
+                        composable("shadow") {
+                            ShadowScreen()
+                        }
+                        composable("start") {
+                            Column {
+                                Button(onClick = { navController.navigate("old") }) {
+                                    Text(text = "route 01")
+                                }
+                                Button(onClick = { navController.navigate("shadow") }) {
+                                    Text(text = "route 01")
+                                }
+                            }
+                        }
                     }
+
                 }
             }
         }
     }
-}
-
-@Composable
-fun Greeting(name: String) {
-    Text(
-        text = "Hello $name!",
-        modifier = Modifier
-            .fillMaxWidth()
-            .wrapContentHeight(),
-        textAlign = TextAlign.Center
-    )
 }
 
 @Preview(showBackground = true)
