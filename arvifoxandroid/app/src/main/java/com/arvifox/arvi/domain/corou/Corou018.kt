@@ -30,8 +30,7 @@ class oufsdf {
         }
     }
 
-    @Synchronized
-    suspend fun criticalSectionSuspending() {
+    private suspend fun criticalSectionSuspending() {
         println("Starting!")
         delay(10)
         println("Ending!")

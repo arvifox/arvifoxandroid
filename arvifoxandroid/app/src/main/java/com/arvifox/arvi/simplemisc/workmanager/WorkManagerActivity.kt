@@ -105,7 +105,7 @@ class WorkManagerActivity : AppCompatActivity() {
                 .addTag("tratata")
                 .setBackoffCriteria(
                     BackoffPolicy.LINEAR,
-                    OneTimeWorkRequest.MIN_BACKOFF_MILLIS, TimeUnit.MILLISECONDS
+                    10000, TimeUnit.MILLISECONDS
                 )
                 .setConstraints(constraints).build()
             WorkManager.getInstance().enqueue(myOneTimeWorkRequest)

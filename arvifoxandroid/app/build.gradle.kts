@@ -142,9 +142,8 @@ android {
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 //    implementation(files("/path/path/file.jat"))
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.21")
     implementation("androidx.core:core-ktx:1.9.0")
-    implementation("androidx.appcompat:appcompat:1.6.0")
+    implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.8.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.annotation:annotation:1.5.0")
@@ -155,7 +154,7 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test:runner:1.5.2")
     androidTestImplementation("androidx.test:rules:1.5.0")
-    androidTestImplementation("androidx.work:work-testing:2.7.1")
+    androidTestImplementation("androidx.work:work-testing:2.8.0")
     androidTestImplementation("androidx.arch.core:core-testing:2.1.0")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
@@ -165,7 +164,7 @@ dependencies {
     implementation("androidx.palette:palette-ktx:1.0.0")
 
     //arch
-    implementation("androidx.work:work-runtime-ktx:2.7.1")
+    implementation("androidx.work:work-runtime-ktx:2.8.0")
 
     //lifecycler
     // ViewModel and LiveData
@@ -215,7 +214,7 @@ dependencies {
 
     //implementation 'org.jetbrains.kotlinx:kotlinx-datetime:0.1.0'
 
-    implementation("androidx.exifinterface:exifinterface:1.3.5")
+    implementation("androidx.exifinterface:exifinterface:1.3.6")
 
     //retrofit okhttp
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
@@ -236,7 +235,7 @@ dependencies {
     implementation("com.google.firebase:firebase-messaging:23.1.1")
     implementation("com.google.firebase:firebase-core:21.1.1")
     implementation("com.google.android.gms:play-services-auth:20.4.1")
-    implementation("com.google.android.gms:play-services-base:18.1.0")
+    implementation("com.google.android.gms:play-services-base:18.2.0")
     implementation("com.google.android.gms:play-services-gcm:17.0.0")
     implementation("com.google.android.gms:play-services-location:21.0.1")
     implementation("com.google.android.gms:play-services-maps:18.1.0")
@@ -257,7 +256,7 @@ dependencies {
         exclude("com.android.support")
     }
     // glide
-    implementation("com.github.bumptech.glide:glide:4.13.2")
+    implementation("com.github.bumptech.glide:glide:4.14.2")
 
     // viewpager
     implementation("androidx.viewpager2:viewpager2:1.0.0")
@@ -283,7 +282,7 @@ dependencies {
     //biometric
     implementation("androidx.biometric:biometric:1.1.0")
 
-    implementation("androidx.browser:browser:1.4.0")
+    implementation("androidx.browser:browser:1.5.0")
 
     // https://github.com/stfalcon-studio/StfalconImageViewer
     //implementation 'com.github.stfalcon:stfalcon-imageviewer:1.0.1'

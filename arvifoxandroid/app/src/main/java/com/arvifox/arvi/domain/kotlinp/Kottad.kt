@@ -5,8 +5,8 @@ import androidx.annotation.RequiresApi
 import java.time.Duration
 import java.time.Instant
 import java.time.LocalDate
+import kotlin.time.Duration.Companion.minutes
 import kotlin.time.ExperimentalTime
-import kotlin.time.minutes
 
 @ExperimentalTime
 @RequiresApi(Build.VERSION_CODES.O)
