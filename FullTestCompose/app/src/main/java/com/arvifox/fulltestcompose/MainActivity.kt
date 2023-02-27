@@ -27,6 +27,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import com.arvifox.fulltestcompose.io.buildSvgImage
+import com.arvifox.fulltestcompose.screens.collpann.CollPann
 import com.arvifox.fulltestcompose.screens.old.OldScreen
 import com.arvifox.fulltestcompose.screens.shadow.ShadowScreen
 import com.arvifox.fulltestcompose.ui.theme.FullTestComposeTheme
@@ -53,13 +54,19 @@ class MainActivity : ComponentActivity() {
                         composable("shadow") {
                             ShadowScreen()
                         }
+                        composable("collpann") {
+                            CollPann()
+                        }
                         composable("start") {
                             Column {
                                 Button(onClick = { navController.navigate("old") }) {
                                     Text(text = "route 01")
                                 }
                                 Button(onClick = { navController.navigate("shadow") }) {
-                                    Text(text = "route 01")
+                                    Text(text = "route 02")
+                                }
+                                Button(onClick = { navController.navigate("collpann") }) {
+                                    Text(text = "route 03")
                                 }
                             }
                         }
