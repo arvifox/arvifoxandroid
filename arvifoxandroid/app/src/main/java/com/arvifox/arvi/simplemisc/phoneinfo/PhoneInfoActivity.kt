@@ -87,6 +87,9 @@ class PhoneInfoActivity : AppCompatActivity() {
             .append(Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID))
             .append("\n")
         sb.append("pn=").append(getOsName()).append("\n")
+        sb.append("java version = ").append(System.getProperty("java.specification.version"))
+            .append("java name = ").append(System.getProperty("java.vm.name"))
+            .append("\n")
         return sb.toString()
     }
 
