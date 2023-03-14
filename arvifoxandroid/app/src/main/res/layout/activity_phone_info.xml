@@ -31,6 +31,10 @@
                     android:padding="16dp"
                     android:text="phoneinfo" />
 
+                <com.arvifox.arvi.utils.views.VsLineView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
                 <Button
                     android:id="@+id/btnStorage"
                     android:layout_width="wrap_content"

@@ -7,6 +7,17 @@
     </declare-styleable>
 
     <attr name="rectViewStyle" format="reference" />
+
+    <declare-styleable name="VsLineView">
+        <attr name="leftColor" format="color" />
+        <attr name="rightColor" format="color" />
+
+        <attr name="lineHeight" format="dimension" />
+
+        <attr name="delimiterColorV" format="color" />
+
+        <attr name="primaryPercentage" format="float" />
+    </declare-styleable>
 	
 	<declare-styleable name="QualityProgressBar">
         <attr name="strokeWidth" format="dimension"/>

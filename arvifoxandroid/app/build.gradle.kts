@@ -146,16 +146,18 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.8.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("androidx.annotation:annotation:1.5.0")
+    implementation("androidx.annotation:annotation:1.6.0")
 
     //test
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("androidx.test.ext:junit:1.1.5")
+    implementation("androidx.core:core-ktx:1.9.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.0")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test:runner:1.5.2")
     androidTestImplementation("androidx.test:rules:1.5.0")
     androidTestImplementation("androidx.work:work-testing:2.8.0")
-    androidTestImplementation("androidx.arch.core:core-testing:2.1.0")
+    androidTestImplementation("androidx.arch.core:core-testing:2.2.0")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
     //multidex
@@ -171,18 +173,18 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
     //kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version" // For Kotlin use kapt instead of annotationProcessor
     // alternately - if using Java8, use the following instead of lifecycle-compiler
-    implementation("androidx.lifecycle:lifecycle-common-java8:2.5.1")
+    implementation("androidx.lifecycle:lifecycle-common-java8:2.6.0")
     // optional - ReactiveStreams support for LiveData
-    implementation("androidx.lifecycle:lifecycle-reactivestreams-ktx:2.5.1")
+    implementation("androidx.lifecycle:lifecycle-reactivestreams-ktx:2.6.0")
     // optional - Test helpers for LiveData
-    testImplementation("androidx.arch.core:core-testing:2.1.0")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate:2.5.1")
+    testImplementation("androidx.arch.core:core-testing:2.2.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate:2.6.0")
     // view model scope
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.0")
     // lifecycle scope
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.5.1")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.0")
     // livedata scope
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.5.1")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.0")
 
     implementation("androidx.navigation:navigation-fragment-ktx:2.5.3")
     implementation("androidx.navigation:navigation-ui-ktx:2.5.3")
@@ -202,11 +204,11 @@ dependencies {
     //room end
 
     // CameraX core library using camera2 implementation
-    implementation("androidx.camera:camera-camera2:1.3.0-alpha03")
+    implementation("androidx.camera:camera-camera2:1.3.0-alpha04")
     // CameraX Lifecycle Library
-    implementation("androidx.camera:camera-lifecycle:1.3.0-alpha03")
+    implementation("androidx.camera:camera-lifecycle:1.3.0-alpha04")
     // CameraX View class
-    implementation("androidx.camera:camera-view:1.3.0-alpha03")
+    implementation("androidx.camera:camera-view:1.3.0-alpha04")
 
     //moshi
     implementation("com.squareup.moshi:moshi-kotlin:1.9.2")
@@ -227,12 +229,12 @@ dependencies {
     implementation("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2")
 
     // AR core, Sceneform
-    implementation("com.google.ar:core:1.35.0")
+    implementation("com.google.ar:core:1.36.0")
     implementation("com.google.ar.sceneform:core:1.17.1")
     implementation("com.google.ar.sceneform.ux:sceneform-ux:1.17.1")
 
     //firebase
-    implementation("com.google.firebase:firebase-messaging:23.1.1")
+    implementation("com.google.firebase:firebase-messaging:23.1.2")
     implementation("com.google.firebase:firebase-core:21.1.1")
     implementation("com.google.android.gms:play-services-auth:20.4.1")
     implementation("com.google.android.gms:play-services-base:18.2.0")

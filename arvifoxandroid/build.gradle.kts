@@ -6,9 +6,9 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:7.4.1")
+        classpath("com.android.tools.build:gradle:7.4.2")
         classpath("com.google.gms:google-services:4.3.15")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.0")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.10")
         classpath("com.google.ar.sceneform:plugin:1.17.1")
         classpath("org.jetbrains.kotlin:kotlin-serialization:1.8.0")
         //classpath "android.arch.navigation:navigation-safe-args-gradle-plugin:1.0.0"

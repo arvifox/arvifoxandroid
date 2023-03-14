@@ -9,4 +9,8 @@
 
     <dimen name="pageMargin">5dp</dimen>
     <dimen name="offset">3dp</dimen>
+
+    <dimen name="defaultLineHeight">2dp</dimen>
+    <dimen name="delimiterExtraSpace">2dp</dimen>
+    <dimen name="delimiterWidth">2dp</dimen>
 </resources>
