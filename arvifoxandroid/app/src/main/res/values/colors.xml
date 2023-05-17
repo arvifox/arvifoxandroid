@@ -10,6 +10,10 @@
     <color name="gunmetal">#9988c6</color>
     <color name="mediumGrey">#ee88c6</color>
 
+    <color name="defaultLeftColor">#121212</color>
+    <color name="defaultRightColor">#cd92c1</color>
+    <color name="defaultDelimiterColor">#d1c734</color>
+
     <color name="recypadpad">#00adef</color>
     <color name="recypad">#9988c6</color>
 

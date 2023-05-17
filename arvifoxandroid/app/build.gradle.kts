@@ -147,6 +147,8 @@ dependencies {
     //test
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("androidx.test.ext:junit:1.1.5")
+    implementation("androidx.core:core-ktx:1.9.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.0")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test:runner:1.5.2")
     androidTestImplementation("androidx.test:rules:1.5.0")
