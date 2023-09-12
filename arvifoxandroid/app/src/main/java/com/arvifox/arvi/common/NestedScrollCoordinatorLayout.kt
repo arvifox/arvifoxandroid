@@ -17,10 +17,10 @@ import com.arvifox.arvi.R
 class NestedScrollCoordinatorLayout @JvmOverloads constructor(
         context: Context,
         attrs: AttributeSet? = null,
-        @AttrRes
-        @SuppressLint("PrivateResource")
-        defStyleAttr: Int = R.attr.coordinatorLayoutStyle
-) : CoordinatorLayout(context, attrs, defStyleAttr), NestedScrollingChild2 {
+//        @AttrRes
+//        @SuppressLint("PrivateResource")
+//        defStyleAttr: Int = R.attr.coordinatorLayoutStyle
+) : CoordinatorLayout(context, attrs), NestedScrollingChild2 {
 
     private val helper = NestedScrollingChildHelper(this)
 

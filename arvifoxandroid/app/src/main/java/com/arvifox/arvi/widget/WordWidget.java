@@ -66,12 +66,12 @@ public class WordWidget extends AppWidgetProvider {
                 String definePage = "qwqwqw";
                 Intent defineIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(definePage));
                 PendingIntent pendingIntent = PendingIntent.getActivity(context,
-                        0 /* no requestCode */, defineIntent, 0 /* no flags */);
+                        0 /* no requestCode */, defineIntent, PendingIntent.FLAG_IMMUTABLE /* no flags */);
 //                views.setOnClickPendingIntent(R.id.widget, pendingIntent);
             } else {
                 // Didn't find word of day, so show error message
                 views = new RemoteViews(context.getPackageName(), R.layout.widget_test);
-                views.setTextViewText(R.id.message, "rrrr");
+                views.setTextViewText(R.id.asvView, "rrrr");
             }
             return views;
         }

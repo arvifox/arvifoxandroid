@@ -14,7 +14,7 @@ import com.google.android.material.theme.MaterialComponentsViewInflater
  * [https://proandroiddev.com/assign-multiple-styles-to-a-single-view-in-android-just-like-in-css-815040be4c2b]
  */
 fun instantiate(context: Context, attrs: AttributeSet) {
-    val someTextView = TextView(ContextThemeWrapper(context, R.style.CardView_Dark))
+    //val someTextView = TextView(ContextThemeWrapper(context, R.style.CardView_Dark))
 
     val styleAttributes = context.obtainStyledAttributes(attrs, R.styleable.MuTextView)
     val attribute = styleAttributes.getResourceId(R.styleable.MuTextView_style1, 0)
