@@ -10,6 +10,25 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
+import kotlin.reflect.KProperty0
+
+fun View.animateProperty(
+    property: KProperty0<Float>,
+    fromValue: Float,
+    toValue: Float,
+    duration: Long,
+    onComplete: () -> Unit = {}
+) {
+    val animator = ObjectAnimator.ofFloat(this, property.name, fromValue, toValue).apply {
+        setDuration(duration)
+        addListener(object : AnimatorListenerAdapter() {
+            override fun onAnimationEnd(animation: Animator) {
+                onComplete()
+            }
+        })
+    }
+    animator.start()
+}
 
 object Voew2 {
 

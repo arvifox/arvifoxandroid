@@ -1,5 +1,7 @@
 package com.arvifox.arvi.domain.corou
 
+import android.os.Handler
+import android.os.Looper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.newFixedThreadPoolContext
@@ -7,6 +9,14 @@ import kotlinx.coroutines.runBlocking
 import java.util.*
 import java.util.concurrent.CyclicBarrier
 import java.util.concurrent.Semaphore
+
+fun <T> runOnBackgroundThread(backgroundFunc: () -> T, callback: (T) -> Unit) {
+    val handler = Handler(Looper.getMainLooper())
+    Thread {
+        val result = backgroundFunc()
+        handler.post { callback(result) }
+    }.start()
+}
 
 object Arv06 {
     class Incrementor() {

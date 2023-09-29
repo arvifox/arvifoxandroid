@@ -28,6 +28,8 @@ import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import com.arvifox.fulltestcompose.io.buildSvgImage
 import com.arvifox.fulltestcompose.screens.collpann.CollPann
+import com.arvifox.fulltestcompose.screens.collpann.Composed
+import com.arvifox.fulltestcompose.screens.collpann.Remsave
 import com.arvifox.fulltestcompose.screens.old.OldScreen
 import com.arvifox.fulltestcompose.screens.shadow.ShadowScreen
 import com.arvifox.fulltestcompose.ui.theme.FullTestComposeTheme
@@ -57,6 +59,12 @@ class MainActivity : ComponentActivity() {
                         composable("collpann") {
                             CollPann()
                         }
+                        composable("remsave") {
+                            Remsave()
+                        }
+                        composable("composed") {
+                            Composed()
+                        }
                         composable("start") {
                             Column {
                                 Button(onClick = { navController.navigate("old") }) {
@@ -67,6 +75,12 @@ class MainActivity : ComponentActivity() {
                                 }
                                 Button(onClick = { navController.navigate("collpann") }) {
                                     Text(text = "route 03")
+                                }
+                                Button(onClick = { navController.navigate("remsave") }) {
+                                    Text(text = "remsave")
+                                }
+                                Button(onClick = { navController.navigate("composed") }) {
+                                    Text(text = "composed")
                                 }
                             }
                         }
