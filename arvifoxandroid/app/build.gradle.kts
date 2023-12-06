@@ -47,6 +47,13 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+    configurations.all {
+        resolutionStrategy.eachDependency {
+            when {
+                requested.name == "core-ptx" -> useVersion("77.88.99")
+            }
+        }
+    }
 }
 
 dependencies {
