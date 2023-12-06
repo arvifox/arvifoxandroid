@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:context=".google.GoogleBaseStartActivity">
+
+        <include
+            android:id="@+id/inclAppB"
+            layout="@layout/app_bar_layout" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <Button
+                android:id="@+id/btnArCore1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Button1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/btnVisionTestStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="VisionStart"
+                app:layout_constraintLeft_toRightOf="@id/btnArCore1" />
+
+            <Button
+                android:id="@+id/btnAccounts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Accounts"
+                app:layout_constraintLeft_toRightOf="@id/btnVisionTestStart" />
+
+            <Button
+                android:id="@+id/btnOAuthTest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="OAuth test"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnArCore1" />
+
+            <Button
+                android:id="@+id/btnStartArCore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:text="Start AR"
+                app:layout_constraintLeft_toRightOf="@id/btnOAuthTest"
+                app:layout_constraintTop_toBottomOf="@id/btnArCore1" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

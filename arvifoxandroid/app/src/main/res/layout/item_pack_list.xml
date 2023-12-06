@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="varPackListItem"
+            type="com.arvifox.arvi.simplemisc.misc2.packlist.PackListItem" />
+
+        <variable
+            name="varPackListItemOnClick"
+            type="com.arvifox.arvi.simplemisc.recybind.SimpleAdapter.SimpleOnItemClick" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="7dp"
+        android:onClick="@{(v) -> varPackListItemOnClick.onClick(v,varPackListItem)}">
+
+        <TextView
+            android:id="@+id/tvPackListItem1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{varPackListItem.title}"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvPackListItem2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{varPackListItem.name}"
+            app:layout_constraintTop_toBottomOf="@id/tvPackListItem1" />
+
+        <TextView
+            android:id="@+id/tvPackListItem3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{varPackListItem.pers}"
+            app:layout_constraintTop_toBottomOf="@id/tvPackListItem2" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

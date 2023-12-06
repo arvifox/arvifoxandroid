@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Widget.Switu.Frkj" parent="Widget.MaterialComponents.CompoundButton.Switch">
+        <item name="materialThemeOverlay">@style/Sljsf.LJlsdf</item>
+        <item name="track">@drawable/track3</item>
+        <item name="android:thumb">@drawable/thumb3</item>
+    </style>
+
+    <style name="Sljsf.LJlsdf" parent="">
+        <item name="colorSurface">#ffffff</item>
+        <item name="colorOnSurface">#000000</item>
+        <item name="colorSecondary">#ffffff</item>
+        <item name="colorControlActivated">#11dd32</item>
+        <item name="colorControlHighlight">#00000000</item>
+        <item name="colorControlNormal">#00000000</item>
+    </style>
+</resources>

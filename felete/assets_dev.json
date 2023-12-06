@@ -1,0 +1,23 @@
+[
+  {
+    "id": "a3868e1b-922e-42d4-b73e-b41712f0843c",
+    "symbol": "wnd",
+    "chainId": "e143f23803ac50e8f6f8e62695d1ce9e4e1d68aa36c1cd2cfd15340213f3423e",
+    "precision": 12,
+    "icon": "https://raw.githubusercontent.com/soramitsu/fearless-utils/master/icons/chains/white/Westend.svg"
+  },
+  {
+    "id": "soradevassetid",
+    "symbol": "xor",
+    "chainId": "soradevenvchainid",
+    "precision": 18,
+    "icon": "https://raw.githubusercontent.com/soramitsu/fearless-utils/master/icons/chains/white/Westend.svg"
+  },
+  {
+    "id": "7dae28e2-9f5e-49ff-9140-aa750a9579ea",
+    "symbol": "bsx",
+    "chainId": "a85cfb9b9fd4d622a5b28289a02347af987d8f73fa3108450e2b4a11c1ce5755",
+    "precision": 12,
+    "icon": "https://raw.githubusercontent.com/soramitsu/fearless-utils/master/icons/chains/white/Basilisk.svg"
+  }
+]

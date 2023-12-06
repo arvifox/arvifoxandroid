@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="varRecyItemSimple"
+            type="com.arvifox.arvi.simplemisc.recybind.RecySimpleData" />
+
+        <variable
+            name="varSimpleOnItemClick"
+            type="com.arvifox.arvi.simplemisc.recybind.SimpleAdapter.SimpleOnItemClick" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="@{(v) -> varSimpleOnItemClick.onClick(v,varRecyItemSimple)}"
+        android:orientation="horizontal"
+        tools:context=".simplemisc.recybind.RecySimpBinFragment">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="@string/hello_blank_fragment" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="@string/hello_blank_fragment" />
+
+    </LinearLayout>
+</layout>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+	
+	<color name="slate">#1f1f1f</color>
+	<color name="aqua">#00adef</color>
+    <color name="aquaActive">#0088c6</color>
+    <color name="gunmetal">#9988c6</color>
+    <color name="mediumGrey">#ee88c6</color>
+
+    <color name="defaultLeftColor">#121212</color>
+    <color name="defaultRightColor">#cd92c1</color>
+    <color name="defaultDelimiterColor">#d1c734</color>
+
+    <color name="recypadpad">#00adef</color>
+    <color name="recypad">#9988c6</color>
+
+    <color name="white">#ffff</color>
+    <color name="grey_20">#cccccc</color>
+    <color name="grey_80">#37474F</color>
+</resources>
