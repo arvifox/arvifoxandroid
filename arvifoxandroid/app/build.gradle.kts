@@ -41,11 +41,11 @@ android {
 //            storePassword keystoreProperties['storePassword']
 //        }
 //    }
-    compileSdk = 33
+    compileSdk = 34
     defaultConfig {
         applicationId = "com.arvifox.arvi"
         minSdk = 24
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -108,7 +108,7 @@ android {
 //    }
     packaging {
         resources {
-            excludes.add("/META-INF/{AL2.0,LGPL2.1}")
+            excludes += listOf("META-INF/DEPENDENCIES", "META-INF/LICENSE", "META-INF/LICENSE-notice.md", "META-INF/LICENSE.md", "META-INF/LICENSE.txt", "META-INF/license.txt", "META-INF/NOTICE", "META-INF/NOTICE.txt", "META-INF/notice.txt", "META-INF/ASL2.0", "META-INF/AL2.0", "META-INF/LGPL2.1", "META-INF/INDEX.LIST", "META-INF/io.netty.versions.properties")
         }
     }
     sourceSets.getByName("main") {
@@ -139,21 +139,21 @@ android {
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 //    implementation(files("/path/path/file.jat"))
-    implementation("androidx.core:core-ktx:1.10.1")
+    implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.9.0")
+    implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("androidx.annotation:annotation:1.6.0")
+    implementation("androidx.annotation:annotation:1.7.1")
 
     //test
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("androidx.test.ext:junit:1.1.5")
-    implementation("androidx.core:core-ktx:1.9.0")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.0")
+    implementation("androidx.core:core-ktx:1.12.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test:runner:1.5.2")
     androidTestImplementation("androidx.test:rules:1.5.0")
-    androidTestImplementation("androidx.work:work-testing:2.8.1")
+    androidTestImplementation("androidx.work:work-testing:2.9.0")
     androidTestImplementation("androidx.arch.core:core-testing:2.2.0")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
@@ -163,57 +163,57 @@ dependencies {
     implementation("androidx.palette:palette-ktx:1.0.0")
 
     //arch
-    implementation("androidx.work:work-runtime-ktx:2.8.1")
+    implementation("androidx.work:work-runtime-ktx:2.9.0")
 
     //lifecycler
     // ViewModel and LiveData
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
     //kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version" // For Kotlin use kapt instead of annotationProcessor
     // alternately - if using Java8, use the following instead of lifecycle-compiler
-    implementation("androidx.lifecycle:lifecycle-common-java8:2.6.1")
+    implementation("androidx.lifecycle:lifecycle-common-java8:2.6.2")
     // optional - ReactiveStreams support for LiveData
-    implementation("androidx.lifecycle:lifecycle-reactivestreams-ktx:2.6.1")
+    implementation("androidx.lifecycle:lifecycle-reactivestreams-ktx:2.6.2")
     // optional - Test helpers for LiveData
     testImplementation("androidx.arch.core:core-testing:2.2.0")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate:2.6.1")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate:2.6.2")
     // view model scope
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
     // lifecycle scope
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
     // livedata scope
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
 
-    implementation("androidx.navigation:navigation-fragment-ktx:2.5.3")
-    implementation("androidx.navigation:navigation-ui-ktx:2.5.3")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.6")
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.6")
 
     // room
 
-    implementation("androidx.room:room-runtime:2.5.1")
-    kapt("androidx.room:room-compiler:2.5.1")
+    implementation("androidx.room:room-runtime:2.6.1")
+    kapt("androidx.room:room-compiler:2.6.1")
     // For Kotlin use kapt instead of annotationProcessor
     // optional - Kotlin Extensions and Coroutines support for Room
-    implementation("androidx.room:room-ktx:2.5.1")
+    implementation("androidx.room:room-ktx:2.6.1")
     // optional - Guava support for Room, including Optional and ListenableFuture
     //implementation "androidx.room:room-guava:$room_version"
     // Test helpers
-    testImplementation("androidx.room:room-testing:2.5.1")
+    testImplementation("androidx.room:room-testing:2.6.1")
 
     //room end
 
     // CameraX core library using camera2 implementation
-    implementation("androidx.camera:camera-camera2:1.3.0-alpha06")
+    implementation("androidx.camera:camera-camera2:1.3.1")
     // CameraX Lifecycle Library
-    implementation("androidx.camera:camera-lifecycle:1.3.0-alpha06")
+    implementation("androidx.camera:camera-lifecycle:1.3.1")
     // CameraX View class
-    implementation("androidx.camera:camera-view:1.3.0-alpha06")
+    implementation("androidx.camera:camera-view:1.3.1")
 
     //moshi
-    implementation("com.squareup.moshi:moshi-kotlin:1.14.0")
-    kapt("com.squareup.moshi:moshi-kotlin-codegen:1.9.2")
+//    implementation("com.squareup.moshi:moshi-kotlin:1.14.0")
+//    kapt("com.squareup.moshi:moshi-kotlin-codegen:1.9.2")
 
     //implementation 'org.jetbrains.kotlinx:kotlinx-datetime:0.1.0'
 
-    implementation("androidx.exifinterface:exifinterface:1.3.6")
+    implementation("androidx.exifinterface:exifinterface:1.3.7")
 
     //retrofit okhttp
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
@@ -226,44 +226,44 @@ dependencies {
     implementation("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2")
 
     // AR core, Sceneform
-    implementation("com.google.ar:core:1.37.0")
+    implementation("com.google.ar:core:1.41.0")
     implementation("com.google.ar.sceneform:core:1.17.1")
     implementation("com.google.ar.sceneform.ux:sceneform-ux:1.17.1")
 
     //firebase
-    implementation("com.google.firebase:firebase-messaging:23.1.2")
+    implementation("com.google.firebase:firebase-messaging:23.4.0")
     implementation("com.google.firebase:firebase-core:21.1.1")
-    implementation("com.google.android.gms:play-services-auth:20.5.0")
+    implementation("com.google.android.gms:play-services-auth:20.7.0")
     implementation("com.google.android.gms:play-services-base:18.2.0")
     implementation("com.google.android.gms:play-services-gcm:17.0.0")
     implementation("com.google.android.gms:play-services-location:21.0.1")
-    implementation("com.google.android.gms:play-services-maps:18.1.0")
+    implementation("com.google.android.gms:play-services-maps:18.2.0")
 
     //concurrent
     implementation("androidx.concurrent:concurrent-futures:1.1.0")
 
     // Kotlin Coroutines
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.4")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.3")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-debug:1.6.4")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
 
     //picasso
     implementation("com.squareup.picasso:picasso:2.71828") {
         exclude("com.android.support")
     }
     // glide
-    implementation("com.github.bumptech.glide:glide:4.14.2")
+    implementation("com.github.bumptech.glide:glide:4.15.1")
 
     // viewpager
     implementation("androidx.viewpager2:viewpager2:1.0.0")
 
     //ar vr vision
     implementation("com.google.apis:google-api-services-vision:v1-rev16-1.22.0")
-    implementation("com.google.api-client:google-api-client-android:1.22.0")
-    implementation("com.google.http-client:google-http-client-gson:1.40.1")
+    implementation("com.google.api-client:google-api-client-android:1.26.0")
+    implementation("com.google.http-client:google-http-client-gson:1.42.3")
 
     // ConcealerNestedScrollView & ConcealerRecyclerView
     // A library to make views hide from top and bottom while scrolling a custom NestedScrollView and\or a custom RecyclerView
@@ -273,7 +273,7 @@ dependencies {
 
 
     // billing lib
-    implementation("com.android.billingclient:billing:6.0.0")
+    implementation("com.android.billingclient:billing:6.1.0")
 
     // Speech SDK
     implementation("com.microsoft.cognitiveservices.speech:client-sdk:1.8.0")
@@ -281,7 +281,7 @@ dependencies {
     //biometric
     implementation("androidx.biometric:biometric:1.1.0")
 
-    implementation("androidx.browser:browser:1.5.0")
+    implementation("androidx.browser:browser:1.7.0")
 
     // https://github.com/stfalcon-studio/StfalconImageViewer
     //implementation 'com.github.stfalcon:stfalcon-imageviewer:1.0.1'

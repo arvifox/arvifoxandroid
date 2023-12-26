@@ -26,9 +26,9 @@ class Kruva @JvmOverloads constructor(
         style = Paint.Style.STROKE
     }
 
-    override fun onDraw(canvas: Canvas?) {
+    override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        canvas?.drawCircle(width / 2f, height / 2f, radius, paint)
+        canvas.drawCircle(width / 2f, height / 2f, radius, paint)
     }
 
     override fun onFinishInflate() {

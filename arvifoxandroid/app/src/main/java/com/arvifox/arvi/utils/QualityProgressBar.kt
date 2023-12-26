@@ -222,9 +222,7 @@ class QualityProgressBar(context: Context, attrs: AttributeSet) : View(context, 
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
     }
 
-    override fun onDraw(canvas: Canvas?) {
-        canvas ?: return
-
+    override fun onDraw(canvas: Canvas) {
         drawIdleStroke(canvas)
 
         paint.apply {

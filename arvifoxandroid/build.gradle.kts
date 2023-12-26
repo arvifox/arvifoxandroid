@@ -6,7 +6,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:8.2.0-beta06")
+        classpath("com.android.tools.build:gradle:8.2.0")
         classpath("com.google.gms:google-services:4.3.15")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.20")
         classpath("com.google.ar.sceneform:plugin:1.17.1")

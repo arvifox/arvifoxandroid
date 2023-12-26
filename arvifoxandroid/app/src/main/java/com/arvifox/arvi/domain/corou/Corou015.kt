@@ -17,21 +17,21 @@ object Corou015 {
     fun sdf(ed: EditText) {
         ed.doAfterTextChanged {
             CoroutineScope(GlobalScope.coroutineContext).launch {
-                queryChannel.send(it.toString())
+//                queryChannel.send(it.toString())
             }
         }
     }
 
-    private val queryChannel = BroadcastChannel<String>(Channel.CONFLATED)
+//    private val queryChannel = BroadcastChannel<String>(Channel.CONFLATED)
 
     fun geee() {
-        val rr = queryChannel.asFlow().debounce(500).mapLatest {
-            try {
-                startRequest(it)
-            } catch (e: CancellationException) {
-
-            }
-        }.catch {  }
+//        val rr = queryChannel.asFlow().debounce(500).mapLatest {
+//            try {
+//                startRequest(it)
+//            } catch (e: CancellationException) {
+//
+//            }
+//        }.catch {  }
     }
 
     private fun startRequest(s: String) {

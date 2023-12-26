@@ -46,9 +46,7 @@ class WaveVisualizer(context: Context, attrs: AttributeSet) : View(context, attr
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
     }
 
-    override fun onDraw(canvas: Canvas?) {
-        canvas ?: return
-
+    override fun onDraw(canvas: Canvas) {
         paint.apply {
             style = Paint.Style.FILL
             color = bgColor
