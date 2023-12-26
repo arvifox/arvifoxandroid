@@ -1,6 +1,20 @@
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
+    id("maven-publish")
+    alias(libs.plugins.androidApplication)
+    alias(libs.plugins.kotlinAndroid)
+    alias(libs.plugins.serialization)
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.kapt)
+    alias(libs.plugins.googleServicesPlugin)
+    alias(libs.plugins.firebaseCrashlyticsPlugin)
+    alias(libs.plugins.firebaseAppDistributionPlugin)
+    alias(libs.plugins.triplet)
+    id("kotlin-parcelize")
+    id("org.jetbrains.kotlinx.kover")
+}
+
+kotlin {
+    jvmToolchain(11)
 }
 
 android {
@@ -9,7 +23,7 @@ android {
 
     defaultConfig {
         applicationId = "com.arvifox.arvi"
-        minSdk = 24
+        minSdk = rootProject.extra["minSdk"] as? Int?
         targetSdk = 34
         versionCode = 6
         versionName = "2.0"
@@ -29,12 +43,12 @@ android {
             )
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = "1.8"
+    testOptions {
+        unitTests {
+            isReturnDefaultValues = true
+            isIncludeAndroidResources = true
+        }
+        animationsDisabled = true
     }
     buildFeatures {
         compose = true
@@ -44,10 +58,18 @@ android {
     }
     packaging {
         resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            excludes += listOf("META-INF/DEPENDENCIES", "META-INF/LICENSE", "META-INF/LICENSE-notice.md", "META-INF/LICENSE.md", "META-INF/LICENSE.txt", "META-INF/license.txt", "META-INF/NOTICE", "META-INF/NOTICE.txt", "META-INF/notice.txt", "META-INF/ASL2.0", "META-INF/AL2.0", "META-INF/LGPL2.1", "META-INF/INDEX.LIST", "META-INF/io.netty.versions.properties")
         }
     }
+    applicationVariants.all {
+        val variant = this
+        this.outputs.map { it as com.android.build.gradle.internal.api.BaseVariantOutputImpl }
+            .forEach {
+                it.outputFileName = "ArviFox_${variant.versionName}_${variant.versionCode}_${variant.flavorName}_${variant.buildType.name}.apk"
+            }
+    }
     configurations.all {
+        //exclude(module = "")
         resolutionStrategy.eachDependency {
             when {
                 requested.name == "core-ptx" -> useVersion("77.88.99")
@@ -56,21 +78,38 @@ android {
     }
 }
 
-dependencies {
+hilt {
+    enableAggregatingTask = true
+}
 
-    implementation("androidx.core:core-ktx:1.12.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
-    implementation("androidx.activity:activity-compose:1.8.1")
-    implementation(platform("androidx.compose:compose-bom:2023.08.00"))
-    implementation("androidx.compose.ui:ui")
-    implementation("androidx.compose.ui:ui-graphics")
-    implementation("androidx.compose.ui:ui-tooling-preview")
-    implementation("androidx.compose.material3:material3")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-    androidTestImplementation(platform("androidx.compose:compose-bom:2023.08.00"))
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
-    debugImplementation("androidx.compose.ui:ui-tooling")
-    debugImplementation("androidx.compose.ui:ui-test-manifest")
+dependencies {
+    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+    implementation(libs.coreKtxDep)
+    implementation(libs.runtimeKtxDep)
+    implementation(libs.composeActivityDep)
+
+    implementation(platform(libs.composeBomDep))
+    implementation(libs.ui)
+    implementation(libs.ui.graphics)
+    implementation(libs.ui.tooling.preview)
+    implementation(libs.material3)
+    testImplementation(libs.junitDep)
+    androidTestImplementation(libs.androidxTestExtJunitDep)
+    androidTestImplementation(libs.androidxTestEspressoCoreDep)
+    androidTestImplementation(platform(libs.composeBomDep))
+    androidTestImplementation(libs.ui.test.junit4)
+    debugImplementation(libs.ui.tooling)
+    debugImplementation(libs.ui.test.manifest)
+
+    implementation(libs.daggerDep)
+    kapt(libs.daggerKaptDep)
+    implementation(libs.hiltWorkManagerDep)
+    kapt(libs.hiltWorkManagerKaptDep)
+
+    implementation(libs.lifecycleProcessDep)
+    kapt(libs.lifecycleKaptDep)
+}
+
+kapt {
+    correctErrorTypes = true
 }
