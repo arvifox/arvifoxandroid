@@ -1,4 +1,4 @@
-package com.arvifox.arvi.domain
+package com.arvifox.arvi.domain.multithre
 
 import java.util.concurrent.Executors
 

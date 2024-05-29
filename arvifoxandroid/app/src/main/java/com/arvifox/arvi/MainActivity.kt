@@ -44,6 +44,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.messaging.FirebaseMessaging
 import android.Manifest.permission.POST_NOTIFICATIONS
+import com.arvifox.arvi.domain.multithre.TesIntMul
 
 // Constants
 // The authority for the sync adapter's content provider
@@ -121,7 +122,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
 
         binding.incAppBar.incContMan.btnMainButton01.setOnClickListener {
-            Arv10.getWW()
+            //Arv10.getWW()
+            TesIntMul.check()
         }
 
         val toggle = ActionBarDrawerToggle(
