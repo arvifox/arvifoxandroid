@@ -1,9 +1,22 @@
 package com.arvifox.arvi.simplemisc.cry
 
+import android.security.keystore.KeyGenParameterSpec
+import android.security.keystore.KeyProperties
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.nio.ByteBuffer
-import java.security.*
+import java.security.InvalidKeyException
+import java.security.KeyPair
+import java.security.KeyPairGenerator
+import java.security.KeyStore
+import java.security.MessageDigest
+import java.security.NoSuchAlgorithmException
+import java.security.NoSuchProviderException
+import java.security.PublicKey
+import java.security.SecureRandom
+import java.security.Security
+import java.security.Signature
+import java.security.SignatureException
 import java.security.cert.CertPath
 import java.security.cert.Certificate
 import java.security.cert.CertificateException
@@ -16,6 +29,26 @@ import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.SecretKeySpec
 
 class CryMana {
+
+    private val ks = KeyStore.getInstance("AndroidKeyStore").apply {
+        load(null)
+    }
+    private val alg = KeyProperties.KEY_ALGORITHM_AES
+    private val bm = KeyProperties.BLOCK_MODE_CBC
+    private val pdn = KeyProperties.ENCRYPTION_PADDING_PKCS7
+    private val abd = "$alg/$bm/$pdn"
+
+    private fun getSeKe() = KeyGenerator.getInstance(alg).apply {
+        init(
+            KeyGenParameterSpec
+                .Builder("qweqwe", KeyProperties.PURPOSE_DECRYPT or KeyProperties.PURPOSE_ENCRYPT)
+                .setBlockModes(bm)
+                .setEncryptionPaddings(pdn)
+                .setUserAuthenticationRequired(false)
+                .setRandomizedEncryptionRequired(true)
+                .build()
+        )
+    }.generateKey()
 
     fun getProviders() = Security.getProviders().map {
         "${it.name} ${it.info} ${it.version}"
