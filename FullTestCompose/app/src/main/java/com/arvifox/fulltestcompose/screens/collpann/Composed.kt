@@ -39,13 +39,22 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.debugInspectorInfo
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import kotlin.math.ceil
+import kotlin.math.floor
 import kotlin.random.Random
 
 @Composable
-fun Composed() {
+fun Composed(tran: List<Int> = listOf(12, 23, 34, 56, 67, 23, 567)) {
     Column(modifier = Modifier.fillMaxSize()) {
         var counter by remember { mutableIntStateOf(0) }
         var sha by remember { mutableStateOf(false) }
+        val trs = remember(tran) {
+            tran.runningReduce { acc, i -> acc + i }
+        }
+        for ((t, s) in tran.zip(trs)) {
+            Text("t = $t, s = $s")
+        }
+        Text("prct = ${percentile(tran.sorted().map { it.toDouble() }.toTypedArray(), 0.1)}")
         Button(
             onClick = {
                 counter++
@@ -172,3 +181,15 @@ fun Modifier.shake(enabled: Boolean) = composed(
         properties["enabled"] = enabled
     }
 )
+
+private fun percentile(arr: Array<Double>, lmt: Double): Double {
+    val k = (arr.size - 1) * lmt
+    val f = floor(k)
+    val c = ceil(k)
+    if (f == c) {
+        return arr[k.toInt()]
+    }
+    val d0 = arr[f.toInt()] * (c-k)
+    val d1 = arr[c.toInt()] * (k-f)
+    return d0 + d1
+}
