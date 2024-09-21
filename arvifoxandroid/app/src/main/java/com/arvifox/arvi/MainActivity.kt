@@ -46,6 +46,7 @@ import com.google.firebase.messaging.FirebaseMessaging
 import android.Manifest.permission.POST_NOTIFICATIONS
 import com.arvifox.arvi.domain.multithre.TesIntMul
 import com.arvifox.arvi.domain.multithre.letsStart
+import com.arvifox.arvi.domain.texts.TextsUtils
 
 // Constants
 // The authority for the sync adapter's content provider
@@ -125,7 +126,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         binding.incAppBar.incContMan.btnMainButton01.setOnClickListener {
             //Arv10.getWW()
             //TesIntMul.check()
-            letsStart()
+            //letsStart()
+            TextsUtils.check()
         }
 
         val toggle = ActionBarDrawerToggle(
