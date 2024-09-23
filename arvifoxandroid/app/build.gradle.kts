@@ -9,6 +9,7 @@ plugins {
     alias(libs.plugins.firebaseCrashlyticsPlugin)
     alias(libs.plugins.firebaseAppDistributionPlugin)
     alias(libs.plugins.triplet)
+    alias(libs.plugins.compose.compiler)
     id("kotlin-parcelize")
     id("org.jetbrains.kotlinx.kover")
 }
@@ -23,7 +24,7 @@ android {
 
     defaultConfig {
         applicationId = "com.arvifox.arvi"
-        minSdk = rootProject.extra["minSdk"] as? Int?
+        minSdk = rootProject.extra["minSdkArvifox"] as? Int?
         targetSdk = 34
         versionCode = 6
         versionName = "2.0"
@@ -53,9 +54,9 @@ android {
     buildFeatures {
         compose = true
     }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.14"
-    }
+//    composeOptions {
+//        kotlinCompilerExtensionVersion = "1.5.14"
+//    }
     packaging {
         resources {
             excludes += listOf("META-INF/DEPENDENCIES", "META-INF/LICENSE", "META-INF/LICENSE-notice.md", "META-INF/LICENSE.md", "META-INF/LICENSE.txt", "META-INF/license.txt", "META-INF/NOTICE", "META-INF/NOTICE.txt", "META-INF/notice.txt", "META-INF/ASL2.0", "META-INF/AL2.0", "META-INF/LGPL2.1", "META-INF/INDEX.LIST", "META-INF/io.netty.versions.properties")
@@ -76,6 +77,12 @@ android {
             }
         }
     }
+}
+
+// https://developer.android.com/develop/ui/compose/compiler
+composeCompiler {
+//    reportsDestination = layout.buildDirectory.dir("compose_compiler")
+//    stabilityConfigurationFile = rootProject.layout.projectDirectory.file("stability_config.conf")
 }
 
 hilt {
