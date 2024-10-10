@@ -149,7 +149,7 @@ dependencies {
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("androidx.test.ext:junit:1.2.1")
     implementation("androidx.core:core-ktx:1.13.1")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.5")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.6")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test:runner:1.6.2")
     androidTestImplementation("androidx.test:rules:1.6.1")
@@ -170,21 +170,21 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
     //kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version" // For Kotlin use kapt instead of annotationProcessor
     // alternately - if using Java8, use the following instead of lifecycle-compiler
-    implementation("androidx.lifecycle:lifecycle-common-java8:2.8.5")
+    implementation("androidx.lifecycle:lifecycle-common-java8:2.8.6")
     // optional - ReactiveStreams support for LiveData
-    implementation("androidx.lifecycle:lifecycle-reactivestreams-ktx:2.8.5")
+    implementation("androidx.lifecycle:lifecycle-reactivestreams-ktx:2.8.6")
     // optional - Test helpers for LiveData
     testImplementation("androidx.arch.core:core-testing:2.2.0")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate:2.8.5")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate:2.8.6")
     // view model scope
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.5")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.6")
     // lifecycle scope
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.5")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.6")
     // livedata scope
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.8.5")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.8.6")
 
-    implementation("androidx.navigation:navigation-fragment-ktx:2.8.0")
-    implementation("androidx.navigation:navigation-ui-ktx:2.8.0")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.8.2")
+    implementation("androidx.navigation:navigation-ui-ktx:2.8.2")
 
     // room
 
@@ -221,7 +221,7 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-moshi:2.11.0")
     implementation("com.squareup.retrofit2:retrofit-mock:2.9.0")
     implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.8")
-    implementation("com.squareup.okhttp3:okhttp:5.0.0-alpha.12")
+    implementation("com.squareup.okhttp3:okhttp:5.0.0-alpha.14")
     implementation("com.squareup.okhttp3:okhttp-urlconnection:4.9.0")
     implementation("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2")
 
@@ -231,7 +231,7 @@ dependencies {
     implementation("com.google.ar.sceneform.ux:sceneform-ux:1.17.1")
 
     //firebase
-    implementation("com.google.firebase:firebase-messaging:24.0.1")
+    implementation("com.google.firebase:firebase-messaging:24.0.2")
     implementation("com.google.firebase:firebase-core:21.1.1")
     implementation("com.google.android.gms:play-services-auth:21.2.0")
     implementation("com.google.android.gms:play-services-base:18.5.0")
@@ -273,7 +273,7 @@ dependencies {
 
 
     // billing lib
-    implementation("com.android.billingclient:billing:7.0.0")
+    implementation("com.android.billingclient:billing:7.1.1")
 
     // Speech SDK
     implementation("com.microsoft.cognitiveservices.speech:client-sdk:1.8.0")
