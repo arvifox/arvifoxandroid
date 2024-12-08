@@ -32,6 +32,10 @@ keystoreProperties.load(FileInputStream("mykeys.properties"))
 // Loads the keys.properties file into the keystoreProperties object.
 //keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
+kotlin {
+    jvmToolchain(21)
+}
+
 android {
 //    signingConfigs {
 //        configrelease {
@@ -92,10 +96,6 @@ android {
                 "\"" + keystoreProperties.getProperty("tmdb") + "\""
             )
         }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
     }
     buildFeatures {
         //viewBinding true
