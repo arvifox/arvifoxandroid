@@ -44,6 +44,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.messaging.FirebaseMessaging
 import android.Manifest.permission.POST_NOTIFICATIONS
+import com.arvifox.arvi.domain.corou.letsplay
 import com.arvifox.arvi.domain.multithre.TesIntMul
 import com.arvifox.arvi.domain.multithre.letsStart
 import com.arvifox.arvi.domain.texts.TextsUtils
@@ -127,7 +128,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             //Arv10.getWW()
             //TesIntMul.check()
             //letsStart()
-            TextsUtils.check()
+//            TextsUtils.check()
+            letsplay()
         }
 
         val toggle = ActionBarDrawerToggle(
