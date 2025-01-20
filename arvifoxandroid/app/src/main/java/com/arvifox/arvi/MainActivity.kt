@@ -44,10 +44,15 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.messaging.FirebaseMessaging
 import android.Manifest.permission.POST_NOTIFICATIONS
+import androidx.lifecycle.lifecycleScope
+import com.arvifox.arvi.domain.corou.CoroSim
 import com.arvifox.arvi.domain.corou.letsplay
 import com.arvifox.arvi.domain.multithre.TesIntMul
 import com.arvifox.arvi.domain.multithre.letsStart
 import com.arvifox.arvi.domain.texts.TextsUtils
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 // Constants
 // The authority for the sync adapter's content provider
@@ -130,6 +135,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             //letsStart()
 //            TextsUtils.check()
             letsplay()
+//            lifecycleScope.launch {
+//                withContext(Dispatchers.Default) {
+//                    CoroSim.calcall()
+//                }
+//            }
         }
 
         val toggle = ActionBarDrawerToggle(
