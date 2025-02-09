@@ -34,6 +34,7 @@ object WorkerUtils {
      * @param message Message shown on the notification
      * @param context Context needed to create Toast
      */
+    @SuppressLint("MissingPermission")
     fun makeStatusNotification(message: String, context: Context) {
         // Make a channel if necessary
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -89,7 +90,7 @@ object WorkerUtils {
 
             // Create the output bitmap
             val output = Bitmap.createBitmap(
-                    bitmap.width, bitmap.height, bitmap.config)
+                    bitmap.width, bitmap.height, bitmap.config!!)
             // Blur the image
             rsContext = RenderScript.create(applicationContext, RenderScript.ContextType.DEBUG)
             val inAlloc = Allocation.createFromBitmap(rsContext, bitmap)

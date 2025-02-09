@@ -13,7 +13,7 @@ import com.arvifox.arvi.google.ar.StartArActivity
 import com.arvifox.arvi.google.googleapi.AccountsActivity
 import com.arvifox.arvi.google.googleapi.OAuthTestActivity
 import com.arvifox.arvi.google.googleapi.visiontest.VisionApiTestActivity
-import com.google.ar.core.ArCoreApk
+//import com.google.ar.core.ArCoreApk
 
 class GoogleBaseStartActivity : AppCompatActivity() {
 
@@ -70,9 +70,9 @@ class GoogleBaseStartActivity : AppCompatActivity() {
     }
 
     private fun checkArEnable() {
-        val arav = ArCoreApk.getInstance().checkAvailability(this)
-        if (arav.isTransient) Handler().postDelayed({ checkArEnable() }, 200)
-        binding.btnStartArCore.isEnabled = arav.isSupported
+//        val arav = ArCoreApk.getInstance().checkAvailability(this)
+//        if (arav.isTransient) Handler().postDelayed({ checkArEnable() }, 200)
+//        binding.btnStartArCore.isEnabled = arav.isSupported
         Toast.makeText(this, "ArCore is not supported", Toast.LENGTH_SHORT).show()
         binding.btnStartArCore.setOnClickListener { startActivity(StartArActivity.newIntent(this)) }
     }

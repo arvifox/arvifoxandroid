@@ -78,7 +78,7 @@ class PackListFragment : Fragment() {
     }
 
     private fun isSystemPackage(pkgInfo: PackageInfo): Boolean {
-        return pkgInfo.applicationInfo.flags and ApplicationInfo.FLAG_SYSTEM != 0
+        return pkgInfo.applicationInfo!!.flags and ApplicationInfo.FLAG_SYSTEM != 0
     }
 
     private fun getLaunchIntent(f: ApplicationInfo): Intent? {
@@ -106,11 +106,11 @@ class PackListFragment : Fragment() {
         for (i in packs.indices) {
             val p = packs[i]
             val newInfo = PackListItem()
-            newInfo.title = p.applicationInfo.loadLabel(context?.packageManager!!).toString()
+            newInfo.title = p.applicationInfo!!.loadLabel(context?.packageManager!!).toString()
             newInfo.name = p.packageName
-            newInfo.ver = p.versionName
+            newInfo.ver = p.versionName!!
             newInfo.verc = p.versionCode
-            newInfo.ic = p.applicationInfo.loadIcon(context?.packageManager!!)
+            newInfo.ic = p.applicationInfo!!.loadIcon(context?.packageManager!!)
             newInfo.pers = p.requestedPermissions?.joinToString(separator = ",") ?: "no pers"
             if (!isSystemPackage(p)) res.add(newInfo)
         }

@@ -1,20 +1,14 @@
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        google()
-        mavenCentral()
-//        jcenter()
-        maven("https://csspeechstorage.blob.core.windows.net/maven/")
-        maven("https://jitpack.io")
-    }
-}
-
 pluginManagement {
     repositories {
-        google()
-        gradlePluginPortal()
+        google {
+            content {
+                includeGroupByRegex("com\\.android.*")
+                includeGroupByRegex("com\\.google.*")
+                includeGroupByRegex("androidx.*")
+            }
+        }
         mavenCentral()
-    }
+        gradlePluginPortal()
 //    resolutionStrategy {
 //        eachPlugin {
 //            if (requested.id.id.startsWith("com.android")) {
@@ -25,6 +19,17 @@ pluginManagement {
 //            }
 //        }
 //    }
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+//        jcenter()
+        maven("https://csspeechstorage.blob.core.windows.net/maven/")
+        maven("https://jitpack.io")
+    }
 }
 
 rootProject.name = "arvifoxandroid"

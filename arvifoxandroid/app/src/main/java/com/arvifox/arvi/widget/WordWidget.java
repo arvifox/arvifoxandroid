@@ -71,7 +71,7 @@ public class WordWidget extends AppWidgetProvider {
             } else {
                 // Didn't find word of day, so show error message
                 views = new RemoteViews(context.getPackageName(), R.layout.widget_test);
-                views.setTextViewText(R.id.asvView, "rrrr");
+                //views.setTextViewText(R.id.asvView, "rrrr");
             }
             return views;
         }
