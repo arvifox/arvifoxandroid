@@ -22,6 +22,8 @@ plugins {
     alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.kapt)
     id("kotlin-parcelize")
+    id("com.google.devtools.ksp")
+//    alias(libs.plugins.kotlinCompose)
 }
 
 val composeCompilerVersion: String by project
@@ -36,7 +38,7 @@ android {
     defaultConfig {
         applicationId = "com.arvifox.arvi"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -44,15 +46,6 @@ android {
         multiDexEnabled = true
         manifestPlaceholders["googleGeoApiKey"] = secret("googleGeoApiKey")!!
 //        resourceConfigurations.addAll(listOf("en", "fr", "ru", "en_XA", "ar_XB"))
-//        javaCompileOptions {
-//            annotationProcessorOptions {
-//                arguments += mapOf(
-//                    "room.schemaLocation" to "$projectDir/schemas",
-//                    "room.incremental" to "true",
-//                    "room.expandProjection" to "true"
-//                )
-//            }
-//        }
         buildConfigField("String", "ARVI_API_URL", maybeWrapQuotes("ARVI_API_URL"))
         buildConfigField("String", "FLICKR_KEY", maybeWrapQuotes("FLICKR_KEY"))
         buildConfigField("String", "TMDB_KEY", maybeWrapQuotes("TMDB_KEY"))
@@ -87,7 +80,7 @@ android {
     sourceSets.getByName("main") {
         res.srcDirs("src/main/res", "src/main/res-some")
     }
-//    sourceSets {
+    //    sourceSets {
 //        main.res.srcDirs += ['src/main/res-some']
 //        main.jniLibs.srcDirs += ['src/main/jniLibs']
 //    }
@@ -108,6 +101,21 @@ android {
 //    }
 }
 
+class RoomSchemaArgProvider(
+    @InputDirectory
+    @PathSensitive(PathSensitivity.RELATIVE)
+    val schemaDir: File,
+) : CommandLineArgumentProvider {
+
+    override fun asArguments(): MutableIterable<String> {
+        return mutableListOf("room.schemaLocation=${schemaDir.path}")
+    }
+}
+
+ksp {
+    arg(RoomSchemaArgProvider(File(projectDir, "schemas")))
+}
+
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 //    implementation(files("/path/path/file.jat"))
@@ -119,21 +127,27 @@ dependencies {
 
     implementation(platform(libs.compose.bom))
     implementation(libs.ui)
-    implementation(libs.compose.material)
     implementation(libs.ui.graphics)
     implementation(libs.ui.tooling.preview)
 
     //test
 //    implementation("androidx.legacy:legacy-support-v4:1.0.0")
-    implementation(libs.androidx.junit)
     implementation(libs.lifecycle.viewmodel.ktx)
+    implementation(libs.activity.compose)
+    implementation(libs.androidx.material3)
+    implementation(libs.compose.navigation)
 
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(platform(libs.compose.bom))
+    androidTestImplementation(libs.ui.test.junit4)
+    debugImplementation(libs.ui.tooling)
+    debugImplementation(libs.ui.test.manifest)
     testImplementation(libs.tests.junit)
     androidTestImplementation(libs.androidx.runner)
     androidTestImplementation(libs.androidx.rules)
     androidTestImplementation(libs.androidx.work.testing)
     androidTestImplementation(libs.tests.archcore)
-    androidTestImplementation(libs.androidx.espresso.core)
 
     //multidex
     //implementation("androidx.multidex:multidex:2.0.1")
@@ -164,10 +178,10 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
 
-    // room
+    //region room
 
     implementation(libs.androidx.room.runtime)
-    kapt(libs.androidx.room.compiler)
+    ksp(libs.androidx.room.compiler)
     // For Kotlin use kapt instead of annotationProcessor
     // optional - Kotlin Extensions and Coroutines support for Room
     implementation(libs.androidx.room.ktx)
@@ -176,7 +190,7 @@ dependencies {
     // Test helpers
     testImplementation(libs.androidx.room.testing)
 
-    //room end
+    //endregion
 
     // CameraX core library using camera2 implementation
     implementation(libs.androidx.camera.camera2)
@@ -218,7 +232,7 @@ dependencies {
     implementation(libs.play.services.maps)
 
     //concurrent
-//    implementation("androidx.concurrent:concurrent-futures:1.2.0")
+    implementation(libs.androidx.concurrent.futures)
 
     // Kotlin Coroutines
     implementation(libs.coroutine.android)

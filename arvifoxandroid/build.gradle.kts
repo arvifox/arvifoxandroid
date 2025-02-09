@@ -7,7 +7,9 @@ plugins {
     alias(libs.plugins.serialization) apply false
     alias(libs.plugins.kover) apply false
     id("org.jetbrains.dokka") version "1.9.20" apply false
-    alias(libs.plugins.jetbrainsKotlinJvm) apply false
+    id("com.google.devtools.ksp") version "1.9.24-1.0.20" apply false
+//    alias(libs.plugins.jetbrainsKotlinJvm) apply false
+//    alias(libs.plugins.kotlinCompose) apply false
 }
 
 tasks.register("clean", Delete::class) {

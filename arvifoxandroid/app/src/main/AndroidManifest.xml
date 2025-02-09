@@ -4,7 +4,7 @@
     <!-- if AR core required then minsdk must be 24 or higher -->
     <!-- <uses-sdk android:minSdkVersion="16" /> -->
     <!-- <uses-feature android:name="android.hardware.camera.ar" android:required="true" /> -->
-    <!--    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />-->
+    <!-- <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> -->
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
@@ -45,6 +45,11 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
+            android:name=".uicompose.ComposeFirstActivity"
+            android:exported="false"
+            android:label="@string/title_activity_compose_first"
+            android:theme="@style/ArvifoxCompose" />
+        <activity
             android:name=".splash.SplashActivity"
             android:exported="true"
             android:theme="@style/Arvifox.Splash">
@@ -64,7 +69,7 @@
             android:clearTaskOnLaunch="true"
             android:exported="false"
             android:label="@string/app_name"
-            android:theme="@style/Arvifox"></activity> <!-- android:value="required" /> -->
+            android:theme="@style/Arvifox" /> <!-- android:value="required" /> -->
         <activity
             android:name=".simplemisc.phoneinfo.PhoneInfoActivity"
             android:exported="false"
@@ -322,16 +327,14 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_provider_paths" />
-        </provider>
-        <!--        <provider-->
-        <!--            android:name="androidx.work.impl.WorkManagerInitializer"-->
-        <!--            android:authorities="${applicationId}.workmanager-init"-->
-        <!--            android:directBootAware="false"-->
-        <!--            android:exported="false"-->
-        <!--            android:multiprocess="true"-->
-        <!--            tools:node="remove"-->
-        <!--            tools:targetApi="n" />-->
-
+        </provider> <!-- <provider -->
+        <!-- android:name="androidx.work.impl.WorkManagerInitializer" -->
+        <!-- android:authorities="${applicationId}.workmanager-init" -->
+        <!-- android:directBootAware="false" -->
+        <!-- android:exported="false" -->
+        <!-- android:multiprocess="true" -->
+        <!-- tools:node="remove" -->
+        <!-- tools:targetApi="n" /> -->
         <service
             android:name=".google.firebase.FirebaseMessageService"
             android:exported="true"

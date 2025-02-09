@@ -44,4 +44,5 @@
         <item>sldjf</item>
         <item>cvxcv</item>
     </string-array>
+    <string name="title_activity_compose_first">ComposeFirstActivity</string>
 </resources>

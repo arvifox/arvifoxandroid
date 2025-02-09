@@ -13,6 +13,10 @@
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Simple misc2" />
         <item
+            android:id="@+id/nav_simple_misc3"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="UI compose" />
+        <item
             android:id="@+id/nav_navig"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="navig" />

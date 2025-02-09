@@ -50,6 +50,7 @@ import com.arvifox.arvi.domain.corou.letsplay
 import com.arvifox.arvi.domain.multithre.TesIntMul
 import com.arvifox.arvi.domain.multithre.letsStart
 import com.arvifox.arvi.domain.texts.TextsUtils
+import com.arvifox.arvi.uicompose.ComposeFirstActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -275,6 +276,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             R.id.nav_simple_misc2 -> {
                 startActivity(SimpleMisc2Activity.newIntent(this))
+            }
+            R.id.nav_simple_misc3 -> {
+                startActivity(ComposeFirstActivity.newIntent(this))
             }
             R.id.nav_navig -> {
                 startActivity(NavigActivity.newIntent(this))
