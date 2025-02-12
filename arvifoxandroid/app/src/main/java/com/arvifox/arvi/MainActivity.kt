@@ -51,6 +51,7 @@ import com.arvifox.arvi.domain.multithre.TesIntMul
 import com.arvifox.arvi.domain.multithre.letsStart
 import com.arvifox.arvi.domain.texts.TextsUtils
 import com.arvifox.arvi.uicompose.ComposeFirstActivity
+import com.google.firebase.FirebaseApp
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -155,15 +156,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         binding.navView.setNavigationItemSelectedListener(this)
 
+        FirebaseApp.initializeApp(this)
+
         fa = FirebaseAnalytics.getInstance(this)
 
-        if (!BaseStorage.isTokenSent(this)) {
-            FirebaseMessaging.getInstance().token
-                .addOnCompleteListener() { task ->
-                    Toast.makeText(this, task.result, Toast.LENGTH_SHORT).show()
-                    BackUtils.sendToken(task.result, this)
-                }
-        }
+//        if (!BaseStorage.isTokenSent(this)) {
+//            FirebaseMessaging.getInstance().token
+//                .addOnCompleteListener() { task ->
+//                    Toast.makeText(this, task.result, Toast.LENGTH_SHORT).show()
+//                    BackUtils.sendToken(task.result, this)
+//                }
+//        }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val nm = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
