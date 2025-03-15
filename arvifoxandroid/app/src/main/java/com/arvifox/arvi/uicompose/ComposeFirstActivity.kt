@@ -3,6 +3,7 @@ package com.arvifox.arvi.uicompose
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -26,6 +27,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.arvifox.arvi.uicompose.ui.ArvifoxandroidTheme
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class ComposeFirstActivity : ComponentActivity() {
 
@@ -35,8 +40,26 @@ class ComposeFirstActivity : ComponentActivity() {
         }
     }
 
+    private val sco = CoroutineScope(Dispatchers.Default)
+
+    override fun onPause() {
+        Log.d("foxx", "onPause")
+        super.onPause()
+    }
+
+    override fun onDestroy() {
+        Log.d("foxx", "onDestroy")
+        super.onDestroy()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.d("foxx", "onStart")
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d("foxx", "onCreate ${savedInstanceState == null}")
         enableEdgeToEdge()
         setContent {
             ArvifoxandroidTheme {
@@ -56,6 +79,14 @@ class ComposeFirstActivity : ComponentActivity() {
                                     .fillMaxSize()
                                     .padding(12.dp),
                             ) {
+                                Button(onClick = {
+                                    sco.launch {
+                                        for (i in 1..1000) {
+                                            Log.d("foxx", "count $i;")
+                                            delay(1000)
+                                        }
+                                    }
+                                }) { Text("click") }
                                 Buro("btn 01", "btn 02", "btn 03") {
                                     when (it) {
                                         1 -> {

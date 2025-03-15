@@ -3,6 +3,7 @@ package com.arvifox.arvi.widget
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Rect
+import android.os.Parcelable
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatTextView
 
@@ -30,6 +31,14 @@ class NoPadingTextView : AppCompatTextView {
                 paint
             )
         }
+    }
+
+    override fun onSaveInstanceState(): Parcelable? {
+        return super.onSaveInstanceState()
+    }
+
+    override fun onRestoreInstanceState(state: Parcelable?) {
+        super.onRestoreInstanceState(state)
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {

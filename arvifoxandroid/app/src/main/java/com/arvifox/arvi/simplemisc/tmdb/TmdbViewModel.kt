@@ -20,7 +20,7 @@ class TmdbViewModel : ViewModel() {
 
     fun fetchMovies(){
         scope.launch {
-            val popularMovies = repository.getPopularMovies()
+            val popularMovies = repository.getPopularMovies()!!
             popularMoviesLiveData.postValue(popularMovies)
         }
     }
