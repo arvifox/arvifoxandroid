@@ -4,27 +4,21 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.Gravity
-import android.view.MotionEvent
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.arvifox.arvi.R
 import com.arvifox.arvi.databinding.ActivityHelloSceneBinding
 import com.arvifox.arvi.google.utils.ArUtils
-import com.arvifox.arvi.utils.Logger
-//import com.google.ar.core.HitResult
-//import com.google.ar.core.Plane
-//import com.google.ar.sceneform.AnchorNode
-//import com.google.ar.sceneform.Node
-//import com.google.ar.sceneform.math.Quaternion
-//import com.google.ar.sceneform.math.Vector3
-//import com.google.ar.sceneform.rendering.*
-//import com.google.ar.sceneform.ux.ArFragment
-//import com.google.ar.sceneform.ux.TransformableNode
+// import com.google.ar.core.HitResult
+// import com.google.ar.core.Plane
+// import com.google.ar.sceneform.AnchorNode
+// import com.google.ar.sceneform.Node
+// import com.google.ar.sceneform.math.Quaternion
+// import com.google.ar.sceneform.math.Vector3
+// import com.google.ar.sceneform.rendering.*
+// import com.google.ar.sceneform.ux.ArFragment
+// import com.google.ar.sceneform.ux.TransformableNode
 
 class HelloSceneActivity : AppCompatActivity() {
-
-//    private var arFragment: ArFragment? = null
+    //    private var arFragment: ArFragment? = null
 //    private var model: ModelRenderable? = null
 //    private var m: Material? = null
 
@@ -85,26 +79,26 @@ class HelloSceneActivity : AppCompatActivity() {
 //                Logger.d { "anchor=" + anchorNode.worldPosition }
 //
 //                // create a cube
-////                val v = Vector3(hitResult.hitPose.tx(), hitResult.hitPose.ty(), hitResult.hitPose.tz())
+// //                val v = Vector3(hitResult.hitPose.tx(), hitResult.hitPose.ty(), hitResult.hitPose.tz())
 //                val v = Vector3(0f, 0f, -1f)
 //                model = ShapeFactory.makeCube(Vector3(0.2f, 0.2f, 0.2f), v, m)
 //
 //                // Create the transformable andy and add it to the anchor.
 //                val andy = TransformableNode(arFragment?.transformationSystem)
 //                andy.setParent(anchorNode)
-////                model?.material?.setFloat3("baseColor", Color(android.graphics.Color.GREEN))
+// //                model?.material?.setFloat3("baseColor", Color(android.graphics.Color.GREEN))
 //                andy.renderable = model
 //                andy.select()
 //                flag = true
 //            } else {
 //                Logger.d { "material size =" + model?.submeshCount }
 //                model?.material?.setFloat3("baseColor", Color(android.graphics.Color.BLUE))
-////                val future = Texture.builder().setSource(this, R.drawable.soccer_bal).build()
-////                future?.thenAccept { f -> model?.getMaterial(0)?.setTexture("baseColorMap", f) }
-////                        ?.exceptionally {
-////                            Logger.d { "error" }
-////                            null
-////                        }
+// //                val future = Texture.builder().setSource(this, R.drawable.soccer_bal).build()
+// //                future?.thenAccept { f -> model?.getMaterial(0)?.setTexture("baseColorMap", f) }
+// //                        ?.exceptionally {
+// //                            Logger.d { "error" }
+// //                            null
+// //                        }
 //            }
 //        }
     }

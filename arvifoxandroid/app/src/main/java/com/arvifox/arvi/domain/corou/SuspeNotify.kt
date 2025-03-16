@@ -9,8 +9,10 @@ import kotlin.coroutines.suspendCoroutine
 
 @JvmInline
 value class Waiter(private val channel: Channel<Unit> = Channel<Unit>(0)) {
+    suspend fun doWait() {
+        channel.receive()
+    }
 
-    suspend fun doWait() { channel.receive() }
     fun doNotify() {
         channel.trySend(Unit).isSuccess
     }
@@ -18,9 +20,11 @@ value class Waiter(private val channel: Channel<Unit> = Channel<Unit>(0)) {
 
 class SuspendWait() {
     private var myCont: Continuation<Unit>? = null
-    suspend fun sleepAndWait() = suspendCoroutine<Unit>{ cont ->
-        myCont = cont
-    }
+
+    suspend fun sleepAndWait() =
+        suspendCoroutine<Unit> { cont ->
+            myCont = cont
+        }
 
     fun resume() {
         val cont = myCont
@@ -31,7 +35,9 @@ class SuspendWait() {
 
 class SuspendWait2 {
     private val mutex = Mutex(locked = true)
-    suspend fun sleepAndWait() = mutex.withLock{}
+
+    suspend fun sleepAndWait() = mutex.withLock {}
+
     fun resume() {
         mutex.unlock()
     }

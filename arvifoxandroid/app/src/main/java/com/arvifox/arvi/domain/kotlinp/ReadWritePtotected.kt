@@ -1,7 +1,6 @@
 package com.arvifox.arvi.domain.kotlinp
 
 object ReadWritePtotected {
-
     open class Read {
         open val value: String = "hel"
     }
@@ -17,7 +16,7 @@ object ReadWritePtotected {
 
     fun sdflkdsjf() {
         val dd = WriteProtected()
-        //dd.value = "dkfj" //cannot assign to value
+        // dd.value = "dkfj" //cannot assign to value
         dd.append("sldjf")
     }
 }

@@ -21,10 +21,11 @@ import com.bumptech.glide.Glide
 import java.util.concurrent.TimeUnit
 
 class WorkManagerActivity : AppCompatActivity() {
-
     companion object {
-
-        internal fun newIntent(context: Context, imageUri: Uri): Intent {
+        internal fun newIntent(
+            context: Context,
+            imageUri: Uri,
+        ): Intent {
             val intent = Intent(context, WorkManagerActivity::class.java)
             intent.putExtra("KEY_IMAGE_URI", imageUri.toString())
             return intent
@@ -51,38 +52,41 @@ class WorkManagerActivity : AppCompatActivity() {
 //        viewModel.outputWorkInfoItems.observe(this, workInfosObserver())
 
         // Check to see if we have output.
-        viewModel.outputStatus.observe(this, Observer { listOfInfos ->
-            if (listOfInfos == null || listOfInfos.isEmpty()) {
-                return@Observer
-            }
-
-            // We only care about the one output status.
-            // Every continuation has only one worker tagged TAG_OUTPUT
-            val info = listOfInfos[0]
-            val finished = info.state.isFinished
-            val progressBar = findViewById<ProgressBar>(R.id.progressBar)
-            val go = findViewById<Button>(R.id.go)
-            val cancel = findViewById<Button>(R.id.cancel)
-            val output = findViewById<Button>(R.id.output)
-            if (!finished) {
-                progressBar.visibility = View.VISIBLE
-                cancel.visibility = View.VISIBLE
-                go.visibility = View.GONE
-                output.visibility = View.GONE
-            } else {
-                progressBar.visibility = View.GONE
-                cancel.visibility = View.GONE
-                go.visibility = View.VISIBLE
-
-                val outputData = info.outputData
-                val outputImageUri = outputData.getString("KEY_IMAGE_URI")
-
-                if (!TextUtils.isEmpty(outputImageUri)) {
-                    mOutputImageUri = Uri.parse(outputImageUri)
-                    output.visibility = View.VISIBLE
+        viewModel.outputStatus.observe(
+            this,
+            Observer { listOfInfos ->
+                if (listOfInfos == null || listOfInfos.isEmpty()) {
+                    return@Observer
                 }
-            }
-        })
+
+                // We only care about the one output status.
+                // Every continuation has only one worker tagged TAG_OUTPUT
+                val info = listOfInfos[0]
+                val finished = info.state.isFinished
+                val progressBar = findViewById<ProgressBar>(R.id.progressBar)
+                val go = findViewById<Button>(R.id.go)
+                val cancel = findViewById<Button>(R.id.cancel)
+                val output = findViewById<Button>(R.id.output)
+                if (!finished) {
+                    progressBar.visibility = View.VISIBLE
+                    cancel.visibility = View.VISIBLE
+                    go.visibility = View.GONE
+                    output.visibility = View.GONE
+                } else {
+                    progressBar.visibility = View.GONE
+                    cancel.visibility = View.GONE
+                    go.visibility = View.VISIBLE
+
+                    val outputData = info.outputData
+                    val outputImageUri = outputData.getString("KEY_IMAGE_URI")
+
+                    if (!TextUtils.isEmpty(outputImageUri)) {
+                        mOutputImageUri = Uri.parse(outputImageUri)
+                        output.visibility = View.VISIBLE
+                    }
+                }
+            },
+        )
 
         // Image uri should be stored in the ViewModel; put it there then display
         val imageUriExtra = intent.getStringExtra("KEY_IMAGE_URI")
@@ -94,20 +98,23 @@ class WorkManagerActivity : AppCompatActivity() {
 
         binding.btnStart1.setOnClickListener {
             // optionally, add constraints like power, network availability
-            val constraints: Constraints = Constraints.Builder()
-                .setRequiresCharging(true)
-                .setRequiresDeviceIdle(true)
-                .setRequiredNetworkType(NetworkType.CONNECTED)
-                .build()
-            val myOneTimeWorkRequest = OneTimeWorkRequestBuilder<MyWorker>()
-                .setInitialDelay(20, TimeUnit.MINUTES)
+            val constraints: Constraints =
+                Constraints.Builder()
+                    .setRequiresCharging(true)
+                    .setRequiresDeviceIdle(true)
+                    .setRequiredNetworkType(NetworkType.CONNECTED)
+                    .build()
+            val myOneTimeWorkRequest =
+                OneTimeWorkRequestBuilder<MyWorker>()
+                    .setInitialDelay(20, TimeUnit.MINUTES)
 //                    .setInputData()
-                .addTag("tratata")
-                .setBackoffCriteria(
-                    BackoffPolicy.LINEAR,
-                    10000, TimeUnit.MILLISECONDS
-                )
-                .setConstraints(constraints).build()
+                    .addTag("tratata")
+                    .setBackoffCriteria(
+                        BackoffPolicy.LINEAR,
+                        10000,
+                        TimeUnit.MILLISECONDS,
+                    )
+                    .setConstraints(constraints).build()
             WorkManager.getInstance().enqueue(myOneTimeWorkRequest)
         }
 
@@ -118,13 +125,14 @@ class WorkManagerActivity : AppCompatActivity() {
             val save = isChecked(R.id.save)
             val upload = isChecked(R.id.upload)
 
-            val imageOperations = ImageOperations.Builder(mImageUri!!)
-                .setApplyWaterColor(applyWaterColor)
-                .setApplyGrayScale(applyGrayScale)
-                .setApplyBlur(applyBlur)
-                .setApplySave(save)
-                .setApplyUpload(upload)
-                .build()
+            val imageOperations =
+                ImageOperations.Builder(mImageUri!!)
+                    .setApplyWaterColor(applyWaterColor)
+                    .setApplyGrayScale(applyGrayScale)
+                    .setApplyBlur(applyBlur)
+                    .setApplySave(save)
+                    .setApplyUpload(upload)
+                    .build()
 
             viewModel.apply(imageOperations)
 //            viewModel.applyBlur(blurLevel)
@@ -178,7 +186,9 @@ class WorkManagerActivity : AppCompatActivity() {
         }
     }
 
-    private fun isChecked(@IdRes resourceId: Int): Boolean {
+    private fun isChecked(
+        @IdRes resourceId: Int,
+    ): Boolean {
         val view = findViewById<View>(resourceId)
         return view is Checkable && (view as Checkable).isChecked
     }

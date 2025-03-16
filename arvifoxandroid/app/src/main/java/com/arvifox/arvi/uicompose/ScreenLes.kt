@@ -68,30 +68,33 @@ private val fl = Fla("s value", 123)
 private fun Drasosh() {
     val cs = rememberCoroutineScope()
     val trax = remember { Animatable(0f) }
-    val dr = rememberDraggableState(
-        onDelta = { dragAmount ->
-            cs.launch {
-                trax.snapTo(trax.value + dragAmount)
-            }
-        },
-    )
+    val dr =
+        rememberDraggableState(
+            onDelta = { dragAmount ->
+                cs.launch {
+                    trax.snapTo(trax.value + dragAmount)
+                }
+            },
+        )
     Box(
-        modifier = Modifier
-            .background(color = Color.Blue)
-            .height(48.dp)
-            .fillMaxWidth()
-            .draggable(dr, Orientation.Horizontal)
+        modifier =
+            Modifier
+                .background(color = Color.Blue)
+                .height(48.dp)
+                .fillMaxWidth()
+                .draggable(dr, Orientation.Horizontal),
     ) {
         Box(
-            modifier = Modifier
-                .graphicsLayer {
-                    translationX = trax.value
-                    val scale = lerp(1f, 0.8f, trax.value / 190f)
-                    scaleX = scale
-                    scaleY = scale
-                }
-                .size(40.dp)
-                .background(color = Color.Red)
+            modifier =
+                Modifier
+                    .graphicsLayer {
+                        translationX = trax.value
+                        val scale = lerp(1f, 0.8f, trax.value / 190f)
+                        scaleX = scale
+                        scaleY = scale
+                    }
+                    .size(40.dp)
+                    .background(color = Color.Red),
         )
     }
 }
@@ -99,69 +102,78 @@ private fun Drasosh() {
 @Composable
 private fun Drasosha() {
     Box(
-        modifier = Modifier
-            .background(color = Color.Green)
-            .wrapContentHeight()
-            .fillMaxWidth()
+        modifier =
+            Modifier
+                .background(color = Color.Green)
+                .wrapContentHeight()
+                .fillMaxWidth(),
     ) {
         val bbb = 280f
         var dra by remember { mutableStateOf(false) }
         val cs = rememberCoroutineScope()
         val trax = remember { Animatable(0f) }
         trax.updateBounds(0f, bbb)
-        val dr = rememberDraggableState(
-            onDelta = { dragAmount ->
-                cs.launch {
-                    trax.snapTo(trax.value + dragAmount)
-                }
-            },
-        )
+        val dr =
+            rememberDraggableState(
+                onDelta = { dragAmount ->
+                    cs.launch {
+                        trax.snapTo(trax.value + dragAmount)
+                    }
+                },
+            )
         Box(
-            modifier = Modifier
-                .height(38.dp)
-                .width(bbb.dp)
-                .background(Color.Cyan)
+            modifier =
+                Modifier
+                    .height(38.dp)
+                    .width(bbb.dp)
+                    .background(Color.Cyan),
         )
         val decay = rememberSplineBasedDecay<Float>()
-        Box(modifier = Modifier
-            .height(6.dp)
-            .width(220.dp)
-            .background(Color.Magenta))
         Box(
-            modifier = Modifier
-                .graphicsLayer {
-                    translationX = trax.value
-                    val scale = lerp(1f, 0.8f, trax.value / bbb)
-                    scaleX = scale
-                    scaleY = scale
-                }
-                .draggable(
-                    state = dr,
-                    orientation = Orientation.Horizontal,
-                    onDragStopped = { velocity ->
-                        val decayX = decay.calculateTargetValue(trax.value, velocity)
-                        this.launch {
-                            val targetX = if (decayX > bbb * 0.5) {
-                                bbb
-                            } else {
-                                0f
+            modifier =
+                Modifier
+                    .height(6.dp)
+                    .width(220.dp)
+                    .background(Color.Magenta),
+        )
+        Box(
+            modifier =
+                Modifier
+                    .graphicsLayer {
+                        translationX = trax.value
+                        val scale = lerp(1f, 0.8f, trax.value / bbb)
+                        scaleX = scale
+                        scaleY = scale
+                    }
+                    .draggable(
+                        state = dr,
+                        orientation = Orientation.Horizontal,
+                        onDragStopped = { velocity ->
+                            val decayX = decay.calculateTargetValue(trax.value, velocity)
+                            this.launch {
+                                val targetX =
+                                    if (decayX > bbb * 0.5) {
+                                        bbb
+                                    } else {
+                                        0f
+                                    }
+                                val canReachTargetWithDecay =
+                                    (decayX > targetX && targetX == bbb) || (decayX < targetX && targetX == 0f)
+                                if (canReachTargetWithDecay) {
+                                    trax.animateDecay(velocity, decay)
+                                } else {
+                                    trax.animateTo(targetX, initialVelocity = velocity)
+                                }
+                                dra = targetX != bbb
                             }
-                            val canReachTargetWithDecay =
-                                (decayX > targetX && targetX == bbb) || (decayX < targetX && targetX == 0f)
-                            if (canReachTargetWithDecay) {
-                                trax.animateDecay(velocity, decay)
-                            } else {
-                                trax.animateTo(targetX, initialVelocity = velocity)
-                            }
-                            dra = targetX != bbb
-                        }
-                    },
-                )
-                .background(color = Color.Blue)
+                        },
+                    )
+                    .background(color = Color.Blue),
         ) {
             Column(
-                modifier = Modifier
-                    .wrapContentSize()
+                modifier =
+                    Modifier
+                        .wrapContentSize(),
             ) {
                 Text("value 01")
                 Text("value 02")
@@ -174,10 +186,11 @@ private fun Drasosha() {
 @Composable
 fun ScreenLes(modifier: Modifier = Modifier) {
     Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .background(color = Color.Gray)
-            .verticalScroll(state = rememberScrollState()),
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .background(color = Color.Gray)
+                .verticalScroll(state = rememberScrollState()),
     ) {
         Drasosh()
         Drasosha()
@@ -186,29 +199,31 @@ fun ScreenLes(modifier: Modifier = Modifier) {
         Button(
             onClick = {
                 flag = flag.copy(u = flag.u * -1)
-            }
+            },
         ) { Text("flag inversion") }
         AnimatedContent(
             targetState = flag,
             transitionSpec = {
                 fadeIn(animationSpec = tween(durationMillis = 300)) togetherWith
-                        fadeOut(
-                            animationSpec = tween(
-                                durationMillis = 300
-                            )
-                        ) using SizeTransform { initialSize, targetSize ->
-                    if (targetState.u > 100) {
-                        keyframes {
-                            IntSize(initialSize.width, initialSize.height) at 300
-                            durationMillis = 500
-                        }
-                    } else {
-                        keyframes {
-                            IntSize(targetSize.width, targetSize.height) at 300
-                            durationMillis = 500
+                    fadeOut(
+                        animationSpec =
+                            tween(
+                                durationMillis = 300,
+                            ),
+                    ) using
+                    SizeTransform { initialSize, targetSize ->
+                        if (targetState.u > 100) {
+                            keyframes {
+                                IntSize(initialSize.width, initialSize.height) at 300
+                                durationMillis = 500
+                            }
+                        } else {
+                            keyframes {
+                                IntSize(targetSize.width, targetSize.height) at 300
+                                durationMillis = 500
+                            }
                         }
                     }
-                }
             },
         ) { fla ->
             if (fla.u > 100) {
@@ -226,27 +241,31 @@ fun ScreenLes(modifier: Modifier = Modifier) {
                         painter = painterResource(id = R.drawable.ic_heart_white_60dp),
                         contentDescription = null,
                     )
-                    Text("Super plus text and eat fresh cakes and drink mild wine \n Count Dracula is the title character of Bram Stoker's 1897 gothic horror novel Dracula.\nHe is considered the prototypical and archetypal vampire in subsequent works of fiction.")
+                    Text(
+                        "Super plus text and eat fresh cakes and drink mild wine \n Count Dracula is the title character of Bram Stoker's 1897 gothic horror novel Dracula.\nHe is considered the prototypical and archetypal vampire in subsequent works of fiction.",
+                    )
                 }
             }
         }
 
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentHeight()
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight(),
         ) {
             Column(
-                modifier = Modifier
-                    .wrapContentHeight()
-                    .weight(1f)
+                modifier =
+                    Modifier
+                        .wrapContentHeight()
+                        .weight(1f),
             ) {
                 Text(text = "ani crossfade", modifier = Modifier.padding(top = 10.dp))
                 var cf by remember { mutableStateOf(Fla("fla", 12)) }
                 Button(
                     onClick = {
                         cf = cf.copy(u = cf.u * -1)
-                    }
+                    },
                 ) { Text("crossfade") }
                 Crossfade(targetState = cf) {
                     if (it.u > 0) {
@@ -260,9 +279,10 @@ fun ScreenLes(modifier: Modifier = Modifier) {
                 }
             }
             Column(
-                modifier = Modifier
-                    .wrapContentHeight()
-                    .weight(1f)
+                modifier =
+                    Modifier
+                        .wrapContentHeight()
+                        .weight(1f),
             ) {
                 Text(text = "updatetran", modifier = Modifier.padding(top = 10.dp))
                 var sta by remember { mutableStateOf(false) }
@@ -271,25 +291,27 @@ fun ScreenLes(modifier: Modifier = Modifier) {
                 Image(
                     painter = painterResource(id = R.drawable.ic_heart_white_60dp),
                     contentDescription = null,
-                    modifier = Modifier
-                        .background(color = Color.Red)
-                        .size(tr.first)
-                        .rotate(tr.second),
+                    modifier =
+                        Modifier
+                            .background(color = Color.Red)
+                            .size(tr.first)
+                            .rotate(tr.second),
                 )
             }
         }
 
         Text(text = "ani cont size", modifier = Modifier.padding(top = 10.dp))
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .animateContentSize(),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .animateContentSize(),
         ) {
             var bo by remember { mutableStateOf(false) }
             Button(
                 onClick = {
                     bo = bo.not()
-                }
+                },
             ) { Text("anim") }
             Text("Count Dracula is the title character of Bram Stoker's 1897 gothic horror novel Dracula.")
             if (bo) {
@@ -314,32 +336,36 @@ fun ScreenLes(modifier: Modifier = Modifier) {
         Image(
             painter = painterResource(id = R.drawable.ic_heart_white_60dp),
             contentDescription = null,
-            modifier = Modifier
-                .background(color = Color.Red)
-                .graphicsLayer {
-                    rotationY = rota.value
-                },
+            modifier =
+                Modifier
+                    .background(color = Color.Red)
+                    .graphicsLayer {
+                        rotationY = rota.value
+                    },
         )
 
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentHeight()
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight(),
         ) {
             Column(
-                modifier = Modifier
-                    .wrapContentHeight()
-                    .weight(1f)
+                modifier =
+                    Modifier
+                        .wrapContentHeight()
+                        .weight(1f),
             ) {
                 Text(text = "tarbase", modifier = Modifier.padding(top = 20.dp))
-                val anim = remember {
-                    TargetBasedAnimation(
-                        animationSpec = tween(durationMillis = 2000),
-                        typeConverter = Float.VectorConverter,
-                        initialValue = 20f,
-                        targetValue = 80f,
-                    )
-                }
+                val anim =
+                    remember {
+                        TargetBasedAnimation(
+                            animationSpec = tween(durationMillis = 2000),
+                            typeConverter = Float.VectorConverter,
+                            initialValue = 20f,
+                            targetValue = 80f,
+                        )
+                    }
                 var playTime by remember { mutableLongStateOf(0L) }
                 var animValue by remember { mutableIntStateOf(0) }
                 LaunchedEffect(Unit) {
@@ -352,24 +378,27 @@ fun ScreenLes(modifier: Modifier = Modifier) {
                 Image(
                     painter = painterResource(id = R.drawable.ic_heart_white_60dp),
                     contentDescription = null,
-                    modifier = Modifier
-                        .background(color = Color.Red)
-                        .size(animValue.dp),
+                    modifier =
+                        Modifier
+                            .background(color = Color.Red)
+                            .size(animValue.dp),
                 )
             }
             Column(
-                modifier = Modifier
-                    .wrapContentHeight()
-                    .weight(1f)
+                modifier =
+                    Modifier
+                        .wrapContentHeight()
+                        .weight(1f),
             ) {
                 Text(text = "decani", modifier = Modifier.padding(top = 20.dp))
-                val anim = remember {
-                    DecayAnimation(
-                        animationSpec = FloatExponentialDecaySpec(frictionMultiplier = 0.7f),
-                        initialValue = 0f,
-                        initialVelocity = 400f,
-                    )
-                }
+                val anim =
+                    remember {
+                        DecayAnimation(
+                            animationSpec = FloatExponentialDecaySpec(frictionMultiplier = 0.7f),
+                            initialValue = 0f,
+                            initialVelocity = 400f,
+                        )
+                    }
                 var playTime by remember { mutableLongStateOf(0L) }
                 var animValue by remember { mutableIntStateOf(0) }
                 LaunchedEffect(Unit) {
@@ -382,9 +411,10 @@ fun ScreenLes(modifier: Modifier = Modifier) {
                 Image(
                     painter = painterResource(id = R.drawable.ic_heart_white_60dp),
                     contentDescription = null,
-                    modifier = Modifier
-                        .background(color = Color.Red)
-                        .size(animValue.dp),
+                    modifier =
+                        Modifier
+                            .background(color = Color.Red)
+                            .size(animValue.dp),
                 )
             }
         }

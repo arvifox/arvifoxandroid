@@ -14,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.arvifox.arvi.databinding.ActivityAnimBinding
 
 class AnimActivity : AppCompatActivity() {
-
     companion object {
         fun newIntent(c: Context): Intent {
             return Intent(c, AnimActivity::class.java)
@@ -41,16 +40,18 @@ class AnimActivity : AppCompatActivity() {
         }
         va.start()
 
-        binding.btnTrans.setOnClickListener(object : View.OnClickListener {
-            var vis: Boolean = false
+        binding.btnTrans.setOnClickListener(
+            object : View.OnClickListener {
+                var vis: Boolean = false
 
-            @SuppressLint("NewApi")
-            override fun onClick(v: View?) {
-                TransitionManager.beginDelayedTransition(binding.llTransition)
-                vis = !vis
-                binding.tvTrans.visibility = if (vis) View.VISIBLE else View.GONE
-            }
-        })
+                @SuppressLint("NewApi")
+                override fun onClick(v: View?) {
+                    TransitionManager.beginDelayedTransition(binding.llTransition)
+                    vis = !vis
+                    binding.tvTrans.visibility = if (vis) View.VISIBLE else View.GONE
+                }
+            },
+        )
     }
 
     override fun onResume() {

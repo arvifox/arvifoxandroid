@@ -7,16 +7,18 @@ fun <T> Collection<T>.filter(predicate: (T) -> Boolean): Collection<T> {
     return emptyList()
 }
 
-//fun <T> Collection<T>.each(block: (T) -> Unit) {
+// fun <T> Collection<T>.each(block: (T) -> Unit) {
 //    for (e in this) block(e)
-//}
+// }
 
 inline fun <T> Collection<T>.each(block: (T) -> Unit) {
     for (e in this) block(e)
 }
 
-inline fun foo(inlined: () -> Unit, noinline notInlined: () -> Unit) {
-
+inline fun foo(
+    inlined: () -> Unit,
+    noinline notInlined: () -> Unit,
+) {
 }
 
 inline fun <reified T> Any.isA(): Boolean = this is T

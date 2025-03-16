@@ -2,15 +2,8 @@ package com.arvifox.arvi.domain.corou
 
 import android.widget.EditText
 import androidx.core.widget.doAfterTextChanged
-import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.channels.BroadcastChannel
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.asFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.debounce
-import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.launch
 
 object Corou015 {
@@ -35,6 +28,5 @@ object Corou015 {
     }
 
     private fun startRequest(s: String) {
-
     }
 }

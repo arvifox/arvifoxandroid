@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import java.lang.ref.WeakReference
 
 class ActivityLeakTask : AppCompatActivity() {
-
     inner class LeakJob(link: WeakReference<ActivityLeakTask>) {
         fun start() {
             Thread {
@@ -17,7 +16,6 @@ class ActivityLeakTask : AppCompatActivity() {
         val wr = WeakReference(this)
         val lj = LeakJob(wr)
         lj.start()
-
     }
 }
 

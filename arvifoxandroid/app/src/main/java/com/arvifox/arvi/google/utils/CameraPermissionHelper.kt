@@ -36,7 +36,10 @@ object CameraPermissionHelper {
     /** Check to see we have the necessary permissions for this app, and ask for them if we don't.  */
     fun requestCameraPermission(activity: Activity) {
         ActivityCompat.requestPermissions(
-                activity, arrayOf(CAMERA_PERMISSION), CAMERA_PERMISSION_CODE)
+            activity,
+            arrayOf(CAMERA_PERMISSION),
+            CAMERA_PERMISSION_CODE,
+        )
     }
 
     /** Check to see if we need to show the rationale for this permission.  */

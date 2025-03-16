@@ -3,7 +3,11 @@ package com.arvifox.arvi.domain
 // https://blog.kotlin-academy.com/mastering-kotlin-scoped-and-higher-order-functions-23e2dd34d660
 
 object Arvi00 {
-    private fun sdf(er: Int, df: Doo.() -> String, kkj: Double): String {
+    private fun sdf(
+        er: Int,
+        df: Doo.() -> String,
+        kkj: Double,
+    ): String {
         val dd = er.toString()
         val fs = Doo()
         return dd.plus(fs.df())
@@ -33,12 +37,14 @@ object Arvi00 {
     }
 
     fun kjlskfd() {
-        doSome(fun() { println() })
+        doSome(
+            fun() {
+                println()
+            },
+        )
     }
 
-    interface Isdlfkj : () -> Unit {
-
-    }
+    interface Isdlfkj : () -> Unit
 
     class Fkjdf : Isdlfkj {
         override fun invoke() {
@@ -46,9 +52,9 @@ object Arvi00 {
         }
     }
 
-    val sum: (Int, Int) -> Int = {x: Int, y: Int -> x + y}
+    val sum: (Int, Int) -> Int = { x: Int, y: Int -> x + y }
 
-    fun<T,R> T.doSomething(block: T.() -> R) {
+    fun <T, R> T.doSomething(block: T.() -> R) {
         println(block())
     }
 
@@ -70,7 +76,10 @@ object Arvi00 {
         return block()
     }
 
-    fun <T, R> mywith(receiver: T, block: T.() -> R): R {
+    fun <T, R> mywith(
+        receiver: T,
+        block: T.() -> R,
+    ): R {
         return receiver.block()
     }
 }

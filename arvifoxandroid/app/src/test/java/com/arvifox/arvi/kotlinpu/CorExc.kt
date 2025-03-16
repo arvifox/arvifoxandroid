@@ -4,7 +4,6 @@ import com.arvifox.arvi.domain.corou.CorouExce
 import org.junit.Test
 
 class CorExc {
-
     @Test
     fun test01() {
         CorouExce.main()

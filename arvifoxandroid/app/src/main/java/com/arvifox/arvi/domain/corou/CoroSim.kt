@@ -1,9 +1,7 @@
 package com.arvifox.arvi.domain.corou
 
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -16,12 +14,10 @@ import java.util.concurrent.Callable
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import java.util.concurrent.Future
-import kotlin.coroutines.coroutineContext
 import kotlin.time.Duration
 import kotlin.time.measureTime
 
 object CoroSim {
-
     private val ms = MainScope()
 
     private fun fooca(f: FooCa): FooCa {
@@ -33,28 +29,29 @@ object CoroSim {
         val gh: String,
     )
 
-    private val foos = listOf(
-        FooCa(
-            d = 23,
-            gh = "gh1",
-        ),
-        FooCa(
-            d = 34,
-            gh = "gh2",
-        ),
-        FooCa(
-            d = 45,
-            gh = "gh3",
-        ),
-        FooCa(
-            d = 56,
-            gh = "gh4",
-        ),
-        FooCa(
-            d = 67,
-            gh = "gh5",
-        ),
-    )
+    private val foos =
+        listOf(
+            FooCa(
+                d = 23,
+                gh = "gh1",
+            ),
+            FooCa(
+                d = 34,
+                gh = "gh2",
+            ),
+            FooCa(
+                d = 45,
+                gh = "gh3",
+            ),
+            FooCa(
+                d = 56,
+                gh = "gh4",
+            ),
+            FooCa(
+                d = 67,
+                gh = "gh5",
+            ),
+        )
 
     suspend fun calcall() {
         val ese: ExecutorService = Executors.newFixedThreadPool(foos.size)
@@ -67,33 +64,39 @@ object CoroSim {
         ese.shutdown()
     }
 
-    suspend fun calcCoro() = measureTime {
-        val all: List<Deferred<FooCa>> = foos.map { f ->
-            ms.async {
-                fooca(f)
-            }
+    suspend fun calcCoro() =
+        measureTime {
+            val all: List<Deferred<FooCa>> =
+                foos.map { f ->
+                    ms.async {
+                        fooca(f)
+                    }
+                }
+            val alld: List<FooCa> = all.awaitAll()
+            println("calcCoroalld ${alld.size}")
         }
-        val alld: List<FooCa> = all.awaitAll()
-        println("calcCoroalld ${alld.size}")
-    }
 
     @OptIn(ExperimentalCoroutinesApi::class)
-    suspend fun calcFlow() = measureTime {
-        val all: Flow<FooCa> = foos.asFlow()
-            .flatMapMerge {
-                flow {
-                    emit(fooca(it))
-                }
-            }
-        val alld: List<FooCa> = all.toList()
-        println("calcFlowalld ${alld.size}")
-    }
-
-    fun calcEse(service: ExecutorService) = measureTime {
-        val all: List<Future<FooCa>> = foos.map {
-            service.submit(Callable { fooca(it) })
+    suspend fun calcFlow() =
+        measureTime {
+            val all: Flow<FooCa> =
+                foos.asFlow()
+                    .flatMapMerge {
+                        flow {
+                            emit(fooca(it))
+                        }
+                    }
+            val alld: List<FooCa> = all.toList()
+            println("calcFlowalld ${alld.size}")
         }
-        val alld: List<FooCa> = all.map { it.get() }
-        println("calcEsealld ${alld.size}")
-    }
+
+    fun calcEse(service: ExecutorService) =
+        measureTime {
+            val all: List<Future<FooCa>> =
+                foos.map {
+                    service.submit(Callable { fooca(it) })
+                }
+            val alld: List<FooCa> = all.map { it.get() }
+            println("calcEsealld ${alld.size}")
+        }
 }

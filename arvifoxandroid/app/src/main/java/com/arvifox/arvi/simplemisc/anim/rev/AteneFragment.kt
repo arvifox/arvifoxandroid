@@ -13,12 +13,12 @@ import com.arvifox.arvi.databinding.FragmentAteneBinding
 import com.arvifox.arvi.utils.safeCast
 
 class AteneFragment : Fragment() {
-
     private lateinit var binding: FragmentAteneBinding
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentAteneBinding.inflate(inflater, container, false)
@@ -46,19 +46,20 @@ class AteneFragment : Fragment() {
     }
 
     fun ane() {
-        val d1 = ObjectAnimator.ofFloat(binding.fova, View.TRANSLATION_X, 0F, -30F, 70F).apply {
-            duration = 2000
-            startDelay = 700
-            interpolator = LinearInterpolator()
-        }
-        val d2 = ObjectAnimator.ofFloat(binding.fova, View.SCALE_X, 2F).apply {
-            duration = 2000
-            startDelay = 1000
-            interpolator = LinearInterpolator()
-        }
+        val d1 =
+            ObjectAnimator.ofFloat(binding.fova, View.TRANSLATION_X, 0F, -30F, 70F).apply {
+                duration = 2000
+                startDelay = 700
+                interpolator = LinearInterpolator()
+            }
+        val d2 =
+            ObjectAnimator.ofFloat(binding.fova, View.SCALE_X, 2F).apply {
+                duration = 2000
+                startDelay = 1000
+                interpolator = LinearInterpolator()
+            }
         val s = AnimatorSet()
         s.playTogether(d1, d2)
         s.start()
     }
-
 }

@@ -17,7 +17,6 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.arvifox.arvi.R
 import com.arvifox.arvi.utils.Logger
-
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
@@ -35,7 +34,10 @@ object WorkerUtils {
      * @param context Context needed to create Toast
      */
     @SuppressLint("MissingPermission")
-    fun makeStatusNotification(message: String, context: Context) {
+    fun makeStatusNotification(
+        message: String,
+        context: Context,
+    ) {
         // Make a channel if necessary
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             // Create the NotificationChannel, but only on API 26+ because
@@ -48,12 +50,13 @@ object WorkerUtils {
 
             // Add the channel
             val notificationManager =
-                    context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+                context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
             notificationManager.createNotificationChannel(channel)
         }
         // Create the notification
-        val builder = NotificationCompat.Builder(context, "123123")
+        val builder =
+            NotificationCompat.Builder(context, "123123")
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
                 .setContentTitle("notif title")
                 .setContentText(message)
@@ -83,20 +86,25 @@ object WorkerUtils {
      */
     @SuppressLint("NewApi")
     @WorkerThread
-    fun blurBitmap(@NonNull bitmap: Bitmap,
-                   @NonNull applicationContext: Context): Bitmap {
+    fun blurBitmap(
+        @NonNull bitmap: Bitmap,
+        @NonNull applicationContext: Context,
+    ): Bitmap {
         var rsContext: RenderScript? = null
         try {
-
             // Create the output bitmap
-            val output = Bitmap.createBitmap(
-                    bitmap.width, bitmap.height, bitmap.config!!)
+            val output =
+                Bitmap.createBitmap(
+                    bitmap.width,
+                    bitmap.height,
+                    bitmap.config!!,
+                )
             // Blur the image
             rsContext = RenderScript.create(applicationContext, RenderScript.ContextType.DEBUG)
             val inAlloc = Allocation.createFromBitmap(rsContext, bitmap)
             val outAlloc = Allocation.createTyped(rsContext, inAlloc.type)
             val theIntrinsic =
-                    ScriptIntrinsicBlur.create(rsContext, Element.U8_4(rsContext))
+                ScriptIntrinsicBlur.create(rsContext, Element.U8_4(rsContext))
             theIntrinsic.setRadius(10f)
             theIntrinsic.setInput(inAlloc)
             theIntrinsic.forEach(outAlloc)
@@ -115,8 +123,9 @@ object WorkerUtils {
      * @throws FileNotFoundException Throws if bitmap file cannot be found
      */
     fun writeBitmapToFile(
-            @NonNull applicationContext: Context,
-            @NonNull bitmap: Bitmap): Uri {
+        @NonNull applicationContext: Context,
+        @NonNull bitmap: Bitmap,
+    ): Uri {
         val name = String.format("blur-filter-output-%s.png", UUID.randomUUID().toString())
         val outputDir = File(applicationContext.filesDir, "output_path")
         if (!outputDir.exists()) {

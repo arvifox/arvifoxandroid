@@ -14,7 +14,6 @@ class MainFragment : Fragment() {
 
 // CoroutineScope example
 class MainFragment2 : Fragment() {
-
     val uiScope = CoroutineScope(Dispatchers.Main)
 
     fun loadData() = uiScope.launch { }
@@ -22,7 +21,6 @@ class MainFragment2 : Fragment() {
 
 // Fragment implements CoroutineScope example
 class MainFragment3 : Fragment(), CoroutineScope {
-
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main
 

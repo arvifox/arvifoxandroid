@@ -1,10 +1,10 @@
 package com.arvifox.arvi.google.firebase
 
-//import android.content.Intent
-//import com.google.firebase.iid.FirebaseInstanceId
-//import com.google.firebase.iid.FirebaseInstanceIdService
+// import android.content.Intent
+// import com.google.firebase.iid.FirebaseInstanceId
+// import com.google.firebase.iid.FirebaseInstanceIdService
 //
-//class FirebaseIDService : FirebaseInstanceIdService() {
+// class FirebaseIDService : FirebaseInstanceIdService() {
 //
 //    override fun onTokenRefresh() {
 //        val s = FirebaseInstanceId.getInstance().token
@@ -14,4 +14,4 @@ package com.arvifox.arvi.google.firebase
 //    }
 //
 //
-//}
+// }

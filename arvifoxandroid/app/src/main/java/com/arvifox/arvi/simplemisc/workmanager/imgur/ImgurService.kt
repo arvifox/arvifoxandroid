@@ -12,5 +12,7 @@ import retrofit2.http.Part
 interface ImgurService {
     @Multipart
     @POST("image")
-    fun postImage(@Part image: MultipartBody.Part): Call<PostImageResponse>
+    fun postImage(
+        @Part image: MultipartBody.Part,
+    ): Call<PostImageResponse>
 }

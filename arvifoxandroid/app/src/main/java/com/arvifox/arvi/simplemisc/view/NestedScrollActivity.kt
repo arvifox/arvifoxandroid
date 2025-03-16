@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.arvifox.arvi.databinding.ActivityNestedScrollBinding
 
 class NestedScrollActivity : AppCompatActivity() {
-
     companion object {
         fun newIntent(c: Context): Intent {
             return Intent(c, NestedScrollActivity::class.java)

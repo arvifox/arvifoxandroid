@@ -11,11 +11,13 @@ import android.os.Bundle
  * Implement AbstractAccountAuthenticator and stub out all
  * of its methods
  */
-class StubAuthen(context: Context) // Simple constructor
-    : AbstractAccountAuthenticator(context) {
-
+class StubAuthen(context: Context) : // Simple constructor
+    AbstractAccountAuthenticator(context) {
     // Editing properties is not supported
-    override fun editProperties(r: AccountAuthenticatorResponse, s: String): Bundle {
+    override fun editProperties(
+        r: AccountAuthenticatorResponse,
+        s: String,
+    ): Bundle {
         throw UnsupportedOperationException()
     }
 
@@ -26,7 +28,7 @@ class StubAuthen(context: Context) // Simple constructor
         s: String,
         s2: String,
         strings: Array<String>,
-        bundle: Bundle
+        bundle: Bundle,
     ): Bundle? = null
 
     // Ignore attempts to confirm credentials
@@ -34,7 +36,7 @@ class StubAuthen(context: Context) // Simple constructor
     override fun confirmCredentials(
         r: AccountAuthenticatorResponse,
         account: Account,
-        bundle: Bundle
+        bundle: Bundle,
     ): Bundle? = null
 
     // Getting an authentication token is not supported
@@ -43,7 +45,7 @@ class StubAuthen(context: Context) // Simple constructor
         r: AccountAuthenticatorResponse,
         account: Account,
         s: String,
-        bundle: Bundle
+        bundle: Bundle,
     ): Bundle {
         throw UnsupportedOperationException()
     }
@@ -59,7 +61,7 @@ class StubAuthen(context: Context) // Simple constructor
         r: AccountAuthenticatorResponse,
         account: Account,
         s: String,
-        bundle: Bundle
+        bundle: Bundle,
     ): Bundle {
         throw UnsupportedOperationException()
     }
@@ -69,7 +71,7 @@ class StubAuthen(context: Context) // Simple constructor
     override fun hasFeatures(
         r: AccountAuthenticatorResponse,
         account: Account,
-        strings: Array<String>
+        strings: Array<String>,
     ): Bundle {
         throw UnsupportedOperationException()
     }

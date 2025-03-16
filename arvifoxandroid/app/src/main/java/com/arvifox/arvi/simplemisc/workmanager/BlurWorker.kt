@@ -15,7 +15,6 @@ import com.arvifox.arvi.utils.Logger
 import java.io.FileNotFoundException
 
 class BlurWorker(c: Context, wp: WorkerParameters) : Worker(c, wp) {
-
     private val TAG by lazy { BlurWorker::class.java.simpleName }
 
     override fun doWork(): Result {
@@ -32,7 +31,10 @@ class BlurWorker(c: Context, wp: WorkerParameters) : Worker(c, wp) {
     }
 
     @Throws(FileNotFoundException::class, IllegalArgumentException::class)
-    private fun createBlurredBitmap(appContext: Context, resourceUri: String?): Data {
+    private fun createBlurredBitmap(
+        appContext: Context,
+        resourceUri: String?,
+    ): Data {
         if (resourceUri.isNullOrEmpty()) {
             Logger.e { "Invalid input uri" }
             throw IllegalArgumentException("Invalid input uri")
@@ -41,8 +43,10 @@ class BlurWorker(c: Context, wp: WorkerParameters) : Worker(c, wp) {
         val resolver = appContext.contentResolver
 
         // Create a bitmap
-        val bitmap = BitmapFactory.decodeStream(
-                resolver.openInputStream(Uri.parse(resourceUri)))
+        val bitmap =
+            BitmapFactory.decodeStream(
+                resolver.openInputStream(Uri.parse(resourceUri)),
+            )
 
         // Blur the bitmap
         val output = blurBitmap(bitmap, appContext)

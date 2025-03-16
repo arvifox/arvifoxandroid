@@ -29,30 +29,32 @@ import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.SecretKeySpec
 
 class CryMana {
-
-    private val ks = KeyStore.getInstance("AndroidKeyStore").apply {
-        load(null)
-    }
+    private val ks =
+        KeyStore.getInstance("AndroidKeyStore").apply {
+            load(null)
+        }
     private val alg = KeyProperties.KEY_ALGORITHM_AES
     private val bm = KeyProperties.BLOCK_MODE_CBC
     private val pdn = KeyProperties.ENCRYPTION_PADDING_PKCS7
     private val abd = "$alg/$bm/$pdn"
 
-    private fun getSeKe() = KeyGenerator.getInstance(alg).apply {
-        init(
-            KeyGenParameterSpec
-                .Builder("qweqwe", KeyProperties.PURPOSE_DECRYPT or KeyProperties.PURPOSE_ENCRYPT)
-                .setBlockModes(bm)
-                .setEncryptionPaddings(pdn)
-                .setUserAuthenticationRequired(false)
-                .setRandomizedEncryptionRequired(true)
-                .build()
-        )
-    }.generateKey()
+    private fun getSeKe() =
+        KeyGenerator.getInstance(alg).apply {
+            init(
+                KeyGenParameterSpec
+                    .Builder("qweqwe", KeyProperties.PURPOSE_DECRYPT or KeyProperties.PURPOSE_ENCRYPT)
+                    .setBlockModes(bm)
+                    .setEncryptionPaddings(pdn)
+                    .setUserAuthenticationRequired(false)
+                    .setRandomizedEncryptionRequired(true)
+                    .build(),
+            )
+        }.generateKey()
 
-    fun getProviders() = Security.getProviders().map {
-        "${it.name} ${it.info} ${it.version}"
-    }
+    fun getProviders() =
+        Security.getProviders().map {
+            "${it.name} ${it.info} ${it.version}"
+        }
 
     fun digest(_data: String): Pair<String, String> {
 //        val md = MessageDigest.getInstance("SHA3-256")
@@ -75,8 +77,10 @@ class CryMana {
         return nonce
     }
 
-    fun concatBytes(a: ByteArray, b: ByteArray): ByteArray =
-        ByteBuffer.allocate(a.size + b.size).put(a).put(b).array()
+    fun concatBytes(
+        a: ByteArray,
+        b: ByteArray,
+    ): ByteArray = ByteBuffer.allocate(a.size + b.size).put(a).put(b).array()
 
     fun getKeySymmetric(): SecretKey {
         val kg = KeyGenerator.getInstance("AES")
@@ -100,20 +104,24 @@ class CryMana {
             Cipher.ENCRYPT_MODE,
             SecretKeySpec(
                 byteArrayOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15),
-                "AES"
+                "AES",
             ),
-            IvParameterSpec(ByteArray(16))
+            IvParameterSpec(ByteArray(16)),
         )
         return c.doFinal(t.encodeToByteArray())
     }
 
-    fun decrypt001(key: ByteArray, encrypted: ByteArray): String {
+    fun decrypt001(
+        key: ByteArray,
+        encrypted: ByteArray,
+    ): String {
         require(key.size == 16) { "Invalid key size." }
         val skeySpec = SecretKeySpec(key, "AES")
         val cipher = Cipher.getInstance("AES/CBC/PKCS5Padding")
         cipher.init(
-            Cipher.DECRYPT_MODE, skeySpec,
-            IvParameterSpec(ByteArray(16))
+            Cipher.DECRYPT_MODE,
+            skeySpec,
+            IvParameterSpec(ByteArray(16)),
         )
         val original = cipher.doFinal(encrypted)
         return String(original)
@@ -142,7 +150,10 @@ class CryMana {
         return ""
     }
 
-    fun verifySignature(kp: KeyPair, digitalSignature: ByteArray): Boolean {
+    fun verifySignature(
+        kp: KeyPair,
+        digitalSignature: ByteArray,
+    ): Boolean {
         val signature = Signature.getInstance("SHA256WithDSA")
         signature.initVerify(kp.public)
         val data2 = "abcdefghijklmnopqrstuvxyz".toByteArray(charset("UTF-8"))
@@ -150,8 +161,11 @@ class CryMana {
         return signature.verify(digitalSignature)
     }
 
-    fun keyStore(kp: KeyPair, sk: SecretKey) {
-        //val ks = KeyStore.getInstance(KeyStore.getDefaultType())
+    fun keyStore(
+        kp: KeyPair,
+        sk: SecretKey,
+    ) {
+        // val ks = KeyStore.getInstance(KeyStore.getDefaultType())
         val ks = KeyStore.getInstance("PKCS12")
         ks.load(FileInputStream("file.ext"), charArrayOf('\u7654'))
         val en = ks.getEntry("alias", KeyStore.PasswordProtection("aliaspassword".toCharArray()))
@@ -164,7 +178,7 @@ class CryMana {
         ks.setEntry(
             "keyAlias",
             KeyStore.SecretKeyEntry(sk),
-            KeyStore.PasswordProtection("".toCharArray())
+            KeyStore.PasswordProtection("".toCharArray()),
         )
 
         FileOutputStream("file.ext").use {
@@ -172,14 +186,16 @@ class CryMana {
         }
     }
 
-    fun certs(ce: Certificate, pu: PublicKey) {
+    fun certs(
+        ce: Certificate,
+        pu: PublicKey,
+    ) {
         val encoded = ce.encoded
         val pk = ce.publicKey
         val type: String = ce.type
 
         try {
             ce.verify(pu)
-
         } catch (e: InvalidKeyException) {
             // сертификат не был подписан данным открытым ключом
         } catch (e: NoSuchAlgorithmException) {
@@ -195,6 +211,5 @@ class CryMana {
         val certificateInputStream2 = FileInputStream("my-x509-certificate-chain.crt")
         val certPath: CertPath = certificateFactory.generateCertPath(certificateInputStream2)
         val certificates = certPath.certificates
-
     }
 }

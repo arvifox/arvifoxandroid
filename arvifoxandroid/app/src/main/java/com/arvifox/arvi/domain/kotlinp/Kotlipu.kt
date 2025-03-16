@@ -3,7 +3,6 @@ package com.arvifox.arvi.domain.kotlinp
 // https://www.youtube.com/watch?v=t387acWEK3o
 
 object Kotlipu {
-
     private fun hello(): Boolean {
         println(print("Hello") == print("World") == return false)
     }
@@ -18,7 +17,7 @@ object Kotlipu {
     }
 
     fun start02() {
-        //printint(-2_147_483_648.inc())
+        // printint(-2_147_483_648.inc())
     }
 
     fun start03() {
@@ -46,19 +45,26 @@ object Kotlipu {
     @DslMarker annotation class BeerLang
 
     @BeerLang data class Recipe(var name: String? = null, var hops: List<Hops> = emptyList())
+
     @BeerLang data class Hops(var kind: String? = null, var atMinute: Int = 0, var grams: Int = 0)
+
     private fun beer(build: Recipe.() -> Unit) = Recipe().apply(build)
-    private fun Recipe.hops(build: Hops.() -> Unit) {hops += Hops().apply(build)}
+
+    private fun Recipe.hops(build: Hops.() -> Unit) {
+        hops += Hops().apply(build)
+    }
+
     fun start06() {
-        val recipe = beer {
-            name = "Si"
-            hops {
+        val recipe =
+            beer {
+                name = "Si"
+                hops {
 //                name = "Ca"
-                kind = "Ca"
-                grams = 100
-                atMinute = 15
+                    kind = "Ca"
+                    grams = 100
+                    atMinute = 15
+                }
             }
-        }
         println(recipe)
     }
 
@@ -75,30 +81,33 @@ object Kotlipu {
 
     abstract class NullSafeLang {
         abstract val name: String
-        val logo = name[0].toUpperCase()
+        val logo = name[0].uppercaseChar()
     }
+
     class Kotlin : NullSafeLang() {
         override val name = "kotlin"
 //        override val name get() = "kotlin"
     }
+
     fun start08() {
         println(Kotlin().logo)
     }
-
 
     fun start09() {
         val result = mutableListOf<() -> Unit>()
         var i = 0
         for (j in 1..3) {
             i++
-            result += { print("$i $j ; ")}
+            result += { print("$i $j ; ") }
         }
         result.forEach { it() }
     }
 
-
     fun start10() {
-        fun foo(a: Boolean, b: Boolean) = print("$a, $b")
+        fun foo(
+            a: Boolean,
+            b: Boolean,
+        ) = print("$a, $b")
         val aa = 1
         val bb = 2
         val cc = 3
@@ -107,47 +116,50 @@ object Kotlipu {
         foo(cc > aa, bb > dd)
     }
 
-
     data class Container(val name: String, private val items: List<Int>) : List<Int> by items
+
     fun start11() {
-        val (name, items) = Container("Kotlin", listOf(1,2,3))
+        val (name, items) = Container("Kotlin", listOf(1, 2, 3))
         println("Hello $name, $items")
     }
-
 
     fun start12() {
         fun <T> Any?.asGeneric() = this as? T
         42.asGeneric<Nothing>()!!!!
-        val a = if (true) 87
-        println(a)
+//        val a = if (true) 87
+//        println(a)
     }
-
 
 //    open class A(val x: Any) {
     open class A(val x: Any?) {
         override fun toString() = javaClass.simpleName
     }
+
     object B : A(C)
+
     object C : A(B)
+
     fun start14() {
         println(B.x)
         println(C.x)
     }
 
-
     fun start15() {
-        val x = sequence {
-            var n = 0
-            while (true) yield(n++)
-        }
+        val x =
+            sequence {
+                var n = 0
+                while (true) yield(n++)
+            }
         println(x.take(3))
 //        println(x.take(3).toList())
     }
 
-
     fun start16() {
-        val what = {->}.fun
-        Function<*>.(){}()
+        val what =
+            { -> }
+                
+                
+                .fun Function<*>.()  {}()
         println(what)
     }
 }

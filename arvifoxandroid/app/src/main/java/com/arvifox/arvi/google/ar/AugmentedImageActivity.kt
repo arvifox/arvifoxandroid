@@ -9,13 +9,12 @@ import androidx.appcompat.app.AppCompatActivity
 import com.arvifox.arvi.databinding.ActivityAugmentedImageBinding
 import com.arvifox.arvi.google.utils.FullScreenHelper
 import com.arvifox.arvi.utils.Logger
-//import com.google.ar.core.*
-//import com.google.ar.sceneform.FrameTime
+// import com.google.ar.core.*
+// import com.google.ar.sceneform.FrameTime
 import java.io.IOException
 
 class AugmentedImageActivity : AppCompatActivity() {
-
-//    private var arSession: Session? = null
+    //    private var arSession: Session? = null
 //    private lateinit var config: Config
     private var imageIndex: Int = 0
 

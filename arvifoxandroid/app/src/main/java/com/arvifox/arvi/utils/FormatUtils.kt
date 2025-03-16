@@ -17,17 +17,17 @@ import java.io.ByteArrayOutputStream
 import java.io.InputStream
 
 object FormatUtils {
-
     fun Double.format(digits: Int) = java.lang.String.format("%.${digits}f", this)
 
     fun Float.format(digits: Int) = java.lang.String.format("%.${digits}f", this)
 
-    fun spannable() = SpannableStringBuilder()
-        .bold { append("bold text") }
-        .color(R.color.colorPrimary) { bold { append("colored bold text") } }
-        .strikeThrough { append("strike") }
-        .superscript { append("super") }
-        .append("regular")
+    fun spannable() =
+        SpannableStringBuilder()
+            .bold { append("bold text") }
+            .color(R.color.colorPrimary) { bold { append("colored bold text") } }
+            .strikeThrough { append("strike") }
+            .superscript { append("super") }
+            .append("regular")
 
     @SuppressLint("NewApi", "MissingPermission")
     fun Image.tobitmap(): Bitmap? {

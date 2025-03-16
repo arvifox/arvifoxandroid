@@ -11,14 +11,14 @@ class NoPadingTextView : AppCompatTextView {
     private val boundsRect = Rect()
     private val textParams = calculateTextParams()
 
-    constructor(context: Context)
-            : super(context)
+    constructor(context: Context) :
+        super(context)
 
-    constructor(context: Context, attrs: AttributeSet?)
-            : super(context, attrs)
+    constructor(context: Context, attrs: AttributeSet?) :
+        super(context, attrs)
 
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int)
-            : super(context, attrs, defStyleAttr)
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
+        super(context, attrs, defStyleAttr)
 
     override fun onDraw(canvas: Canvas) {
         with(boundsRect) {
@@ -28,7 +28,7 @@ class NoPadingTextView : AppCompatTextView {
                 textParams,
                 -left.toFloat(),
                 (-top - bottom).toFloat(),
-                paint
+                paint,
             )
         }
     }
@@ -41,7 +41,10 @@ class NoPadingTextView : AppCompatTextView {
         super.onRestoreInstanceState(state)
     }
 
-    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+    override fun onMeasure(
+        widthMeasureSpec: Int,
+        heightMeasureSpec: Int,
+    ) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         calculateTextParams()
         setMeasuredDimension(boundsRect.width() + 1, -boundsRect.top + 1)

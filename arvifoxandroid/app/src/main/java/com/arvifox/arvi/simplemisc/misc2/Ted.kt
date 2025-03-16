@@ -6,9 +6,11 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 object Ted {
-
     @Throws(Exception::class)
-    fun kdslf(list: MutableList<PriceModel>, `object`: Any) {
+    fun kdslf(
+        list: MutableList<PriceModel>,
+        `object`: Any,
+    ) {
         if (`object` is List<*>) {
             for (pri in `object`) {
                 if (pri is LinkedTreeMap<*, *>) {

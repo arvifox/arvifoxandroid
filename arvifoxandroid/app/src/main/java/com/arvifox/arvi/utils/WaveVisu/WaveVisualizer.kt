@@ -13,7 +13,6 @@ import kotlin.math.min
 
 @ExperimentalUnsignedTypes
 class WaveVisualizer(context: Context, attrs: AttributeSet) : View(context, attrs) {
-
     private val waveReader = WaveReader()
     private val amplitudes = mutableListOf<Int>()
 
@@ -37,7 +36,10 @@ class WaveVisualizer(context: Context, attrs: AttributeSet) : View(context, attr
         }
     }
 
-    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+    override fun onMeasure(
+        widthMeasureSpec: Int,
+        heightMeasureSpec: Int,
+    ) {
         val mw = MeasureSpec.getSize(widthMeasureSpec).toFloat()
         val mh = MeasureSpec.getSize(heightMeasureSpec).toFloat()
 
@@ -65,7 +67,7 @@ class WaveVisualizer(context: Context, attrs: AttributeSet) : View(context, attr
             borderRect.height() / 2f,
             borderRect.right,
             borderRect.height() / 2f,
-            paint
+            paint,
         )
 
         paint.apply {
@@ -94,12 +96,13 @@ class WaveVisualizer(context: Context, attrs: AttributeSet) : View(context, attr
     fun loadWaveFromAssets(filename: String): Boolean {
         waveReader.readWaveHeaderFromAssets(context, filename)
 
-        if (!waveReader.isHeaderRead || !waveReader.isHeaderValid() || !waveReader.isPCMFormat())
+        if (!waveReader.isHeaderRead || !waveReader.isHeaderValid() || !waveReader.isPCMFormat()) {
             return false
+        }
 
         amplitudes.clear()
 
-        /* Hardcoded for 2 channels */
+        // Hardcoded for 2 channels
         val barsNumber = (borderRect.width() / (barWidth + barsOffset)).toInt()
         val samplesPerBar = waveReader.waveSamples / barsNumber
         var readSamples =

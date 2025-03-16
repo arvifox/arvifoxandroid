@@ -14,11 +14,11 @@ class TmdbViewModel : ViewModel() {
 
     private val scope = CoroutineScope(coroutineContext)
 
-    private val repository : MovieRepo = MovieRepo(tmdbApi)
+    private val repository: MovieRepo = MovieRepo(tmdbApi)
 
     val popularMoviesLiveData = MutableLiveData<MutableList<TmdbMovie>>()
 
-    fun fetchMovies(){
+    fun fetchMovies()  {
         scope.launch {
             val popularMovies = repository.getPopularMovies()!!
             popularMoviesLiveData.postValue(popularMovies)

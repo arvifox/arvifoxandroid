@@ -15,9 +15,8 @@ import java.util.*
 /**
  * Saves an output image to the [MediaStore].
  */
-class SaveImageToGalleryWorker(appContext: Context, workerParams: WorkerParameters)
-    : Worker(appContext, workerParams) {
-
+class SaveImageToGalleryWorker(appContext: Context, workerParams: WorkerParameters) :
+    Worker(appContext, workerParams) {
     companion object {
         private const val TAG = "SvImageToGalleryWrkr"
         private const val TITLE = "Filtered Image"
@@ -27,18 +26,27 @@ class SaveImageToGalleryWorker(appContext: Context, workerParams: WorkerParamete
     override fun doWork(): Result {
         val resolver = applicationContext.contentResolver
         try {
-            val resourceUri = inputData
+            val resourceUri =
+                inputData
                     .getString("KEY_IMAGE_URI")
-            val bitmap = BitmapFactory.decodeStream(
-                    resolver.openInputStream(Uri.parse(resourceUri)))
-            val imageUrl = MediaStore.Images.Media.insertImage(
-                    resolver, bitmap, TITLE, DATE_FORMATTER.format(Date()))
+            val bitmap =
+                BitmapFactory.decodeStream(
+                    resolver.openInputStream(Uri.parse(resourceUri)),
+                )
+            val imageUrl =
+                MediaStore.Images.Media.insertImage(
+                    resolver,
+                    bitmap,
+                    TITLE,
+                    DATE_FORMATTER.format(Date()),
+                )
             if (TextUtils.isEmpty(imageUrl)) {
                 Log.e(TAG, "Writing to MediaStore failed")
                 return Result.failure()
             }
             // Set the result of the worker by calling setOutputData().
-            val output = Data.Builder()
+            val output =
+                Data.Builder()
                     .putString("KEY_IMAGE_URI", imageUrl)
                     .build()
             return Result.success(output)

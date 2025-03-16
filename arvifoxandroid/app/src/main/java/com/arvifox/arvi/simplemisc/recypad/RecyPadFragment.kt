@@ -15,7 +15,6 @@ import com.arvifox.arvi.databinding.FragmentRecyPadBinding
 import com.arvifox.arvi.utils.FormatUtils.showToast
 
 class RecyPadFragment : Fragment() {
-
     companion object {
         fun newInstance(): RecyPadFragment {
             return RecyPadFragment()
@@ -25,53 +24,59 @@ class RecyPadFragment : Fragment() {
     private lateinit var binding: FragmentRecyPadBinding
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentRecyPadBinding.inflate(inflater, container, false)
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
         binding.rvRecypad.setHasFixedSize(true)
         binding.rvRecypad.itemAnimator = DefaultItemAnimator()
         binding.rvRecypad.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         binding.rvRecypad.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
-        binding.rvRecypad.adapter = RecypadAdapter(
-            arrayListOf(
-                "qwe",
-                "sdf",
-                "sfsff",
-                "vbvbv",
-                "ioiuo",
-                "sdsfff",
-                "uweioq",
-                "pocpocxz",
-                "xcnmdsad",
-                "qwe",
-                "sdf",
-                "sfsff",
-                "vbvbv",
-                "ioiuo",
-                "sdsfff",
-                "uweioq",
-                "pocpocxz",
-                "xcnmdsad"
+        binding.rvRecypad.adapter =
+            RecypadAdapter(
+                arrayListOf(
+                    "qwe",
+                    "sdf",
+                    "sfsff",
+                    "vbvbv",
+                    "ioiuo",
+                    "sdsfff",
+                    "uweioq",
+                    "pocpocxz",
+                    "xcnmdsad",
+                    "qwe",
+                    "sdf",
+                    "sfsff",
+                    "vbvbv",
+                    "ioiuo",
+                    "sdsfff",
+                    "uweioq",
+                    "pocpocxz",
+                    "xcnmdsad",
+                ),
             )
-        )
         binding.tvRecypad.setOnClickListener {
             activity?.showToast("click nul")
         }
     }
-
 }
 
 class RecypadAdapter(private val d: List<String>) :
     RecyclerView.Adapter<RecypadAdapter.RecViewHolder>() {
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int,
+    ): RecViewHolder {
         val inflater: LayoutInflater = LayoutInflater.from(parent.context)
         val bi = inflater.inflate(R.layout.item_recypad, parent, false)
         return RecViewHolder(bi)
@@ -79,7 +84,10 @@ class RecypadAdapter(private val d: List<String>) :
 
     override fun getItemCount(): Int = d.size
 
-    override fun onBindViewHolder(holder: RecViewHolder, position: Int) {
+    override fun onBindViewHolder(
+        holder: RecViewHolder,
+        position: Int,
+    ) {
         holder.tv.text = "baz=${d[position]}"
     }
 

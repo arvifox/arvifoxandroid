@@ -24,8 +24,11 @@ class Navig3Fragment : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
+    ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_navig3, container, false)
     }
@@ -45,12 +48,15 @@ class Navig3Fragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-                Navig3Fragment().apply {
-                    arguments = Bundle().apply {
-                        putString(ARG_PARAM1, param1)
-                        putString(ARG_PARAM2, param2)
-                    }
+        fun newInstance(
+            param1: String,
+            param2: String,
+        ) = Navig3Fragment().apply {
+            arguments =
+                Bundle().apply {
+                    putString(ARG_PARAM1, param1)
+                    putString(ARG_PARAM2, param2)
                 }
+        }
     }
 }

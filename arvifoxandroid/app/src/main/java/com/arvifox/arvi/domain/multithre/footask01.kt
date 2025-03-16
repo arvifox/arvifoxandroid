@@ -12,6 +12,7 @@ fun printMeInThread(lambda: () -> P) = kotlin.concurrent.thread { printMeInLambd
 
 abstract class AbstractP : P {
     override fun toString() = "?"
+
     init {
         printMe(this)
         printMeInLambda { this }

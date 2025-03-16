@@ -9,7 +9,6 @@ import javax.net.ssl.SSLSocketFactory
  * {@link https://developer.android.com/reference/javax/net/ssl/SSLSocket.html}
  */
 class TLSSocketFactory() : SSLSocketFactory() {
-
     private var factory: SSLSocketFactory? = null
     private var tls12Enabled: Boolean = false
 
@@ -30,7 +29,12 @@ class TLSSocketFactory() : SSLSocketFactory() {
         return factory!!.supportedCipherSuites
     }
 
-    override fun createSocket(s: Socket?, host: String?, port: Int, autoClose: Boolean): Socket {
+    override fun createSocket(
+        s: Socket?,
+        host: String?,
+        port: Int,
+        autoClose: Boolean,
+    ): Socket {
         return enableTLSOnSocket(factory!!.createSocket(s, host, port, autoClose))
     }
 
@@ -38,19 +42,35 @@ class TLSSocketFactory() : SSLSocketFactory() {
         return enableTLSOnSocket(factory!!.createSocket())
     }
 
-    override fun createSocket(host: String?, port: Int): Socket {
+    override fun createSocket(
+        host: String?,
+        port: Int,
+    ): Socket {
         return enableTLSOnSocket(factory!!.createSocket(host, port))
     }
 
-    override fun createSocket(host: String?, port: Int, localHost: InetAddress?, localPort: Int): Socket {
+    override fun createSocket(
+        host: String?,
+        port: Int,
+        localHost: InetAddress?,
+        localPort: Int,
+    ): Socket {
         return enableTLSOnSocket(factory!!.createSocket(host, port, localHost, localPort))
     }
 
-    override fun createSocket(host: InetAddress?, port: Int): Socket {
+    override fun createSocket(
+        host: InetAddress?,
+        port: Int,
+    ): Socket {
         return enableTLSOnSocket(factory!!.createSocket(host, port))
     }
 
-    override fun createSocket(address: InetAddress?, port: Int, localAddress: InetAddress?, localPort: Int): Socket {
+    override fun createSocket(
+        address: InetAddress?,
+        port: Int,
+        localAddress: InetAddress?,
+        localPort: Int,
+    ): Socket {
         return enableTLSOnSocket(factory!!.createSocket(address, port, localAddress, localPort))
     }
 

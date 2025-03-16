@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.work.*
 
 class BlurViewModel : ViewModel() {
-
     internal var imageUri: Uri? = null
     internal var outputUri: Uri? = null
     internal val outputWorkInfoItems: LiveData<List<WorkInfo>>
@@ -30,10 +29,12 @@ class BlurViewModel : ViewModel() {
 //        workManager.enqueue(OneTimeWorkRequest.from(BlurWorker::class.java))
 
         // Add WorkRequest to Cleanup temporary images
-        var continuation = workManager
+        var continuation =
+            workManager
                 .beginUniqueWork(
-                        imwn, ExistingWorkPolicy.REPLACE,
-                        OneTimeWorkRequest.from(CleanupWorker::class.java)
+                    imwn,
+                    ExistingWorkPolicy.REPLACE,
+                    OneTimeWorkRequest.from(CleanupWorker::class.java),
                 )
 
         // Add WorkRequests to blur the image the number of times requested
@@ -51,12 +52,14 @@ class BlurViewModel : ViewModel() {
         }
 
         // Create charging constraint
-        val constraints = Constraints.Builder()
+        val constraints =
+            Constraints.Builder()
                 .setRequiresCharging(true)
                 .build()
 
         // Add WorkRequest to save the image to the filesystem
-        val save = OneTimeWorkRequestBuilder<SaveImageToFileWorker>()
+        val save =
+            OneTimeWorkRequestBuilder<SaveImageToFileWorker>()
                 .setConstraints(constraints)
                 .addTag("TAG_OUTPUT")
                 .build()

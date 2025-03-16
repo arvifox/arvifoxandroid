@@ -1,11 +1,10 @@
 package com.arvifox.arvi.domain
 
 import android.content.Context
-//import com.android.installreferrer.api.InstallReferrerClient
-//import com.android.installreferrer.api.InstallReferrerStateListener
+// import com.android.installreferrer.api.InstallReferrerClient
+// import com.android.installreferrer.api.InstallReferrerStateListener
 
 object dfs {
-
     var cn: Context? = null
 
 //    fun df() {

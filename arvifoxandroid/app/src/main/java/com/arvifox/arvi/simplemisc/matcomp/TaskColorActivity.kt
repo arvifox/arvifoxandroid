@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.arvifox.arvi.databinding.ActivityTaskColorBinding
 
 class TaskColorActivity : AppCompatActivity() {
-
     companion object {
         fun newIntent(c: Context): Intent {
             return Intent(c, TaskColorActivity::class.java)

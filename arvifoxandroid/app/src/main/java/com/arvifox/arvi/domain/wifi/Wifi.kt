@@ -32,15 +32,18 @@ object Wifi {
 
     val wifiManager = c.getSystemService(Context.WIFI_SERVICE) as WifiManager
 
-    val wifiScanReceiver = object : BroadcastReceiver() {
-
-        override fun onReceive(context: Context, intent: Intent) {
-            val success = intent.getBooleanExtra(WifiManager.EXTRA_RESULTS_UPDATED, false)
-            if (success) {
-                scanSuccess()
+    val wifiScanReceiver =
+        object : BroadcastReceiver() {
+            override fun onReceive(
+                context: Context,
+                intent: Intent,
+            ) {
+                val success = intent.getBooleanExtra(WifiManager.EXTRA_RESULTS_UPDATED, false)
+                if (success) {
+                    scanSuccess()
+                }
             }
         }
-    }
 
     fun f01() {
         val intentFilter = IntentFilter()
@@ -53,7 +56,7 @@ object Wifi {
         val results: List<ScanResult> = wifiManager.scanResults
     }
 
-    /* по частоте определяем номер канала */
+    // по частоте определяем номер канала
     fun channel(frequency: Int): Int {
         return if (frequency in 2412..2484) {
             (frequency - 2412) / 5 + 1

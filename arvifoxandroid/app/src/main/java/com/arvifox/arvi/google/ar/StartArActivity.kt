@@ -5,12 +5,11 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.arvifox.arvi.databinding.ActivityStartArBinding
-//import com.google.ar.core.ArCoreApk
-//import com.google.ar.core.Session
-//import com.google.ar.core.exceptions.UnavailableUserDeclinedInstallationException
+// import com.google.ar.core.ArCoreApk
+// import com.google.ar.core.Session
+// import com.google.ar.core.exceptions.UnavailableUserDeclinedInstallationException
 
 class StartArActivity : AppCompatActivity() {
-
     // Set to true ensures requestInstall() triggers installation if necessary.
     private var mUserRequestedInstall = true
 
@@ -35,15 +34,15 @@ class StartArActivity : AppCompatActivity() {
         binding.btnStartHelloSceneform.setOnClickListener {
             startActivity(
                 HelloSceneActivity.newIntent(
-                    this
-                )
+                    this,
+                ),
             )
         }
         binding.btnStartAugmImage.setOnClickListener {
             startActivity(
                 AugmentedImageActivity.newIntent(
-                    this
-                )
+                    this,
+                ),
             )
         }
     }
@@ -71,10 +70,10 @@ class StartArActivity : AppCompatActivity() {
         } catch (e: Throwable /*UnavailableUserDeclinedInstallationException*/) {
             // Display an appropriate message to the user and return gracefully.
             return
-        } catch (e: Exception) {  // current catch statements
+        } catch (e: Exception) {
+            // current catch statements
 
-            return  // mSession is still null
+            return // mSession is still null
         }
     }
-
 }

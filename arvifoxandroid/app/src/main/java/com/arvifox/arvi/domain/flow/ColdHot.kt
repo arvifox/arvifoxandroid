@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.flow.stateIn
 
 class LocationRepository(
-    private val externalScope: CoroutineScope
+    private val externalScope: CoroutineScope,
 ) {
     fun Flow<Location>.shareInScope() = this.shareIn(externalScope, WhileSubscribed())
 

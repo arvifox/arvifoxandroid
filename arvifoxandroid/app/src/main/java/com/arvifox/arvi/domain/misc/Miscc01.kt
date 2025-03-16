@@ -16,7 +16,7 @@ object Miscc01 {
             green = ${color.g}
             blue  = ${color.b}
             alpha = ${color.a}
-        """.trimIndent()
+            """.trimIndent(),
         )
     }
 

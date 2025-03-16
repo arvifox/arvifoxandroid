@@ -8,7 +8,6 @@ import com.arvifox.arvi.databinding.ActivityServiceHandlerBinding
 import com.google.android.material.snackbar.Snackbar
 
 class ServiceHandlerActivity : AppCompatActivity() {
-
     companion object {
         fun newIntent(c: Context): Intent {
             return Intent(c, ServiceHandlerActivity::class.java)
@@ -32,5 +31,4 @@ class ServiceHandlerActivity : AppCompatActivity() {
 
         binding.btnStart.setOnClickListener { startService(FooService.startIntent(this)) }
     }
-
 }

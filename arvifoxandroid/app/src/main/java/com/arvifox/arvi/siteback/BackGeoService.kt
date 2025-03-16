@@ -18,7 +18,6 @@ import java.io.IOException
 import java.util.*
 
 class BackGeoService : Service() {
-
     companion object {
         fun start(c: Context) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -43,7 +42,11 @@ class BackGeoService : Service() {
 
     lateinit var han: Handler
 
-    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+    override fun onStartCommand(
+        intent: Intent?,
+        flags: Int,
+        startId: Int,
+    ): Int {
         han.postDelayed(task, 5000)
         begin()
         return START_STICKY
@@ -51,7 +54,8 @@ class BackGeoService : Service() {
 
     override fun onCreate() {
         super.onCreate()
-        val builder: NotificationCompat.Builder = NotificationCompat.Builder(this, BaseStorage.notificationChannelID)
+        val builder: NotificationCompat.Builder =
+            NotificationCompat.Builder(this, BaseStorage.notificationChannelID)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle("Hello")
                 .setContentText("Family")
@@ -68,23 +72,33 @@ class BackGeoService : Service() {
         super.onDestroy()
     }
 
-    private val task = Runnable {
-        res = ena + ";" + gsta + ";" + nsta + ";" + gloc + ";" + nloc
-        res = res.replace(" ", "", true)
-        val client = OkHttpClient()
-        val request = Request.Builder()
-                .url(BuildConfig.ARVI_API_URL + "deviceloc.php?loc=" + res)
-                .build()
-        client.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-            }
+    private val task =
+        Runnable {
+            res = ena + ";" + gsta + ";" + nsta + ";" + gloc + ";" + nloc
+            res = res.replace(" ", "", true)
+            val client = OkHttpClient()
+            val request =
+                Request.Builder()
+                    .url(BuildConfig.ARVI_API_URL + "deviceloc.php?loc=" + res)
+                    .build()
+            client.newCall(request).enqueue(
+                object : Callback {
+                    override fun onFailure(
+                        call: Call,
+                        e: IOException,
+                    ) {
+                    }
 
-            override fun onResponse(call: Call, response: Response) {
-            }
-        })
-        locationManager.removeUpdates(locationListener)
-        stopSelf()
-    }
+                    override fun onResponse(
+                        call: Call,
+                        response: Response,
+                    ) {
+                    }
+                },
+            )
+            locationManager.removeUpdates(locationListener)
+            stopSelf()
+        }
 
     @SuppressWarnings("MissingPermission")
     private fun begin() {
@@ -97,7 +111,7 @@ class BackGeoService : Service() {
 
     private fun checkEnabled() {
         ena = "ge:" + locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) +
-                "ne:" + locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+            "ne:" + locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
     }
 
     private fun showLocation(location: Location?) {
@@ -110,32 +124,44 @@ class BackGeoService : Service() {
     }
 
     private fun formatLocation(location: Location?): String {
-        return if (location == null) "" else String.format(
+        return if (location == null) {
+            ""
+        } else {
+            String.format(
                 "lat=%1$.6f,lon=%2$.6f,time = %3\$tF %3\$tT",
-                location.latitude, location.longitude, Date(location.time))
+                location.latitude,
+                location.longitude,
+                Date(location.time),
+            )
+        }
     }
 
-    private val locationListener = object : LocationListener {
-        override fun onLocationChanged(location: Location) {
-            showLocation(location)
-        }
+    private val locationListener =
+        object : LocationListener {
+            override fun onLocationChanged(location: Location) {
+                showLocation(location)
+            }
 
-        override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
-            if (provider.equals(LocationManager.GPS_PROVIDER)) {
-                gsta = "gsta:$status"
-            } else if (provider.equals(LocationManager.NETWORK_PROVIDER)) {
-                nsta = "nsta:$status"
+            override fun onStatusChanged(
+                provider: String?,
+                status: Int,
+                extras: Bundle?,
+            ) {
+                if (provider.equals(LocationManager.GPS_PROVIDER)) {
+                    gsta = "gsta:$status"
+                } else if (provider.equals(LocationManager.NETWORK_PROVIDER)) {
+                    nsta = "nsta:$status"
+                }
+            }
+
+            @SuppressWarnings("MissingPermission")
+            override fun onProviderEnabled(provider: String) {
+                checkEnabled()
+                showLocation(locationManager.getLastKnownLocation(provider))
+            }
+
+            override fun onProviderDisabled(provider: String) {
+                checkEnabled()
             }
         }
-
-        @SuppressWarnings("MissingPermission")
-        override fun onProviderEnabled(provider: String) {
-            checkEnabled()
-            showLocation(locationManager.getLastKnownLocation(provider))
-        }
-
-        override fun onProviderDisabled(provider: String) {
-            checkEnabled()
-        }
-    }
 }

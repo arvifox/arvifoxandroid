@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.arvifox.arvi.databinding.ActivityWindowBinding
 
 class WindowActivity : AppCompatActivity() {
-
     companion object {
         fun newIntent(c: Context): Intent {
             return Intent(c, WindowActivity::class.java)
@@ -30,15 +29,15 @@ class WindowActivity : AppCompatActivity() {
             val w = window
             w.setFlags(
                 WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION,
-                WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION
+                WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION,
             )
             w.setFlags(
                 WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
-                WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
+                WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
             )
             w.setFlags(
                 WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
             )
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {

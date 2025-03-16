@@ -9,5 +9,5 @@ fun tret(c: Context) {
     val stat = StatFs(xx?.path)
     val bsl = stat.blockSizeLong
     val abl = stat.availableBlocksLong
-    val result = abl.toFloat() * bsl.toFloat() / (1024f*1024f*1024f)
+    val result = abl.toFloat() * bsl.toFloat() / (1024f * 1024f * 1024f)
 }

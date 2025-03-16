@@ -15,9 +15,9 @@
 package com.arvifox.arvi.google.utils
 
 import android.app.Activity
+import android.view.View
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
-import android.view.View
 
 /**
  * Helper to manage the sample snackbar. Hides the Android boilerplate code, and exposes simpler
@@ -30,16 +30,24 @@ class SnackbarHelper {
         get() = messageSnackbar != null
 
     private enum class DismissBehavior {
-        HIDE, SHOW, FINISH
+        HIDE,
+        SHOW,
+        FINISH,
     }
 
     /** Shows a snackbar with a given message.  */
-    fun showMessage(activity: Activity, message: String) {
+    fun showMessage(
+        activity: Activity,
+        message: String,
+    ) {
         show(activity, message, DismissBehavior.HIDE)
     }
 
     /** Shows a snackbar with a given message, and a dismiss button.  */
-    fun showMessageWithDismiss(activity: Activity, message: String) {
+    fun showMessageWithDismiss(
+        activity: Activity,
+        message: String,
+    ) {
         show(activity, message, DismissBehavior.SHOW)
     }
 
@@ -47,7 +55,10 @@ class SnackbarHelper {
      * Shows a snackbar with a given error message. When dismissed, will finish the activity. Useful
      * for notifying errors, where no further interaction with the activity is possible.
      */
-    fun showError(activity: Activity, errorMessage: String) {
+    fun showError(
+        activity: Activity,
+        errorMessage: String,
+    ) {
         show(activity, errorMessage, DismissBehavior.FINISH)
     }
 
@@ -65,36 +76,47 @@ class SnackbarHelper {
     }
 
     private fun show(
-            activity: Activity, message: String, dismissBehavior: DismissBehavior) {
+        activity: Activity,
+        message: String,
+        dismissBehavior: DismissBehavior,
+    ) {
         activity.runOnUiThread(
-                object : Runnable {
-                    override fun run() {
-                        messageSnackbar = Snackbar.make(
-                                activity.findViewById(android.R.id.content),
-                                message,
-                                Snackbar.LENGTH_INDEFINITE)
-                        messageSnackbar!!.view.setBackgroundColor(BACKGROUND_COLOR)
-                        if (dismissBehavior != DismissBehavior.HIDE) {
-                            messageSnackbar!!.setAction(
-                                    "Dismiss",
-                                    object : View.OnClickListener {
-                                        override fun onClick(v: View) {
-                                            messageSnackbar!!.dismiss()
-                                        }
-                                    })
-                            if (dismissBehavior == DismissBehavior.FINISH) {
-                                messageSnackbar!!.addCallback(
-                                        object : BaseTransientBottomBar.BaseCallback<Snackbar>() {
-                                            override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
-                                                super.onDismissed(transientBottomBar, event)
-                                                activity.finish()
-                                            }
-                                        })
-                            }
+            object : Runnable {
+                override fun run() {
+                    messageSnackbar =
+                        Snackbar.make(
+                            activity.findViewById(android.R.id.content),
+                            message,
+                            Snackbar.LENGTH_INDEFINITE,
+                        )
+                    messageSnackbar!!.view.setBackgroundColor(BACKGROUND_COLOR)
+                    if (dismissBehavior != DismissBehavior.HIDE) {
+                        messageSnackbar!!.setAction(
+                            "Dismiss",
+                            object : View.OnClickListener {
+                                override fun onClick(v: View) {
+                                    messageSnackbar!!.dismiss()
+                                }
+                            },
+                        )
+                        if (dismissBehavior == DismissBehavior.FINISH) {
+                            messageSnackbar!!.addCallback(
+                                object : BaseTransientBottomBar.BaseCallback<Snackbar>() {
+                                    override fun onDismissed(
+                                        transientBottomBar: Snackbar?,
+                                        event: Int,
+                                    ) {
+                                        super.onDismissed(transientBottomBar, event)
+                                        activity.finish()
+                                    }
+                                },
+                            )
                         }
-                        messageSnackbar!!.show()
                     }
-                })
+                    messageSnackbar!!.show()
+                }
+            },
+        )
     }
 
     companion object {

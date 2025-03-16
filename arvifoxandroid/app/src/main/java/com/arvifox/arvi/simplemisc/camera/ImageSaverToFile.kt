@@ -11,10 +11,9 @@ import java.io.IOException
  * Saves a JPEG [Image] into the specified [File].
  */
 internal class ImageSaverToFile(
-        private val image: Image,
-        private val file: File
+    private val image: Image,
+    private val file: File,
 ) : Runnable {
-
     @SuppressLint("NewApi")
     override fun run() {
         val buffer = image.planes[0].buffer
@@ -22,9 +21,10 @@ internal class ImageSaverToFile(
         buffer.get(bytes)
         var output: FileOutputStream? = null
         try {
-            output = FileOutputStream(file).apply {
-                write(bytes)
-            }
+            output =
+                FileOutputStream(file).apply {
+                    write(bytes)
+                }
         } catch (e: IOException) {
             Logger.d { e.toString() }
         } finally {

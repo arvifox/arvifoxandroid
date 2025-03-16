@@ -9,7 +9,6 @@ https://stfalcon.com/ru/blog/post/learning-android-gestures
  */
 
 class Diact : AppCompatActivity() {
-
     val sc = sd()
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
@@ -18,19 +17,22 @@ class Diact : AppCompatActivity() {
     }
 
     fun sd(): ScaleGestureDetector {
-        return ScaleGestureDetector(this, object : ScaleGestureDetector.OnScaleGestureListener {
-            override fun onScaleBegin(p0: ScaleGestureDetector): Boolean {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
+        return ScaleGestureDetector(
+            this,
+            object : ScaleGestureDetector.OnScaleGestureListener {
+                override fun onScaleBegin(p0: ScaleGestureDetector): Boolean {
+                    TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
+                }
 
-            override fun onScaleEnd(p0: ScaleGestureDetector) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
+                override fun onScaleEnd(p0: ScaleGestureDetector) {
+                    TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
+                }
 
-            override fun onScale(p0: ScaleGestureDetector): Boolean {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
-        })
+                override fun onScale(p0: ScaleGestureDetector): Boolean {
+                    TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
+                }
+            },
+        )
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {

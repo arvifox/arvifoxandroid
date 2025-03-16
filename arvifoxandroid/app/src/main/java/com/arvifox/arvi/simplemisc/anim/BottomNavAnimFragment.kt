@@ -14,7 +14,6 @@ import com.arvifox.arvi.databinding.FragmentBottomNavAnimBinding
  * [https://blog.stylingandroid.com/bottomnavigationview-animating-icons/]
  */
 class BottomNavAnimFragment : Fragment() {
-
     companion object {
         fun newInstance(): BottomNavAnimFragment {
             return BottomNavAnimFragment()
@@ -25,21 +24,30 @@ class BottomNavAnimFragment : Fragment() {
     private val binding by lazy { bi!! }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
     ): View {
         // Inflate the layout for this fragment
         bi = FragmentBottomNavAnimBinding.inflate(inflater, container, false)
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
         binding.toggle.setOnCheckedChangeListener { _, b ->
-            binding.bottomNavBar.menu.findItem(R.id.bnaItem1).icon = if (b) resources.getDrawable(
-                R.drawable.loadingv2_ongoing_selector,
-                activity?.theme
-            ) else resources.getDrawable(R.drawable.loadingv2_vector, activity?.theme)
+            binding.bottomNavBar.menu.findItem(R.id.bnaItem1).icon =
+                if (b) {
+                    resources.getDrawable(
+                        R.drawable.loadingv2_ongoing_selector,
+                        activity?.theme,
+                    )
+                } else {
+                    resources.getDrawable(R.drawable.loadingv2_vector, activity?.theme)
+                }
         }
     }
 }

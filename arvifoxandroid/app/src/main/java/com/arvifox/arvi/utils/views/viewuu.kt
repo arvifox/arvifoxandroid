@@ -6,9 +6,11 @@ import androidx.databinding.BindingAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 object Viewuu {
-
     @BindingAdapter("app:filter")
-    fun ImageView.applyFilter(prev: String, value: String) {
+    fun ImageView.applyFilter(
+        prev: String,
+        value: String,
+    ) {
         colorFilter = null
         if (value == "grey") {
             val matrix = ColorMatrix()
@@ -18,7 +20,11 @@ object Viewuu {
         }
     }
 
-    fun textAsBitmap(text: String, textSize: Float, textColor: Int): Bitmap? {
+    fun textAsBitmap(
+        text: String,
+        textSize: Float,
+        textColor: Int,
+    ): Bitmap? {
         val paint = Paint(Paint.ANTI_ALIAS_FLAG)
         paint.textSize = textSize
         paint.color = textColor
@@ -32,7 +38,11 @@ object Viewuu {
         return image
     }
 
-    fun ImageView.setTextBitmap(text: String, textSize: Float, textColor: Int) {
+    fun ImageView.setTextBitmap(
+        text: String,
+        textSize: Float,
+        textColor: Int,
+    ) {
         val paint = Paint(Paint.ANTI_ALIAS_FLAG)
         paint.textSize = textSize
         paint.color = textColor
@@ -48,7 +58,7 @@ object Viewuu {
         val height = paint.descent() - paint.ascent()
         val bitmap = Bitmap.createBitmap(maxWidth, height.toInt() * lines.size, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(bitmap)
-        var y = - paint.ascent()
+        var y = -paint.ascent()
         for (line in lines) {
             canvas.drawText(line, 0f, y, paint)
             y += height

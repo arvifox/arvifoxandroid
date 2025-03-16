@@ -1,10 +1,7 @@
 package com.arvifox.arvi.simplemisc.rx
 
-import com.arvifox.arvi.utils.Logger
-//import io.reactivex.Flowable
-//import io.reactivex.FlowableTransformer
-import org.reactivestreams.Publisher
-import java.util.concurrent.TimeUnit
+// import io.reactivex.Flowable
+// import io.reactivex.FlowableTransformer
 
 object RxUtil {
     fun tryCompose() {

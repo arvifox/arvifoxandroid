@@ -7,7 +7,6 @@ import org.junit.Assert.assertTrue
  * [https://www.baeldung.com/kotlin/generics]
  */
 class ParameterizedClass<A>(private val value: A) {
-
     fun getValue(): A {
         return value
     }
@@ -67,7 +66,10 @@ class ParameterizedConsumer<in T> {
     }
 }
 
-fun copy(from: Array<out Any>, to: Array<Any?>) {
+fun copy(
+    from: Array<out Any>,
+    to: Array<Any?>,
+) {
     assert(from.size == to.size)
     for (i in from.indices)
         to[i] = from[i]
@@ -77,10 +79,10 @@ fun <T> sort(xs: List<T>) where T : CharSequence, T : Comparable<T> {
     // sort the collection in place
 }
 
-fun <T: Comparable<T>> sort(list: List<T>): List<T> {
+fun <T : Comparable<T>> sort(list: List<T>): List<T> {
     return list.sorted()
 }
 
-//fun <T> Iterable<*>.filterIsInstance() = filter { it is T }
+// fun <T> Iterable<*>.filterIsInstance() = filter { it is T }
 
 inline fun <reified T> Iterable<*>.filterIsInstance() = filter { it is T }

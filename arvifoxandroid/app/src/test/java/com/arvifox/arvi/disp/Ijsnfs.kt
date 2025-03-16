@@ -15,9 +15,8 @@ https://proandroiddev.com/companion-object-invoke-operator-overloading-for-defau
 
 @ExperimentalCoroutinesApi
 class MainCoroutineRule(
-    val testDispatcher: TestCoroutineDispatcher = TestCoroutineDispatcher()
+    val testDispatcher: TestCoroutineDispatcher = TestCoroutineDispatcher(),
 ) : TestWatcher() {
-
     override fun starting(description: Description?) {
         super.starting(description)
         Dispatchers.setMain(testDispatcher)
@@ -32,9 +31,8 @@ class MainCoroutineRule(
 
 @ExperimentalCoroutinesApi
 class CoroutineRule<T : CoroutineDispatcher>(
-    val dispatcher: T
+    val dispatcher: T,
 ) : TestWatcher() {
-
     companion object {
         operator fun invoke() = CoroutineRule(Dispatchers.Unconfined)
     }

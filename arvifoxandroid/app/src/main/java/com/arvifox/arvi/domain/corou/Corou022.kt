@@ -7,7 +7,6 @@ import kotlin.random.Random
  * [https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.concurrent/]
  */
 object Corou022 {
-
     fun fun01() {
         Thread { println("some") }.start()
     }
@@ -35,23 +34,25 @@ object Corou022 {
     private var items: Int = 0
     private var maxItems: Int = 0
 
-    fun produce() = synchronized(lock) {
-        while (items >= maxItems) {
-            lock.wait()
+    fun produce() =
+        synchronized(lock) {
+            while (items >= maxItems) {
+                lock.wait()
+            }
+            Thread.sleep(Random.nextInt(100).toLong())
+            items++
+            println("Produced, count is $items: ${Thread.currentThread()}")
+            lock.notifyAll()
         }
-        Thread.sleep(Random.nextInt(100).toLong())
-        items++
-        println("Produced, count is $items: ${Thread.currentThread()}")
-        lock.notifyAll()
-    }
 
-    fun consume() = synchronized(lock) {
-        while (items <= 0) {
-            lock.wait()
+    fun consume() =
+        synchronized(lock) {
+            while (items <= 0) {
+                lock.wait()
+            }
+            Thread.sleep(Random.nextInt(100).toLong())
+            items--
+            println("Consumed, count is $items: ${Thread.currentThread()}")
+            lock.notifyAll()
         }
-        Thread.sleep(Random.nextInt(100).toLong())
-        items--
-        println("Consumed, count is $items: ${Thread.currentThread()}")
-        lock.notifyAll()
-    }
 }

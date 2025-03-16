@@ -10,32 +10,35 @@ import com.arvifox.arvi.utils.ConvertUtils.dp
 import kotlin.math.ceil
 
 object ConvertUtils {
-    fun Context.themeColor(@AttrRes a: Int) =
-        obtainStyledAttributes(intArrayOf(a)).use { it.getColor(0, Color.RED) }
+    fun Context.themeColor(
+        @AttrRes a: Int,
+    ) = obtainStyledAttributes(intArrayOf(a)).use { it.getColor(0, Color.RED) }
 
     val Int.dp: Int
-        get() = ceil(
-            TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP,
-                this.toFloat(),
-                Resources.getSystem().displayMetrics
+        get() =
+            ceil(
+                TypedValue.applyDimension(
+                    TypedValue.COMPLEX_UNIT_DIP,
+                    this.toFloat(),
+                    Resources.getSystem().displayMetrics,
+                ),
             )
-        )
-            .toInt()
+                .toInt()
 
     val Float.dp: Float
-        get() = TypedValue.applyDimension(
-            TypedValue.COMPLEX_UNIT_DIP,
-            this,
-            Resources.getSystem().displayMetrics
-        )
+        get() =
+            TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                this,
+                Resources.getSystem().displayMetrics,
+            )
 
     val Fragment.dp: Int.() -> Float
         get() = {
             TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP,
                 this.toFloat(),
-                this@dp.resources.displayMetrics
+                this@dp.resources.displayMetrics,
             )
         }
 }

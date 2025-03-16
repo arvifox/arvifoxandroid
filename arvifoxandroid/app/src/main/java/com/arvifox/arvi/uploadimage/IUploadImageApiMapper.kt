@@ -11,5 +11,8 @@ import retrofit2.http.Part
 interface IUploadImageApiMapper {
     @Multipart
     @POST("uploadimage.php")
-    fun uploadImage(@Part fname: MultipartBody.Part, @Part("id") id: RequestBody): Call<ResponseBody>
+    fun uploadImage(
+        @Part fname: MultipartBody.Part,
+        @Part("id") id: RequestBody,
+    ): Call<ResponseBody>
 }

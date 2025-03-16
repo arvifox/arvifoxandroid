@@ -14,7 +14,6 @@ import com.arvifox.arvi.databinding.ActivityWorkManSelectBinding
 import com.arvifox.arvi.utils.Logger
 
 class WorkManSelectActivity : AppCompatActivity() {
-
     companion object {
         fun newIntent(c: Context): Intent {
             return Intent(c, WorkManSelectActivity::class.java)
@@ -33,10 +32,11 @@ class WorkManSelectActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         binding.btnSelect.setOnClickListener {
-            val chooseIntent = Intent(
-                Intent.ACTION_PICK,
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-            )
+            val chooseIntent =
+                Intent(
+                    Intent.ACTION_PICK,
+                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                )
             startActivityForResult(chooseIntent, REQUEST_CODE_IMAGE)
         }
 
@@ -48,7 +48,11 @@ class WorkManSelectActivity : AppCompatActivity() {
     }
 
     /** Image Selection  */
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    override fun onActivityResult(
+        requestCode: Int,
+        resultCode: Int,
+        data: Intent?,
+    ) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
@@ -62,9 +66,10 @@ class WorkManSelectActivity : AppCompatActivity() {
 
     private fun handleImageRequestResult(intent: Intent) {
         // If clipdata is available, we use it, otherwise we use data
-        val imageUri: Uri? = intent.clipData?.let {
-            it.getItemAt(0).uri
-        } ?: intent.data
+        val imageUri: Uri? =
+            intent.clipData?.let {
+                it.getItemAt(0).uri
+            } ?: intent.data
 
         if (imageUri == null) {
             Logger.e { "Invalid input image Uri." }

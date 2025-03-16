@@ -20,14 +20,13 @@ https://www.androidauthority.com/using-coordinatorlayout-android-apps-703720/
 
 class BottomNavigationBehavior111<V : View>(context: Context, attrs: AttributeSet) :
     CoordinatorLayout.Behavior<V>(context, attrs) {
-
     override fun onStartNestedScroll(
         coordinatorLayout: CoordinatorLayout,
         child: V,
         directTargetChild: View,
         target: View,
         axes: Int,
-        type: Int
+        type: Int,
     ): Boolean {
         return axes == ViewCompat.SCROLL_AXIS_VERTICAL
     }
@@ -39,20 +38,27 @@ class BottomNavigationBehavior111<V : View>(context: Context, attrs: AttributeSe
         dx: Int,
         dy: Int,
         consumed: IntArray,
-        type: Int
+        type: Int,
     ) {
         super.onNestedPreScroll(coordinatorLayout, child, target, dx, dy, consumed, type)
         child.translationY = max(0f, min(child.height.toFloat(), child.translationY + dy))
     }
 
-    override fun layoutDependsOn(parent: CoordinatorLayout, child: V, dependency: View): Boolean {
+    override fun layoutDependsOn(
+        parent: CoordinatorLayout,
+        child: V,
+        dependency: View,
+    ): Boolean {
         if (dependency is Snackbar.SnackbarLayout) {
             updateSnackbar(child, dependency)
         }
         return super.layoutDependsOn(parent, child, dependency)
     }
 
-    private fun updateSnackbar(child: View, snackbarLayout: Snackbar.SnackbarLayout) {
+    private fun updateSnackbar(
+        child: View,
+        snackbarLayout: Snackbar.SnackbarLayout,
+    ) {
         if (snackbarLayout.layoutParams is CoordinatorLayout.LayoutParams) {
             val params = snackbarLayout.layoutParams as CoordinatorLayout.LayoutParams
 
@@ -66,28 +72,34 @@ class BottomNavigationBehavior111<V : View>(context: Context, attrs: AttributeSe
 
 class BottomNavigationFABBehavior(context: Context?, attrs: AttributeSet?) :
     CoordinatorLayout.Behavior<View>(context, attrs) {
-
     override fun layoutDependsOn(
         parent: CoordinatorLayout,
         child: View,
-        dependency: View
+        dependency: View,
     ): Boolean {
         return dependency is Snackbar.SnackbarLayout
     }
 
-    override fun onDependentViewRemoved(parent: CoordinatorLayout, child: View, dependency: View) {
+    override fun onDependentViewRemoved(
+        parent: CoordinatorLayout,
+        child: View,
+        dependency: View,
+    ) {
         child.translationY = 0f
     }
 
     override fun onDependentViewChanged(
         parent: CoordinatorLayout,
         child: View,
-        dependency: View
+        dependency: View,
     ): Boolean {
         return updateButton(child, dependency)
     }
 
-    private fun updateButton(child: View, dependency: View): Boolean {
+    private fun updateButton(
+        child: View,
+        dependency: View,
+    ): Boolean {
         if (dependency is Snackbar.SnackbarLayout) {
             val oldTranslation = child.translationY
             val height = dependency.height.toFloat()
@@ -102,7 +114,6 @@ class BottomNavigationFABBehavior(context: Context?, attrs: AttributeSet?) :
 
 class BottomNavigationBehavior<V : View>(context: Context, attrs: AttributeSet) :
     CoordinatorLayout.Behavior<V>(context, attrs) {
-
     @ViewCompat.NestedScrollType
     private var lastStartedType: Int = 0
     private var offsetAnimator: ValueAnimator? = null
@@ -111,10 +122,16 @@ class BottomNavigationBehavior<V : View>(context: Context, attrs: AttributeSet) 
     // rest of the code
 
     override fun onStartNestedScroll(
-        coordinatorLayout: CoordinatorLayout, child: V, directTargetChild: View, target: View, axes: Int, type: Int
+        coordinatorLayout: CoordinatorLayout,
+        child: V,
+        directTargetChild: View,
+        target: View,
+        axes: Int,
+        type: Int,
     ): Boolean {
-        if (axes != ViewCompat.SCROLL_AXIS_VERTICAL)
+        if (axes != ViewCompat.SCROLL_AXIS_VERTICAL) {
             return false
+        }
 
         lastStartedType = type
         offsetAnimator?.cancel()
@@ -122,9 +139,15 @@ class BottomNavigationBehavior<V : View>(context: Context, attrs: AttributeSet) 
         return true
     }
 
-    override fun onStopNestedScroll(coordinatorLayout: CoordinatorLayout, child: V, target: View, type: Int) {
-        if (!isSnappingEnabled)
+    override fun onStopNestedScroll(
+        coordinatorLayout: CoordinatorLayout,
+        child: V,
+        target: View,
+        type: Int,
+    ) {
+        if (!isSnappingEnabled) {
             return
+        }
 
         // add snap behaviour
         // Logic here borrowed from AppBarLayout onStopNestedScroll code
@@ -144,12 +167,16 @@ class BottomNavigationBehavior<V : View>(context: Context, attrs: AttributeSet) 
         }
     }
 
-    private fun animateBarVisibility(child: View, isVisible: Boolean) {
+    private fun animateBarVisibility(
+        child: View,
+        isVisible: Boolean,
+    ) {
         if (offsetAnimator == null) {
-            offsetAnimator = ValueAnimator().apply {
-                interpolator = DecelerateInterpolator()
-                duration = 150L
-            }
+            offsetAnimator =
+                ValueAnimator().apply {
+                    interpolator = DecelerateInterpolator()
+                    duration = 150L
+                }
 
             offsetAnimator?.addUpdateListener {
                 child.translationY = it.animatedValue as Float

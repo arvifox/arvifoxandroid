@@ -5,7 +5,6 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
 class KotPu {
-
     @Test
     fun t001() {
         print(null.toString())

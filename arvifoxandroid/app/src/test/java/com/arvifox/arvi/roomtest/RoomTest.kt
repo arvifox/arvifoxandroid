@@ -18,16 +18,16 @@ import java.io.IOException
 
 @RunWith(AndroidJUnit4::class)
 class RoomTest {
-
     private lateinit var db: UsersDatabase
     private lateinit var dao: UserDao
 
     @Before
     fun createDb() {
         val context: Context = ApplicationProvider.getApplicationContext()
-        db = Room.inMemoryDatabaseBuilder(context, UsersDatabase::class.java)
-            .allowMainThreadQueries()
-            .build()
+        db =
+            Room.inMemoryDatabaseBuilder(context, UsersDatabase::class.java)
+                .allowMainThreadQueries()
+                .build()
         dao = db.userDao()
     }
 
@@ -39,10 +39,11 @@ class RoomTest {
 
     @Test
     @Throws(Exception::class)
-    fun insertAndGet() = runBlocking {
-        val u = User(userName = "username")
-        dao.insert(u)
-        val all = dao.getUsersFlow().first()
-        assertEquals(all[0].userName, u.userName)
-    }
+    fun insertAndGet() =
+        runBlocking {
+            val u = User(userName = "username")
+            dao.insert(u)
+            val all = dao.getUsersFlow().first()
+            assertEquals(all[0].userName, u.userName)
+        }
 }

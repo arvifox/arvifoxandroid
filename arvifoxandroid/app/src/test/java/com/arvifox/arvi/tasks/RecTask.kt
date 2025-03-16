@@ -3,7 +3,6 @@ package com.arvifox.arvi.tasks
 import org.junit.Test
 
 class RecTask {
-
     @Test
     fun str() {
         fun rec(s: String) {
@@ -20,7 +19,10 @@ class RecTask {
 
     @Test
     fun tripa() {
-        fun printValue(row: Int, col: Int): Int {
+        fun printValue(
+            row: Int,
+            col: Int,
+        ): Int {
             if (col > row) {
                 return -1
             } else if (col == row || col == 1) {

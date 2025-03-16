@@ -14,7 +14,6 @@ import com.arvifox.arvi.databinding.ActivityPhoneInfoBinding
 import com.arvifox.arvi.utils.AndroidStorage
 
 class PhoneInfoActivity : AppCompatActivity() {
-
     companion object {
         fun newIntent(c: Context): Intent {
             return Intent(c, PhoneInfoActivity::class.java)
@@ -42,7 +41,11 @@ class PhoneInfoActivity : AppCompatActivity() {
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    override fun onActivityResult(
+        requestCode: Int,
+        resultCode: Int,
+        data: Intent?,
+    ) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 452 && resultCode == Activity.RESULT_OK) {
             val returnCursor = contentResolver.query(data?.data!!, null, null, null, null)
@@ -51,19 +54,19 @@ class PhoneInfoActivity : AppCompatActivity() {
             returnCursor.moveToFirst()
 
             binding.tvIntentInfo.text = "action=" + data?.action + "\n" +
-                    "package=" + data?.`package` + "\n" +
-                    "type=" + data?.type + "\n" +
-                    "scheme=" + data?.scheme + "\n" +
-                    "data=" + data?.dataString + "\n" +
-                    "uri host=" + data?.data?.host + "\n" +
-                    "uri authority=" + data?.data?.authority + "\n" +
-                    "uri path=" + data?.data?.path + "\n" +
-                    "uri query=" + data?.data?.query + "\n" +
-                    "uri scheme=" + data?.data?.scheme + "\n" +
-                    "uri userInfo=" + data?.data?.userInfo + "\n" +
-                    "uri resolver data type MIME=" + contentResolver.getType(data?.data!!) + "\n" +
-                    "name = " + returnCursor.getString(nameIndex) + "\n" +
-                    "size = " + returnCursor.getLong(sizeIndex) + "\n"
+                "package=" + data?.`package` + "\n" +
+                "type=" + data?.type + "\n" +
+                "scheme=" + data?.scheme + "\n" +
+                "data=" + data?.dataString + "\n" +
+                "uri host=" + data?.data?.host + "\n" +
+                "uri authority=" + data?.data?.authority + "\n" +
+                "uri path=" + data?.data?.path + "\n" +
+                "uri query=" + data?.data?.query + "\n" +
+                "uri scheme=" + data?.data?.scheme + "\n" +
+                "uri userInfo=" + data?.data?.userInfo + "\n" +
+                "uri resolver data type MIME=" + contentResolver.getType(data?.data!!) + "\n" +
+                "name = " + returnCursor.getString(nameIndex) + "\n" +
+                "size = " + returnCursor.getLong(sizeIndex) + "\n"
 
             // also we can read from URI
             val inputStream = contentResolver.openInputStream(data?.data!!)
@@ -94,11 +97,12 @@ class PhoneInfoActivity : AppCompatActivity() {
     }
 
     private fun getOsName(): String {
-        val dd = packageManager.resolveActivity(
+        val dd =
+            packageManager.resolveActivity(
 //            Intent("android.intent.action.MAIN").apply { addCategory("android.intent.category.HOME") },
-            Intent(Intent.ACTION_MAIN).apply { addCategory(Intent.CATEGORY_HOME) },
-            PackageManager.MATCH_DEFAULT_ONLY
-        )
+                Intent(Intent.ACTION_MAIN).apply { addCategory(Intent.CATEGORY_HOME) },
+                PackageManager.MATCH_DEFAULT_ONLY,
+            )
         return dd?.activityInfo?.packageName?.let {
             it + " " + packageManager.getPackageInfo(it, 0).versionName
         } ?: "- -"

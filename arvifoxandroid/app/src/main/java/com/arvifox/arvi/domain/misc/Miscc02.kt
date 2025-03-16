@@ -33,20 +33,23 @@ object Miscc02 {
 
 object slfdkj {
     fun sdf(cc: Context) {
-        val sss = MaterialShapeDrawable(
-            ShapeAppearanceModel.builder(
-                cc,
-                R.style.ShapeAppp,
-                0
-            ).build()
-        )
+        val sss =
+            MaterialShapeDrawable(
+                ShapeAppearanceModel.builder(
+                    cc,
+                    R.style.ShapeAppp,
+                    0,
+                ).build(),
+            )
     }
 
     fun dfdf(tt: MaterialTextView) {
         tt.setTextFuture(
             PrecomputedTextCompat.getTextFuture(
-                "", tt.textMetricsParamsCompat, null
-            )
+                "",
+                tt.textMetricsParamsCompat,
+                null,
+            ),
         )
     }
 
@@ -54,10 +57,11 @@ object slfdkj {
     fun fjkj(tt: MaterialTextView) {
         val l = LineHeightSpan.Standard(20)
         val ll = LineBackgroundSpan.Standard(29347)
-        val ss = SpannableString("skjdfkdj").apply {
-            setSpan(l, 0, 2, 0)
-            setSpan(ll, 0, 2, 0)
-        }
+        val ss =
+            SpannableString("skjdfkdj").apply {
+                setSpan(l, 0, 2, 0)
+                setSpan(ll, 0, 2, 0)
+            }
         tt.text = ss
     }
 }

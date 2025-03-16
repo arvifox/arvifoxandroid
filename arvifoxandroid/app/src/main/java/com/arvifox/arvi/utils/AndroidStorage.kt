@@ -11,7 +11,6 @@ import java.io.IOException
 import java.nio.charset.Charset
 
 object AndroidStorage {
-
     fun internal(context: Context) {
         val internalDir = context.filesDir
         val internalCacheDir = context.cacheDir
@@ -23,10 +22,11 @@ object AndroidStorage {
     }
 
     fun pictureDirPublic(): File? {
-        val f = File(
-            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
-            "myPicture"
-        )
+        val f =
+            File(
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+                "myPicture",
+            )
         f.mkdir()
         return f
     }
@@ -38,13 +38,18 @@ object AndroidStorage {
     from reading your media files and providing them to other apps through the MediaStore content provider.
      */
 
-    fun getPrivateAlbumStorageDir(context: Context, albumName: String = "myAlbumPrivate"): File? {
+    fun getPrivateAlbumStorageDir(
+        context: Context,
+        albumName: String = "myAlbumPrivate",
+    ): File? {
         // Get the directory for the app's private pictures directory.
-        val file = File(
-            context.getExternalFilesDir(
-                Environment.DIRECTORY_PICTURES
-            ), albumName
-        )
+        val file =
+            File(
+                context.getExternalFilesDir(
+                    Environment.DIRECTORY_PICTURES,
+                ),
+                albumName,
+            )
         if (!file.mkdirs()) {
             Logger.d { "Directory not created" }
         }
@@ -64,35 +69,41 @@ object AndroidStorage {
         return sb.toString()
     }
 
-    private fun writeToFile(f: File, c: String) {
+    private fun writeToFile(
+        f: File,
+        c: String,
+    ) {
         val fos = f.outputStream()
 //        val fos = context.openFileOutput("file1.txt", Context.MODE_PRIVATE)
         fos.write(c.toByteArray(Charset.forName("UTF-8")))
         fos.close()
     }
 
-    /* Checks if external storage is available for read and write */
+    // Checks if external storage is available for read and write
     private fun isExternalStorageWritable(): Boolean {
         return Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED
     }
 
-    /* Checks if external storage is available to at least read */
+    // Checks if external storage is available to at least read
     private fun isExternalStorageReadable(): Boolean {
         return Environment.getExternalStorageState() in
-                setOf(Environment.MEDIA_MOUNTED, Environment.MEDIA_MOUNTED_READ_ONLY)
+            setOf(Environment.MEDIA_MOUNTED, Environment.MEDIA_MOUNTED_READ_ONLY)
     }
 
     @Throws(IOException::class)
     fun saveBitmap(
-        context: Context, bitmap: Bitmap, format: Bitmap.CompressFormat,
-        mimeType: String, displayName: String
+        context: Context,
+        bitmap: Bitmap,
+        format: Bitmap.CompressFormat,
+        mimeType: String,
+        displayName: String,
     ): Uri {
-
-        val values = ContentValues().apply {
-            put(MediaStore.MediaColumns.DISPLAY_NAME, displayName)
-            put(MediaStore.MediaColumns.MIME_TYPE, mimeType)
-            put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DCIM)
-        }
+        val values =
+            ContentValues().apply {
+                put(MediaStore.MediaColumns.DISPLAY_NAME, displayName)
+                put(MediaStore.MediaColumns.MIME_TYPE, mimeType)
+                put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DCIM)
+            }
 
         var uri: Uri? = null
 
@@ -102,10 +113,10 @@ object AndroidStorage {
                     uri = it // Keep uri reference so it can be removed on failure
 
                     openOutputStream(it)?.use { stream ->
-                        if (!bitmap.compress(format, 95, stream))
+                        if (!bitmap.compress(format, 95, stream)) {
                             throw IOException("Failed to save bitmap.")
+                        }
                     } ?: throw IOException("Failed to open output stream.")
-
                 } ?: throw IOException("Failed to create new MediaStore record.")
             }
         }.getOrElse {

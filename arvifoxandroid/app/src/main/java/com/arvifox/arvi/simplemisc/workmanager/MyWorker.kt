@@ -6,7 +6,7 @@ import androidx.work.WorkerParameters
 
 class MyWorker(c: Context, wp: WorkerParameters) : Worker(c, wp) {
     override fun doWork(): Result {
-        //do the work you want done in the background here
+        // do the work you want done in the background here
         val id = inputData
         return Result.success()
     }

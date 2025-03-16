@@ -16,10 +16,12 @@ class ImgurApi private constructor() {
     private val mImgurService: ImgurService
 
     init {
-        val client = OkHttpClient.Builder()
+        val client =
+            OkHttpClient.Builder()
                 .addInterceptor(AuthInterceptor())
                 .build()
-        val retrofit = Retrofit.Builder()
+        val retrofit =
+            Retrofit.Builder()
                 .baseUrl("https://api.imgur.com/3/")
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -38,7 +40,8 @@ class ImgurApi private constructor() {
         @Throws(IOException::class)
         override fun intercept(chain: Interceptor.Chain): Response {
             val request = chain.request()
-            val headers = request.headers.newBuilder()
+            val headers =
+                request.headers.newBuilder()
                     .add("Authorization", "Client-ID " + "IMGUR_CLIENT_ID")
                     .build()
             val authenticatedRequest = request.newBuilder().headers(headers).build()

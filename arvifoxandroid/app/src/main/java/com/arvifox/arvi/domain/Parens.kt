@@ -6,7 +6,7 @@ object QuestionB {
         leftRem: Int,
         rightRem: Int,
         str: CharArray,
-        index: Int
+        index: Int,
     ) {
         if (leftRem < 0 || rightRem < leftRem) return
         if (leftRem == 0 && rightRem == 0) {

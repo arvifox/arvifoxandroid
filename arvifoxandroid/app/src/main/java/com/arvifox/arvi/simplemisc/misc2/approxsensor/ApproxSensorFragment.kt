@@ -13,7 +13,6 @@ import androidx.fragment.app.Fragment
 import com.arvifox.arvi.databinding.FragmentApproxSensorBinding
 
 class ApproxSensorFragment : Fragment() {
-
     companion object {
         fun newInstance(): ApproxSensorFragment {
             return ApproxSensorFragment()
@@ -26,8 +25,9 @@ class ApproxSensorFragment : Fragment() {
     private lateinit var binding: FragmentApproxSensorBinding
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
     ): View {
         // Inflate the layout for this fragment
         pm = context?.getSystemService(Context.POWER_SERVICE) as PowerManager
@@ -36,7 +36,10 @@ class ApproxSensorFragment : Fragment() {
     }
 
     @SuppressLint("NewApi")
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
 //        btnApproxOn1.setOnClickListener {
 //            val wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "arvifox:approx")
@@ -44,11 +47,12 @@ class ApproxSensorFragment : Fragment() {
 //            wl.release() // switch on
 //        }
         binding.btnApproxOn1.setOnClickListener {
-            wwl = if (pm.isWakeLockLevelSupported(PowerManager.PROXIMITY_SCREEN_OFF_WAKE_LOCK)) {
-                pm.newWakeLock(PowerManager.PROXIMITY_SCREEN_OFF_WAKE_LOCK, "arvifox:appwake")
-            } else {
-                null
-            }
+            wwl =
+                if (pm.isWakeLockLevelSupported(PowerManager.PROXIMITY_SCREEN_OFF_WAKE_LOCK)) {
+                    pm.newWakeLock(PowerManager.PROXIMITY_SCREEN_OFF_WAKE_LOCK, "arvifox:appwake")
+                } else {
+                    null
+                }
             wwl?.setReferenceCounted(false)
             wwl?.acquire(1000 * 60 * 2)
         }
@@ -71,5 +75,4 @@ class ApproxSensorFragment : Fragment() {
 
         Settings.System.putInt(activity?.contentResolver, Settings.System.SCREEN_OFF_TIMEOUT, 10)
     }
-
 }

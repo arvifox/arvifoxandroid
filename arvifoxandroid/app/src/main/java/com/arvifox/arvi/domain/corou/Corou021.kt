@@ -8,7 +8,7 @@ object Corou021 {
 
     private suspend inline fun <T> await(
         coroutineScope: CoroutineScope,
-        crossinline block: suspend Job.() -> T
+        crossinline block: suspend Job.() -> T,
     ): T {
         val deferred = CompletableDeferred<T>()
         coroutineScope.launch {
@@ -39,7 +39,11 @@ object Corou021 {
         }
     }
 
-    fun performLongRunningTasks(param1: Int, param2: Int, textView: TextView) {
+    fun performLongRunningTasks(
+        param1: Int,
+        param2: Int,
+        textView: TextView,
+    ) {
         launchMyJob {
             val result1 = doAsync { someBigTask(param1) }
             val result2 = doAsync { someBigTask(result1, param2) }
@@ -49,5 +53,8 @@ object Corou021 {
 
     fun someBigTask(i: Int): Int = i
 
-    fun someBigTask(i: Int, j: Int): Int = i + j
+    fun someBigTask(
+        i: Int,
+        j: Int,
+    ): Int = i + j
 }

@@ -11,7 +11,6 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class CorouTest {
-
     @Test
     fun test01() {
         CoroutExce.qwer02()
@@ -30,12 +29,13 @@ class CorouTest {
             val digitFlow = MutableSharedFlow<Int>()
 
             var actual = ""
-            val job = launch {
-                combine(letterFlow, digitFlow) { letter, digit -> letter + digit }
-                    .collect {
-                        actual += "$it "
-                    }
-            }
+            val job =
+                launch {
+                    combine(letterFlow, digitFlow) { letter, digit -> letter + digit }
+                        .collect {
+                            actual += "$it "
+                        }
+                }
 
 //            letterFlow.emit("A")
 //            digitFlow.emit(1)

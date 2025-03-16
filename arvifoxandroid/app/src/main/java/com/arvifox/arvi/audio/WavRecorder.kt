@@ -7,7 +7,6 @@ import android.os.Environment
 import java.io.*
 
 class WavRecorder(path: String) {
-
     companion object {
         private const val RECORDER_BPP = 16
         private const val AUDIO_RECORDER_FOLDER = "AudioRecorder"
@@ -26,9 +25,9 @@ class WavRecorder(path: String) {
 
     init {
         bufferSize = AudioRecord.getMinBufferSize(
-                RECORDER_SAMPLE_RATE,
-                RECORDER_CHANNELS,
-                RECORDER_AUDIO_ENCODING
+            RECORDER_SAMPLE_RATE,
+            RECORDER_CHANNELS,
+            RECORDER_AUDIO_ENCODING,
         ) * 3
 
         // short array that pcm data is put into.
@@ -39,15 +38,17 @@ class WavRecorder(path: String) {
     //region public
 
     fun startRecording() {
-        recorder = AudioRecord(
+        recorder =
+            AudioRecord(
                 MediaRecorder.AudioSource.MIC,
                 RECORDER_SAMPLE_RATE,
                 RECORDER_CHANNELS,
-                RECORDER_AUDIO_ENCODING, bufferSize
-        )
+                RECORDER_AUDIO_ENCODING, bufferSize,
+            )
         val i = recorder?.state
-        if (i == 1)
+        if (i == 1) {
             recorder?.startRecording()
+        }
         isRecording = true
         recordingThread = Thread(Runnable { writeAudioDataToFile() }, "AudioRecorder Thread")
         recordingThread?.start()
@@ -59,9 +60,11 @@ class WavRecorder(path: String) {
 
     private fun getFilename(): String {
         val filepath = Environment.getExternalStorageDirectory().path
-        val file = File(filepath,
-                AUDIO_RECORDER_FOLDER
-        )
+        val file =
+            File(
+                filepath,
+                AUDIO_RECORDER_FOLDER,
+            )
         if (!file.exists()) {
             file.mkdirs()
         }
@@ -70,17 +73,22 @@ class WavRecorder(path: String) {
 
     private fun getTempFilename(): String {
         val filepath = Environment.getExternalStorageDirectory().path
-        val file = File(filepath,
-                AUDIO_RECORDER_FOLDER
-        )
+        val file =
+            File(
+                filepath,
+                AUDIO_RECORDER_FOLDER,
+            )
         if (!file.exists()) {
             file.mkdirs()
         }
-        val tempFile = File(filepath,
-                AUDIO_RECORDER_TEMP_FILE
-        )
-        if (tempFile.exists())
+        val tempFile =
+            File(
+                filepath,
+                AUDIO_RECORDER_TEMP_FILE,
+            )
+        if (tempFile.exists()) {
             tempFile.delete()
+        }
         return file.absolutePath + "/" + AUDIO_RECORDER_TEMP_FILE
     }
 
@@ -110,7 +118,6 @@ class WavRecorder(path: String) {
                     } catch (e: IOException) {
                         e.printStackTrace()
                     }
-
                 }
             }
 
@@ -119,7 +126,6 @@ class WavRecorder(path: String) {
             } catch (e: IOException) {
                 e.printStackTrace()
             }
-
         }
     }
 
@@ -128,8 +134,9 @@ class WavRecorder(path: String) {
             isRecording = false
 
             val i = recorder?.state
-            if (i == 1)
+            if (i == 1) {
                 recorder?.stop()
+            }
             recorder?.release()
 
             recorder = null
@@ -145,8 +152,10 @@ class WavRecorder(path: String) {
         file.delete()
     }
 
-
-    private fun copyWaveFile(inFilename: String, outFilename: String) {
+    private fun copyWaveFile(
+        inFilename: String,
+        outFilename: String,
+    ) {
         var inStream: FileInputStream?
         var outStream: FileOutputStream?
         var totalAudioLen: Long = 0
@@ -161,12 +170,12 @@ class WavRecorder(path: String) {
             totalAudioLen = inStream.channel.size()
             totalDataLen = totalAudioLen + 36
             writeWaveFileHeader(
-                    outStream,
-                    totalAudioLen,
-                    totalDataLen,
-                    longSampleRate,
-                    channels,
-                    byteRate
+                outStream,
+                totalAudioLen,
+                totalDataLen,
+                longSampleRate,
+                channels,
+                byteRate,
             )
             while (inStream.read(data) != -1) {
                 outStream.write(data)
@@ -178,13 +187,16 @@ class WavRecorder(path: String) {
         } catch (e: IOException) {
             e.printStackTrace()
         }
-
     }
 
     @Throws(IOException::class)
     private fun writeWaveFileHeader(
-            out: FileOutputStream, totalAudioLen: Long,
-            totalDataLen: Long, longSampleRate: Long, channels: Int, byteRate: Long
+        out: FileOutputStream,
+        totalAudioLen: Long,
+        totalDataLen: Long,
+        longSampleRate: Long,
+        channels: Int,
+        byteRate: Long,
     ) {
         val header = ByteArray(44)
         header[0] = 'R'.toByte() // RIFF/WAVE header
@@ -220,7 +232,7 @@ class WavRecorder(path: String) {
         header[30] = (byteRate shr 16 and 0xff).toByte()
         header[31] = (byteRate shr 24 and 0xff).toByte()
         header[32] =
-                ((if (RECORDER_CHANNELS == AudioFormat.CHANNEL_IN_MONO) 1 else 2) * 16 / 8).toByte() // block align
+            ((if (RECORDER_CHANNELS == AudioFormat.CHANNEL_IN_MONO) 1 else 2) * 16 / 8).toByte() // block align
         header[33] = 0
         header[34] = RECORDER_BPP.toByte() // bits per sample
         header[35] = 0

@@ -14,34 +14,32 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 
 object RetrofitMock {
-
     fun get(a: String): OkHttpClient {
         return OkHttpClient.Builder().addInterceptor(Interc(a)).build()
     }
 
     fun getR(a: String): IRetr {
         return Retrofit.Builder()
-                .baseUrl("http://www.asdf.ru")
-                .client(get(a))
-                .addConverterFactory(GsonConverterFactory.create())
-                .build().create(IRetr::class.java)
+            .baseUrl("http://www.asdf.ru")
+            .client(get(a))
+            .addConverterFactory(GsonConverterFactory.create())
+            .build().create(IRetr::class.java)
     }
 }
 
 interface IRetr {
-
     @GET("my_query")
     fun getRe(): Call<DaResponse>
 }
 
 class Interc(val answer: String) : Interceptor {
-
     override fun intercept(chain: Interceptor.Chain): Response {
         if (BuildConfig.DEBUG) {
             val uri = chain.request().url.toUri()
             val qu = uri.query
             val squ = qu?.split("=")
-            val re = Response.Builder()
+            val re =
+                Response.Builder()
                     .code(200)
                     .message("OK")
                     .request(chain.request())

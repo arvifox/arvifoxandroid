@@ -1,24 +1,17 @@
 package com.arvifox.arvi.google.ar
 
 import android.content.Context
-import android.net.Uri
 import android.os.Build
-import com.arvifox.arvi.R
-import com.arvifox.arvi.utils.Logger
-
-//import com.google.ar.core.AugmentedImage
-//import com.google.ar.core.Pose
-//import com.google.ar.sceneform.AnchorNode
-//import com.google.ar.sceneform.Node
-//import com.google.ar.sceneform.math.Quaternion
-//import com.google.ar.sceneform.math.Vector3
-//import com.google.ar.sceneform.rendering.ModelRenderable
-//import com.google.ar.sceneform.rendering.ShapeFactory
-
-import java.util.concurrent.CompletableFuture
+// import com.google.ar.core.AugmentedImage
+// import com.google.ar.core.Pose
+// import com.google.ar.sceneform.AnchorNode
+// import com.google.ar.sceneform.Node
+// import com.google.ar.sceneform.math.Quaternion
+// import com.google.ar.sceneform.math.Vector3
+// import com.google.ar.sceneform.rendering.ModelRenderable
+// import com.google.ar.sceneform.rendering.ShapeFactory
 
 class AugmentedImageNode(context: Context, filename: String) /*: AnchorNode()*/ {
-
     private val TAG = "AugmentedImageNode"
 //    private var modelFuture: CompletableFuture<ModelRenderable>? = null
 

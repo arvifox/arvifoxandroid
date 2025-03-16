@@ -9,7 +9,6 @@ import androidx.transition.TransitionManager
 import com.arvifox.arvi.databinding.ActivityConstrLayoutBinding
 
 class ConstrLayoutActivity : AppCompatActivity() {
-
     companion object {
         fun newIntent(c: Context): Intent {
             return Intent(c, ConstrLayoutActivity::class.java)

@@ -11,7 +11,6 @@ import androidx.lifecycle.ViewModelProviders
 import com.arvifox.arvi.databinding.FragmentGeoBinding
 
 class GeoFragment : Fragment() {
-
     lateinit var locationViewModel: LocationViewModel
 
     private lateinit var binding: FragmentGeoBinding
@@ -22,8 +21,9 @@ class GeoFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentGeoBinding.inflate(inflater, container, false)
@@ -31,8 +31,11 @@ class GeoFragment : Fragment() {
     }
 
     private fun startLocationUpdate() {
-        locationViewModel.getLocationData().observe(this, Observer {
-            binding.tvGeoPosition.text = "longitude=${it.longitude} / latitude=${it.latitude}"
-        })
+        locationViewModel.getLocationData().observe(
+            this,
+            Observer {
+                binding.tvGeoPosition.text = "longitude=${it.longitude} / latitude=${it.latitude}"
+            },
+        )
     }
 }

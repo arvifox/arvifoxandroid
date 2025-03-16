@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.*
 
 object Arvi013_cd {
-
     private val viewModelJob = Job()
 
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
@@ -16,19 +15,17 @@ object Arvi013_cd {
     }
 
     fun sdf() {
-
     }
 }
 
 class MyViewModel : ViewModel() {
-
     fun longtask() {
         viewModelScope.launch(Dispatchers.IO) {
             // some task
 
-            val a = withTimeout(123) {
-
-            }
+            val a =
+                withTimeout(123) {
+                }
         }
     }
 

@@ -7,13 +7,13 @@ import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 
-//https://developer.android.com/jetpack/androidx/releases/room
+// https://developer.android.com/jetpack/androidx/releases/room
 
 @Entity
 data class Dog(
     @PrimaryKey val name: String,
     val cuteness: Int,
-    val barkingVolume: Int
+    val barkingVolume: Int,
 )
 
 interface dao {
@@ -31,6 +31,6 @@ interface dao {
 abstract class DoggosDao {
     @Query("SELECT * FROM Dog WHERE name = :name")
     abstract fun getDog(name: String): Flow<Dog>
-    fun getDogDistinctUntilChanged(name:String) =
-        getDog(name).distinctUntilChanged()
+
+    fun getDogDistinctUntilChanged(name: String) = getDog(name).distinctUntilChanged()
 }

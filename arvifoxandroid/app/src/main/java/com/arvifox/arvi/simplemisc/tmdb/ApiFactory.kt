@@ -12,35 +12,37 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 object Apifactory {
+    // Creating Auth Interceptor to add api_key query in front of all the requests.
+    private val authInterceptor =
+        Interceptor { chain ->
+            val newUrl =
+                chain.request().url
+                    .newBuilder()
+                    .addQueryParameter("api_key", BuildConfig.TMDB_KEY)
+                    .build()
 
-    //Creating Auth Interceptor to add api_key query in front of all the requests.
-    private val authInterceptor = Interceptor { chain ->
-        val newUrl = chain.request().url
-                .newBuilder()
-                .addQueryParameter("api_key", BuildConfig.TMDB_KEY)
-                .build()
+            val newRequest =
+                chain.request()
+                    .newBuilder()
+                    .url(newUrl)
+                    .build()
 
-        val newRequest = chain.request()
-                .newBuilder()
-                .url(newUrl)
-                .build()
+            chain.proceed(newRequest)
+        }
 
-        chain.proceed(newRequest)
-    }
-
-    //OkhttpClient for building http request url
-    private val tmdbClient = OkHttpClient().newBuilder()
+    // OkhttpClient for building http request url
+    private val tmdbClient =
+        OkHttpClient().newBuilder()
             .addInterceptor(authInterceptor)
             .build()
 
-
-    fun retrofit(): Retrofit = Retrofit.Builder()
+    fun retrofit(): Retrofit =
+        Retrofit.Builder()
             .client(tmdbClient)
             .baseUrl("https://api.themoviedb.org/3/")
             .addConverterFactory(MoshiConverterFactory.create())
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .build()
-
 
     val tmdbApi: TmdbApi = retrofit().create(TmdbApi::class.java)
 
@@ -49,11 +51,14 @@ object Apifactory {
         fun getPopularMovieAsync(): Deferred<Response<TmdbMovieResponse>>
 
         @GET("movie/{id}")
-        fun getMovieById(@Path("id") id: Int): Deferred<Response<TmdbMovie>>
+        fun getMovieById(
+            @Path("id") id: Int,
+        ): Deferred<Response<TmdbMovie>>
     }
 
-    sealed class Result<out T: Any> {
+    sealed class Result<out T : Any> {
         data class Success<out T : Any>(val data: T) : Result<T>()
+
         data class Error(val exception: Exception) : Result<Nothing>()
     }
 }

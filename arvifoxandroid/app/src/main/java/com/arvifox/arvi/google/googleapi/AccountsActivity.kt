@@ -9,7 +9,6 @@ import com.arvifox.arvi.databinding.ActivityAccountsBinding
 import com.google.android.material.snackbar.Snackbar
 
 class AccountsActivity : AppCompatActivity() {
-
     companion object {
         fun newIntent(c: Context): Intent {
             return Intent(c, AccountsActivity::class.java)

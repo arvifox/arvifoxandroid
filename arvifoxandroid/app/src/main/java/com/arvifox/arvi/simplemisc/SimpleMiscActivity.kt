@@ -21,7 +21,6 @@ import com.arvifox.arvi.simplemisc.viewpager2.ViewPager2Activity
 import com.arvifox.arvi.simplemisc.workmanager.WorkManSelectActivity
 
 class SimpleMiscActivity : AppCompatActivity() {
-
     companion object {
         fun newIntent(c: Context): Intent {
             return Intent(c, SimpleMiscActivity::class.java)
@@ -43,8 +42,8 @@ class SimpleMiscActivity : AppCompatActivity() {
         binding.btnServiceHandler.setOnClickListener {
             startActivity(
                 ServiceHandlerActivity.newIntent(
-                    this
-                )
+                    this,
+                ),
             )
         }
         binding.btnMatComp.setOnClickListener { startActivity(MatCompActivity.newIntent(this)) }
@@ -52,15 +51,15 @@ class SimpleMiscActivity : AppCompatActivity() {
         binding.btnWorkManager.setOnClickListener {
             startActivity(
                 WorkManSelectActivity.newIntent(
-                    this
-                )
+                    this,
+                ),
             )
         }
         binding.btnNestedScroll.setOnClickListener {
             startActivity(
                 NestedScrollActivity.newIntent(
-                    this
-                )
+                    this,
+                ),
             )
         }
         binding.btnTaskColor.setOnClickListener { startActivity(TaskColorActivity.newIntent(this)) }
@@ -70,8 +69,8 @@ class SimpleMiscActivity : AppCompatActivity() {
         binding.btnConstrlayout.setOnClickListener {
             startActivity(
                 ConstrLayoutActivity.newIntent(
-                    this
-                )
+                    this,
+                ),
             )
         }
         binding.btnWindow.setOnClickListener { startActivity(WindowActivity.newIntent(this)) }

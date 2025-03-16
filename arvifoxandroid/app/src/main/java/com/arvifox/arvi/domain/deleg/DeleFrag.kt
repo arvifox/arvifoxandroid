@@ -8,14 +8,12 @@ import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
 object fra {
-
     class FragmentArgumentDelegate<T : Any> :
         ReadWriteProperty<Fragment, T> {
-
         @Suppress("UNCHECKED_CAST")
         override fun getValue(
             thisRef: Fragment,
-            property: KProperty<*>
+            property: KProperty<*>,
         ): T {
             val key = property.name
             return thisRef.arguments
@@ -25,16 +23,21 @@ object fra {
 
         override fun setValue(
             thisRef: Fragment,
-            property: KProperty<*>, value: T
+            property: KProperty<*>,
+            value: T,
         ) {
-            val args = thisRef.arguments
-                ?: Bundle().also(thisRef::setArguments)
+            val args =
+                thisRef.arguments
+                    ?: Bundle().also(thisRef::setArguments)
             val key = property.name
             args.put(key, value)
         }
     }
 
-    fun <T> Bundle.put(key: String, value: T) {
+    fun <T> Bundle.put(
+        key: String,
+        value: T,
+    ) {
         when (value) {
             is Boolean -> putBoolean(key, value)
             is String -> putString(key, value)
@@ -56,11 +59,10 @@ object fra {
 
     class FragmentNullableArgumentDelegate<T : Any?> :
         ReadWriteProperty<Fragment, T?> {
-
         @Suppress("UNCHECKED_CAST")
         override fun getValue(
             thisRef: Fragment,
-            property: KProperty<*>
+            property: KProperty<*>,
         ): T? {
             val key = property.name
             return thisRef.arguments?.get(key) as? T
@@ -68,27 +70,30 @@ object fra {
 
         override fun setValue(
             thisRef: Fragment,
-            property: KProperty<*>, value: T?
+            property: KProperty<*>,
+            value: T?,
         ) {
-            val args = thisRef.arguments
-                ?: Bundle().also(thisRef::setArguments)
+            val args =
+                thisRef.arguments
+                    ?: Bundle().also(thisRef::setArguments)
             val key = property.name
             value?.let { args.put(key, it) } ?: args.remove(key)
         }
     }
 
-    fun <T : Any> argument(): ReadWriteProperty<Fragment, T> =
-        FragmentArgumentDelegate()
+    fun <T : Any> argument(): ReadWriteProperty<Fragment, T> = FragmentArgumentDelegate()
 
-    fun <T : Any> argumentNullable(): ReadWriteProperty<Fragment, T?> =
-        FragmentNullableArgumentDelegate()
+    fun <T : Any> argumentNullable(): ReadWriteProperty<Fragment, T?> = FragmentNullableArgumentDelegate()
 
     class DemoFragment : Fragment() {
         private var param1: Int by argument()
         private var param2: String by argument()
 
         companion object {
-            fun newInstance(param1: Int, param2: String): DemoFragment =
+            fun newInstance(
+                param1: Int,
+                param2: String,
+            ): DemoFragment =
                 DemoFragment().apply {
                     this.param1 = param1
                     this.param2 = param2

@@ -10,7 +10,6 @@ import com.google.android.gms.auth.UserRecoverableAuthException
 import java.io.IOException
 
 class GetOAuthToken internal constructor(internal var mActivity: Activity, internal var mAccount: Account, internal var mScope: String, internal var mRequestCode: Int) : AsyncTask<Void, Void, String>() {
-
     override fun doInBackground(vararg params: Void): String? {
         try {
             val token = fetchToken()

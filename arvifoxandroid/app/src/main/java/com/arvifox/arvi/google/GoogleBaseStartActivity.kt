@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.os.Handler
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.arvifox.arvi.databinding.ActivityArCoreVisionBinding
@@ -13,10 +12,9 @@ import com.arvifox.arvi.google.ar.StartArActivity
 import com.arvifox.arvi.google.googleapi.AccountsActivity
 import com.arvifox.arvi.google.googleapi.OAuthTestActivity
 import com.arvifox.arvi.google.googleapi.visiontest.VisionApiTestActivity
-//import com.google.ar.core.ArCoreApk
+// import com.google.ar.core.ArCoreApk
 
 class GoogleBaseStartActivity : AppCompatActivity() {
-
     companion object {
         fun newIntent(c: Context): Intent {
             return Intent(c, GoogleBaseStartActivity::class.java)
@@ -49,8 +47,8 @@ class GoogleBaseStartActivity : AppCompatActivity() {
         binding.btnVisionTestStart.setOnClickListener {
             startActivity(
                 VisionApiTestActivity.newIntent(
-                    this
-                )
+                    this,
+                ),
             )
         }
         binding.btnAccounts.setOnClickListener { startActivity(AccountsActivity.newIntent(this)) }
@@ -59,7 +57,11 @@ class GoogleBaseStartActivity : AppCompatActivity() {
         checkArEnable()
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    override fun onActivityResult(
+        requestCode: Int,
+        resultCode: Int,
+        data: Intent?,
+    ) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 543) {
             if (resultCode == Activity.RESULT_OK) {

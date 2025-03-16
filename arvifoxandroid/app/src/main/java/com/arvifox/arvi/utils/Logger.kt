@@ -14,54 +14,95 @@ import java.util.regex.Pattern
  * All log strings are initialized lazily with a closure to keep the garbage to one object only.
  */
 object Logger {
-
     const val TAG = "foxx"
 
-    fun v(tag: String = callerTag(), message: () -> String) = inDebug {
+    fun v(
+        tag: String = callerTag(),
+        message: () -> String,
+    ) = inDebug {
         Log.v(tag, message())
     }
 
-    fun v(tag: String = callerTag(), message: () -> String, exception: Exception) = inDebug {
+    fun v(
+        tag: String = callerTag(),
+        message: () -> String,
+        exception: Exception,
+    ) = inDebug {
         Log.v(tag, message(), exception)
     }
 
-    fun d(tag: String = callerTag(), message: () -> String) = inDebug {
+    fun d(
+        tag: String = callerTag(),
+        message: () -> String,
+    ) = inDebug {
         Log.d(tag, message())
     }
 
-    fun d(tag: String = callerTag(), message: () -> String, exception: Exception) = inDebug {
+    fun d(
+        tag: String = callerTag(),
+        message: () -> String,
+        exception: Exception,
+    ) = inDebug {
         Log.d(tag, message(), exception)
     }
 
-    fun i(tag: String = callerTag(), message: () -> String) = inDebug {
+    fun i(
+        tag: String = callerTag(),
+        message: () -> String,
+    ) = inDebug {
         Log.i(tag, message())
     }
 
-    fun i(tag: String = callerTag(), message: () -> String, exception: Exception) = inDebug {
+    fun i(
+        tag: String = callerTag(),
+        message: () -> String,
+        exception: Exception,
+    ) = inDebug {
         Log.i(tag, message(), exception)
     }
 
-    fun w(tag: String = callerTag(), message: () -> String) = inDebug {
+    fun w(
+        tag: String = callerTag(),
+        message: () -> String,
+    ) = inDebug {
         Log.w(tag, message())
     }
 
-    fun w(tag: String = callerTag(), message: () -> String, exception: Exception) = inDebug {
+    fun w(
+        tag: String = callerTag(),
+        message: () -> String,
+        exception: Exception,
+    ) = inDebug {
         Log.w(tag, message(), exception)
     }
 
-    fun e(tag: String = callerTag(), message: () -> String) = inDebug {
+    fun e(
+        tag: String = callerTag(),
+        message: () -> String,
+    ) = inDebug {
         Log.e(tag, message())
     }
 
-    fun e(tag: String = callerTag(), message: () -> String, exception: Exception) = inDebug {
+    fun e(
+        tag: String = callerTag(),
+        message: () -> String,
+        exception: Exception,
+    ) = inDebug {
         Log.e(tag, message(), exception)
     }
 
-    fun wtf(tag: String = callerTag(), message: () -> String) = inDebug {
+    fun wtf(
+        tag: String = callerTag(),
+        message: () -> String,
+    ) = inDebug {
         Log.wtf(tag, message())
     }
 
-    fun wtf(tag: String = callerTag(), message: () -> String, exception: Exception) = inDebug {
+    fun wtf(
+        tag: String = callerTag(),
+        message: () -> String,
+        exception: Exception,
+    ) = inDebug {
         Log.wtf(tag, message(), exception)
     }
 
@@ -91,9 +132,12 @@ object Logger {
         tag = tag.substring(tag.lastIndexOf('.') + 1)
 
         // Tag length limit was removed in API 24.
-        val res = if (tag.length <= maxTagLength || Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            tag
-        } else tag.substring(0, maxTagLength)
+        val res =
+            if (tag.length <= maxTagLength || Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                tag
+            } else {
+                tag.substring(0, maxTagLength)
+            }
         return TAG + res
     }
 }

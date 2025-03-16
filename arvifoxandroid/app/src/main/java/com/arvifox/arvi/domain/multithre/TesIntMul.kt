@@ -5,7 +5,6 @@ import java.util.concurrent.CountDownLatch
 private class Foo(var a: Int = 0, var b: Int = 0)
 
 object TesIntMul {
-
     /**
      * possible output: b=0,a=1 ; a=0,b=1 ; 0,0 seldom ; 1,1 seldom
      */
@@ -13,14 +12,16 @@ object TesIntMul {
         repeat(10000) {
             println()
             val f = Foo()
-            val t1 = Thread {
-                f.a = 1
-                println("b=${f.b}")
-            }
-            val t2 = Thread {
-                f.b = 1
-                println("a=${f.a}")
-            }
+            val t1 =
+                Thread {
+                    f.a = 1
+                    println("b=${f.b}")
+                }
+            val t2 =
+                Thread {
+                    f.b = 1
+                    println("a=${f.a}")
+                }
             t1.start()
             t2.start()
             t1.join()
@@ -40,7 +41,6 @@ private class Foo2(
 )
 
 object TesIntMul2 {
-
     /**
      * possible output: b=0,a=1 ; a=0,b=1 ; 1,1
      */
@@ -48,14 +48,16 @@ object TesIntMul2 {
         repeat(10000) {
             println()
             val f = Foo2()
-            val t1 = Thread {
-                f.a = 1
-                println("b=${f.b}")
-            }
-            val t2 = Thread {
-                f.b = 1
-                println("a=${f.a}")
-            }
+            val t1 =
+                Thread {
+                    f.a = 1
+                    println("b=${f.b}")
+                }
+            val t2 =
+                Thread {
+                    f.b = 1
+                    println("a=${f.a}")
+                }
             t1.start()
             t2.start()
             t1.join()
@@ -73,7 +75,6 @@ private class Foo3(
 )
 
 object TesIntMul3 {
-
     /**
      * possible output: 1,1
      */
@@ -82,18 +83,20 @@ object TesIntMul3 {
             val la = CountDownLatch(2)
             println()
             val f = Foo3()
-            val t1 = Thread {
-                f.a = 1
-                la.countDown()
-                la.await()
-                println("b=${f.b}")
-            }
-            val t2 = Thread {
-                f.b = 1
-                la.countDown()
-                la.await()
-                println("a=${f.a}")
-            }
+            val t1 =
+                Thread {
+                    f.a = 1
+                    la.countDown()
+                    la.await()
+                    println("b=${f.b}")
+                }
+            val t2 =
+                Thread {
+                    f.b = 1
+                    la.countDown()
+                    la.await()
+                    println("a=${f.a}")
+                }
             t1.start()
             t2.start()
             t1.join()

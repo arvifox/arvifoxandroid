@@ -6,7 +6,6 @@ import com.google.gson.annotations.SerializedName
  * The Imgur API post image response.
  */
 class PostImageResponse {
-
     @SerializedName("data")
     val data: UploadedImage? = null
 
@@ -23,5 +22,4 @@ class PostImageResponse {
         @SerializedName("link")
         val link: String? = null
     }
-
 }

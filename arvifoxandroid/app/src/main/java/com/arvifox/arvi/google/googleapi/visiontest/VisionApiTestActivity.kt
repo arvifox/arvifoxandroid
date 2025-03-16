@@ -20,7 +20,6 @@ import com.google.api.services.vision.v1.model.*
 import com.squareup.picasso.Picasso
 
 class VisionApiTestActivity : AppCompatActivity() {
-
     companion object {
         fun newIntent(c: Context): Intent {
             return Intent(c, VisionApiTestActivity::class.java)
@@ -112,14 +111,21 @@ class VisionApiTestActivity : AppCompatActivity() {
     }
 
     private fun gettingToken() {
-        val getOAuthToken = GetOAuthToken(
-            this, am.getAccountsByType("com.google")[0],
-            "oauth2:https://www.googleapis.com/auth/cloud-vision", 246
-        )
+        val getOAuthToken =
+            GetOAuthToken(
+                this,
+                am.getAccountsByType("com.google")[0],
+                "oauth2:https://www.googleapis.com/auth/cloud-vision",
+                246,
+            )
         getOAuthToken.execute(null as Void?)
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    override fun onActivityResult(
+        requestCode: Int,
+        resultCode: Int,
+        data: Intent?,
+    ) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 246 && resultCode == Activity.RESULT_OK) {
             gettingToken()

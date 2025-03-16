@@ -11,15 +11,15 @@ interface WithInt {
 class Sti(
     override val s: String,
     override val i: Int,
-): WithInt, WithString
+) : WithInt, WithString
 
 class Inst(
     override val s: String,
     override val i: Int,
-): WithInt, WithString
+) : WithInt, WithString
 
-val stu = Sti(s = "qwe", i = 34,)
-val qwe = Inst(s = "tyu", i = 87,)
+val stu = Sti(s = "qwe", i = 34)
+val qwe = Inst(s = "tyu", i = 87)
 
 private fun process(t: Any) {
     if (t is WithString && t is WithInt) {

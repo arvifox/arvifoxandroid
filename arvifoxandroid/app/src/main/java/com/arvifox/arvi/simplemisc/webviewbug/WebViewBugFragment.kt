@@ -18,7 +18,6 @@ import com.arvifox.arvi.utils.FormatUtils.showToast
  * A simple [Fragment] subclass.
  */
 class WebViewBugFragment : Fragment() {
-
     companion object {
         fun newInstance(): WebViewBugFragment {
             return WebViewBugFragment()
@@ -29,36 +28,43 @@ class WebViewBugFragment : Fragment() {
     private val binding by lazy { bi!! }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
     ): View {
         // Inflate the layout for this fragment
         bi = FragmentWebViewBugBinding.inflate(inflater, container, false)
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
         val se = binding.wvWeb.settings
         se.javaScriptEnabled = true
         se.domStorageEnabled = true
         binding.wvWeb.loadUrl("https://www.hibiny.com")
 
-        binding.wvWeb.webViewClient = object : WebViewClient() {
-
-
-            override fun onPageFinished(view: WebView?, url: String?) {
-                super.onPageFinished(view, url)
-                activity?.showToast("onPageFinished")
+        binding.wvWeb.webViewClient =
+            object : WebViewClient() {
+                override fun onPageFinished(
+                    view: WebView?,
+                    url: String?,
+                ) {
+                    super.onPageFinished(view, url)
+                    activity?.showToast("onPageFinished")
+                }
             }
-        }
     }
-
 }
 
 class AppReceiver : BroadcastReceiver() {
-
-    override fun onReceive(p0: Context?, p1: Intent?) {
+    override fun onReceive(
+        p0: Context?,
+        p1: Intent?,
+    ) {
         Log.d("foxx", p1?.action ?: "herr")
     }
 }

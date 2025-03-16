@@ -24,6 +24,7 @@ object Corou018 {
 
 class oufsdf {
     val scope = CoroutineScope(Job())
+
     fun sd() {
         repeat(2) {
             scope.launch { criticalSectionSuspending() }

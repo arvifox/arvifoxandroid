@@ -10,7 +10,6 @@ import com.arvifox.arvi.simplemisc.anim.ExitAnim.exitCircularReveal
 import com.arvifox.arvi.simplemisc.anim.ExitAnim.startCircularReveal
 
 class ExitAnimFragment : Fragment(), ExitAnim.ExitWithAnimation {
-
     companion object {
         fun newInstance(poss: IntArray): ExitAnimFragment {
             return ExitAnimFragment().apply {
@@ -23,15 +22,19 @@ class ExitAnimFragment : Fragment(), ExitAnim.ExitWithAnimation {
     private lateinit var binding: FragmentExitAnimBinding
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentExitAnimBinding.inflate(inflater, container, false)
         return binding.root
     }
 
-    override fun onViewCreated(vi: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        vi: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(vi, savedInstanceState)
         binding.exitanimfragm.setOnClickListener {
             view?.exitCircularReveal(posX!!, posY!!) {

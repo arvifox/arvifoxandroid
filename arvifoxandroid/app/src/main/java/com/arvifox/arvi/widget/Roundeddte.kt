@@ -9,18 +9,18 @@ import android.widget.TextView
 import androidx.core.text.inSpans
 import kotlin.math.abs
 
-//https://medium.com/@Semper_Viventem/simple-implementation-of-rounded-background-for-text-in-android-60a7706c0419
+// https://medium.com/@Semper_Viventem/simple-implementation-of-rounded-background-for-text-in-android-60a7706c0419
 
-//https://github.com/Semper-Viventem/RoundedBackgroundSpan
+// https://github.com/Semper-Viventem/RoundedBackgroundSpan
 
 object Roundeddte {
-
     private fun initSpannableText(spanText: TextView) {
-        val span = RoundedBackgroundColorSpan(
-            backgroundColor = 57457654,
-            padding = 4F,
-            radius = 5F
-        )
+        val span =
+            RoundedBackgroundColorSpan(
+                backgroundColor = 57457654,
+                padding = 4F,
+                radius = 5F,
+            )
 
         with(spanText) {
             setShadowLayer(10f, 0f, 0f, 0) // it's important for padding working
@@ -33,18 +33,18 @@ object Roundeddte {
 class RoundedBackgroundColorSpan(
     backgroundColor: Int,
     private val padding: Float,
-    private val radius: Float
+    private val radius: Float,
 ) : LineBackgroundSpan {
-
     companion object {
         private const val NO_INIT = -1f
     }
 
     private val rect = RectF()
-    private val paint = Paint().apply {
-        color = backgroundColor
-        isAntiAlias = true
-    }
+    private val paint =
+        Paint().apply {
+            color = backgroundColor
+            isAntiAlias = true
+        }
     private val path = Path()
 
     private var prevWidth = NO_INIT
@@ -61,22 +61,22 @@ class RoundedBackgroundColorSpan(
         text: CharSequence,
         start: Int,
         end: Int,
-        lineNumber: Int
+        lineNumber: Int,
     ) {
-
         val actualWidth = p.measureText(text, start, end) + 2f * padding
         val widthDiff = abs(prevWidth - actualWidth)
         val diffIsShort = widthDiff < 2f * radius
 
-        val width = if (lineNumber == 0) {
-            actualWidth
-        } else if ((actualWidth < prevWidth) && diffIsShort) {
-            prevWidth
-        } else if ((actualWidth > prevWidth) && diffIsShort) {
-            actualWidth + (2f * radius - widthDiff)
-        } else {
-            actualWidth
-        }
+        val width =
+            if (lineNumber == 0) {
+                actualWidth
+            } else if ((actualWidth < prevWidth) && diffIsShort) {
+                prevWidth
+            } else if ((actualWidth > prevWidth) && diffIsShort) {
+                actualWidth + (2f * radius - widthDiff)
+            } else {
+                actualWidth
+            }
 
         val shiftLeft = 0f - padding
         val shiftRight = width + shiftLeft
@@ -114,7 +114,11 @@ class RoundedBackgroundColorSpan(
      *  +X
      *
      */
-    private fun drawLeftFillShape(c: Canvas, rect: RectF, radius: Float) {
+    private fun drawLeftFillShape(
+        c: Canvas,
+        rect: RectF,
+        radius: Float,
+    ) {
         path.reset()
         path.moveTo(rect.left, rect.top + radius)
         path.lineTo(rect.left, rect.top - radius)
@@ -141,15 +145,22 @@ class RoundedBackgroundColorSpan(
      *   v
      *
      */
-    private fun drawBottomFillShape(c: Canvas, rect: RectF, radius: Float) {
+    private fun drawBottomFillShape(
+        c: Canvas,
+        rect: RectF,
+        radius: Float,
+    ) {
         path.reset()
         path.moveTo(prevRight + radius, rect.top)
         path.lineTo(prevRight - radius, rect.top)
         path.lineTo(prevRight, rect.top - radius)
         path.cubicTo(
-            prevRight, rect.top - radius,
-            prevRight, rect.top,
-            prevRight + radius, rect.top
+            prevRight,
+            rect.top - radius,
+            prevRight,
+            rect.top,
+            prevRight + radius,
+            rect.top,
         )
 
         c.drawPath(path, paint)
@@ -170,15 +181,22 @@ class RoundedBackgroundColorSpan(
      *  v          X
      *
      */
-    private fun drawTopFillShape(c: Canvas, rect: RectF, radius: Float) {
+    private fun drawTopFillShape(
+        c: Canvas,
+        rect: RectF,
+        radius: Float,
+    ) {
         path.reset()
         path.moveTo(rect.right + radius, rect.top)
         path.lineTo(rect.right - radius, rect.top)
         path.lineTo(rect.right, rect.top + radius)
         path.cubicTo(
-            rect.right, rect.top + radius,
-            rect.right, rect.top,
-            rect.right + radius, rect.top
+            rect.right,
+            rect.top + radius,
+            rect.right,
+            rect.top,
+            rect.right + radius,
+            rect.top,
         )
 
         c.drawPath(path, paint)
@@ -203,7 +221,11 @@ class RoundedBackgroundColorSpan(
      *  v
      *
      */
-    private fun drawRightFillShape(c: Canvas, rect: RectF, radius: Float) {
+    private fun drawRightFillShape(
+        c: Canvas,
+        rect: RectF,
+        radius: Float,
+    ) {
         path.reset()
         path.moveTo(rect.right, rect.top - radius)
         path.lineTo(rect.right, rect.top + radius)

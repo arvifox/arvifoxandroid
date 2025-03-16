@@ -13,11 +13,13 @@ import com.arvifox.arvi.R
 // https://jorgecastillo.dev/contrasting-text-and-icons-over-background
 
 object Soco {
+    fun @receiver:ColorInt Int.isDark(): Boolean = androidx.core.graphics.ColorUtils.calculateLuminance(this) < 0.5
 
-    fun @receiver:ColorInt Int.isDark(): Boolean =
-        androidx.core.graphics.ColorUtils.calculateLuminance(this) < 0.5
-
-    fun sdf(colorHex: TextView, favIcon: ImageView, c: Context) {
+    fun sdf(
+        colorHex: TextView,
+        favIcon: ImageView,
+        c: Context,
+    ) {
         val color = Color.parseColor("#e91e63")
 
         if (color.isDark()) {
@@ -29,7 +31,10 @@ object Soco {
         }
     }
 
-    private fun bindFavIcon(bitmap: Bitmap, favIcon: ImageView) {
+    private fun bindFavIcon(
+        bitmap: Bitmap,
+        favIcon: ImageView,
+    ) {
         val iconSize = favIcon.width
 
         Palette.from(bitmap)
@@ -39,12 +44,12 @@ object Soco {
             .generate { palette ->
                 // Do something with the region palette.
                 val lightness = ColorUtils.isDark(palette)
-                val isDark = if (lightness == ColorUtils.LIGHTNESS_UNKNOWN) {
-                    ColorUtils.isDark(bitmap, bitmap.width - iconSize / 2, iconSize / 2)
-                } else {
-                    lightness == ColorUtils.IS_DARK
-                }
-
+                val isDark =
+                    if (lightness == ColorUtils.LIGHTNESS_UNKNOWN) {
+                        ColorUtils.isDark(bitmap, bitmap.width - iconSize / 2, iconSize / 2)
+                    } else {
+                        lightness == ColorUtils.IS_DARK
+                    }
 
                 if (isDark) { // make back icon dark on light images
                     favIcon.setImageResource(R.drawable.ic_hibin)

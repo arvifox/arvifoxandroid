@@ -1,7 +1,6 @@
 package com.arvifox.arvi.simplemisc.misc2.packlist
 
 import android.annotation.SuppressLint
-import android.annotation.TargetApi
 import android.app.ActivityManager
 import android.app.usage.UsageStats
 import android.app.usage.UsageStatsManager
@@ -33,7 +32,6 @@ import java.util.*
  * A simple [Fragment] subclass.
  */
 class PackListFragment : Fragment() {
-
     companion object {
         fun newInstance(): PackListFragment {
             return PackListFragment()
@@ -41,29 +39,32 @@ class PackListFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_pack_list, container, false)
         val rv = view.findViewById<RecyclerView>(R.id.rvPackList)
         rv.setHasFixedSize(true)
         rv.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        rv.adapter = SimpleAdapter(
-            R.layout.item_pack_list,
-            getGetGet(),
-            BR.varPackListItem,
-            BR.varPackListItemOnClick
-        ) { v, i, p -> }
+        rv.adapter =
+            SimpleAdapter(
+                R.layout.item_pack_list,
+                getGetGet(),
+                BR.varPackListItem,
+                BR.varPackListItemOnClick,
+            ) { v, i, p -> }
         val intent = Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS)
         startActivity(intent)
         return view
     }
 
     private fun getGetGet(): List<PackListItem> {
-        val r = getInstalledApps()
-            .sortedBy { it.title }
-        //.filter { it.pers.contains("bluetooth_admin", true) }
+        val r =
+            getInstalledApps()
+                .sortedBy { it.title }
+        // .filter { it.pers.contains("bluetooth_admin", true) }
         activity?.showToast("Count = ${r.size}")
         return r
     }
@@ -72,7 +73,6 @@ class PackListFragment : Fragment() {
         val i = Intent(Intent.ACTION_MAIN, null)
         i.addCategory(Intent.CATEGORY_LAUNCHER)
         val pkgs = context?.packageManager?.queryIntentActivities(i, 0) ?: return emptyList()
-
 
         return emptyList()
     }
@@ -87,8 +87,9 @@ class PackListFragment : Fragment() {
 
     private fun getInstalledApplications(): List<PackListItem> {
         val res = mutableListOf<PackListItem>()
-        val applis = context?.packageManager?.getInstalledApplications(PackageManager.GET_META_DATA)
-            ?: return emptyList()
+        val applis =
+            context?.packageManager?.getInstalledApplications(PackageManager.GET_META_DATA)
+                ?: return emptyList()
         for (i in applis.indices) {
             val p = applis[i]
             val newInfo = PackListItem()
@@ -101,8 +102,9 @@ class PackListFragment : Fragment() {
 
     private fun getInstalledApps(): List<PackListItem> {
         val res = mutableListOf<PackListItem>()
-        val packs = context?.packageManager?.getInstalledPackages(PackageManager.GET_PERMISSIONS)
-            ?: return emptyList()
+        val packs =
+            context?.packageManager?.getInstalledPackages(PackageManager.GET_PERMISSIONS)
+                ?: return emptyList()
         for (i in packs.indices) {
             val p = packs[i]
             val newInfo = PackListItem()
@@ -129,7 +131,10 @@ class PackListFragment : Fragment() {
     }
 
     @SuppressLint("NewApi")
-    private fun isForeground(ctx: Context, myPackage: String?): Boolean {
+    private fun isForeground(
+        ctx: Context,
+        myPackage: String?,
+    ): Boolean {
         val manager: ActivityManager =
             ctx.getSystemService(ACTIVITY_SERVICE) as ActivityManager
         val runningTaskInfo: List<ActivityManager.RunningTaskInfo> =
@@ -144,11 +149,12 @@ class PackListFragment : Fragment() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
             val mUsageStatsManager: UsageStatsManager = context?.getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
             val time = System.currentTimeMillis()
-            val stats: List<UsageStats> = mUsageStatsManager.queryUsageStats(
-                UsageStatsManager.INTERVAL_DAILY,
-                time - 1000 * 10,
-                time
-            )
+            val stats: List<UsageStats> =
+                mUsageStatsManager.queryUsageStats(
+                    UsageStatsManager.INTERVAL_DAILY,
+                    time - 1000 * 10,
+                    time,
+                )
             if (stats != null) {
                 val mySortedMap: SortedMap<Long, UsageStats> = TreeMap<Long, UsageStats>()
                 for (usageStats in stats) {
@@ -168,5 +174,5 @@ data class PackListItem(
     var ver: String = "",
     var verc: Int = 0,
     var ic: Drawable? = null,
-    var pers: String = ""
+    var pers: String = "",
 )

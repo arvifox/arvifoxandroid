@@ -4,7 +4,6 @@ import com.arvifox.arvi.domain.kotlinp.Kotlipu
 import org.junit.Test
 
 class Kotlinppt {
-
     @Test
     fun t01() {
         Kotlipu.statr()
@@ -54,7 +53,6 @@ class Kotlinppt {
     fun t12() {
         Kotlipu.start12()
     }
-
 
     @Test
     fun t14() {

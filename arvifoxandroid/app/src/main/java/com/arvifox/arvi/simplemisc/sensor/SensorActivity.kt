@@ -10,14 +10,12 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.BatteryManager
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import android.text.method.ScrollingMovementMethod
-import com.arvifox.arvi.R
+import androidx.appcompat.app.AppCompatActivity
 import com.arvifox.arvi.databinding.ActivitySensorBinding
 import com.arvifox.arvi.utils.FormatUtils.format
 
 class SensorActivity : AppCompatActivity(), SensorEventListener {
-
     companion object {
         fun newIntent(c: Context): Intent {
             return Intent(c, SensorActivity::class.java)
@@ -53,8 +51,14 @@ class SensorActivity : AppCompatActivity(), SensorEventListener {
         sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE), SensorManager.SENSOR_DELAY_UI)
         sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE), SensorManager.SENSOR_DELAY_UI)
         getInfo()
-        sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)?.also { acc -> sensorManager.registerListener(this, acc, SensorManager.SENSOR_DELAY_NORMAL, SensorManager.SENSOR_DELAY_UI) }
-        sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)?.also { mag -> sensorManager.registerListener(this, mag, SensorManager.SENSOR_DELAY_NORMAL, SensorManager.SENSOR_DELAY_UI) }
+        sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)?.also {
+                acc ->
+            sensorManager.registerListener(this, acc, SensorManager.SENSOR_DELAY_NORMAL, SensorManager.SENSOR_DELAY_UI)
+        }
+        sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)?.also {
+                mag ->
+            sensorManager.registerListener(this, mag, SensorManager.SENSOR_DELAY_NORMAL, SensorManager.SENSOR_DELAY_UI)
+        }
     }
 
     override fun onPause() {
@@ -62,7 +66,10 @@ class SensorActivity : AppCompatActivity(), SensorEventListener {
         super.onPause()
     }
 
-    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
+    override fun onAccuracyChanged(
+        sensor: Sensor?,
+        accuracy: Int,
+    ) {
         val a = accuracy
     }
 
@@ -90,8 +97,8 @@ class SensorActivity : AppCompatActivity(), SensorEventListener {
             sb.append("amb temp = ").append(ambtemp).append("°C").append("\n")
             updateOrientationAngles()
             sb.append("abgles:\n").append(mOrientationAngles[0].format(2)).append(";\n")
-                    .append(mOrientationAngles[1].format(2)).append(";\n")
-                    .append(mOrientationAngles[2].format(2)).append(";\n")
+                .append(mOrientationAngles[1].format(2)).append(";\n")
+                .append(mOrientationAngles[2].format(2)).append(";\n")
             binding.tvSensor.text = sb.toString()
             curTimer = timer
         }
@@ -102,10 +109,10 @@ class SensorActivity : AppCompatActivity(), SensorEventListener {
     fun updateOrientationAngles() {
         // Update rotation matrix, which is needed to update orientation angles.
         SensorManager.getRotationMatrix(
-                mRotationMatrix,
-                null,
-                mAccelerometerReading,
-                mMagnetometerReading
+            mRotationMatrix,
+            null,
+            mAccelerometerReading,
+            mMagnetometerReading,
         )
 
         // "mRotationMatrix" now has up-to-date information.

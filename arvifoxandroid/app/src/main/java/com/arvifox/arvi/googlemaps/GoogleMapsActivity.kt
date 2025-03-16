@@ -30,9 +30,11 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.PolygonOptions
 import com.google.android.gms.maps.model.PolylineOptions
 
-class GoogleMapsActivity : AppCompatActivity(), OnMapReadyCallback,
-    GoogleMap.OnMyLocationClickListener, GoogleMap.OnMyLocationButtonClickListener {
-
+class GoogleMapsActivity :
+    AppCompatActivity(),
+    OnMapReadyCallback,
+    GoogleMap.OnMyLocationClickListener,
+    GoogleMap.OnMyLocationButtonClickListener {
     private lateinit var mMap: GoogleMap
     private lateinit var mMarker: Marker
     private lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -62,20 +64,22 @@ class GoogleMapsActivity : AppCompatActivity(), OnMapReadyCallback,
         }
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        val mapFragment = supportFragmentManager
-            .findFragmentById(R.id.frGoogleMap) as SupportMapFragment
+        val mapFragment =
+            supportFragmentManager
+                .findFragmentById(R.id.frGoogleMap) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
         binding.tvText1.setOnClickListener {
-            mMarker = mMap.addMarker(
-                MarkerOptions()
-                    .position(LatLng(66.0, 33.0))
-                    .title("Where")
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_hibin))
-                    .anchor(0f, 0.3f)
-                    .rotation(30f)
-                    .alpha(0.5f)
-            )!!
+            mMarker =
+                mMap.addMarker(
+                    MarkerOptions()
+                        .position(LatLng(66.0, 33.0))
+                        .title("Where")
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_hibin))
+                        .anchor(0f, 0.3f)
+                        .rotation(30f)
+                        .alpha(0.5f),
+                )!!
         }
 
         binding.tvText2.setOnClickListener { mMarker.remove() }
@@ -113,25 +117,28 @@ class GoogleMapsActivity : AppCompatActivity(), OnMapReadyCallback,
             CameraUpdateFactory.newLatLng(
                 LatLng(
                     location?.latitude ?: 0.0,
-                    location?.longitude ?: 0.0
-                )
-            )
+                    location?.longitude ?: 0.0,
+                ),
+            ),
         )
         mMap.moveCamera(CameraUpdateFactory.zoomTo(15.0f))
     }
 
     @SuppressLint("MissingPermission")
     private fun initLocationTracking() {
-        locationCallback = object : LocationCallback() {
-            override fun onLocationResult(locationResult: LocationResult) {
-                locationResult ?: return
-                for (location in locationResult.locations) {
-                    updateMapLocation(location)
+        locationCallback =
+            object : LocationCallback() {
+                override fun onLocationResult(locationResult: LocationResult) {
+                    locationResult ?: return
+                    for (location in locationResult.locations) {
+                        updateMapLocation(location)
+                    }
                 }
             }
-        }
         fusedLocationClient.requestLocationUpdates(
-            LocationRequest(), locationCallback, null
+            LocationRequest(),
+            locationCallback,
+            null,
         )
     }
 
@@ -170,14 +177,15 @@ class GoogleMapsActivity : AppCompatActivity(), OnMapReadyCallback,
             Toast.makeText(
                 this,
                 "onMapClick: " + latLng?.latitude?.format(2) + "," + latLng?.longitude,
-                Toast.LENGTH_SHORT
+                Toast.LENGTH_SHORT,
             ).show()
-            val cameraPosition = CameraPosition.builder()
-                .target(LatLng(68.0, 34.0))
-                .zoom(5f)
-                .bearing(45f)
-                .tilt(20f)
-                .build()
+            val cameraPosition =
+                CameraPosition.builder()
+                    .target(LatLng(68.0, 34.0))
+                    .zoom(5f)
+                    .bearing(45f)
+                    .tilt(20f)
+                    .build()
             val cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition)
             mMap.animateCamera(cameraUpdate)
         }
@@ -185,14 +193,14 @@ class GoogleMapsActivity : AppCompatActivity(), OnMapReadyCallback,
             Toast.makeText(
                 this,
                 "onMapLongClick: " + latLng?.latitude + "," + latLng?.longitude,
-                Toast.LENGTH_SHORT
+                Toast.LENGTH_SHORT,
             ).show()
         }
         mMap.setOnCameraChangeListener { cameraPosition: CameraPosition? ->
             Toast.makeText(
                 this,
                 "onCameraChange: " + cameraPosition?.zoom?.format(2),
-                Toast.LENGTH_SHORT
+                Toast.LENGTH_SHORT,
             ).show()
         }
 

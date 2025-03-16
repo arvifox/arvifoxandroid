@@ -13,8 +13,10 @@ import java.io.File
 import java.io.IOException
 
 object BackUtils {
-
-    fun download(url: String, dest: File) {
+    fun download(
+        url: String,
+        dest: File,
+    ) {
         OkHttpClient()
             .newCall(Request.Builder().url(url).get().build())
             .execute()
@@ -26,26 +28,38 @@ object BackUtils {
             }
     }
 
-    fun sendToken(token: String, con: Context) {
+    fun sendToken(
+        token: String,
+        con: Context,
+    ) {
         val client = OkHttpClient()
-        val request = Request.Builder()
-            .url(
-                BuildConfig.ARVI_API_URL + "adddevice.php?id=" + token +
+        val request =
+            Request.Builder()
+                .url(
+                    BuildConfig.ARVI_API_URL + "adddevice.php?id=" + token +
                         "&tel=" + Build.MANUFACTURER.replace(" ", "", true) +
-                        "_" + Build.MODEL.replace(" ", "", true)
-            )
-            .build()
+                        "_" + Build.MODEL.replace(" ", "", true),
+                )
+                .build()
         val han = Handler(Looper.getMainLooper())
-        client.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                han.post { BaseStorage.tokenSent(con, false) }
-            }
-
-            override fun onResponse(call: Call, response: Response) {
-                if (response.isSuccessful) {
-                    han.post { BaseStorage.tokenSent(con, true) }
+        client.newCall(request).enqueue(
+            object : Callback {
+                override fun onFailure(
+                    call: Call,
+                    e: IOException,
+                ) {
+                    han.post { BaseStorage.tokenSent(con, false) }
                 }
-            }
-        })
+
+                override fun onResponse(
+                    call: Call,
+                    response: Response,
+                ) {
+                    if (response.isSuccessful) {
+                        han.post { BaseStorage.tokenSent(con, true) }
+                    }
+                }
+            },
+        )
     }
 }

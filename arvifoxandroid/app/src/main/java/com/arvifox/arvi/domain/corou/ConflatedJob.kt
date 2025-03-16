@@ -4,7 +4,6 @@ import kotlinx.coroutines.Job
 import kotlin.coroutines.coroutineContext
 
 class ConflatedJob {
-
     private var job: Job? = null
     private var prevJob: Job? = null
 

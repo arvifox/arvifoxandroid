@@ -15,7 +15,8 @@ class Book(val title: String, val author: Person) : Parcelable {
 }
 
 enum class State {
-    ON, OFF
+    ON,
+    OFF,
 }
 
 @Parcelize
@@ -25,10 +26,12 @@ class PowerSwitch(var state: State) : Parcelable
 class Library(val books: List<Book>) : Parcelable
 
 object DateParceler : Parceler<Date> {
-
     override fun create(parcel: Parcel) = Date(parcel.readLong())
 
-    override fun Date.write(parcel: Parcel, flags: Int) = parcel.writeLong(time)
+    override fun Date.write(
+        parcel: Parcel,
+        flags: Int,
+    ) = parcel.writeLong(time)
 }
 
 @Parcelize
@@ -36,12 +39,12 @@ object DateParceler : Parceler<Date> {
 class Session(
     val title: String,
     val startTime: Date,
-    val endTime: Date
+    val endTime: Date,
 ) : Parcelable
 
 @Parcelize
 class Session2(
     val title: String,
     val startTime: @WriteWith<DateParceler> Date,
-    val endTime: @WriteWith<DateParceler> Date
+    val endTime: @WriteWith<DateParceler> Date,
 ) : Parcelable

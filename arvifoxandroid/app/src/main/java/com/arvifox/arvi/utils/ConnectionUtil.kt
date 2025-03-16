@@ -19,7 +19,6 @@ import android.os.Looper
 import androidx.annotation.RequiresApi
 
 object ConnectionUtil {
-
     @TargetApi(24)
     fun qwe(context: Context) {
         val cm = context.getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -35,13 +34,14 @@ object ConnectionUtil {
 }
 
 class ConnectivityCallback : ConnectivityManager.NetworkCallback() {
-    override fun onCapabilitiesChanged(network: Network, capabilities: NetworkCapabilities) {
+    override fun onCapabilitiesChanged(
+        network: Network,
+        capabilities: NetworkCapabilities,
+    ) {
         val connected = capabilities.hasCapability(NET_CAPABILITY_INTERNET)
-
     }
 
     override fun onLost(network: Network) {
-
     }
 }
 
@@ -51,6 +51,7 @@ interface ConnectivityProvider {
     }
 
     fun addListener(listener: ConnectivityStateListener)
+
     fun removeListener(listener: ConnectivityStateListener)
 
     fun getNetworkState(): NetworkState
@@ -60,15 +61,14 @@ interface ConnectivityProvider {
         object NotConnectedState : NetworkState()
 
         sealed class ConnectedState(val hasInternet: Boolean) : NetworkState() {
-
             @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
             data class Connected(val capabilities: NetworkCapabilities) : ConnectedState(
-                capabilities.hasCapability(NET_CAPABILITY_INTERNET)
+                capabilities.hasCapability(NET_CAPABILITY_INTERNET),
             )
 
             @Suppress("DEPRECATION")
             data class ConnectedLegacy(val networkInfo: NetworkInfo) : ConnectedState(
-                networkInfo.isConnectedOrConnecting
+                networkInfo.isConnectedOrConnecting,
             )
         }
     }
@@ -120,13 +120,13 @@ abstract class ConnectivityProviderBaseImpl : ConnectivityProvider {
     }
 
     protected abstract fun subscribe()
+
     protected abstract fun unsubscribe()
 }
 
 @TargetApi(24)
 class ConnectivityProviderImpl(private val cm: ConnectivityManager) :
     ConnectivityProviderBaseImpl() {
-
     private val networkCallback = ConnectivityCallback()
 
     override fun subscribe() {
@@ -147,8 +147,10 @@ class ConnectivityProviderImpl(private val cm: ConnectivityManager) :
     }
 
     private inner class ConnectivityCallback : ConnectivityManager.NetworkCallback() {
-
-        override fun onCapabilitiesChanged(network: Network, capabilities: NetworkCapabilities) {
+        override fun onCapabilitiesChanged(
+            network: Network,
+            capabilities: NetworkCapabilities,
+        ) {
             dispatchChange(ConnectivityProvider.NetworkState.ConnectedState.Connected(capabilities))
         }
 
@@ -160,9 +162,8 @@ class ConnectivityProviderImpl(private val cm: ConnectivityManager) :
 
 class ConnectivityProviderLegacyImpl(
     private val context: Context,
-    private val cm: ConnectivityManager
+    private val cm: ConnectivityManager,
 ) : ConnectivityProviderBaseImpl() {
-
     private val receiver = ConnectivityReceiver()
 
     override fun subscribe() {
@@ -183,7 +184,10 @@ class ConnectivityProviderLegacyImpl(
     }
 
     private inner class ConnectivityReceiver : BroadcastReceiver() {
-        override fun onReceive(c: Context, intent: Intent) {
+        override fun onReceive(
+            c: Context,
+            intent: Intent,
+        ) {
             // on some devices ConnectivityManager.getActiveNetworkInfo() does not provide the correct network state
             // https://issuetracker.google.com/issues/37137911
             val networkInfo = cm.activeNetworkInfo
@@ -196,13 +200,17 @@ class ConnectivityProviderLegacyImpl(
                     networkInfo.isConnectedOrConnecting != fallbackNetworkInfo.isConnectedOrConnecting
                 ) {
                     ConnectivityProvider.NetworkState.ConnectedState.ConnectedLegacy(
-                        fallbackNetworkInfo
+                        fallbackNetworkInfo,
                     )
                 } else {
                     val state = networkInfo ?: fallbackNetworkInfo
-                    if (state != null) ConnectivityProvider.NetworkState.ConnectedState.ConnectedLegacy(
-                        state
-                    ) else ConnectivityProvider.NetworkState.NotConnectedState
+                    if (state != null) {
+                        ConnectivityProvider.NetworkState.ConnectedState.ConnectedLegacy(
+                            state,
+                        )
+                    } else {
+                        ConnectivityProvider.NetworkState.NotConnectedState
+                    }
                 }
             dispatchChange(state)
         }

@@ -23,10 +23,8 @@ plugins {
     alias(libs.plugins.kapt)
     id("kotlin-parcelize")
     id("com.google.devtools.ksp")
-//    alias(libs.plugins.kotlinCompose)
+    alias(libs.plugins.kotlin.compose)
 }
-
-val composeCompilerVersion: String by project
 
 kotlin {
     jvmToolchain(21)
@@ -67,10 +65,6 @@ android {
         //viewBinding true
         dataBinding = true
         buildConfig = true
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = composeCompilerVersion
     }
     packaging {
         resources {

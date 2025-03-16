@@ -10,41 +10,45 @@ import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
 object Arvi17 {
-
     val uiScope = CoroutineScope(Dispatchers.Main)
-    fun loadData() = uiScope.launch {
-        val task = async(bgDispatcher) {
-            // background thread
-            // your blocking call
+
+    fun loadData() =
+        uiScope.launch {
+            val task =
+                async(bgDispatcher) {
+                    // background thread
+                    // your blocking call
+                }
+            // suspend until task is finished or return null in 2 sec
+            val result = withTimeoutOrNull(2000) { task.await() }
         }
-        // suspend until task is finished or return null in 2 sec
-        val result = withTimeoutOrNull(2000) { task.await() }
-    }
 }
 
 object Arvi_supervisor {
-
     var job = SupervisorJob()
     private val uiScope = CoroutineScope(Dispatchers.Main + job)
+
     fun startPresenting() {
         loadData()
     }
+
     fun stopPresenting() {
         uiScope.coroutineContext.cancelChildren()
     }
-    private fun loadData() = uiScope.launch {
-        //show pr
-        val result = withContext(bgDispatcher) { // background thread
-            // your blocking call
+
+    private fun loadData() =
+        uiScope.launch {
+            // show pr
+            val result =
+                withContext(bgDispatcher) { // background thread
+                    // your blocking call
+                }
+            // hide pr
         }
-        //hide pr
-    }
 }
 
 object Arvi_lifecycler {
-
     class MainScope : CoroutineScope, LifecycleObserver {
-
         private val job = SupervisorJob()
         override val coroutineContext: CoroutineContext
             get() = job + Dispatchers.Main
@@ -52,6 +56,7 @@ object Arvi_lifecycler {
         @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
         fun destroy() = coroutineContext.cancelChildren()
     }
+
     // usage
     class MainFragment : Fragment() {
         private val uiScope = MainScope()
@@ -61,10 +66,12 @@ object Arvi_lifecycler {
             lifecycle.addObserver(uiScope)
         }
 
-        private fun loadData() = uiScope.launch {
-            val result = withContext(bgDispatcher) {
-                // your blocking call
+        private fun loadData() =
+            uiScope.launch {
+                val result =
+                    withContext(bgDispatcher) {
+                        // your blocking call
+                    }
             }
-        }
     }
 }

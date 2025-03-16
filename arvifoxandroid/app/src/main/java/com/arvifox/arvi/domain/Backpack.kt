@@ -1,7 +1,10 @@
 package com.arvifox.arvi.domain
 
 object Backpack {
-    private fun calcBackpack(sum: Int, weights: IntArray): Int {
+    private fun calcBackpack(
+        sum: Int,
+        weights: IntArray,
+    ): Int {
         val d = IntArray(sum + 1)
         d[0] = 1
         for (w in weights) {

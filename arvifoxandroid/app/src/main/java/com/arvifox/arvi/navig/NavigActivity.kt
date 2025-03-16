@@ -10,7 +10,6 @@ import androidx.navigation.fragment.NavHostFragment
 import com.arvifox.arvi.R
 
 class NavigActivity : AppCompatActivity() {
-
     companion object {
         fun newIntent(c: Context): Intent {
             return Intent(c, NavigActivity::class.java)
@@ -22,8 +21,7 @@ class NavigActivity : AppCompatActivity() {
         setContentView(R.layout.activity_navig)
     }
 
-    override fun onSupportNavigateUp(): Boolean =
-        findNavController(R.id.nav_host_fragment).navigateUp()
+    override fun onSupportNavigateUp(): Boolean = findNavController(R.id.nav_host_fragment).navigateUp()
 
     fun getNavigator(): NavController {
         return NavHostFragment.findNavController(supportFragmentManager.findFragmentById(R.id.nav_host_fragment)!!)

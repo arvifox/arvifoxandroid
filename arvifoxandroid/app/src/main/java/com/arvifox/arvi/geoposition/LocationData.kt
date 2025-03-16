@@ -12,25 +12,24 @@ import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 
 class LocationViewModel(application: Application) : AndroidViewModel(application) {
-
     private val locationData = LocationLiveData(application)
 
     fun getLocationData() = locationData
 }
 
 data class LocationModel(
-        val longitude: Double,
-        val latitude: Double
+    val longitude: Double,
+    val latitude: Double,
 )
 
 class LocationLiveData(context: Context) : LiveData<LocationModel>() {
-
     companion object {
-        val locationRequest: LocationRequest = LocationRequest.create().apply {
-            interval = 10000
-            fastestInterval = 5000
-            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-        }
+        val locationRequest: LocationRequest =
+            LocationRequest.create().apply {
+                interval = 10000
+                fastestInterval = 5000
+                priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+            }
     }
 
     private var fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
@@ -44,36 +43,38 @@ class LocationLiveData(context: Context) : LiveData<LocationModel>() {
     override fun onActive() {
         super.onActive()
         fusedLocationClient.lastLocation
-                .addOnSuccessListener { location: Location? ->
-                    location?.also {
-                        setLocationData(it)
-                    }
+            .addOnSuccessListener { location: Location? ->
+                location?.also {
+                    setLocationData(it)
                 }
+            }
         startLocationUpdates()
     }
 
     @SuppressLint("MissingPermission")
     private fun startLocationUpdates() {
         fusedLocationClient.requestLocationUpdates(
-                locationRequest,
-                locationCallback,
-                null
+            locationRequest,
+            locationCallback,
+            null,
         )
     }
 
-    private val locationCallback = object : LocationCallback() {
-        override fun onLocationResult(locationResult: LocationResult) {
-            locationResult ?: return
-            for (location in locationResult.locations) {
-                setLocationData(location)
+    private val locationCallback =
+        object : LocationCallback() {
+            override fun onLocationResult(locationResult: LocationResult) {
+                locationResult ?: return
+                for (location in locationResult.locations) {
+                    setLocationData(location)
+                }
             }
         }
-    }
 
     private fun setLocationData(location: Location) {
-        value = LocationModel(
+        value =
+            LocationModel(
                 longitude = location.longitude,
-                latitude = location.latitude
-        )
+                latitude = location.latitude,
+            )
     }
 }

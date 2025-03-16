@@ -22,7 +22,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class Misc2Fragment1 : Fragment() {
-
     companion object {
         fun newInstance(): Misc2Fragment1 {
             return Misc2Fragment1()
@@ -43,20 +42,27 @@ class Misc2Fragment1 : Fragment() {
         super.onPrepareOptionsMenu(menu)
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    override fun onActivityResult(
+        requestCode: Int,
+        resultCode: Int,
+        data: Intent?,
+    ) {
         super.onActivityResult(requestCode, resultCode, data)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         binding = FragmentTestcustomBinding.inflate(inflater, container, false)
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
         binding.misc2Btn.setOnClickListener {
             val typemy = object : TypeToken<List<Tomapin>>() {}.type
@@ -65,21 +71,27 @@ class Misc2Fragment1 : Fragment() {
             val s = mpr.size
         }
         binding.misc2Btn2.setOnClickListener {
-            val r = RetrofitMock.getR(AssetUtils.loadStringFromAssets(requireContext(), "2.json"))
-                .getRe()
-            r.enqueue(object : Callback<DaResponse> {
-                override fun onFailure(call: Call<DaResponse>, t: Throwable) {
-                    var uu = 23
-                }
+            val r =
+                RetrofitMock.getR(AssetUtils.loadStringFromAssets(requireContext(), "2.json"))
+                    .getRe()
+            r.enqueue(
+                object : Callback<DaResponse> {
+                    override fun onFailure(
+                        call: Call<DaResponse>,
+                        t: Throwable,
+                    ) {
+                        var uu = 23
+                    }
 
-                override fun onResponse(
-                    call: Call<DaResponse>,
-                    response: retrofit2.Response<DaResponse>
-                ) {
-                    val rr = response.body()
-                    val rs = mapResponseToGasStationModel(rr!!)
-                }
-            })
+                    override fun onResponse(
+                        call: Call<DaResponse>,
+                        response: retrofit2.Response<DaResponse>,
+                    ) {
+                        val rr = response.body()
+                        val rs = mapResponseToGasStationModel(rr!!)
+                    }
+                },
+            )
         }
     }
 
@@ -87,7 +99,10 @@ class Misc2Fragment1 : Fragment() {
         super.onActivityCreated(savedInstanceState)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+    override fun onCreateOptionsMenu(
+        menu: Menu,
+        inflater: MenuInflater,
+    ) {
         super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -106,7 +121,7 @@ class Misc2Fragment1 : Fragment() {
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
-        grantResults: IntArray
+        grantResults: IntArray,
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
@@ -150,12 +165,14 @@ class Misc2Fragment1 : Fragment() {
                         "address" -> stationModel.addressLine = it.value as String
                         "zipcode" -> stationModel.postalCode = it.value as String
                         "locality" -> stationModel.city = it.value as String
-                        "latitude" -> stationModel.lat =
-                            NumberFormat.getNumberInstance(Locale.getDefault())
-                                .parse((it.value as String).replace(".", ",")).toDouble()
-                        "longitude" -> stationModel.lon =
-                            NumberFormat.getNumberInstance(Locale.getDefault())
-                                .parse((it.value as String).replace(".", ",")).toDouble()
+                        "latitude" ->
+                            stationModel.lat =
+                                NumberFormat.getNumberInstance(Locale.getDefault())
+                                    .parse((it.value as String).replace(".", ",")).toDouble()
+                        "longitude" ->
+                            stationModel.lon =
+                                NumberFormat.getNumberInstance(Locale.getDefault())
+                                    .parse((it.value as String).replace(".", ",")).toDouble()
                         "currency" -> stationModel.currency = it.value as String
                         "timezone" -> stationModel.timeZone = it.value as String
                         "hours" -> parseOpeningHours(stationModel.openingHours, it.value as String)
@@ -168,7 +185,10 @@ class Misc2Fragment1 : Fragment() {
         return result
     }
 
-    private fun parseOpeningHours(list: MutableList<OpeningDayModel>, hours: String) {
+    private fun parseOpeningHours(
+        list: MutableList<OpeningDayModel>,
+        hours: String,
+    ) {
         if (TextUtils.isEmpty(hours)) return
         val s1 = hours.split("]").map { it.replace("[", "", true) }
         for (s in s1) {
@@ -188,9 +208,12 @@ class Misc2Fragment1 : Fragment() {
                     }
                 } else {
                     ss.split("-").forEachIndexed { index2, s2 ->
-                        if (index2 == 0) o1 =
-                            SimpleDateFormat("H:m", Locale.getDefault()).parse(s2) else
+                        if (index2 == 0) {
+                            o1 =
+                                SimpleDateFormat("H:m", Locale.getDefault()).parse(s2)
+                        } else {
                             c2 = SimpleDateFormat("H:m", Locale.getDefault()).parse(s2)
+                        }
                     }
                 }
             }
@@ -200,13 +223,15 @@ class Misc2Fragment1 : Fragment() {
         }
     }
 
-    private fun parseGasPrices(list: MutableList<PriceModel>, gasPrices: Any) {
+    private fun parseGasPrices(
+        list: MutableList<PriceModel>,
+        gasPrices: Any,
+    ) {
         Ted.kdslf(list, gasPrices)
         if (gasPrices is List<*>) {
             for (pri in gasPrices) {
                 val p: PriceModel
                 if (pri is LinkedTreeMap<*, *>) {
-
                 }
             }
         }

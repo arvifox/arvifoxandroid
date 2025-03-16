@@ -12,9 +12,7 @@ import com.arvifox.arvi.R
 import com.arvifox.arvi.utils.Qwe.afterMeasured
 import kotlin.math.abs
 
-
 class MainActivity : AppCompatActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -46,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         window.decorView.afterMeasured {
             val v = findViewById<View>(android.R.id.statusBarBackground)
             Log.d("foxx", "hhh=${v.height}")
-            //clMain.setPadding(0, v.height, 0, 0)
+            // clMain.setPadding(0, v.height, 0, 0)
             eee()
             getStatusBarHeight()
         }
@@ -56,13 +54,15 @@ class MainActivity : AppCompatActivity() {
 
     override fun onAttachedToWindow() {
         val statusBar: Int
-        statusBar = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            window.decorView.rootWindowInsets.stableInsetTop
-        } else {
-            val v = window.decorView
-                .findViewById<View>(android.R.id.statusBarBackground)
-            v.height
-        }
+        statusBar =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                window.decorView.rootWindowInsets.stableInsetTop
+            } else {
+                val v =
+                    window.decorView
+                        .findViewById<View>(android.R.id.statusBarBackground)
+                v.height
+            }
         super.onAttachedToWindow()
     }
 
@@ -96,25 +96,29 @@ class MainActivity : AppCompatActivity() {
 }
 
 object Qwe {
-
-    inline fun View.waitForLayout(crossinline f: () -> Unit) = with(viewTreeObserver) {
-        addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
-            override fun onGlobalLayout() {
-                removeOnGlobalLayoutListener(this)
-                f()
-            }
-        })
-    }
+    inline fun View.waitForLayout(crossinline f: () -> Unit) =
+        with(viewTreeObserver) {
+            addOnGlobalLayoutListener(
+                object : ViewTreeObserver.OnGlobalLayoutListener {
+                    override fun onGlobalLayout() {
+                        removeOnGlobalLayoutListener(this)
+                        f()
+                    }
+                },
+            )
+        }
 
     inline fun <T : View> T.afterMeasured(crossinline f: T.() -> Unit) {
-        viewTreeObserver.addOnGlobalLayoutListener(object :
-            ViewTreeObserver.OnGlobalLayoutListener {
-            override fun onGlobalLayout() {
-                if (measuredWidth > 0 && measuredHeight > 0) {
-                    viewTreeObserver.removeOnGlobalLayoutListener(this)
-                    f()
+        viewTreeObserver.addOnGlobalLayoutListener(
+            object :
+                ViewTreeObserver.OnGlobalLayoutListener {
+                override fun onGlobalLayout() {
+                    if (measuredWidth > 0 && measuredHeight > 0) {
+                        viewTreeObserver.removeOnGlobalLayoutListener(this)
+                        f()
+                    }
                 }
-            }
-        })
+            },
+        )
     }
 }

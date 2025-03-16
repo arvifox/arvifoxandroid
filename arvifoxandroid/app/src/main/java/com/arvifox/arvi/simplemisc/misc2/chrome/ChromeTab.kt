@@ -11,7 +11,6 @@ object sfs {
 }
 
 object webwe {
-
     @SuppressLint("SetJavaScriptEnabled")
     fun f(webView: WebView) {
         webView.loadUrl("https://android-tools.ru")
@@ -33,17 +32,20 @@ object webwe {
     private class MyWebViewClient : WebViewClient() {
         override fun shouldOverrideUrlLoading(
             view: WebView?,
-            request: WebResourceRequest?
+            request: WebResourceRequest?,
         ): Boolean {
             return super.shouldOverrideUrlLoading(view, request)
         }
 
-        override fun onPageFinished(view: WebView?, url: String?) {}
+        override fun onPageFinished(
+            view: WebView?,
+            url: String?,
+        ) {}
 
         override fun onReceivedError(
             view: WebView?,
             request: WebResourceRequest?,
-            error: WebResourceError?
+            error: WebResourceError?,
         ) {
             super.onReceivedError(view, request, error)
         }
@@ -54,7 +56,7 @@ object webwe {
             view: WebView?,
             url: String?,
             message: String?,
-            result: JsResult?
+            result: JsResult?,
         ): Boolean {
             return true
         }
@@ -63,7 +65,7 @@ object webwe {
             view: WebView?,
             url: String?,
             message: String?,
-            result: JsResult?
+            result: JsResult?,
         ): Boolean {
             return true
         }
@@ -73,7 +75,7 @@ object webwe {
             url: String?,
             message: String?,
             defaultValue: String?,
-            result: JsPromptResult?
+            result: JsPromptResult?,
         ): Boolean {
             return true
         }
@@ -81,6 +83,7 @@ object webwe {
 
     class JavaScriptInterface internal constructor(c: Context) {
         var mContext: Context = c
+
         @JavascriptInterface
         fun showToast(toast: String?) {
             Toast.makeText(mContext, toast, Toast.LENGTH_SHORT).show()

@@ -6,7 +6,6 @@ import java.util.concurrent.Executors
 import kotlin.concurrent.thread
 
 object Arv08 {
-
     fun ar01() {
         thread {
             println("SAM thread start")
@@ -28,16 +27,18 @@ object Arv08 {
     }
 
     private fun processItem(i: Int) {
-
     }
 }
 
 object Arv09 {
     fun ad() {
         val myService: ExecutorService = Executors.newFixedThreadPool(2)
-        val result = myService.submit(Callable<String> {
-            return@Callable ""
-        })
+        val result =
+            myService.submit(
+                Callable<String> {
+                    return@Callable ""
+                },
+            )
         println(result.get())
     }
 }

@@ -45,6 +45,7 @@ class MySyncAdapterFoxService : Service() {
     companion object {
         // Storage for an instance of the sync adapter
         private var sSyncAdapter: MySyncAdapterFox? = null
+
         // Object to use as a thread-safe lock
         private val sSyncAdapterLock = Any()
     }

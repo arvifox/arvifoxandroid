@@ -11,23 +11,24 @@ import com.arvifox.arvi.databinding.FragmentRecySimpBinBinding
 import com.arvifox.arvi.utils.FormatUtils.showToast
 
 class RecySimpBinFragment : Fragment() {
-
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
     ): View? {
         val bin = FragmentRecySimpBinBinding.inflate(inflater, container, false)
         bin.rvSimpleBind.setHasFixedSize(true)
-        bin.rvSimpleBind.adapter = SimpleAdapter(
-            R.layout.item_simple_recy_bin,
-            listOf(
-                RecySimpleData("", "")
-            ),
-            BR.varRecyItemSimple,
-            BR.varSimpleOnItemClick
-        ) { v, i, p ->
-            activity?.showToast("${v.id} - $i - $p")
-        }
+        bin.rvSimpleBind.adapter =
+            SimpleAdapter(
+                R.layout.item_simple_recy_bin,
+                listOf(
+                    RecySimpleData("", ""),
+                ),
+                BR.varRecyItemSimple,
+                BR.varSimpleOnItemClick,
+            ) { v, i, p ->
+                activity?.showToast("${v.id} - $i - $p")
+            }
 
         return bin.root
     }

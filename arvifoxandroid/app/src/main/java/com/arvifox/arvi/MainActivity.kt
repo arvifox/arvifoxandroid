@@ -16,16 +16,16 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.view.GravityCompat
+import androidx.lifecycle.lifecycleScope
 import com.arvifox.arvi.databinding.ActivityMainBinding
-import com.arvifox.arvi.domain.corou.Arv10
+import com.arvifox.arvi.domain.corou.CoroChannel
+import com.arvifox.arvi.domain.corou.letsplay
 import com.arvifox.arvi.geoposition.GeoPositionActivity
 import com.arvifox.arvi.google.GoogleBaseStartActivity
 import com.arvifox.arvi.googlemaps.GoogleMapsActivity
@@ -34,27 +34,16 @@ import com.arvifox.arvi.navig.NavigActivity
 import com.arvifox.arvi.simplemisc.SimpleMisc2Activity
 import com.arvifox.arvi.simplemisc.SimpleMiscActivity
 import com.arvifox.arvi.simplemisc.phoneinfo.PhoneInfoActivity
-import com.arvifox.arvi.siteback.BackUtils
+import com.arvifox.arvi.uicompose.ComposeFirstActivity
 import com.arvifox.arvi.utils.BaseStorage
 import com.arvifox.arvi.utils.views.TextDrawable
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.messaging.FirebaseMessaging
-import android.Manifest.permission.POST_NOTIFICATIONS
-import androidx.lifecycle.lifecycleScope
-import com.arvifox.arvi.domain.corou.CoroSim
-import com.arvifox.arvi.domain.corou.letsplay
-import com.arvifox.arvi.domain.multithre.TesIntMul
-import com.arvifox.arvi.domain.multithre.letsStart
-import com.arvifox.arvi.domain.texts.TextsUtils
-import com.arvifox.arvi.uicompose.ComposeFirstActivity
 import com.google.firebase.FirebaseApp
-import kotlinx.coroutines.Dispatchers
+import com.google.firebase.analytics.FirebaseAnalytics
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 // Constants
 // The authority for the sync adapter's content provider
@@ -67,17 +56,17 @@ const val ACCOUNT_TYPE = "arvifox.com"
 const val ACCOUNT = "arvifoxAccount"
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-
     private lateinit var fa: FirebaseAnalytics
 
     // Instance fields
     private lateinit var mAccount: Account
 
-    private val notificationPermission = registerForActivityResult(ActivityResultContracts.RequestPermission()) { permissionGranted ->
-        if (permissionGranted) {
-            // do
+    private val notificationPermission =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { permissionGranted ->
+            if (permissionGranted) {
+                // do
+            }
         }
-    }
 
     /**
      * Create a new dummy account for the sync adapter
@@ -123,7 +112,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         binding.incAppBar.fab.setOnClickListener { view ->
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                if(NotificationManagerCompat.from(this).areNotificationsEnabled()) {
+                if (NotificationManagerCompat.from(this).areNotificationsEnabled()) {
                     notificationPermission.launch(POST_NOTIFICATIONS)
                 }
             }
@@ -132,11 +121,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
 
         binding.incAppBar.incContMan.btnMainButton01.setOnClickListener {
-            //Arv10.getWW()
-            //TesIntMul.check()
-            //letsStart()
+            // Arv10.getWW()
+            // TesIntMul.check()
+            // letsStart()
 //            TextsUtils.check()
-            letsplay()
+//            letsplay()
+            lifecycleScope.launch {
+                CoroChannel.sendInt(23)
+                CoroChannel.sendInt(67)
+            }
+            lifecycleScope.launch {
+                CoroChannel.consumeInt()
+            }
 //            lifecycleScope.launch {
 //                withContext(Dispatchers.Default) {
 //                    CoroSim.calcall()
@@ -144,13 +140,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 //            }
         }
 
-        val toggle = ActionBarDrawerToggle(
-            this,
-            binding.drawerLayout,
-            binding.incAppBar.incAppBarLayout.toolbar,
-            R.string.navigation_drawer_open,
-            R.string.navigation_drawer_close
-        )
+        val toggle =
+            ActionBarDrawerToggle(
+                this,
+                binding.drawerLayout,
+                binding.incAppBar.incAppBarLayout.toolbar,
+                R.string.navigation_drawer_open,
+                R.string.navigation_drawer_close,
+            )
         binding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
@@ -170,11 +167,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val nm = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            val channel = NotificationChannel(
-                BaseStorage.notificationChannelID,
-                "Arvifox channel",
-                NotificationManager.IMPORTANCE_DEFAULT
-            )
+            val channel =
+                NotificationChannel(
+                    BaseStorage.notificationChannelID,
+                    "Arvifox channel",
+                    NotificationManager.IMPORTANCE_DEFAULT,
+                )
             channel.description = "Arvifox channel"
             channel.enableLights(false)
             channel.lightColor = Color.RED
@@ -192,8 +190,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 "sdff",
                 ColorStateList.valueOf(Color.RED),
                 32f,
-                TextDrawable.VerticalAlignment.BASELINE
-            )
+                TextDrawable.VerticalAlignment.BASELINE,
+            ),
         )
 
         binding.incAppBar.incContMan.btnMainFloating.setImageDrawable(
@@ -202,8 +200,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 "kjlkjlkj",
                 ColorStateList.valueOf(Color.RED),
                 32f,
-                TextDrawable.VerticalAlignment.BASELINE
-            )
+                TextDrawable.VerticalAlignment.BASELINE,
+            ),
         )
     }
 
@@ -212,7 +210,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val intent = Intent(this, SimpleMisc2Activity::class.java)
         intent.addFlags(
             Intent.FLAG_ACTIVITY_LAUNCH_ADJACENT or
-                    Intent.FLAG_ACTIVITY_NEW_TASK
+                Intent.FLAG_ACTIVITY_NEW_TASK,
         )
         startActivity(intent)
     }
@@ -232,11 +230,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         intentFilter.addAction(Intent.ACTION_PACKAGE_REMOVED)
         intentFilter.addAction(Intent.ACTION_PACKAGE_REPLACED)
         intentFilter.addDataScheme("package")
-        registerReceiver(object : BroadcastReceiver() {
-            override fun onReceive(p0: Context?, p1: Intent?) {
-                Log.d("foxx ff", "${p1?.action} and ${p1?.data}")
-            }
-        }, intentFilter)
+        registerReceiver(
+            object : BroadcastReceiver() {
+                override fun onReceive(
+                    p0: Context?,
+                    p1: Intent?,
+                ) {
+                    Log.d("foxx ff", "${p1?.action} and ${p1?.data}")
+                }
+            },
+            intentFilter,
+        )
     }
 
     override fun onBackPressed() {
@@ -299,13 +303,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 startActivity(GoogleBaseStartActivity.newIntent(this))
             }
             R.id.nav_manage -> {
-
             }
             R.id.nav_share -> {
-
             }
             R.id.nav_send -> {
-
             }
         }
 

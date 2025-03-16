@@ -33,7 +33,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class ComposeFirstActivity : ComponentActivity() {
-
     companion object {
         fun newIntent(c: Context): Intent {
             return Intent(c, ComposeFirstActivity::class.java)
@@ -75,9 +74,10 @@ class ComposeFirstActivity : ComponentActivity() {
                         }
                         composable("navStart") {
                             Column(
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .padding(12.dp),
+                                modifier =
+                                    Modifier
+                                        .fillMaxSize()
+                                        .padding(12.dp),
                             ) {
                                 Button(onClick = {
                                     sco.launch {
@@ -115,32 +115,41 @@ class ComposeFirstActivity : ComponentActivity() {
 }
 
 @Composable
-private fun Buro(s1: String, s2: String, s3: String, onClick: (Int) -> Unit) {
+private fun Buro(
+    s1: String,
+    s2: String,
+    s3: String,
+    onClick: (Int) -> Unit,
+) {
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .wrapContentHeight(),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .wrapContentHeight(),
     ) {
         Button(
-            modifier = Modifier
-                .wrapContentHeight()
-                .weight(1f),
+            modifier =
+                Modifier
+                    .wrapContentHeight()
+                    .weight(1f),
             onClick = { onClick.invoke(1) },
         ) {
             Text(s1)
         }
         Button(
-            modifier = Modifier
-                .wrapContentHeight()
-                .weight(1f),
+            modifier =
+                Modifier
+                    .wrapContentHeight()
+                    .weight(1f),
             onClick = { onClick.invoke(2) },
         ) {
             Text(s2)
         }
         Button(
-            modifier = Modifier
-                .wrapContentHeight()
-                .weight(1f),
+            modifier =
+                Modifier
+                    .wrapContentHeight()
+                    .weight(1f),
             onClick = { onClick.invoke(3) },
         ) {
             Text(s3)
@@ -149,10 +158,13 @@ private fun Buro(s1: String, s2: String, s3: String, onClick: (Int) -> Unit) {
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
+fun Greeting(
+    name: String,
+    modifier: Modifier = Modifier,
+) {
     Text(
         text = "Hello $name!",
-        modifier = modifier
+        modifier = modifier,
     )
 }
 

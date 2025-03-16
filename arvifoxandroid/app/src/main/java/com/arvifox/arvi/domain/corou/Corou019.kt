@@ -1,7 +1,6 @@
 package com.arvifox.arvi.domain.corou
 
 import kotlinx.coroutines.channels.awaitClose
-import kotlinx.coroutines.channels.sendBlocking
 import kotlinx.coroutines.channels.trySendBlocking
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
@@ -9,9 +8,9 @@ import kotlinx.coroutines.flow.callbackFlow
 // https://medium.com/@elizarov/callbacks-and-kotlin-flows-2b53aa2525cf
 
 object Corou019 {
-
     interface Operation<T> {
         fun performAsync(callback: (T?, Throwable?) -> Unit)
+
         fun cancel() // cancels ongoing operation
     }
 

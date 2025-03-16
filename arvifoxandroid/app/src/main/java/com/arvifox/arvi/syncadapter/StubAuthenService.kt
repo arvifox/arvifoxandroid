@@ -9,7 +9,6 @@ import android.os.IBinder
  * when started.
  */
 class StubAuthenService : Service() {
-
     // Instance field that stores the authenticator object
     private lateinit var mAuthenticator: StubAuthen
 

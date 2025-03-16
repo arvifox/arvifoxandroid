@@ -8,7 +8,6 @@ import android.widget.Toast
 import com.arvifox.arvi.utils.Logger
 
 class FooService : Service() {
-
     companion object {
         fun startIntent(c: Context): Intent {
             return Intent(c, FooService::class.java)
@@ -31,12 +30,16 @@ class FooService : Service() {
         isRunning = true
     }
 
-    override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
+    override fun onStartCommand(
+        intent: Intent,
+        flags: Int,
+        startId: Int,
+    ): Int {
         val msg = myServiceHandler?.obtainMessage()
         msg?.arg1 = startId
         myServiceHandler?.sendMessage(msg!!)
         Toast.makeText(this, "FooService Started.", Toast.LENGTH_SHORT).show()
-        //If service is killed while starting, it restarts.
+        // If service is killed while starting, it restarts.
         return Service.START_STICKY
     }
 
@@ -62,7 +65,7 @@ class FooService : Service() {
                     }
                 }
             }
-            //stops the service for the start id.
+            // stops the service for the start id.
             stopSelfResult(msg.arg1)
         }
     }

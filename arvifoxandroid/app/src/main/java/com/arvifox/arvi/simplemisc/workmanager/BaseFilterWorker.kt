@@ -10,14 +10,13 @@ import androidx.annotation.VisibleForTesting
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import androidx.work.workDataOf
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.io.*
 import java.util.*
 
-abstract class BaseFilterWorker(context: Context, parameters: WorkerParameters)
-    : CoroutineWorker(context, parameters) {
-
+abstract class BaseFilterWorker(context: Context, parameters: WorkerParameters) :
+    CoroutineWorker(context, parameters) {
     companion object {
         const val TAG = "BaseFilterWorker"
         const val ASSET_PREFIX = "file:///android_asset/"
@@ -32,9 +31,9 @@ abstract class BaseFilterWorker(context: Context, parameters: WorkerParameters)
         @VisibleForTesting
         @Throws(IOException::class)
         fun inputStreamFor(
-                context: Context,
-                resourceUri: String): InputStream? {
-
+            context: Context,
+            resourceUri: String,
+        ): InputStream? {
             // If the resourceUri is an Android asset URI, then use AssetManager to get a handle to
             // the input stream. (Stock Images are Asset URIs).
             if (resourceUri.startsWith(ASSET_PREFIX)) {
@@ -48,30 +47,29 @@ abstract class BaseFilterWorker(context: Context, parameters: WorkerParameters)
         }
     }
 
-    override val coroutineContext: CoroutineDispatcher get() = Dispatchers.IO
-
-    override suspend fun doWork(): Result {
-        val resourceUri = inputData.getString("KEY_IMAGE_URI")
-        try {
-            if (TextUtils.isEmpty(resourceUri)) {
-                Log.e(TAG, "Invalid input uri")
-                throw IllegalArgumentException("Invalid input uri")
+    override suspend fun doWork(): Result =
+        withContext(Dispatchers.IO) {
+            val resourceUri = inputData.getString("KEY_IMAGE_URI")
+            try {
+                if (TextUtils.isEmpty(resourceUri)) {
+                    Log.e(TAG, "Invalid input uri")
+                    throw IllegalArgumentException("Invalid input uri")
+                }
+                val context = applicationContext
+                val inputStream = inputStreamFor(context, resourceUri!!)
+                val bitmap = BitmapFactory.decodeStream(inputStream)
+                val output = applyFilter(bitmap)
+                // write bitmap to a file and set the output
+                val outputUri = writeBitmapToFile(applicationContext, output)
+                Result.success(workDataOf("KEY_IMAGE_URI" to outputUri.toString()))
+            } catch (fileNotFoundException: FileNotFoundException) {
+                Log.e(TAG, "Failed to decode input stream", fileNotFoundException)
+                throw RuntimeException("Failed to decode input stream", fileNotFoundException)
+            } catch (throwable: Throwable) {
+                Log.e(TAG, "Error applying filter", throwable)
+                Result.failure()
             }
-            val context = applicationContext
-            val inputStream = inputStreamFor(context, resourceUri!!)
-            val bitmap = BitmapFactory.decodeStream(inputStream)
-            val output = applyFilter(bitmap)
-            // write bitmap to a file and set the output
-            val outputUri = writeBitmapToFile(applicationContext, output)
-            return Result.success(workDataOf("KEY_IMAGE_URI" to outputUri.toString()))
-        } catch (fileNotFoundException: FileNotFoundException) {
-            Log.e(TAG, "Failed to decode input stream", fileNotFoundException)
-            throw RuntimeException("Failed to decode input stream", fileNotFoundException)
-        } catch (throwable: Throwable) {
-            Log.e(TAG, "Error applying filter", throwable)
-            return Result.failure()
         }
-    }
 
     abstract fun applyFilter(input: Bitmap): Bitmap
 
@@ -85,9 +83,9 @@ abstract class BaseFilterWorker(context: Context, parameters: WorkerParameters)
      */
     @Throws(FileNotFoundException::class)
     private fun writeBitmapToFile(
-            applicationContext: Context,
-            bitmap: Bitmap): Uri {
-
+        applicationContext: Context,
+        bitmap: Bitmap,
+    ): Uri {
         // Bitmaps are being written to a temporary directory. This is so they can serve as inputs
         // for workers downstream, via Worker chaining.
         val name = String.format("filter-output-%s.png", UUID.randomUUID().toString())
@@ -106,7 +104,6 @@ abstract class BaseFilterWorker(context: Context, parameters: WorkerParameters)
                     out.close()
                 } catch (ignore: IOException) {
                 }
-
             }
         }
         return Uri.fromFile(outputFile)

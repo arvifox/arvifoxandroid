@@ -1,7 +1,6 @@
 package com.arvifox.arvi.kotlinpu
 
 import com.arvifox.arvi.domain.corou.qwefd
-import com.arvifox.arvi.domain.inlinekotlin.isA
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
@@ -13,7 +12,6 @@ import org.junit.Before
 import org.junit.Test
 
 class Corte {
-
     private val td = TestCoroutineDispatcher()
 
     @Before
@@ -35,25 +33,28 @@ class Corte {
     }
 
     @Test
-    fun qerwr() = runTest {
-        val scopeJob = Job()
-        val scope = CoroutineScope(scopeJob + Dispatchers.Default)
-        val job1 = scope.launch {
-            withContext(NonCancellable) {
-                var itera = 1
-                while (isActive && itera <= 5) {
-                    println("itera $itera")
-                    itera++
-                    delay(50)
+    fun qerwr() =
+        runTest {
+            val scopeJob = Job()
+            val scope = CoroutineScope(scopeJob + Dispatchers.Default)
+            val job1 =
+                scope.launch {
+                    withContext(NonCancellable) {
+                        var itera = 1
+                        while (isActive && itera <= 5) {
+                            println("itera $itera")
+                            itera++
+                            delay(50)
+                        }
+                    }
                 }
-            }
+            val job2 =
+                scope.launch {
+                    delay(100)
+                    job1.cancel()
+                }
+            joinAll(job1, job2)
         }
-        val job2 = scope.launch {
-            delay(100)
-            job1.cancel()
-        }
-        joinAll(job1, job2)
-    }
 
     @ExperimentalCoroutinesApi
     @Test
@@ -68,19 +69,20 @@ class Corte {
         return startfl().first { it == 6 }
     }
 
-    private fun startfl(): Flow<Int> = flow {
-        emit(1)
-        delay(300)
-        emit(2)
-        emit(3)
-        emit(4)
-        emit(5)
-        emit(6)
-        emit(7)
-        emit(8)
-        emit(9)
-        emit(10)
-    }.onCompletion {
-        println("complete")
-    }
+    private fun startfl(): Flow<Int> =
+        flow {
+            emit(1)
+            delay(300)
+            emit(2)
+            emit(3)
+            emit(4)
+            emit(5)
+            emit(6)
+            emit(7)
+            emit(8)
+            emit(9)
+            emit(10)
+        }.onCompletion {
+            println("complete")
+        }
 }

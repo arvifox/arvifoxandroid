@@ -20,7 +20,6 @@ import java.net.HttpURLConnection.HTTP_OK
 import java.net.URL
 
 class OAuthTestActivity : AppCompatActivity() {
-
     private lateinit var token: String
 
     companion object {
@@ -57,7 +56,11 @@ class OAuthTestActivity : AppCompatActivity() {
         am.getAuthToken(acc, "Manage your tasks", opt, this, OnTokenAcquired(), handler)
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    override fun onActivityResult(
+        requestCode: Int,
+        resultCode: Int,
+        data: Intent?,
+    ) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 234) {
             if (resultCode == Activity.RESULT_OK) {
@@ -76,7 +79,7 @@ class OAuthTestActivity : AppCompatActivity() {
             con.requestMethod = "GET"
             con.addRequestProperty(
                 "client_id",
-                "[client id OAuth 2.0 from google cloud console console.cloud.google.com]"
+                "[client id OAuth 2.0 from google cloud console console.cloud.google.com]",
             )
 //            con.addRequestProperty("client_secret", "[no need for android]")
             con.addRequestProperty("Authorization", "OAuth " + token)

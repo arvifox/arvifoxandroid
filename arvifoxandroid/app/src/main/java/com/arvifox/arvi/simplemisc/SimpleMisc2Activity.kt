@@ -41,7 +41,6 @@ import com.arvifox.arvi.simplemisc.webviewbug.WebViewBugFragment
 import com.arvifox.arvi.utils.FormatUtils.showToast
 
 class SimpleMisc2Activity : AppCompatActivity(), RecAdapter.OnClickListener {
-
     companion object {
         fun newIntent(c: Context): Intent {
             return Intent(c, SimpleMisc2Activity::class.java)
@@ -68,97 +67,116 @@ class SimpleMisc2Activity : AppCompatActivity(), RecAdapter.OnClickListener {
         binding.misc2Recycler.addItemDecoration(
             DividerItemDecoration(
                 this,
-                RecyclerView.HORIZONTAL
-            )
+                RecyclerView.HORIZONTAL,
+            ),
         )
 //        misc2_recycler.addItemDecoration(MyItemDecoration(30))
-        binding.misc2Recycler.adapter = RecAdapter(
-            this, arrayListOf(
-                BazDto(0, 3.2),
-                BazDto(1, 2.1),
-                BazDto(2, 2.1),
-                BazDto(3, 2.1),
-                BazDto(4, 2.1),
-                BazDto(5, 22.1),
-                BazDto(6, 8.8),
-                BazDto(7, 7.77),
-                BazDto(8, 7.88),
-                BazDto(9, 7.12),
-                BazDto(10, 6.23),
-                BazDto(11, 2.83),
-                BazDto(12, 7.13),
+        binding.misc2Recycler.adapter =
+            RecAdapter(
+                this,
+                arrayListOf(
+                    BazDto(0, 3.2),
+                    BazDto(1, 2.1),
+                    BazDto(2, 2.1),
+                    BazDto(3, 2.1),
+                    BazDto(4, 2.1),
+                    BazDto(5, 22.1),
+                    BazDto(6, 8.8),
+                    BazDto(7, 7.77),
+                    BazDto(8, 7.88),
+                    BazDto(9, 7.12),
+                    BazDto(10, 6.23),
+                    BazDto(11, 2.83),
+                    BazDto(12, 7.13),
+                ),
             )
-        )
     }
 
-    override fun onClick(p: Int, item: BazDto, v: View) {
+    override fun onClick(
+        p: Int,
+        item: BazDto,
+        v: View,
+    ) {
         this.showToast("pos=$p, item=${item.per}")
         when (p) {
-            0 -> supportFragmentManager.beginTransaction().replace(
-                R.id.misc2_frame,
-                Misc2Fragment1.newInstance(),
-                ""
-            ).commit()
-            1 -> supportFragmentManager.beginTransaction().replace(
-                R.id.misc2_frame,
-                Misc2Fragment2.newInstance(),
-                ""
-            ).commit()
-            2 -> supportFragmentManager.beginTransaction().replace(
-                R.id.misc2_frame,
-                Misc2Fragment3.newInstance(),
-                ""
-            ).commit()
-            3 -> supportFragmentManager.beginTransaction().replace(
-                R.id.misc2_frame,
-                ExitAnimFragment.newInstance(v.findLocationOfCenterOnTheScreen()),
-                ""
-            ).commit()
-            4 -> supportFragmentManager.beginTransaction().replace(
-                R.id.misc2_frame,
-                FabAnimFragment.newInstance(),
-                ""
-            ).commit()
-            5 -> supportFragmentManager.beginTransaction().replace(
-                R.id.misc2_frame,
-                ApproxSensorFragment.newInstance(),
-                ""
-            ).commit()
-            6 -> supportFragmentManager.beginTransaction().replace(
-                R.id.misc2_frame,
-                BottomNavAnimFragment.newInstance(),
-                ""
-            ).commit()
-            7 -> supportFragmentManager.beginTransaction().replace(
-                R.id.misc2_frame,
-                WebViewBugFragment.newInstance(),
-                ""
-            ).commit()
-            8 -> supportFragmentManager.beginTransaction().replace(
-                R.id.misc2_frame,
-                RecyPadFragment.newInstance(),
-                ""
-            ).commit()
-            9 -> supportFragmentManager.beginTransaction().replace(
-                R.id.misc2_frame,
-                PackListFragment.newInstance(),
-                ""
-            ).commit()
-            10 -> supportFragmentManager.beginTransaction().replace(
-                R.id.misc2_frame,
-                CamexFragment(),
-                ""
-            ).commit()
-            11 -> supportFragmentManager.beginTransaction().replace(
-                R.id.misc2_frame,
-                AteneFragment(),
-                "atene"
-            ).commit()
-            12 -> supportFragmentManager.beginTransaction().replace(
-                R.id.misc2_frame,
-                CryFragment.getInstance(),
-                "cryfra"
-            ).commit()
+            0 ->
+                supportFragmentManager.beginTransaction().replace(
+                    R.id.misc2_frame,
+                    Misc2Fragment1.newInstance(),
+                    "",
+                ).commit()
+            1 ->
+                supportFragmentManager.beginTransaction().replace(
+                    R.id.misc2_frame,
+                    Misc2Fragment2.newInstance(),
+                    "",
+                ).commit()
+            2 ->
+                supportFragmentManager.beginTransaction().replace(
+                    R.id.misc2_frame,
+                    Misc2Fragment3.newInstance(),
+                    "",
+                ).commit()
+            3 ->
+                supportFragmentManager.beginTransaction().replace(
+                    R.id.misc2_frame,
+                    ExitAnimFragment.newInstance(v.findLocationOfCenterOnTheScreen()),
+                    "",
+                ).commit()
+            4 ->
+                supportFragmentManager.beginTransaction().replace(
+                    R.id.misc2_frame,
+                    FabAnimFragment.newInstance(),
+                    "",
+                ).commit()
+            5 ->
+                supportFragmentManager.beginTransaction().replace(
+                    R.id.misc2_frame,
+                    ApproxSensorFragment.newInstance(),
+                    "",
+                ).commit()
+            6 ->
+                supportFragmentManager.beginTransaction().replace(
+                    R.id.misc2_frame,
+                    BottomNavAnimFragment.newInstance(),
+                    "",
+                ).commit()
+            7 ->
+                supportFragmentManager.beginTransaction().replace(
+                    R.id.misc2_frame,
+                    WebViewBugFragment.newInstance(),
+                    "",
+                ).commit()
+            8 ->
+                supportFragmentManager.beginTransaction().replace(
+                    R.id.misc2_frame,
+                    RecyPadFragment.newInstance(),
+                    "",
+                ).commit()
+            9 ->
+                supportFragmentManager.beginTransaction().replace(
+                    R.id.misc2_frame,
+                    PackListFragment.newInstance(),
+                    "",
+                ).commit()
+            10 ->
+                supportFragmentManager.beginTransaction().replace(
+                    R.id.misc2_frame,
+                    CamexFragment(),
+                    "",
+                ).commit()
+            11 ->
+                supportFragmentManager.beginTransaction().replace(
+                    R.id.misc2_frame,
+                    AteneFragment(),
+                    "atene",
+                ).commit()
+            12 ->
+                supportFragmentManager.beginTransaction().replace(
+                    R.id.misc2_frame,
+                    CryFragment.getInstance(),
+                    "cryfra",
+                ).commit()
         }
     }
 
@@ -180,12 +198,18 @@ class SimpleMisc2Activity : AppCompatActivity(), RecAdapter.OnClickListener {
 
 class RecAdapter(private val l: OnClickListener, private val d: List<BazDto>) :
     RecyclerView.Adapter<RecAdapter.RecViewHolder>() {
-
     interface OnClickListener {
-        fun onClick(p: Int, item: BazDto, v: View)
+        fun onClick(
+            p: Int,
+            item: BazDto,
+            v: View,
+        )
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int,
+    ): RecViewHolder {
         val inflater: LayoutInflater = LayoutInflater.from(parent.context)
         val bi = inflater.inflate(R.layout.item_misc2, parent, false)
 //            bi.setOnClickListener(object : View.OnClickListener {
@@ -197,7 +221,10 @@ class RecAdapter(private val l: OnClickListener, private val d: List<BazDto>) :
 
     override fun getItemCount(): Int = d.size
 
-    override fun onBindViewHolder(holder: RecViewHolder, position: Int) {
+    override fun onBindViewHolder(
+        holder: RecViewHolder,
+        position: Int,
+    ) {
         holder.tv.text = "baz=${d[position].per}"
     }
 
@@ -211,11 +238,13 @@ class RecAdapter(private val l: OnClickListener, private val d: List<BazDto>) :
 
         init {
             v.setOnClickListener {
-                if (adapterPosition != RecyclerView.NO_POSITION) l.onClick(
-                    adapterPosition,
-                    d[adapterPosition],
-                    it
-                )
+                if (adapterPosition != RecyclerView.NO_POSITION) {
+                    l.onClick(
+                        adapterPosition,
+                        d[adapterPosition],
+                        it,
+                    )
+                }
             }
             v.setOnLongClickListener {
                 if (adapterPosition != RecyclerView.NO_POSITION) {
@@ -230,12 +259,11 @@ class RecAdapter(private val l: OnClickListener, private val d: List<BazDto>) :
 }
 
 class MyItemDecoration(val d: Int) : RecyclerView.ItemDecoration() {
-
     override fun getItemOffsets(
         outRect: Rect,
         view: View,
         parent: RecyclerView,
-        state: RecyclerView.State
+        state: RecyclerView.State,
     ) {
         val lp = view.layoutParams as GridLayoutManager.LayoutParams
         outRect.top = d
@@ -250,13 +278,13 @@ class MyItemDecoration(val d: Int) : RecyclerView.ItemDecoration() {
 }
 
 class MyItemAnimator : DefaultItemAnimator() {
-
     private val dec = DecelerateInterpolator()
 
     override fun recordPreLayoutInformation(
         state: RecyclerView.State,
-        viewHolder: RecyclerView.ViewHolder, changeFlags: Int,
-        payloads: MutableList<Any>
+        viewHolder: RecyclerView.ViewHolder,
+        changeFlags: Int,
+        payloads: MutableList<Any>,
     ): ItemHolderInfo {
         if (changeFlags == RecyclerView.ItemAnimator.FLAG_CHANGED) {
             for (p in payloads) {
@@ -270,15 +298,16 @@ class MyItemAnimator : DefaultItemAnimator() {
 
     override fun canReuseUpdatedViewHolder(
         viewHolder: RecyclerView.ViewHolder,
-        payloads: MutableList<Any>
+        payloads: MutableList<Any>,
     ): Boolean {
         return true
     }
 
     override fun animateChange(
         oldHolder: RecyclerView.ViewHolder,
-        newHolder: RecyclerView.ViewHolder, preInfo: ItemHolderInfo,
-        postInfo: ItemHolderInfo
+        newHolder: RecyclerView.ViewHolder,
+        preInfo: ItemHolderInfo,
+        postInfo: ItemHolderInfo,
     ): Boolean {
         if (preInfo is MyHolderInfo) {
             if (preInfo.s.equals("tra", true)) {
@@ -293,25 +322,26 @@ class MyItemAnimator : DefaultItemAnimator() {
         h.like.scaleX = 0.0f
         h.like.scaleY = 0.0f
         val ani = AnimatorSet()
-        val sli = ObjectAnimator.ofPropertyValuesHolder(
-            h.like,
-            PropertyValuesHolder.ofFloat("scaleX", 0f, 2f),
-            PropertyValuesHolder.ofFloat("scaleY", 0f, 2f),
-            PropertyValuesHolder.ofFloat("alpha", 0.0f, 1.0f, 0.0f)
-        )
+        val sli =
+            ObjectAnimator.ofPropertyValuesHolder(
+                h.like,
+                PropertyValuesHolder.ofFloat("scaleX", 0f, 2f),
+                PropertyValuesHolder.ofFloat("scaleY", 0f, 2f),
+                PropertyValuesHolder.ofFloat("alpha", 0.0f, 1.0f, 0.0f),
+            )
         sli.interpolator = dec
         sli.duration = 1000
-        val slit = ObjectAnimator.ofPropertyValuesHolder(
-            h.tv,
-            PropertyValuesHolder.ofFloat("scaleX", 1f, 0.95f, 1f),
-            PropertyValuesHolder.ofFloat("scaleY", 1f, 0.95f, 1f)
-        )
+        val slit =
+            ObjectAnimator.ofPropertyValuesHolder(
+                h.tv,
+                PropertyValuesHolder.ofFloat("scaleX", 1f, 0.95f, 1f),
+                PropertyValuesHolder.ofFloat("scaleY", 1f, 0.95f, 1f),
+            )
         slit.interpolator = dec
         slit.duration = 600
         ani.playTogether(sli, slit)
         ani.start()
     }
 
-    inner class MyHolderInfo(val s: String) : ItemHolderInfo() {
-    }
+    inner class MyHolderInfo(val s: String) : ItemHolderInfo()
 }

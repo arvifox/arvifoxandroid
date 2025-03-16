@@ -30,59 +30,72 @@ object ActionUtils {
      * extra back to main
      */
     const val KEY_EXTRA_BACK_TO_MAIN = "KEY_EXTRA_BACK_TO_MAIN"
+
     /**
      * login should displayed as dialog to preserve last ui state
      */
     const val KEY_LOGIN_VOLATILE = "KEY_LOGIN_VOLATILE"
+
     /**
      * requestCode for BT coupling
      */
     const val REQUEST_CODE_COUPLE_BT = 25
+
     /**
      * requestCode for BT enabling
      */
     const val REQUEST_CODE_ENABLE_BT = 26
+
     /**
      * requestCode for check list actions
      */
     const val REQUEST_CODE_ACTION_CHECK_LIST = 27
+
     /**
      * MIME data type for selecting all image types.
      */
     const val MIME_TYPE_IMAGE_ALL = "image/*"
+
     /**
      * The name of the Intent-extra used to specify the expected X ratio of the image to crop.
      * Constant-Value: "aspectX"
      */
     const val PHOTO_EXTRA_ASPECT_X = "aspectX"
+
     /**
      * The name of the Intent-extra used to specify the expected Y ratio of the image to crop.
      * Constant-Value: "aspectY"
      */
     const val PHOTO_EXTRA_ASPECT_Y = "aspectY"
+
     /**
      * The name of the Intent-extra used to specify the expected width (in integer pixel) of the image to crop.
      * Constant-Value: "outputX"
      */
     const val PHOTO_EXTRA_OUTPUT_X = "outputX"
+
     /**
      * The name of the Intent-extra used to specify the expected height (in integer pixel) of the image to crop.
      * Constant-Value: "outputY"
      */
     const val PHOTO_EXTRA_OUTPUT_Y = "outputY"
+
     /**
      * The name of the Intent-extra used to crop an image.
      * Constant-Value: "crop"
      */
     const val PHOTO_EXTRA_CROP = "crop"
+
     /**
      * prefix for calls
      */
     private const val CALL_PROTOCOL_PREFIX = "tel:"
+
     /**
      * Url for apps in google market
      */
     private const val GOOGLE_PLAY_STORE_APPS_URL = "https://play.google.com/store/apps"
+
     /**
      * Google Maps place link
      */
@@ -97,8 +110,9 @@ object ActionUtils {
     fun restartApplication(ctx: Context) {
         val launchIntent =
             ctx.packageManager.getLaunchIntentForPackage(ctx.packageName)
-        val pendingStartIntent = PendingIntent
-            .getActivity(ctx, 0, launchIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+        val pendingStartIntent =
+            PendingIntent
+                .getActivity(ctx, 0, launchIntent, PendingIntent.FLAG_UPDATE_CURRENT)
         val mgr =
             ctx.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         mgr[AlarmManager.RTC, System.currentTimeMillis() + 1000] = pendingStartIntent
@@ -114,10 +128,11 @@ object ActionUtils {
      */
     fun isCharging(context: Context): Boolean {
         var charging = false
-        val batteryIntent = context.registerReceiver(
-            null,
-            IntentFilter(Intent.ACTION_BATTERY_CHANGED)
-        )
+        val batteryIntent =
+            context.registerReceiver(
+                null,
+                IntentFilter(Intent.ACTION_BATTERY_CHANGED),
+            )
         var status = -1
         if (batteryIntent != null) {
             status = batteryIntent.getIntExtra(BatteryManager.EXTRA_STATUS, -1)
@@ -145,8 +160,10 @@ object ActionUtils {
      * @param options   option [walk,drive..]
      */
     fun startNavigationApp(
-        context: Context, latitude: Double?, longitude: Double?,
-        options: String?
+        context: Context,
+        latitude: Double?,
+        longitude: Double?,
+        options: String?,
     ) {
         if (latitude == null || longitude == null) {
             return
@@ -156,12 +173,14 @@ object ActionUtils {
             navigationOptions = ""
         }
         try {
-            val intent = Intent(
-                Intent.ACTION_VIEW, Uri.parse(
-                    "google.navigation:q=" + latitude + "," + longitude
-                            + "&" + navigationOptions
+            val intent =
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse(
+                        "google.navigation:q=" + latitude + "," + longitude +
+                            "&" + navigationOptions,
+                    ),
                 )
-            )
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             context.startActivity(intent)
         } catch (activityNotFoundException: ActivityNotFoundException) {
@@ -174,7 +193,10 @@ object ActionUtils {
      * @param context Context
      * @param phone   phone number
      */
-    fun call(context: Context, phone: String) {
+    fun call(
+        context: Context,
+        phone: String,
+    ) {
         try {
             val callIntent =
                 Intent(Intent.ACTION_DIAL)
@@ -191,7 +213,10 @@ object ActionUtils {
      * @param uri     uri to call
      */
     @Throws(SecurityException::class)
-    fun call(context: Context, uri: Uri?) {
+    fun call(
+        context: Context,
+        uri: Uri?,
+    ) {
         try {
             val callIntent =
                 Intent(Intent.ACTION_CALL)
@@ -207,6 +232,7 @@ object ActionUtils {
      * @param url        String
      * @param resultCode Result code to resume activity or fragment
      */
+
     /**
      * fire an intent to open an url in browser
      *
@@ -217,13 +243,14 @@ object ActionUtils {
     fun openURL(
         context: Context,
         url: String?,
-        resultCode: Int = -1
+        resultCode: Int = -1,
     ) {
         try {
-            val browserIntent = Intent(
-                Intent.ACTION_VIEW,
-                Uri.parse(url)
-            )
+            val browserIntent =
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse(url),
+                )
             //            if (resultCode > -1 && context instanceof Activity) {
 //                ((Activity) context).startActivityForResult(browserIntent, resultCode);
 //            } else {
@@ -242,8 +269,9 @@ object ActionUtils {
         if (activity == null || activity.currentFocus == null) {
             return
         }
-        val inputMethodManager = activity
-            .getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        val inputMethodManager =
+            activity
+                .getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(activity.currentFocus!!.windowToken, 0)
     }
 
@@ -253,12 +281,16 @@ object ActionUtils {
      * @param activity activity
      * @param view     view
      */
-    fun hideKeyboard(activity: Activity?, view: View?) {
+    fun hideKeyboard(
+        activity: Activity?,
+        view: View?,
+    ) {
         if (activity == null || view == null) {
             return
         }
-        val inputMethodManager = activity
-            .getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        val inputMethodManager =
+            activity
+                .getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
@@ -274,11 +306,11 @@ object ActionUtils {
         view.requestFocus()
         val inputMethodManager =
             view.context.getSystemService(
-                Activity.INPUT_METHOD_SERVICE
+                Activity.INPUT_METHOD_SERVICE,
             ) as InputMethodManager
         inputMethodManager.toggleSoftInput(
             InputMethodManager.SHOW_FORCED,
-            0
+            0,
         )
     }
 
@@ -300,14 +332,17 @@ object ActionUtils {
      * @param context     [Context]
      * @param mailAddress recipient
      */
-    fun sendPlainEmail(context: Context, mailAddress: String?) {
+    fun sendPlainEmail(
+        context: Context,
+        mailAddress: String?,
+    ) {
         try {
             val intent =
                 Intent(Intent.ACTION_SEND)
             intent.type = "plain/text"
             intent.putExtra(
                 Intent.EXTRA_EMAIL,
-                arrayOf(mailAddress ?: "")
+                arrayOf(mailAddress ?: ""),
             )
             context.startActivity(Intent.createChooser(intent, ""))
         } catch (e: ActivityNotFoundException) {
@@ -324,7 +359,7 @@ object ActionUtils {
     fun sendEmailWithAttachment(
         context: Context,
         mailAddress: String?,
-        filePath: String?
+        filePath: String?,
     ) {
         var file: File? = null
         if (filePath != null && filePath != "") {
@@ -336,12 +371,12 @@ object ActionUtils {
             intent.type = "plain/text"
             intent.putExtra(
                 Intent.EXTRA_EMAIL,
-                arrayOf(mailAddress ?: "")
+                arrayOf(mailAddress ?: ""),
             )
             if (file != null) {
                 intent.putExtra(
                     Intent.EXTRA_STREAM,
-                    getFileProviderUri(context, file)
+                    getFileProviderUri(context, file),
                 )
             }
             context.startActivity(Intent.createChooser(intent, ""))
@@ -359,8 +394,11 @@ object ActionUtils {
      * @param recipients   array of recipients
      */
     fun sendEmail(
-        context: Context, subject: String?, content: String?,
-        chooserTitle: String?, recipients: Array<String?>?
+        context: Context,
+        subject: String?,
+        content: String?,
+        chooserTitle: String?,
+        recipients: Array<String?>?,
     ) {
         try {
             val intent =
@@ -380,7 +418,10 @@ object ActionUtils {
      * @param activity [Context]
      * @param filePath path to file
      */
-    fun shareFile(activity: Activity, filePath: String?) {
+    fun shareFile(
+        activity: Activity,
+        filePath: String?,
+    ) {
         if (filePath != null && filePath != "") { // start share intent
             val file = File(filePath)
             shareFile(activity, file)
@@ -396,7 +437,7 @@ object ActionUtils {
     fun shareFileForResult(
         fragment: Fragment,
         filePath: String?,
-        requestCode: Int
+        requestCode: Int,
     ) {
         if (filePath != null && filePath != "") { // start share intent
             val file = File(filePath)
@@ -413,7 +454,7 @@ object ActionUtils {
     fun shareFileForResult(
         fragment: Fragment,
         file: File,
-        requestCode: Int
+        requestCode: Int,
     ) {
         if (!file.exists()) {
             return
@@ -422,12 +463,12 @@ object ActionUtils {
         shareIntent.action = Intent.ACTION_SEND
         shareIntent.putExtra(
             Intent.EXTRA_STREAM,
-            getFileProviderUri(fragment.requireContext(), file)
+            getFileProviderUri(fragment.requireContext(), file),
         )
         shareIntent.type = "*/*"
         fragment.startActivityForResult(
             Intent.createChooser(shareIntent, ""),
-            requestCode
+            requestCode,
         )
     }
 
@@ -437,7 +478,10 @@ object ActionUtils {
      * @param activity [Context]
      * @param file     file
      */
-    fun shareFile(activity: Activity, file: File) {
+    fun shareFile(
+        activity: Activity,
+        file: File,
+    ) {
         if (!file.exists()) {
             return
         }
@@ -445,7 +489,7 @@ object ActionUtils {
         shareIntent.action = Intent.ACTION_SEND
         shareIntent.putExtra(
             Intent.EXTRA_STREAM,
-            getFileProviderUri(activity, file)
+            getFileProviderUri(activity, file),
         )
         shareIntent.type = "*/*"
         activity.startActivity(Intent.createChooser(shareIntent, ""))
@@ -458,15 +502,19 @@ object ActionUtils {
      * @param uri     uri to package of app
      * @return installed or not
      */
-    fun appInstalledOrNot(context: Context, uri: String): Boolean {
+    fun appInstalledOrNot(
+        context: Context,
+        uri: String,
+    ): Boolean {
         val pm = context.packageManager
         val isAppInstalled: Boolean
-        isAppInstalled = try {
-            pm.getPackageInfo(uri, PackageManager.GET_ACTIVITIES)
-            true
-        } catch (e: PackageManager.NameNotFoundException) {
-            false
-        }
+        isAppInstalled =
+            try {
+                pm.getPackageInfo(uri, PackageManager.GET_ACTIVITIES)
+                true
+            } catch (e: PackageManager.NameNotFoundException) {
+                false
+            }
         return isAppInstalled
     }
 
@@ -478,7 +526,7 @@ object ActionUtils {
      */
     fun startActivityByPackageUri(
         context: Context,
-        packageUri: String?
+        packageUri: String?,
     ) {
         val pm = context.packageManager
         val intent = pm.getLaunchIntentForPackage(packageUri!!)
@@ -494,7 +542,7 @@ object ActionUtils {
     @JvmStatic
     fun startPlayStoreByApplicationPackageUri(
         context: Context,
-        packageUri: String
+        packageUri: String,
     ) {
         context.startActivity(getPlayStoreByApplicationPackageUri(context, packageUri))
     }
@@ -508,7 +556,7 @@ object ActionUtils {
      */
     fun getPlayStoreByApplicationPackageUri(
         context: Context?,
-        packageUri: String
+        packageUri: String,
     ): Intent {
         val intent =
             Intent(Intent.ACTION_VIEW)
@@ -535,7 +583,7 @@ object ActionUtils {
      */
     fun startPlayStoreByHttpUri(
         context: Context,
-        packageUri: String
+        packageUri: String,
     ) {
         val intent =
             Intent(Intent.ACTION_VIEW)
@@ -553,8 +601,9 @@ object ActionUtils {
         val intent =
             Intent(Intent.ACTION_MAIN)
         intent.addCategory(Intent.CATEGORY_HOME)
-        val resolveInfo = context.packageManager
-            .resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY)
+        val resolveInfo =
+            context.packageManager
+                .resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY)
         return resolveInfo?.activityInfo?.packageName.orEmpty()
     }
 
@@ -564,7 +613,10 @@ object ActionUtils {
      * @param context    Context
      * @param packageUri uri to package of dealers app
      */
-    fun startAppOrStore(context: Context, packageUri: String) {
+    fun startAppOrStore(
+        context: Context,
+        packageUri: String,
+    ) {
         if (appInstalledOrNot(context, packageUri)) { // app installed
             startActivityByPackageUri(context, packageUri)
             // app not installed
@@ -595,11 +647,15 @@ object ActionUtils {
      * @param activity   Activity
      * @param resultCode int
      */
-    fun startOpenCameraExternalDisk(activity: Activity, resultCode: Int) {
-        val i = Intent(
-            MediaStore.ACTION_IMAGE_CAPTURE,
-            MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-        )
+    fun startOpenCameraExternalDisk(
+        activity: Activity,
+        resultCode: Int,
+    ) {
+        val i =
+            Intent(
+                MediaStore.ACTION_IMAGE_CAPTURE,
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+            )
         activity.startActivityForResult(i, resultCode)
     }
 
@@ -609,7 +665,10 @@ object ActionUtils {
      * @param activity   Activity
      * @param resultCode int
      */
-    fun startOpenCamera(activity: Activity, resultCode: Int) {
+    fun startOpenCamera(
+        activity: Activity,
+        resultCode: Int,
+    ) {
         val takePictureIntent =
             Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         activity.startActivityForResult(takePictureIntent, resultCode)
@@ -680,12 +739,13 @@ object ActionUtils {
      */
     fun startPickImageFromGallery(
         fragment: Fragment,
-        resultCode: Int
+        resultCode: Int,
     ) {
-        val i = Intent(
-            Intent.ACTION_PICK,
-            MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-        )
+        val i =
+            Intent(
+                Intent.ACTION_PICK,
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+            )
         fragment.startActivityForResult(i, resultCode)
     }
 
@@ -695,7 +755,10 @@ object ActionUtils {
      * @param activity   Activity
      * @param resultCode int
      */
-    fun startPickImageFromGallery(activity: Activity, resultCode: Int) {
+    fun startPickImageFromGallery(
+        activity: Activity,
+        resultCode: Int,
+    ) {
         val intent = createPickImageFromGalleryIntent()
         activity.startActivityForResult(intent, resultCode)
     }
@@ -706,7 +769,10 @@ object ActionUtils {
      * @param fragment   Activity
      * @param resultCode int
      */
-    fun startPickImageFromGallery(fragment: android.app.Fragment, resultCode: Int) {
+    fun startPickImageFromGallery(
+        fragment: android.app.Fragment,
+        resultCode: Int,
+    ) {
         val intent = createPickImageFromGalleryIntent()
         fragment.startActivityForResult(intent, resultCode)
     }
@@ -746,15 +812,16 @@ object ActionUtils {
         aspectX: Int,
         aspectY: Int,
         outputX: Int,
-        outputY: Int
+        outputY: Int,
     ) {
         var contentUri: Uri? = null
         var cursor: Cursor? = null
         try {
-            val projection = arrayOf(
-                BaseColumns._ID,
-                MediaStore.Images.Media.DATA
-            )
+            val projection =
+                arrayOf(
+                    BaseColumns._ID,
+                    MediaStore.Images.Media.DATA,
+                )
             cursor = activity.contentResolver.query(sourceUri, projection, null, null, null)
             if (cursor == null) {
                 return
@@ -769,10 +836,16 @@ object ActionUtils {
         } finally {
             cursor?.close()
         }
-        val cropIntent = createCropIntent(
-            activity, contentUri ?: sourceUri, destinationUri,
-            aspectX, aspectY, outputX, outputY
-        )
+        val cropIntent =
+            createCropIntent(
+                activity,
+                contentUri ?: sourceUri,
+                destinationUri,
+                aspectX,
+                aspectY,
+                outputX,
+                outputY,
+            )
         grantPermissionsForIntent(activity, cropIntent, destinationUri)
         try {
             activity.startActivityForResult(cropIntent, resultCode)
@@ -798,15 +871,16 @@ object ActionUtils {
         aspectX: Int,
         aspectY: Int,
         outputX: Int,
-        outputY: Int
+        outputY: Int,
     ): Intent? {
         var contentUri: Uri? = null
         var cursor: Cursor? = null
         try {
-            val projection = arrayOf(
-                BaseColumns._ID,
-                MediaStore.Images.Media.DATA
-            )
+            val projection =
+                arrayOf(
+                    BaseColumns._ID,
+                    MediaStore.Images.Media.DATA,
+                )
             cursor = context.contentResolver.query(sourceUri, projection, null, null, null)
             if (cursor == null) {
                 return null
@@ -821,10 +895,16 @@ object ActionUtils {
         } finally {
             cursor?.close()
         }
-        val cropIntent = createCropIntent(
-            context, contentUri ?: sourceUri, destinationUri,
-            aspectX, aspectY, outputX, outputY
-        )
+        val cropIntent =
+            createCropIntent(
+                context,
+                contentUri ?: sourceUri,
+                destinationUri,
+                aspectX,
+                aspectY,
+                outputX,
+                outputY,
+            )
         grantPermissionsForIntent(context, cropIntent, destinationUri)
         return cropIntent
     }
@@ -840,17 +920,29 @@ object ActionUtils {
      * @param outputY        height in pixel
      */
     fun startCropImage(
-        fragment: Fragment, resultCode: Int, sourceImageUri: Uri,
-        destinationImageUri: Uri, aspectX: Int, aspectY: Int, outputX: Int, outputY: Int
+        fragment: Fragment,
+        resultCode: Int,
+        sourceImageUri: Uri,
+        destinationImageUri: Uri,
+        aspectX: Int,
+        aspectY: Int,
+        outputX: Int,
+        outputY: Int,
     ) {
-        val cropIntent = createCropIntent(
-            fragment.activity, sourceImageUri, destinationImageUri, aspectX,
-            aspectY, outputX, outputY
-        )
+        val cropIntent =
+            createCropIntent(
+                fragment.activity,
+                sourceImageUri,
+                destinationImageUri,
+                aspectX,
+                aspectY,
+                outputX,
+                outputY,
+            )
         grantPermissionsForIntent(
             fragment.activity,
             cropIntent,
-            destinationImageUri
+            destinationImageUri,
         )
         fragment.startActivityForResult(cropIntent, resultCode)
     }
@@ -865,7 +957,7 @@ object ActionUtils {
     fun startServiceIntent(
         context: Context,
         serviceClass: Class<out IntentService?>?,
-        intentAction: String?
+        intentAction: String?,
     ) {
         val serviceIntent = Intent(context, serviceClass)
         serviceIntent.action = intentAction
@@ -881,7 +973,7 @@ object ActionUtils {
     fun sendBroadcastByIntent(
         context: Context,
         broadcastClass: Class<out BroadcastReceiver?>?,
-        sourceIntent: Intent
+        sourceIntent: Intent,
     ) {
         val serviceIntent = Intent(context, broadcastClass)
         serviceIntent.action = sourceIntent.action
@@ -913,6 +1005,7 @@ object ActionUtils {
      * @param targetActivityClass [Class]
      * @param extras              Bundle with extras
      */
+
     /**
      * Start an activity and clear back stack
      *
@@ -923,7 +1016,7 @@ object ActionUtils {
     fun startTopLevelActivity(
         context: Context,
         targetActivityClass: Class<*>?,
-        extras: Bundle? = null
+        extras: Bundle? = null,
     ) {
         val intent = Intent(context, targetActivityClass)
         if (extras != null) {
@@ -943,7 +1036,7 @@ object ActionUtils {
     fun grantPermissionsForIntent(
         ctx: Context?,
         intent: Intent,
-        uri: Uri?
+        uri: Uri?,
     ) {
         val resInfoList =
             ctx!!.packageManager
@@ -951,8 +1044,9 @@ object ActionUtils {
         for (resolveInfo in resInfoList) {
             val packageName = resolveInfo.activityInfo.packageName
             ctx.grantUriPermission(
-                packageName, uri,
-                Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION
+                packageName,
+                uri,
+                Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION,
             )
         }
     }
@@ -993,7 +1087,9 @@ object ActionUtils {
     private fun anonymizeVin(vin: String?): String? {
         return if (vin != null && vin.length == 17) {
             vin.substring(0, vin.length - 6) + "000000"
-        } else vin
+        } else {
+            vin
+        }
     }
 
     /**
@@ -1004,7 +1100,9 @@ object ActionUtils {
     private fun anonymizeObdAdapterId(obdAdapterId: String?): String? {
         return if (obdAdapterId != null && obdAdapterId.length == 10) {
             obdAdapterId.substring(0, obdAdapterId.length - 3) + "000"
-        } else obdAdapterId
+        } else {
+            obdAdapterId
+        }
     }
 
     /**
@@ -1032,7 +1130,7 @@ object ActionUtils {
 
     fun showKeyboard(
         context: Context,
-        textView: TextView
+        textView: TextView,
     ) {
         val imm =
             context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -1042,7 +1140,7 @@ object ActionUtils {
     fun createPickImageFromGalleryIntent(): Intent {
         return Intent(
             Intent.ACTION_PICK,
-            MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+            MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
         )
     }
 
@@ -1064,7 +1162,7 @@ object ActionUtils {
         aspectX: Int,
         aspectY: Int,
         outputX: Int,
-        outputY: Int
+        outputY: Int,
     ): Intent {
         val intent =
             Intent("com.android.camera.action.CROP")
@@ -1084,7 +1182,7 @@ object ActionUtils {
             intent.putExtra(PHOTO_EXTRA_OUTPUT_X, outputX)
             intent.putExtra(PHOTO_EXTRA_OUTPUT_Y, outputY)
         }
-        //intent.putExtra("return-data", true);
+        // intent.putExtra("return-data", true);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, destinationImageUri)
         intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION)
         return intent

@@ -12,14 +12,13 @@ object Inline {
 }
 
 interface Id
+
 @JvmInline
 value class DoggoId(val id: Long) : Id {
-
     val stringId
         get() = id.toString()
 
     fun isValid() = id > 0L
 }
 
-object lsjdf {
-}
+object lsjdf

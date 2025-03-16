@@ -13,7 +13,6 @@ import kotlin.time.measureTimedValue
 
 @OptIn(ExperimentalEncodingApi::class, ExperimentalStdlibApi::class)
 object SomeKotFea {
-
     val e = 1755
     val es = e.toHexString()
     val eh = "somefee"
@@ -42,17 +41,19 @@ object SomeKotFea {
     }
 
     fun time2() {
-        val d = measureTime {
-            Thread.sleep(3800)
-        }
+        val d =
+            measureTime {
+                Thread.sleep(3800)
+            }
         println("taken $d")
     }
 
     fun time3() {
-        val (v, d) = measureTimedValue {
-            Thread.sleep(2399)
-            2
-        }
+        val (v, d) =
+            measureTimedValue {
+                Thread.sleep(2399)
+                2
+            }
         println("taken ${d.toIsoString()}")
     }
 

@@ -16,47 +16,50 @@ object sdf {
         object : ReadWriteProperty<Any, String> {
             override fun getValue(
                 thisRef: Any,
-                property: KProperty<*>
+                property: KProperty<*>,
             ): String = text.toString()
 
             override fun setValue(
                 thisRef: Any,
-                property: KProperty<*>, value: String
+                property: KProperty<*>,
+                value: String,
             ) {
                 text = value
             }
         }
 
-    class CustomView @JvmOverloads constructor(
-        context: Context,
-        attrs: AttributeSet? = null
-    ) : FrameLayout(context, attrs) {
+    class CustomView
+        @JvmOverloads
+        constructor(
+            context: Context,
+            attrs: AttributeSet? = null,
+        ) : FrameLayout(context, attrs) {
+            private var binding: CustomViewBinding =
+                CustomViewBinding.inflate(LayoutInflater.from(context), this, false)
 
-        private var binding: CustomViewBinding =
-            CustomViewBinding.inflate(LayoutInflater.from(context), this, false)
-
-        var title by binding.tvTitle.text()
-        var subtitle by binding.tvSubtitle.text()
-        var description by binding.tvDescription.text()
-    }
+            var title by binding.tvTitle.text()
+            var subtitle by binding.tvSubtitle.text()
+            var description by binding.tvDescription.text()
+        }
 
     fun View.isVisible(keepBounds: Boolean): ReadWriteProperty<Any, Boolean> =
         object : ReadWriteProperty<Any, Boolean> {
             override fun getValue(
                 thisRef: Any,
-                property: KProperty<*>
+                property: KProperty<*>,
             ): Boolean = visibility == View.VISIBLE
 
             override fun setValue(
                 thisRef: Any,
                 property: KProperty<*>,
-                value: Boolean
+                value: Boolean,
             ) {
-                visibility = when {
-                    value -> View.VISIBLE
-                    keepBounds -> View.INVISIBLE
-                    else -> View.GONE
-                }
+                visibility =
+                    when {
+                        value -> View.VISIBLE
+                        keepBounds -> View.INVISIBLE
+                        else -> View.GONE
+                    }
             }
         }
 
@@ -64,12 +67,13 @@ object sdf {
         object : ReadWriteProperty<Any, Float> {
             override fun getValue(
                 thisRef: Any,
-                property: KProperty<*>
+                property: KProperty<*>,
             ): Float = if (max == 0) 0f else progress / max.toFloat()
 
             override fun setValue(
                 thisRef: Any,
-                property: KProperty<*>, value: Float
+                property: KProperty<*>,
+                value: Float,
             ) {
                 progress = (value * max).toInt()
             }

@@ -13,14 +13,16 @@ class AspectRatioFrameLayout : ViewGroup {
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(
         context,
         attrs,
-        defStyleAttr
+        defStyleAttr,
     )
 
-    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+    override fun onMeasure(
+        widthMeasureSpec: Int,
+        heightMeasureSpec: Int,
+    ) {
         // Получаем размеры из спецификации
         val widthSize = MeasureSpec.getSize(widthMeasureSpec)
         val heightSize = MeasureSpec.getSize(heightMeasureSpec)
-
 
         // Рассчитываем размеры с учетом соотношения 4:3
         var desiredWidth = widthSize
@@ -38,11 +40,17 @@ class AspectRatioFrameLayout : ViewGroup {
         // Измеряем дочерние элементы
         super.onMeasure(
             MeasureSpec.makeMeasureSpec(desiredWidth, MeasureSpec.EXACTLY),
-            MeasureSpec.makeMeasureSpec(desiredHeight, MeasureSpec.EXACTLY)
+            MeasureSpec.makeMeasureSpec(desiredHeight, MeasureSpec.EXACTLY),
         )
     }
 
-    override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
+    override fun onLayout(
+        changed: Boolean,
+        l: Int,
+        t: Int,
+        r: Int,
+        b: Int,
+    ) {
         // Располагаем все дочерние элементы по центру
         val count = childCount
         for (i in 0..<count) {

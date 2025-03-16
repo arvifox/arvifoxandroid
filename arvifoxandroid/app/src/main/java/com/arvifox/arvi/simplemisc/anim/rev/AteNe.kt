@@ -9,18 +9,18 @@ import androidx.annotation.RequiresApi
 import kotlin.math.pow
 
 object AteNe {
-
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP_MR1)
     fun test01() {
-        val va = ValueAnimator.ofInt(0, 100).apply {
-            duration = 1000
-            interpolator = AccelerateDecelerateInterpolator()
-            addUpdateListener {
-                Log.d("foxx", "fr=${it.animatedFraction} va=${it.animatedValue}")
+        val va =
+            ValueAnimator.ofInt(0, 100).apply {
+                duration = 1000
+                interpolator = AccelerateDecelerateInterpolator()
+                addUpdateListener {
+                    Log.d("foxx", "fr=${it.animatedFraction} va=${it.animatedValue}")
+                }
+                setCurrentFraction(4F)
+                currentPlayTime = 500
             }
-            setCurrentFraction(4F)
-            currentPlayTime = 500
-        }
         va.start()
     }
 }

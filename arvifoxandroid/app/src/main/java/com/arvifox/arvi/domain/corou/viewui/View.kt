@@ -15,36 +15,38 @@ import kotlin.coroutines.resume
 // https://developer.android.com/topic/libraries/architecture/coroutines
 
 object ViewUi {
-    suspend fun View.awaitNextLayout() = suspendCancellableCoroutine<Unit> { cont ->
-        // This lambda is invoked immediately, allowing us to create
-        // a callback/listener
-        val listener = object : View.OnLayoutChangeListener {
-            override fun onLayoutChange(
-                view: View?,
-                p1: Int,
-                p2: Int,
-                p3: Int,
-                p4: Int,
-                p5: Int,
-                p6: Int,
-                p7: Int,
-                p8: Int
-            ) {
-                // The next layout has happened!
-                // First remove the listener to not leak the coroutine
-                view?.removeOnLayoutChangeListener(this)
-                // Finally resume the continuation, and
-                // wake the coroutine up
-                cont.resume(Unit)
-            }
+    suspend fun View.awaitNextLayout() =
+        suspendCancellableCoroutine<Unit> { cont ->
+            // This lambda is invoked immediately, allowing us to create
+            // a callback/listener
+            val listener =
+                object : View.OnLayoutChangeListener {
+                    override fun onLayoutChange(
+                        view: View?,
+                        p1: Int,
+                        p2: Int,
+                        p3: Int,
+                        p4: Int,
+                        p5: Int,
+                        p6: Int,
+                        p7: Int,
+                        p8: Int,
+                    ) {
+                        // The next layout has happened!
+                        // First remove the listener to not leak the coroutine
+                        view?.removeOnLayoutChangeListener(this)
+                        // Finally resume the continuation, and
+                        // wake the coroutine up
+                        cont.resume(Unit)
+                    }
+                }
+            // If the coroutine is cancelled, remove the listener
+            cont.invokeOnCancellation { removeOnLayoutChangeListener(listener) }
+            // And finally add the listener to view
+            addOnLayoutChangeListener(listener)
+            // The coroutine will now be suspended. It will only be resumed
+            // when calling cont.resume() in the listener above
         }
-        // If the coroutine is cancelled, remove the listener
-        cont.invokeOnCancellation { removeOnLayoutChangeListener(listener) }
-        // And finally add the listener to view
-        addOnLayoutChangeListener(listener)
-        // The coroutine will now be suspended. It will only be resumed
-        // when calling cont.resume() in the listener above
-    }
 
     fun howtouse(titleView: TextView) {
         // viewLifecycleOwner.lifecycleScope.launch {
@@ -68,7 +70,6 @@ object ViewUi {
 
     fun dfkj(fr: Fragment) {
         fr.viewLifecycleOwner.lifecycleScope.launch {
-
         }
     }
 }

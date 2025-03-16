@@ -23,15 +23,15 @@ object CertUtils {
                 while (aliases.hasMoreElements()) {
                     val alias: String = aliases.nextElement() as String
                     val cert: java.security.cert.X509Certificate = ks.getCertificate(alias) as java.security.cert.X509Certificate
-                    //To print System Certs only
+                    // To print System Certs only
                     if (cert.issuerDN.name.contains("system", true)) {
                         println(cert.issuerDN.name)
                     }
-                    //To print User Certs only
+                    // To print User Certs only
                     if (cert.issuerDN.name.contains("user", true)) {
                         println(cert.issuerDN.name)
                     }
-                    //To print all certs
+                    // To print all certs
                     println(cert.issuerDN.name)
                 }
             }

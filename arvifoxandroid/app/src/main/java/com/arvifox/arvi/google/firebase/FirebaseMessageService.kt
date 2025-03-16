@@ -10,7 +10,6 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 
 class FirebaseMessageService : FirebaseMessagingService() {
-
     override fun onMessageReceived(p0: RemoteMessage) {
         val count = p0!!.data.size
         val s1 = p0.data.get("key1")
@@ -20,7 +19,8 @@ class FirebaseMessageService : FirebaseMessagingService() {
 //            val s2 = p0.notification!!.body
             val s3 = s1 + count
             val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
-            val nb = NotificationCompat.Builder(this, BaseStorage.notificationChannelID)
+            val nb =
+                NotificationCompat.Builder(this, BaseStorage.notificationChannelID)
                     .setSmallIcon(R.mipmap.ic_launcher)
                     .setContentTitle("FCM message")
                     .setContentText(s3)

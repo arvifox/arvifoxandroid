@@ -38,15 +38,19 @@ class Navig1Fragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
     ): View? {
         // Inflate the layout for this fragment
         bi = FragmentNavig1Binding.inflate(inflater, container, false)
         return bi?.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
         binding.btnNav1Go.setOnClickListener {
             (activity as NavigActivity).getNavigator().navigate(R.id.action_navig1Fra_to_navig2Fra)
@@ -64,12 +68,15 @@ class Navig1Fragment : Fragment() {
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            Navig1Fragment().apply {
-                arguments = Bundle().apply {
+        fun newInstance(
+            param1: String,
+            param2: String,
+        ) = Navig1Fragment().apply {
+            arguments =
+                Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
                 }
-            }
+        }
     }
 }

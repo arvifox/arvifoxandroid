@@ -10,9 +10,8 @@ import com.arvifox.arvi.simplemisc.workmanager.imgur.ImgurApi
 /**
  * Uploads an image to Imgur using the [ImgurApi].
  */
-class UploadWorker(appContext: Context, workerParams: WorkerParameters)
-    : Worker(appContext, workerParams) {
-
+class UploadWorker(appContext: Context, workerParams: WorkerParameters) :
+    Worker(appContext, workerParams) {
     companion object {
         private const val TAG = "UploadWorker"
     }
@@ -40,7 +39,8 @@ class UploadWorker(appContext: Context, workerParams: WorkerParameters)
                 if (imageResponse != null) {
                     val imgurLink = imageResponse.data!!.link
                     // Set the result of the worker by calling setOutputData().
-                    outputData = Data.Builder()
+                    outputData =
+                        Data.Builder()
                             .putString("KEY_IMAGE_URI", imgurLink)
                             .build()
                 }
@@ -52,6 +52,5 @@ class UploadWorker(appContext: Context, workerParams: WorkerParameters)
             Log.e(TAG, message)
             return Result.failure()
         }
-
     }
 }

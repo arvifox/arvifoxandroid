@@ -8,7 +8,6 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface UserDao {
-
     @Query("SELECT * FROM users WHERE userid = :id ORDER BY username ASC")
     suspend fun getUserById(id: String): User
 

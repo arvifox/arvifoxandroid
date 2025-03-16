@@ -30,16 +30,16 @@ import java.util.concurrent.TimeUnit
 @RunWith(AndroidJUnit4::class)
 @SmallTest
 class ImageOperationsTest {
-
     companion object {
         // Maximum wait time for a test.
         private const val TEST_TIMEOUT = 5L
+
         // Making the input image to the ImageOperationsBuilder look like a URI.
         // However the underlying image is loaded using AssetManager. For more information
         // look at BaseFilterWorker#inputStreamFor(...).
         private const val JETPACK = "${BaseFilterWorker.ASSET_PREFIX}images/jetpack.png"
         private const val JETPACK_GRAYSCALED =
-                "${BaseFilterWorker.ASSET_PREFIX}test_outputs/grayscale.png"
+            "${BaseFilterWorker.ASSET_PREFIX}test_outputs/grayscale.png"
         private val IMAGE = Uri.parse(JETPACK)
         private val IMAGE_GRAYSCALE = Uri.parse(JETPACK_GRAYSCALED) // grayscale
         private val DEFAULT_IMAGE_URI = Uri.EMPTY.toString()
@@ -59,7 +59,8 @@ class ImageOperationsTest {
         mContext = InstrumentationRegistry.getContext()
         mTargetContext = InstrumentationRegistry.getTargetContext()
         mLifeCycleOwner = TestLifeCycleOwner()
-        mConfiguration = Configuration.Builder()
+        mConfiguration =
+            Configuration.Builder()
                 .setExecutor(SynchronousExecutor())
                 .setMinimumLoggingLevel(Log.DEBUG)
                 .build()
@@ -70,32 +71,37 @@ class ImageOperationsTest {
 
     @Test
     fun testImageOperations() {
-        val imageOperations = ImageOperations.Builder(IMAGE)
+        val imageOperations =
+            ImageOperations.Builder(IMAGE)
                 .setApplyGrayScale(true)
                 .build()
 
         imageOperations.continuation
-                .enqueue()
-                .result
-                .get()
+            .enqueue()
+            .result
+            .get()
 
         val latch = CountDownLatch(1)
         val outputs: MutableList<Uri> = mutableListOf()
 
-        imageOperations.continuation.workInfosLiveData.observe(mLifeCycleOwner, Observer { workInfos ->
-            val statuses = workInfos ?: return@Observer
-            val finished = statuses.all { it.state.isFinished }
-            if (finished) {
-                val outputUris = statuses.map {
-                    val output = it.outputData.getString("KEY_IMAGE_URI") ?: DEFAULT_IMAGE_URI
-                    Uri.parse(output)
-                }.filter {
-                    it != Uri.EMPTY
+        imageOperations.continuation.workInfosLiveData.observe(
+            mLifeCycleOwner,
+            Observer { workInfos ->
+                val statuses = workInfos ?: return@Observer
+                val finished = statuses.all { it.state.isFinished }
+                if (finished) {
+                    val outputUris =
+                        statuses.map {
+                            val output = it.outputData.getString("KEY_IMAGE_URI") ?: DEFAULT_IMAGE_URI
+                            Uri.parse(output)
+                        }.filter {
+                            it != Uri.EMPTY
+                        }
+                    outputs.addAll(outputUris)
+                    latch.countDown()
                 }
-                outputs.addAll(outputUris)
-                latch.countDown()
-            }
-        })
+            },
+        )
 
         assertTrue(latch.await(TEST_TIMEOUT, TimeUnit.SECONDS))
         assertEquals(outputs.size, 1)
@@ -105,7 +111,8 @@ class ImageOperationsTest {
     @Test
     @SdkSuppress(maxSdkVersion = 22)
     fun testImageOperationsChain() {
-        val imageOperations = ImageOperations.Builder(IMAGE)
+        val imageOperations =
+            ImageOperations.Builder(IMAGE)
                 .setApplyWaterColor(true)
                 .setApplyGrayScale(true)
                 .setApplyBlur(true)
@@ -113,52 +120,65 @@ class ImageOperationsTest {
                 .build()
 
         imageOperations.continuation
-                .enqueue()
-                .result
-                .get()
+            .enqueue()
+            .result
+            .get()
 
         val latch = CountDownLatch(2)
         val outputs: MutableList<Uri> = mutableListOf()
 
-        imageOperations.continuation.workInfosLiveData.observe(mLifeCycleOwner, Observer { workInfos ->
-            val statuses = workInfos ?: return@Observer
-            val finished = statuses.all { it.state.isFinished }
-            if (finished) {
-                val outputUris = statuses.map {
-                    val output = it.outputData.getString("KEY_IMAGE_URI") ?: DEFAULT_IMAGE_URI
-                    Uri.parse(output)
-                }.filter {
-                    it != Uri.EMPTY
+        imageOperations.continuation.workInfosLiveData.observe(
+            mLifeCycleOwner,
+            Observer { workInfos ->
+                val statuses = workInfos ?: return@Observer
+                val finished = statuses.all { it.state.isFinished }
+                if (finished) {
+                    val outputUris =
+                        statuses.map {
+                            val output = it.outputData.getString("KEY_IMAGE_URI") ?: DEFAULT_IMAGE_URI
+                            Uri.parse(output)
+                        }.filter {
+                            it != Uri.EMPTY
+                        }
+                    outputs.addAll(outputUris)
+                    latch.countDown()
                 }
-                outputs.addAll(outputUris)
-                latch.countDown()
-            }
-        })
+            },
+        )
 
         var outputUri: Uri? = null
-        mWorkManager?.getWorkInfosByTagLiveData("TAG_OUTPUT")?.observe(mLifeCycleOwner, Observer { workInfos ->
-            val statuses = workInfos ?: return@Observer
-            val finished = statuses.all { it.state.isFinished }
-            if (finished) {
-                outputUri =
+        mWorkManager?.getWorkInfosByTagLiveData("TAG_OUTPUT")?.observe(
+            mLifeCycleOwner,
+            Observer { workInfos ->
+                val statuses = workInfos ?: return@Observer
+                val finished = statuses.all { it.state.isFinished }
+                if (finished) {
+                    outputUri =
                         statuses.firstOrNull()
-                                ?.outputData?.getString("KEY_IMAGE_URI")
-                                ?.let { Uri.parse(it) }
-                latch.countDown()
-            }
-        })
+                            ?.outputData?.getString("KEY_IMAGE_URI")
+                            ?.let { Uri.parse(it) }
+                    latch.countDown()
+                }
+            },
+        )
 
         assertTrue(latch.await(TEST_TIMEOUT, TimeUnit.SECONDS))
         assertEquals(outputs.size, 4)
         assertNotNull(outputUri)
     }
 
-    private fun sameBitmaps(outputUri: Uri, compareWith: Uri): Boolean {
-        val outputBitmap: Bitmap = BitmapFactory.decodeStream(
-                inputStreamFor(mContext, outputUri.toString()))
-        val compareBitmap: Bitmap = BitmapFactory.decodeStream(
-                inputStreamFor(mContext, compareWith.toString()))
+    private fun sameBitmaps(
+        outputUri: Uri,
+        compareWith: Uri,
+    ): Boolean {
+        val outputBitmap: Bitmap =
+            BitmapFactory.decodeStream(
+                inputStreamFor(mContext, outputUri.toString()),
+            )
+        val compareBitmap: Bitmap =
+            BitmapFactory.decodeStream(
+                inputStreamFor(mContext, compareWith.toString()),
+            )
         return outputBitmap.sameAs(compareBitmap)
     }
-
 }

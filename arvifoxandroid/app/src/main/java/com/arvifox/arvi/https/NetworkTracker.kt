@@ -27,30 +27,34 @@ import kotlinx.coroutines.flow.map
 
 // Implementation of a cold flow backed by a Channel that sends Location updates
 @SuppressLint("MissingPermission")
-fun FusedLocationProviderClient.locationFlow() = callbackFlow<Location> {
-    val callback = object : LocationCallback() {
-        override fun onLocationResult(result: LocationResult) {
-            try {
-                result.lastLocation?.let { trySend(it) }
-            } catch (e: Exception) {
+fun FusedLocationProviderClient.locationFlow() =
+    callbackFlow<Location> {
+        val callback =
+            object : LocationCallback() {
+                override fun onLocationResult(result: LocationResult) {
+                    try {
+                        result.lastLocation?.let { trySend(it) }
+                    } catch (e: Exception) {
+                    }
+                }
             }
+        requestLocationUpdates(
+            LocationRequest.create(),
+            callback,
+            Looper.getMainLooper(),
+        )
+            .addOnFailureListener { e ->
+                close(e) // in case of exception, close the Flow
+            }
+        // clean up when Flow collection ends
+        awaitClose {
+            removeLocationUpdates(callback)
         }
     }
-    requestLocationUpdates(
-        LocationRequest.create(), callback, Looper.getMainLooper()
-    )
-        .addOnFailureListener { e ->
-            close(e) // in case of exception, close the Flow
-        }
-    // clean up when Flow collection ends
-    awaitClose {
-        removeLocationUpdates(callback)
-    }
-}
-
 
 sealed class NetworkStatus {
     object Available : NetworkStatus()
+
     object Unavailable : NetworkStatus()
 }
 
@@ -58,51 +62,55 @@ class NetworkStatusTracker(context: Context) {
     private val connectivityManager =
         context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
-    val networkStatus = callbackFlow<NetworkStatus> {
-        val networkStatusCallback = object : ConnectivityManager.NetworkCallback() {
-            override fun onUnavailable() {
-                trySend(NetworkStatus.Unavailable)
-            }
+    val networkStatus =
+        callbackFlow<NetworkStatus> {
+            val networkStatusCallback =
+                object : ConnectivityManager.NetworkCallback() {
+                    override fun onUnavailable() {
+                        trySend(NetworkStatus.Unavailable)
+                    }
 
-            override fun onAvailable(network: Network) {
-                trySend(NetworkStatus.Available)
-            }
+                    override fun onAvailable(network: Network) {
+                        trySend(NetworkStatus.Available)
+                    }
 
-            override fun onLost(network: Network) {
-                trySend(NetworkStatus.Unavailable)
+                    override fun onLost(network: Network) {
+                        trySend(NetworkStatus.Unavailable)
+                    }
+                }
+
+            val request =
+                NetworkRequest.Builder()
+                    .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+                    .build()
+            connectivityManager.registerNetworkCallback(request, networkStatusCallback)
+
+            awaitClose {
+                connectivityManager.unregisterNetworkCallback(networkStatusCallback)
             }
         }
-
-        val request = NetworkRequest.Builder()
-            .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
-            .build()
-        connectivityManager.registerNetworkCallback(request, networkStatusCallback)
-
-        awaitClose {
-            connectivityManager.unregisterNetworkCallback(networkStatusCallback)
-        }
-    }
 }
 
 inline fun <Result> Flow<NetworkStatus>.map(
     crossinline onUnavailable: suspend () -> Result,
     crossinline onAvailable: suspend () -> Result,
-): Flow<Result> = map { status ->
-    when (status) {
-        NetworkStatus.Unavailable -> onUnavailable()
-        NetworkStatus.Available -> onAvailable()
+): Flow<Result> =
+    map { status ->
+        when (status) {
+            NetworkStatus.Unavailable -> onUnavailable()
+            NetworkStatus.Available -> onAvailable()
+        }
     }
-}
 
 sealed class MyState {
     object Fetched : MyState()
+
     object Error : MyState()
 }
 
 class NetworkStatusViewModel(
     networkStatusTracker: NetworkStatusTracker,
 ) : ViewModel() {
-
     val state =
         networkStatusTracker.networkStatus
             .map(
@@ -113,7 +121,6 @@ class NetworkStatusViewModel(
 }
 
 class MainActivity : AppCompatActivity() {
-
     private val viewModel: NetworkStatusViewModel by lazy {
         ViewModelProvider(
             this,
@@ -131,10 +138,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         viewModel.state.observe(this) { state ->
-            findViewById<TextView>(R.id.textView).text = when (state) {
-                MyState.Fetched -> "Fetched"
-                MyState.Error -> "Error"
-            }
+            findViewById<TextView>(R.id.textView).text =
+                when (state) {
+                    MyState.Fetched -> "Fetched"
+                    MyState.Error -> "Error"
+                }
         }
     }
 }

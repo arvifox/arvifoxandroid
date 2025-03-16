@@ -1,7 +1,6 @@
 package com.arvifox.arvi.domain.corou
 
 import android.annotation.SuppressLint
-import android.provider.Settings
 import android.util.Log
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
@@ -10,7 +9,6 @@ import kotlinx.coroutines.*
 import java.util.function.BiFunction
 
 object Arv10 {
-
     // dispatches execution into Android main thread
     val uiDispatcher: CoroutineDispatcher = Dispatchers.Main
 
@@ -30,12 +28,13 @@ object Arv10 {
     }
 
     fun getPP() {
-        val b = runBlocking {
+        val b =
+            runBlocking {
 //            val bb = async { getUp() }.await()
-            val bb = launch { getUp() }
-            println("after coro ${Thread.currentThread().name}")
-            return@runBlocking "sdlsf"
-        }
+                val bb = launch { getUp() }
+                println("after coro ${Thread.currentThread().name}")
+                return@runBlocking "sdlsf"
+            }
         println("${Thread.currentThread().name} =$b")
         val job11 = 7
     }
@@ -47,9 +46,8 @@ object Arv10 {
     }
 
     fun glo() {
-        val gl = GlobalScope.launch {  }
+        val gl = GlobalScope.launch { }
     }
-
 }
 
 interface IApi {
@@ -57,7 +55,6 @@ interface IApi {
 }
 
 class AndroidJob(lifecycle: Lifecycle) : Job by Job(), LifecycleObserver {
-
     init {
         lifecycle.addObserver(this)
     }
@@ -70,13 +67,11 @@ class AndroidJob(lifecycle: Lifecycle) : Job by Job(), LifecycleObserver {
 }
 
 object Arvi12 {
-
     suspend fun <T> retryDeferredWithDelay(
         deferred: () -> Deferred<T>,
         tries: Int = 3,
-        timeDelay: Long = 1000L
+        timeDelay: Long = 1000L,
     ): T {
-
         for (i in 1..tries) {
             try {
                 return deferred().await()
@@ -91,7 +86,7 @@ object Arvi12 {
     suspend fun <T1, T2, R> zip(
         source1: Deferred<T1>,
         source2: Deferred<T2>,
-        zipper: BiFunction<T1, T2, R>
+        zipper: BiFunction<T1, T2, R>,
     ): R {
         return zipper.apply(source1.await(), source2.await())
     }
@@ -99,7 +94,7 @@ object Arvi12 {
     @SuppressLint("NewApi")
     suspend fun <T1, T2, R> Deferred<T1>.zipWith(
         other: Deferred<T2>,
-        zipper: BiFunction<T1, T2, R>
+        zipper: BiFunction<T1, T2, R>,
     ): R {
         return zip(this, other, zipper)
     }

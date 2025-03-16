@@ -15,7 +15,6 @@ fun fail(message: String): Nothing {
 }
 
 class AnyClass : Any() {
-
     override fun toString(): String {
         return "AnyClass()"
     }

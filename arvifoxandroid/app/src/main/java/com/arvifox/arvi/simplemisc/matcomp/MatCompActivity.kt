@@ -10,7 +10,6 @@ import com.arvifox.arvi.databinding.ActivityMatCompBinding
 import com.arvifox.arvi.utils.FormatUtils.showToast
 
 class MatCompActivity : AppCompatActivity() {
-
     companion object {
         fun newIntent(c: Context): Intent {
             return Intent(c, MatCompActivity::class.java)

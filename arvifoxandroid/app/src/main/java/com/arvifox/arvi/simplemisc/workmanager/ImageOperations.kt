@@ -7,7 +7,6 @@ import androidx.work.*
  * Builds and holds WorkContinuation based on supplied filters.
  */
 internal class ImageOperations private constructor(val continuation: WorkContinuation) {
-
     internal class Builder(private val mImageUri: Uri) {
         private var mApplyWaterColor: Boolean = false
         private var mApplyGrayScale: Boolean = false
@@ -47,13 +46,15 @@ internal class ImageOperations private constructor(val continuation: WorkContinu
          */
         fun build(): ImageOperations {
             var hasInputData = false
-            var continuation = WorkManager.getInstance()
-                    .beginUniqueWork("IMAGE_MANIPULATION_WORK_NAME",
-                            ExistingWorkPolicy.REPLACE,
-                            OneTimeWorkRequest.from(CleanupWorker::class.java))
+            var continuation =
+                WorkManager.getInstance()
+                    .beginUniqueWork(
+                        "IMAGE_MANIPULATION_WORK_NAME",
+                        ExistingWorkPolicy.REPLACE,
+                        OneTimeWorkRequest.from(CleanupWorker::class.java),
+                    )
 
             if (mApplyWaterColor) {
-
 //                val waterColor = OneTimeWorkRequestBuilder<WaterColorFilterWorker>()
 //                        .setInputData(createInputData())
 //                        .build()
@@ -82,7 +83,8 @@ internal class ImageOperations private constructor(val continuation: WorkContinu
             }
 
             if (mApplySave) {
-                val save = OneTimeWorkRequestBuilder<SaveImageToGalleryWorker>()
+                val save =
+                    OneTimeWorkRequestBuilder<SaveImageToGalleryWorker>()
                         .setInputData(createInputData())
                         .addTag("TAG_OUTPUT")
                         .build()
@@ -90,7 +92,8 @@ internal class ImageOperations private constructor(val continuation: WorkContinu
             }
 
             if (mApplyUpload) {
-                val upload = OneTimeWorkRequestBuilder<UploadWorker>()
+                val upload =
+                    OneTimeWorkRequestBuilder<UploadWorker>()
                         .setInputData(createInputData())
                         .addTag("TAG_OUTPUT")
                         .build()

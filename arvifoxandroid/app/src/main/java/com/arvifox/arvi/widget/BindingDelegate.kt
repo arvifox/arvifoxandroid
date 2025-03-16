@@ -17,7 +17,7 @@ inline fun <reified T : ViewBinding> Fragment.viewBinding() = FragmentViewBindin
 
 class FragmentViewBindingDelegate<T : ViewBinding>(
     private val bindingClass: Class<T>,
-    val fragment: Fragment
+    val fragment: Fragment,
 ) : ReadOnlyProperty<Fragment, T> {
     private val clearBindingHandler by lazy(LazyThreadSafetyMode.NONE) { Handler(Looper.getMainLooper()) }
     private var binding: T? = null
@@ -26,16 +26,21 @@ class FragmentViewBindingDelegate<T : ViewBinding>(
 
     init {
         fragment.viewLifecycleOwnerLiveData.observe(fragment) { viewLifecycleOwner ->
-            viewLifecycleOwner.lifecycle.addObserver(object : LifecycleObserver {
-                @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-                fun onDestroy() {
-                    clearBindingHandler.post { binding = null }
-                }
-            })
+            viewLifecycleOwner.lifecycle.addObserver(
+                object : LifecycleObserver {
+                    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+                    fun onDestroy() {
+                        clearBindingHandler.post { binding = null }
+                    }
+                },
+            )
         }
     }
 
-    override fun getValue(thisRef: Fragment, property: KProperty<*>): T {
+    override fun getValue(
+        thisRef: Fragment,
+        property: KProperty<*>,
+    ): T {
         // onCreateView may be called between onDestroyView and next Main thread cycle.
         // In this case [binding] refers to the previous fragment view. Check that binding's root view matches current fragment view
         if (binding != null && binding?.root !== thisRef.view) {
@@ -60,16 +65,26 @@ inline fun <reified T : ViewBinding> ViewGroup.viewBinding() = ViewBindingDelega
 
 class ViewBindingDelegate<T : ViewBinding>(
     private val bindingClass: Class<T>,
-    private val view: ViewGroup
+    private val view: ViewGroup,
 ) : ReadOnlyProperty<ViewGroup, T> {
-    private val binding: T = try {
-        val inflateMethod = bindingClass.getMethod("inflate", LayoutInflater::class.java, ViewGroup::class.java, Boolean::class.javaPrimitiveType)
-        inflateMethod.invoke(null, LayoutInflater.from(view.context), view, true).cast<T>()
-    } catch (e: NoSuchMethodException) {
-        // <merge> tags don't have the boolean parameter.
-        val inflateMethod = bindingClass.getMethod("inflate", LayoutInflater::class.java, ViewGroup::class.java)
-        inflateMethod.invoke(null, LayoutInflater.from(view.context), view).cast<T>()
-    }
+    private val binding: T =
+        try {
+            val inflateMethod =
+                bindingClass.getMethod(
+                    "inflate",
+                    LayoutInflater::class.java,
+                    ViewGroup::class.java,
+                    Boolean::class.javaPrimitiveType,
+                )
+            inflateMethod.invoke(null, LayoutInflater.from(view.context), view, true).cast<T>()
+        } catch (e: NoSuchMethodException) {
+            // <merge> tags don't have the boolean parameter.
+            val inflateMethod = bindingClass.getMethod("inflate", LayoutInflater::class.java, ViewGroup::class.java)
+            inflateMethod.invoke(null, LayoutInflater.from(view.context), view).cast<T>()
+        }
 
-    override fun getValue(thisRef: ViewGroup, property: KProperty<*>): T = binding
+    override fun getValue(
+        thisRef: ViewGroup,
+        property: KProperty<*>,
+    ): T = binding
 }

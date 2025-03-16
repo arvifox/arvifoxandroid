@@ -9,7 +9,6 @@ import androidx.lifecycle.ViewModelProviders
 import com.arvifox.arvi.databinding.ActivityTmdbBinding
 
 class TmdbActivity : AppCompatActivity() {
-
     private lateinit var tmdbViewModel: TmdbViewModel
 
     private lateinit var binding: ActivityTmdbBinding
@@ -29,9 +28,12 @@ class TmdbActivity : AppCompatActivity() {
 
         tmdbViewModel = ViewModelProviders.of(this).get(TmdbViewModel::class.java)
         tmdbViewModel.fetchMovies()
-        tmdbViewModel.popularMoviesLiveData.observe(this, Observer {
-            //
-        })
+        tmdbViewModel.popularMoviesLiveData.observe(
+            this,
+            Observer {
+                //
+            },
+        )
     }
 
     override fun onPause() {

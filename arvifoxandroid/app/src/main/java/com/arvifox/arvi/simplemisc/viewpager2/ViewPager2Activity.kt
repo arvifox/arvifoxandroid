@@ -23,30 +23,30 @@ https://stackoverflow.com/questions/10098040/android-viewpager-show-preview-of-p
  */
 
 class ViewPager2Activity : AppCompatActivity() {
-
     companion object {
         fun newIntent(c: Context): Intent {
             return Intent(c, ViewPager2Activity::class.java)
         }
     }
 
-    val pageCallback = object : ViewPager2.OnPageChangeCallback() {
-        override fun onPageScrollStateChanged(state: Int) {
-            super.onPageScrollStateChanged(state)
-        }
+    val pageCallback =
+        object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageScrollStateChanged(state: Int) {
+                super.onPageScrollStateChanged(state)
+            }
 
-        override fun onPageScrolled(
-            position: Int,
-            positionOffset: Float,
-            positionOffsetPixels: Int
-        ) {
-            super.onPageScrolled(position, positionOffset, positionOffsetPixels)
-        }
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int,
+            ) {
+                super.onPageScrolled(position, positionOffset, positionOffsetPixels)
+            }
 
-        override fun onPageSelected(position: Int) {
-            super.onPageSelected(position)
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+            }
         }
-    }
 
     private lateinit var binding: ActivityViewPager2Binding
 
@@ -97,7 +97,10 @@ class ViewPager2Activity : AppCompatActivity() {
 }
 
 class ViewPager2PageTransformation : ViewPager2.PageTransformer {
-    override fun transformPage(page: View, position: Float) {
+    override fun transformPage(
+        page: View,
+        position: Float,
+    ) {
         val absPos = abs(position)
         page.apply {
             translationY = absPos * 500f
@@ -116,14 +119,19 @@ class ViewPager2PageTransformation : ViewPager2.PageTransformer {
     }
 }
 
-class HorizontalMarginItemDecoration(context: Context, @DimenRes horizontalMarginInDp: Int) :
+class HorizontalMarginItemDecoration(
+    context: Context,
+    @DimenRes horizontalMarginInDp: Int,
+) :
     RecyclerView.ItemDecoration() {
-
     private val horizontalMarginInPx: Int =
         context.resources.getDimension(horizontalMarginInDp).toInt()
 
     override fun getItemOffsets(
-        outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State
+        outRect: Rect,
+        view: View,
+        parent: RecyclerView,
+        state: RecyclerView.State,
     ) {
         outRect.right = horizontalMarginInPx
         outRect.left = horizontalMarginInPx

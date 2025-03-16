@@ -13,7 +13,6 @@ import javax.net.ssl.HttpsURLConnection
 import javax.net.ssl.SSLSocket
 
 class HttpsActivity : AppCompatActivity() {
-
     companion object {
         fun newIntent(c: Context): Intent {
             return Intent(c, HttpsActivity::class.java)
@@ -34,52 +33,62 @@ class HttpsActivity : AppCompatActivity() {
 
         val handler = Handler(Looper.getMainLooper())
 
-        Thread(Runnable {
-            try {
-                val inetAddress = InetAddress.getByName("www.hibiny.com")
-                val factory = HttpsURLConnection.getDefaultSSLSocketFactory()
-                var socket: SSLSocket
-                socket = factory.createSocket(inetAddress, 80) as SSLSocket
-                val protocols = socket.enabledProtocols
-                val sup = socket.supportedProtocols
-                handler.post {
-                    fromThread(
-                        TextUtils.join("\n", protocols),
-                        TextUtils.join("\n", sup)
-                    )
+        Thread(
+            Runnable {
+                try {
+                    val inetAddress = InetAddress.getByName("www.hibiny.com")
+                    val factory = HttpsURLConnection.getDefaultSSLSocketFactory()
+                    var socket: SSLSocket
+                    socket = factory.createSocket(inetAddress, 80) as SSLSocket
+                    val protocols = socket.enabledProtocols
+                    val sup = socket.supportedProtocols
+                    handler.post {
+                        fromThread(
+                            TextUtils.join("\n", protocols),
+                            TextUtils.join("\n", sup),
+                        )
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    handler.post { fromThread("some", "fail") }
                 }
-            } catch (e: Exception) {
-                e.printStackTrace()
-                handler.post { fromThread("some", "fail") }
-            }
-        }).start()
+            },
+        ).start()
 
-        Thread(Runnable {
-            try {
-                val inetAddress = InetAddress.getByName("www.hibiny.com")
-                var factory = HttpsURLConnection.getDefaultSSLSocketFactory()
-                factory = TLSSocketFactory(factory, true)
-                val socket = factory.createSocket(inetAddress, 80) as SSLSocket
-                val protocols = socket.enabledProtocols
-                val supp = socket.supportedProtocols
-                handler.post {
-                    fromThreadTls(
-                        TextUtils.join("\n", protocols),
-                        TextUtils.join("\n", supp)
-                    )
+        Thread(
+            Runnable {
+                try {
+                    val inetAddress = InetAddress.getByName("www.hibiny.com")
+                    var factory = HttpsURLConnection.getDefaultSSLSocketFactory()
+                    factory = TLSSocketFactory(factory, true)
+                    val socket = factory.createSocket(inetAddress, 80) as SSLSocket
+                    val protocols = socket.enabledProtocols
+                    val supp = socket.supportedProtocols
+                    handler.post {
+                        fromThreadTls(
+                            TextUtils.join("\n", protocols),
+                            TextUtils.join("\n", supp),
+                        )
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    handler.post { fromThreadTls("some", "fail") }
                 }
-            } catch (e: Exception) {
-                e.printStackTrace()
-                handler.post { fromThreadTls("some", "fail") }
-            }
-        }).start()
+            },
+        ).start()
     }
 
-    private fun fromThread(enabled: String, supported: String) {
+    private fun fromThread(
+        enabled: String,
+        supported: String,
+    ) {
         binding.tvHttpsProtocols.text = enabled + "\n\n" + supported
     }
 
-    private fun fromThreadTls(enabled: String, supported: String) {
+    private fun fromThreadTls(
+        enabled: String,
+        supported: String,
+    ) {
         binding.tvHttpsTls.text = enabled + "\n\n" + supported
     }
 }

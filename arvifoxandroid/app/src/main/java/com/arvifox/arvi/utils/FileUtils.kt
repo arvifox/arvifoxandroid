@@ -17,7 +17,6 @@ import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
 
 object FileUtils {
-
     /**
      * Checks if external storage is available for read and write
      */
@@ -76,7 +75,10 @@ object FileUtils {
      * @param type directory type, see [Environment]
      * @return Files Directory
      */
-    fun getExternalFilesDir(ui: Context, type: String): File? {
+    fun getExternalFilesDir(
+        ui: Context,
+        type: String,
+    ): File? {
         return ui.getExternalFilesDir(type)
     }
 
@@ -87,7 +89,10 @@ object FileUtils {
      * @param file the File to resolve Uri
      * @return the Uri to file from file provider
      */
-    fun getFileProviderUri(ctx: Context, file: File): Uri {
+    fun getFileProviderUri(
+        ctx: Context,
+        file: File,
+    ): Uri {
         return FileProvider.getUriForFile(ctx, BuildConfig.APPLICATION_ID + ".file.provider", file)
     }
 
@@ -98,7 +103,10 @@ object FileUtils {
      * @param path the file path to resolve Uri
      * @return the Uri to file from file provider
      */
-    fun getFileProviderUri(ctx: Context, path: String): Uri {
+    fun getFileProviderUri(
+        ctx: Context,
+        path: String,
+    ): Uri {
         return getFileProviderUri(ctx, File(path))
     }
 
@@ -110,7 +118,11 @@ object FileUtils {
      * @param fileName file
      * @return success
      */
-    fun deleteExternalStorageFile(ui: Context, type: String, fileName: String): Boolean {
+    fun deleteExternalStorageFile(
+        ui: Context,
+        type: String,
+        fileName: String,
+    ): Boolean {
         val path = ui.getExternalFilesDir(type)
         return deleteFile(path.toString() + File.separator + fileName)
     }
@@ -161,7 +173,10 @@ object FileUtils {
      * @param data     Intent
      * @return path for file as String
      */
-    fun getFilePathByIntent(resolver: ContentResolver, data: Intent): String? {
+    fun getFilePathByIntent(
+        resolver: ContentResolver,
+        data: Intent,
+    ): String? {
         val selectedImage = data.data
         val filePathColumn = arrayOf(MediaStore.Images.Media.DATA)
 
@@ -185,7 +200,10 @@ object FileUtils {
      * @param sourcePath source filepath
      * @param targetPath destination filepath
      */
-    fun copyExternalResource(sourcePath: String, targetPath: String) {
+    fun copyExternalResource(
+        sourcePath: String,
+        targetPath: String,
+    ) {
         var fis: FileInputStream? = null
         var fos: FileOutputStream? = null
         var srcFileStream: FileChannel? = null
@@ -214,7 +232,6 @@ object FileUtils {
                     srcFileStream.close()
                 } catch (e: IOException) {
                 }
-
             }
 
             if (fis != null) {
@@ -222,7 +239,6 @@ object FileUtils {
                     fis.close()
                 } catch (e: IOException) {
                 }
-
             }
 
             if (dstFileStream != null) {
@@ -230,7 +246,6 @@ object FileUtils {
                     dstFileStream.close()
                 } catch (e: IOException) {
                 }
-
             }
 
             if (fos != null) {
@@ -238,7 +253,6 @@ object FileUtils {
                     fos.close()
                 } catch (e: IOException) {
                 }
-
             }
         }
     }
@@ -251,7 +265,11 @@ object FileUtils {
      * @param destinationFileName Compressed file
      * @return Compressed file
      */
-    fun zipFiles(context: Context, files: List<File>, destinationFileName: String): File? {
+    fun zipFiles(
+        context: Context,
+        files: List<File>,
+        destinationFileName: String,
+    ): File? {
         try {
             val externalDir = context.getExternalFilesDir("todo") ?: return null
 
@@ -259,12 +277,12 @@ object FileUtils {
             val fos = FileOutputStream(destinationFile)
             val zos = ZipOutputStream(fos)
 
-            //write zip entry for each file in files
+            // write zip entry for each file in files
             for (file in files) {
                 val sourceFileName = file.name
                 val fis = FileInputStream(file)
 
-                val zipEntry = ZipEntry(sourceFileName)  //only file name
+                val zipEntry = ZipEntry(sourceFileName) // only file name
                 zos.putNextEntry(zipEntry)
 
                 val buf = ByteArray(1024)
@@ -278,11 +296,9 @@ object FileUtils {
             }
             zos.close()
             return destinationFile
-
         } catch (e: Exception) {
             return null
         }
-
     }
 
     /**
@@ -292,7 +308,10 @@ object FileUtils {
      * @param destinationFileName file name
      * @return empty zip file
      */
-    fun getEmptyZip(context: Context, destinationFileName: String): File? {
+    fun getEmptyZip(
+        context: Context,
+        destinationFileName: String,
+    ): File? {
         try {
             val externalDir = context.getExternalFilesDir("todo") ?: return null
 
@@ -306,11 +325,9 @@ object FileUtils {
             zos.close()
 
             return destinationFile
-
         } catch (e: Exception) {
             return null
         }
-
     }
 
     /**
@@ -331,13 +348,20 @@ object FileUtils {
      * @param destFilePath dest file path
      * @return copy was successful
      */
-    fun copyPrivateResource(ctx: Context, srcFileName: String, destFilePath: String): Boolean {
+    fun copyPrivateResource(
+        ctx: Context,
+        srcFileName: String,
+        destFilePath: String,
+    ): Boolean {
         try {
             val fis = ctx.openFileInput(srcFileName)
             val streamReader = InputStreamReader(fis, Charset.forName(Charsets.UTF_8.name()))
             val fos = FileOutputStream(File(destFilePath))
-            val streamWriter = OutputStreamWriter(fos,
-                    Charset.forName(Charsets.UTF_8.name()).newEncoder())
+            val streamWriter =
+                OutputStreamWriter(
+                    fos,
+                    Charset.forName(Charsets.UTF_8.name()).newEncoder(),
+                )
             try {
                 var character: Int
                 character = streamReader.read()
@@ -349,7 +373,6 @@ object FileUtils {
             } catch (e: IOException) {
                 return false
             }
-
         } catch (e: FileNotFoundException) {
             return false
         }
@@ -365,7 +388,10 @@ object FileUtils {
      * @throws IOException file not found or not readable
      */
     @Throws(IOException::class)
-    fun copyDirectory(sourceLocation: File, targetLocation: File) {
+    fun copyDirectory(
+        sourceLocation: File,
+        targetLocation: File,
+    ) {
         if (sourceLocation.isDirectory) {
             if (!targetLocation.exists()) {
                 targetLocation.mkdir()
@@ -401,7 +427,11 @@ object FileUtils {
      * @throws IOException IOException
      */
     @Throws(IOException::class)
-    fun createFile(context: Context, inputStream: InputStream, path: String): File {
+    fun createFile(
+        context: Context,
+        inputStream: InputStream,
+        path: String,
+    ): File {
         val file = File(context.cacheDir, path)
 
         val outputStream = FileOutputStream(file)

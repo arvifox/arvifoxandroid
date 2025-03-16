@@ -41,7 +41,6 @@ import retrofit2.Response
 import java.io.File
 
 class CameraShotActivity : AppCompatActivity() {
-
     companion object {
         fun newIntent(c: Context): Intent {
             return Intent(c, CameraShotActivity::class.java)
@@ -105,10 +104,11 @@ class CameraShotActivity : AppCompatActivity() {
 //            i.putExtra(MediaStore.EXTRA_OUTPUT, generateFileUri("video"))
             startActivityForResult(i, 854)
         }
-        directory = File(
-            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
-            "MyFolder"
-        )
+        directory =
+            File(
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+                "MyFolder",
+            )
         directory.mkdir()
 
         cameraManager = getSystemService(Context.CAMERA_SERVICE) as CameraManager
@@ -136,27 +136,34 @@ class CameraShotActivity : AppCompatActivity() {
 
         reader()
         binding.btnGetCameraImage.setOnClickListener {
-            cameraManager.openCamera("0", object : CameraDevice.StateCallback() {
-                override fun onOpened(camera: CameraDevice) {
-                    cameraDevice = camera
-                    capture()
-                }
+            cameraManager.openCamera(
+                "0",
+                object : CameraDevice.StateCallback() {
+                    override fun onOpened(camera: CameraDevice) {
+                        cameraDevice = camera
+                        capture()
+                    }
 
-                override fun onClosed(camera: CameraDevice) {
-                    super.onClosed(camera)
-                }
+                    override fun onClosed(camera: CameraDevice) {
+                        super.onClosed(camera)
+                    }
 
-                override fun onDisconnected(camera: CameraDevice) {
-                    cameraDevice?.close()
-                    cameraDevice = null
-                }
+                    override fun onDisconnected(camera: CameraDevice) {
+                        cameraDevice?.close()
+                        cameraDevice = null
+                    }
 
-                override fun onError(camera: CameraDevice, error: Int) {
-                    onDisconnected(camera)
-                    this@CameraShotActivity.showToast("Camera Error")
-                    finish()
-                }
-            }, backgroundHandler)
+                    override fun onError(
+                        camera: CameraDevice,
+                        error: Int,
+                    ) {
+                        onDisconnected(camera)
+                        this@CameraShotActivity.showToast("Camera Error")
+                        finish()
+                    }
+                },
+                backgroundHandler,
+            )
         }
         binding.btnTakeImage.setOnClickListener {
             cameraCaptureSession?.capture(
@@ -164,7 +171,7 @@ class CameraShotActivity : AppCompatActivity() {
                 object : CameraCaptureSession.CaptureCallback() {
                     override fun onCaptureSequenceAborted(
                         session: CameraCaptureSession,
-                        sequenceId: Int
+                        sequenceId: Int,
                     ) {
                         super.onCaptureSequenceAborted(session, sequenceId)
                     }
@@ -172,7 +179,7 @@ class CameraShotActivity : AppCompatActivity() {
                     override fun onCaptureCompleted(
                         session: CameraCaptureSession,
                         request: CaptureRequest,
-                        result: TotalCaptureResult
+                        result: TotalCaptureResult,
                     ) {
                         super.onCaptureCompleted(session, request, result)
 //                    result?.partialResults?.get(0).
@@ -181,7 +188,7 @@ class CameraShotActivity : AppCompatActivity() {
                     override fun onCaptureFailed(
                         session: CameraCaptureSession,
                         request: CaptureRequest,
-                        failure: CaptureFailure
+                        failure: CaptureFailure,
                     ) {
                         super.onCaptureFailed(session, request, failure)
                     }
@@ -189,7 +196,7 @@ class CameraShotActivity : AppCompatActivity() {
                     override fun onCaptureSequenceCompleted(
                         session: CameraCaptureSession,
                         sequenceId: Int,
-                        frameNumber: Long
+                        frameNumber: Long,
                     ) {
                         super.onCaptureSequenceCompleted(session, sequenceId, frameNumber)
                     }
@@ -198,7 +205,7 @@ class CameraShotActivity : AppCompatActivity() {
                         session: CameraCaptureSession,
                         request: CaptureRequest,
                         timestamp: Long,
-                        frameNumber: Long
+                        frameNumber: Long,
                     ) {
                         super.onCaptureStarted(session, request, timestamp, frameNumber)
                     }
@@ -206,7 +213,7 @@ class CameraShotActivity : AppCompatActivity() {
                     override fun onCaptureProgressed(
                         session: CameraCaptureSession,
                         request: CaptureRequest,
-                        partialResult: CaptureResult
+                        partialResult: CaptureResult,
                     ) {
                         super.onCaptureProgressed(session, request, partialResult)
                     }
@@ -215,12 +222,12 @@ class CameraShotActivity : AppCompatActivity() {
                         session: CameraCaptureSession,
                         request: CaptureRequest,
                         target: Surface,
-                        frameNumber: Long
+                        frameNumber: Long,
                     ) {
                         super.onCaptureBufferLost(session, request, target, frameNumber)
                     }
                 },
-                null
+                null,
             )
         }
 
@@ -230,19 +237,24 @@ class CameraShotActivity : AppCompatActivity() {
             val requestFile = f.asRequestBody("multipart/form-data".toMediaTypeOrNull())
             val body = MultipartBody.Part.createFormData("image", f.name, requestFile)
             val call = uploadmapper.uploadImage(body, name)
-            call.enqueue(object : Callback<ResponseBody> {
-                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                    Logger.e { t.localizedMessage }
-                    showToast("Error while upload: ${t.localizedMessage}")
-                }
+            call.enqueue(
+                object : Callback<ResponseBody> {
+                    override fun onFailure(
+                        call: Call<ResponseBody>,
+                        t: Throwable,
+                    ) {
+                        Logger.e { t.localizedMessage }
+                        showToast("Error while upload: ${t.localizedMessage}")
+                    }
 
-                override fun onResponse(
-                    call: Call<ResponseBody>,
-                    response: Response<ResponseBody>
-                ) {
-                    showToast(if (response.isSuccessful) "Upload successful" else "Upload res code = ${response.code()}")
-                }
-            })
+                    override fun onResponse(
+                        call: Call<ResponseBody>,
+                        response: Response<ResponseBody>,
+                    ) {
+                        showToast(if (response.isSuccessful) "Upload successful" else "Upload res code = ${response.code()}")
+                    }
+                },
+            )
         }
     }
 
@@ -263,7 +275,11 @@ class CameraShotActivity : AppCompatActivity() {
         super.onPause()
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    override fun onActivityResult(
+        requestCode: Int,
+        resultCode: Int,
+        data: Intent?,
+    ) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 854 && resultCode == Activity.RESULT_OK && data != null) {
             val b = data.extras
@@ -276,16 +292,17 @@ class CameraShotActivity : AppCompatActivity() {
 
     @SuppressLint("NewApi", "MissingPermission")
     private fun reader() {
-        imageReader = ImageReader.newInstance(wi, he, ImageFormat.JPEG, 2).apply {
-            setOnImageAvailableListener({
-                backgroundHandler?.post(
-                    ImageSaverToFile(
-                        it.acquireLatestImage(),
-                        generateFile("photo")!!
+        imageReader =
+            ImageReader.newInstance(wi, he, ImageFormat.JPEG, 2).apply {
+                setOnImageAvailableListener({
+                    backgroundHandler?.post(
+                        ImageSaverToFile(
+                            it.acquireLatestImage(),
+                            generateFile("photo")!!,
+                        ),
                     )
-                )
-            }, backgroundHandler)
-        }
+                }, backgroundHandler)
+            }
     }
 
     private fun startBackgroundThread() {
@@ -303,7 +320,6 @@ class CameraShotActivity : AppCompatActivity() {
         } catch (e: InterruptedException) {
             Logger.e { e.toString() }
         }
-
     }
 
     @SuppressLint("MissingPermission")
@@ -316,7 +332,7 @@ class CameraShotActivity : AppCompatActivity() {
             irb?.addTarget(imageReader?.surface!!)
             irb?.set(
                 CaptureRequest.CONTROL_CAPTURE_INTENT,
-                CaptureRequest.CONTROL_CAPTURE_INTENT_STILL_CAPTURE
+                CaptureRequest.CONTROL_CAPTURE_INTENT_STILL_CAPTURE,
             )
 //        irb?.set(CaptureRequest.CONTROL_AWB_MODE, CaptureRequest.CONTROL_AWB_MODE_INCANDESCENT)
 //        irb?.set(CaptureRequest.CONTROL_EFFECT_MODE, CaptureRequest.CONTROL_EFFECT_MODE_SEPIA)
@@ -327,7 +343,7 @@ class CameraShotActivity : AppCompatActivity() {
             // exposure
             irb?.set(
                 CaptureRequest.CONTROL_AE_PRECAPTURE_TRIGGER,
-                CaptureRequest.CONTROL_AE_PRECAPTURE_TRIGGER_IDLE
+                CaptureRequest.CONTROL_AE_PRECAPTURE_TRIGGER_IDLE,
             )
 
             imgCapReq = irb?.build()
@@ -335,8 +351,9 @@ class CameraShotActivity : AppCompatActivity() {
             cameraDevice?.createCaptureSession(
                 arrayListOf(
                     binding.svFromCamera.holder.surface,
-                    imageReader?.surface
-                ), object : CameraCaptureSession.StateCallback() {
+                    imageReader?.surface,
+                ),
+                object : CameraCaptureSession.StateCallback() {
                     override fun onConfigureFailed(session: CameraCaptureSession) {
                         this@CameraShotActivity.showToast("session failed")
                     }
@@ -346,16 +363,17 @@ class CameraShotActivity : AppCompatActivity() {
                         cameraCaptureSession = session
                         crb?.set(
                             CaptureRequest.CONTROL_AF_MODE,
-                            CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE
+                            CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE,
                         )
                         setAutoFlash(crb)
                         cameraCaptureSession?.setRepeatingRequest(
                             crb?.build()!!,
                             null,
-                            backgroundHandler
+                            backgroundHandler,
                         )
                     }
-                }, null
+                },
+                null,
             )
         }
     }
@@ -369,7 +387,7 @@ class CameraShotActivity : AppCompatActivity() {
             // This is how to tell the camera to lock focus.
             crb?.set(
                 CaptureRequest.CONTROL_AF_TRIGGER,
-                CameraMetadata.CONTROL_AF_TRIGGER_START
+                CameraMetadata.CONTROL_AF_TRIGGER_START,
             )
             // Tell #captureCallback to wait for the lock.
 //            state = STATE_WAITING_LOCK
@@ -385,7 +403,7 @@ class CameraShotActivity : AppCompatActivity() {
         if (flashSupported) {
             requestBuilder?.set(
                 CaptureRequest.CONTROL_AE_MODE,
-                CaptureRequest.CONTROL_AE_MODE_ON_AUTO_FLASH
+                CaptureRequest.CONTROL_AE_MODE_ON_AUTO_FLASH,
             )
         }
     }
@@ -396,10 +414,12 @@ class CameraShotActivity : AppCompatActivity() {
     private fun generateFileUri(type: String): Uri {
         var file: File? = null
         when (type) {
-            "photo" -> file =
-                File(directory.getPath() + "/" + "photo_" + System.currentTimeMillis() + ".jpg")
-            "video" -> file =
-                File(directory.getPath() + "/" + "video_" + System.currentTimeMillis() + ".mp4")
+            "photo" ->
+                file =
+                    File(directory.getPath() + "/" + "photo_" + System.currentTimeMillis() + ".jpg")
+            "video" ->
+                file =
+                    File(directory.getPath() + "/" + "video_" + System.currentTimeMillis() + ".mp4")
         }
         return FileProvider.getUriForFile(this, getString(R.string.file_provider_authority), file!!)
 //        return Uri.fromFile(file)
@@ -408,10 +428,12 @@ class CameraShotActivity : AppCompatActivity() {
     private fun generateFile(type: String): File? {
         var file: File? = null
         when (type) {
-            "photo" -> file =
-                File(directory.getPath() + "/" + "photo_" + System.currentTimeMillis() + ".jpg")
-            "video" -> file =
-                File(directory.getPath() + "/" + "video_" + System.currentTimeMillis() + ".mp4")
+            "photo" ->
+                file =
+                    File(directory.getPath() + "/" + "photo_" + System.currentTimeMillis() + ".jpg")
+            "video" ->
+                file =
+                    File(directory.getPath() + "/" + "video_" + System.currentTimeMillis() + ".mp4")
         }
         file?.absolutePath?.apply { lastPhoto = this }
         return file

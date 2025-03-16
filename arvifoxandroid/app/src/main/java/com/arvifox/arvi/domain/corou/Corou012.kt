@@ -7,16 +7,16 @@ import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
 object Arvi_exce {
-
     fun kjdflks() {
         System.setProperty("kotlinx.coroutines.debug", if (BuildConfig.DEBUG) "on" else "off")
     }
 
-    private fun loadData() = GlobalScope.async(uiDispatcher) {
-        val result = withContext(bgDispatcher) {
-
+    private fun loadData() =
+        GlobalScope.async(uiDispatcher) {
+            val result =
+                withContext(bgDispatcher) {
+                }
         }
-    }
 
     var j: Job? = null
 
@@ -29,12 +29,13 @@ object Arvi_exce {
         j?.getCancellationException()?.printStackTrace()
     }
 
-    val exce: CoroutineContext = CoroutineExceptionHandler { _, throwable ->
-        // show throwable mesage
-        j = Job()
-    }
+    val exce: CoroutineContext =
+        CoroutineExceptionHandler { _, throwable ->
+            // show throwable mesage
+            j = Job()
+        }
 
-    private fun loadd() = GlobalScope.async(uiDispatcher + exce) {
-
-    }
+    private fun loadd() =
+        GlobalScope.async(uiDispatcher + exce) {
+        }
 }

@@ -28,9 +28,9 @@ fun letsplay() {
         "teams ${team1 === team2} ${team1 == team2} ${
             Objects.equals(
                 team1,
-                team2
+                team2,
             )
-        } ${team1.hashCode()} ${team2.hashCode()}"
+        } ${team1.hashCode()} ${team2.hashCode()}",
     )
     println("teams: ${teams.size} teams")
     println("finish!")

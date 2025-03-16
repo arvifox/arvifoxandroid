@@ -12,10 +12,11 @@ object TextsUtils {
         smu.forEach {
             println("sy $it, ${it.code}-${it.code.toString(16)}, ${it.isSurrogate()}, ${it.isLetter()}")
         }
-        val sbb = buildString {
-            append('\u0024')
-            append('\u263a')
-        }
+        val sbb =
+            buildString {
+                append('\u0024')
+                append('\u263a')
+            }
         println("sb = $sbb")
     }
 }

@@ -29,15 +29,19 @@ class Navig2Fragment : Fragment() {
     private val binding by lazy { bi!! }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
     ): View? {
         // Inflate the layout for this fragment
         bi = FragmentNavig2Binding.inflate(inflater, container, false)
         return bi?.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
         binding.btnNav2Go.setOnClickListener {
             (activity as NavigActivity).getNavigator().navigate(R.id.navig3Fra)
@@ -62,12 +66,15 @@ class Navig2Fragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            Navig2Fragment().apply {
-                arguments = Bundle().apply {
+        fun newInstance(
+            param1: String,
+            param2: String,
+        ) = Navig2Fragment().apply {
+            arguments =
+                Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
                 }
-            }
+        }
     }
 }

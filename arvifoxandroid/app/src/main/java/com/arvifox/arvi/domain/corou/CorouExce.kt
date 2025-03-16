@@ -6,7 +6,6 @@ import kotlinx.coroutines.*
  * [https://www.lukaslechner.com/why-exception-handling-with-kotlin-coroutines-is-so-hard-and-how-to-successfully-master-it/]
  */
 object CorouExce {
-
     // ok
     fun main() {
         val topLevelScope = CoroutineScope(Job())
@@ -37,10 +36,10 @@ object CorouExce {
 
     // CoroutineExceptionHandler, exception occurs
     fun main3() {
-
-        val coroutineExceptionHandler = CoroutineExceptionHandler { coroutineContext, exception ->
-            println("Handle $exception in CoroutineExceptionHandler")
-        }
+        val coroutineExceptionHandler =
+            CoroutineExceptionHandler { coroutineContext, exception ->
+                println("Handle $exception in CoroutineExceptionHandler")
+            }
 
         val topLevelScope = CoroutineScope(Job())
 
@@ -58,10 +57,10 @@ object CorouExce {
     In order for a CoroutineExceptionHandler to have an effect, it must be installed either in the CoroutineScope or in a top-level coroutine.
      */
     fun main4() {
-
-        val coroutineExceptionHandler = CoroutineExceptionHandler { coroutineContext, exception ->
-            println("Handle $exception in CoroutineExceptionHandler")
-        }
+        val coroutineExceptionHandler =
+            CoroutineExceptionHandler { coroutineContext, exception ->
+                println("Handle $exception in CoroutineExceptionHandler")
+            }
 
         val topLevelScope = CoroutineScope(Job() + coroutineExceptionHandler)
 
@@ -76,26 +75,26 @@ object CorouExce {
 
     // no any output
     fun main5() {
-
         val topLevelScope = CoroutineScope(SupervisorJob())
 
-        val f = topLevelScope.async {
-            println("tratata tratata")
-            throw RuntimeException("RuntimeException in async coroutine")
-        }
+        val f =
+            topLevelScope.async {
+                println("tratata tratata")
+                throw RuntimeException("RuntimeException in async coroutine")
+            }
 
         Thread.sleep(100)
     }
 
     // ok, exception is caught
     fun main6() {
-
         val topLevelScope = CoroutineScope(SupervisorJob())
 
-        val deferredResult = topLevelScope.async {
-            println("tratata tratata")
-            throw RuntimeException("RuntimeException in async coroutine")
-        }
+        val deferredResult =
+            topLevelScope.async {
+                println("tratata tratata")
+                throw RuntimeException("RuntimeException in async coroutine")
+            }
 
         topLevelScope.launch {
             try {
@@ -110,10 +109,10 @@ object CorouExce {
 
     // exception occurs
     fun main7() {
-
-        val coroutineExceptionHandler = CoroutineExceptionHandler { coroutineContext, exception ->
-            println("Handle $exception in CoroutineExceptionHandler")
-        }
+        val coroutineExceptionHandler =
+            CoroutineExceptionHandler { coroutineContext, exception ->
+                println("Handle $exception in CoroutineExceptionHandler")
+            }
 
         val topLevelScope = CoroutineScope(SupervisorJob() + coroutineExceptionHandler)
         topLevelScope.launch {
@@ -126,7 +125,6 @@ object CorouExce {
 
     // exception is caught in catch
     fun main8() {
-
         val topLevelScope = CoroutineScope(Job())
 
         topLevelScope.launch {
@@ -146,22 +144,24 @@ object CorouExce {
 
     //
     fun main9() {
-
         val topLevelScope = CoroutineScope(Job())
 
         topLevelScope.launch {
-            val job1 = launch {
-                println("starting Coroutine 1")
-            }
+            val job1 =
+                launch {
+                    println("starting Coroutine 1")
+                }
 
             supervisorScope {
-                val job2 = launch {
-                    println("starting Coroutine 2")
-                }
+                val job2 =
+                    launch {
+                        println("starting Coroutine 2")
+                    }
 
-                val job3 = launch {
-                    println("starting Coroutine 3")
-                }
+                val job3 =
+                    launch {
+                        println("starting Coroutine 3")
+                    }
             }
         }
 
@@ -170,27 +170,30 @@ object CorouExce {
 
     //
     fun main10() {
-
-        val coroutineExceptionHandler = CoroutineExceptionHandler { coroutineContext, exception ->
-            println("Handle $exception in CoroutineExceptionHandler")
-        }
+        val coroutineExceptionHandler =
+            CoroutineExceptionHandler { coroutineContext, exception ->
+                println("Handle $exception in CoroutineExceptionHandler")
+            }
 
         val topLevelScope = CoroutineScope(Job())
 
         topLevelScope.launch {
-            val job1 = launch {
-                println("starting Coroutine 1")
-            }
+            val job1 =
+                launch {
+                    println("starting Coroutine 1")
+                }
 
             supervisorScope {
-                val job2 = launch(coroutineExceptionHandler) {
-                    println("starting Coroutine 2")
-                    throw RuntimeException("Exception in Coroutine 2")
-                }
+                val job2 =
+                    launch(coroutineExceptionHandler) {
+                        println("starting Coroutine 2")
+                        throw RuntimeException("Exception in Coroutine 2")
+                    }
 
-                val job3 = launch {
-                    println("starting Coroutine 3")
-                }
+                val job3 =
+                    launch {
+                        println("starting Coroutine 3")
+                    }
             }
         }
 

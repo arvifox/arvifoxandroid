@@ -9,11 +9,9 @@ import com.arvifox.arvi.simplemisc.workmanager.WorkerUtils.sleep
 import java.io.File
 
 class CleanupWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, params) {
-
     private val TAG by lazy { CleanupWorker::class.java.simpleName }
 
     override fun doWork(): Result {
-
         // Makes a notification when the work starts and slows down the work so that
         // it's easier to see each WorkRequest start, even on emulated devices
         makeStatusNotification("Cleaning up old temporary files", applicationContext)

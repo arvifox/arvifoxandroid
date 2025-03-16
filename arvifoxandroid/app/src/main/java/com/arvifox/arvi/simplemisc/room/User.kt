@@ -11,5 +11,5 @@ data class User(
     @ColumnInfo(name = "userid")
     val id: String = UUID.randomUUID().toString(),
     @ColumnInfo(name = "username")
-    val userName: String
+    val userName: String,
 )

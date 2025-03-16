@@ -6,8 +6,10 @@ import android.os.Build
 import androidx.core.content.ContextCompat
 
 class PermissionManager : IPermissionManager {
-
-    override fun checkPermissions(context: Context, vararg permissions: String): Boolean {
+    override fun checkPermissions(
+        context: Context,
+        vararg permissions: String,
+    ): Boolean {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) return true
         try {
             for (st in permissions) {
