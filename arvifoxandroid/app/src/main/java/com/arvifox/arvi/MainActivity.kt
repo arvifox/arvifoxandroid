@@ -30,6 +30,8 @@ import com.arvifox.arvi.geoposition.GeoPositionActivity
 import com.arvifox.arvi.google.GoogleBaseStartActivity
 import com.arvifox.arvi.googlemaps.GoogleMapsActivity
 import com.arvifox.arvi.https.HttpsActivity
+import com.arvifox.arvi.navig.Navig1Fragment
+import com.arvifox.arvi.navig.Navig2Fragment
 import com.arvifox.arvi.navig.NavigActivity
 import com.arvifox.arvi.simplemisc.SimpleMisc2Activity
 import com.arvifox.arvi.simplemisc.SimpleMiscActivity
@@ -241,6 +243,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             },
             intentFilter,
         )
+
+//        val trid = supportFragmentManager.beginTransaction()
+//            .add(R.id.incAppBar, Navig1Fragment())
+//            .addToBackStack("name1")
+//            .add(R.id.incAppBar, Navig2Fragment())
+//            .addToBackStack("name2")
+//            .commit()
     }
 
     override fun onBackPressed() {

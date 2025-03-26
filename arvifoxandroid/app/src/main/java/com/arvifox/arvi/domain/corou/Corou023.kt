@@ -6,16 +6,26 @@ import kotlinx.coroutines.newFixedThreadPoolContext
 import kotlinx.coroutines.runBlocking
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.CyclicBarrier
+import java.util.concurrent.Exchanger
+import java.util.concurrent.Phaser
 import java.util.concurrent.Semaphore
 import java.util.concurrent.atomic.AtomicInteger
+import java.util.concurrent.atomic.LongAdder
 import java.util.concurrent.locks.ReentrantLock
+import java.util.concurrent.locks.ReentrantReadWriteLock
+import kotlin.concurrent.withLock
 import kotlin.random.Random
 
 object Corou023 {
     fun main() =
         runBlocking {
             var sharedCounter = 0
-            val scope = CoroutineScope(newFixedThreadPoolContext(4, "synchronizationPool")) // We want our code to run on 4 threads
+            val scope = CoroutineScope(
+                newFixedThreadPoolContext(
+                    4,
+                    "synchronizationPool"
+                )
+            ) // We want our code to run on 4 threads
             scope.launch {
                 val coroutines =
                     1.rangeTo(1000).map { // create 1000 coroutines (light-weight threads).
@@ -26,8 +36,7 @@ object Corou023 {
                         }
                     }
 
-                coroutines.forEach {
-                        corotuine ->
+                coroutines.forEach { corotuine ->
                     corotuine.join() // wait for all coroutines to finish their jobs.
                 }
             }.join()
@@ -52,7 +61,12 @@ object Corou023 {
     fun main2() =
         runBlocking {
             val incrementor = Incrementor()
-            val scope = CoroutineScope(newFixedThreadPoolContext(4, "synchronizationPool")) // We want our code to run on 4 threads
+            val scope = CoroutineScope(
+                newFixedThreadPoolContext(
+                    4,
+                    "synchronizationPool"
+                )
+            ) // We want our code to run on 4 threads
             scope.launch {
                 val coroutines =
                     1.rangeTo(1000).map {
@@ -89,7 +103,12 @@ object Corou023a {
     fun main() =
         runBlocking {
             val incrementor = Incrementor()
-            val scope = CoroutineScope(newFixedThreadPoolContext(4, "synchronizationPool")) // We want our code to run on 4 threads
+            val scope = CoroutineScope(
+                newFixedThreadPoolContext(
+                    4,
+                    "synchronizationPool"
+                )
+            ) // We want our code to run on 4 threads
             scope.launch {
                 val coroutines =
                     1.rangeTo(1000).map {
@@ -113,10 +132,20 @@ object Corou023a {
 object Corou023b {
     class Incrementor() {
         private val sharedCounterLock = ReentrantLock()
+        private val ddd = ReentrantReadWriteLock()
+        val ll = LongAdder()
+        val cd = CountDownLatch(4)
+        val cba = CyclicBarrier(123)
+        val se = Semaphore(2)
+        val exc = Exchanger<Int>()
+        val pha = Phaser(4)
         var sharedCounter: Int = 0
             private set
 
         fun updateCounterIfNecessary(shouldIActuallyIncrement: Boolean) {
+            sharedCounterLock.withLock {
+
+            }
             if (shouldIActuallyIncrement) {
                 try {
                     sharedCounterLock.lock()
@@ -131,7 +160,12 @@ object Corou023b {
     fun main() =
         runBlocking {
             val incrementor = Incrementor()
-            val scope = CoroutineScope(newFixedThreadPoolContext(4, "synchronizationPool")) // We want our code to run on 4 threads
+            val scope = CoroutineScope(
+                newFixedThreadPoolContext(
+                    4,
+                    "synchronizationPool"
+                )
+            ) // We want our code to run on 4 threads
             scope.launch {
                 val coroutines =
                     1.rangeTo(1000).map {
@@ -173,7 +207,12 @@ object Corou023c {
     fun main() =
         runBlocking {
             val incrementor = Incrementor()
-            val scope = CoroutineScope(newFixedThreadPoolContext(4, "synchronizationPool")) // We want our code to run on 4 threads
+            val scope = CoroutineScope(
+                newFixedThreadPoolContext(
+                    4,
+                    "synchronizationPool"
+                )
+            ) // We want our code to run on 4 threads
             scope.launch {
                 val coroutines =
                     1.rangeTo(1000).map {
@@ -208,8 +247,7 @@ object Corou023d {
             }
 
         val threads =
-            1.rangeTo(3).map {
-                    number ->
+            1.rangeTo(3).map { number ->
                 Thread {
                     Thread.sleep(Random.nextInt(500).toLong())
                     createdValues.add(number) // add a value to the list after 500ms
@@ -236,8 +274,7 @@ object Corou023e {
         val countDownLatch = CountDownLatch(5)
 
         val threads =
-            1.rangeTo(5).map {
-                    number ->
+            1.rangeTo(5).map { number ->
                 Thread {
                     createdValues.add(number)
                     countDownLatch.countDown() // signal the CountDownLatch
@@ -271,13 +308,15 @@ object Corou023f {
     // deadlock
 
     data class Human(val name: String) {
-        @Synchronized fun sayHi(to: Human)  {
+        @Synchronized
+        fun sayHi(to: Human) {
             println("$name saying hi to ${to.name}")
             Thread.sleep(500)
             to.sayHiBack(this)
         }
 
-        @Synchronized fun sayHiBack(to: Human)  {
+        @Synchronized
+        fun sayHiBack(to: Human) {
             println("$name saying hi back to ${to.name}")
         }
     }

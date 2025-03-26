@@ -23,7 +23,7 @@ object MultiThre {
     }
 }
 
-class Counter(var count: Long) {
+private class Counter(var count: Long) {
     fun increment() {
         count++
     }
