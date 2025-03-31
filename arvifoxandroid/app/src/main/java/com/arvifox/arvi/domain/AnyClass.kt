@@ -4,6 +4,14 @@ interface Processor<T> {
     fun process(): T
 }
 
+fun FooJavaClass.extfoo(): Int {
+    return this.g * 2
+}
+
+fun SomeChe.po(): Int {
+    return this.che() + 3
+}
+
 class NoResultProcessor : Processor<Unit> {
     override fun process() {
         // do stuff
