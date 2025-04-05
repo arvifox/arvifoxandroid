@@ -1,6 +1,6 @@
 [versions]
 agp = "8.9.1"
-kotlin = "2.1.0"
+kotlin = "2.1.10"
 billing = "7.1.1"
 biometric = "1.1.0"
 browser = "1.8.0"
@@ -35,11 +35,11 @@ activityCompose = "1.10.1"
 compose-bom = "2025.03.00"
 hilt = "2.52"
 hiltnavcompose = "1.2.0"
-kotlinx-serialization-v = "1.6.3"
+kotlinx-serialization-v = "1.8.0"
 navigationCompose = "2.8.9"
-datastore = "1.1.3"
+datastore = "1.1.4"
 mockk = "1.13.11"
-coroutine = "1.8.1"
+coroutine = "1.10.1"
 concurrentFutures = "1.2.0"
 navigationUiKtx = "2.8.9"
 okhttp = "5.0.0-alpha.14"
@@ -64,6 +64,8 @@ sceneformUx = "1.17.1"
 viewpager2 = "1.1.0"
 workRuntimeKtx = "2.10.0"
 junitKtx = "1.2.1"
+coil = "3.1.0"
+ktor = "3.1.2"
 
 [libraries]
 androidx-biometric = { module = "androidx.biometric:biometric", version.ref = "biometric" }
@@ -93,6 +95,9 @@ androidx-viewpager2 = { module = "androidx.viewpager2:viewpager2", version.ref =
 androidx-work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "workRuntimeKtx" }
 androidx-work-testing = { module = "androidx.work:work-testing", version.ref = "workRuntimeKtx" }
 billing = { module = "com.android.billingclient:billing", version.ref = "billing" }
+coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
+coil-ktor = { module = "io.coil-kt.coil3:coil-network-ktor3", version.ref = "coil" }
+ktor-android = { module = "io.ktor:ktor-client-android", version.ref = "ktor" }
 client-sdk = { module = "com.microsoft.cognitiveservices.speech:client-sdk", version.ref = "clientSdk" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
 converter-moshi = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "retrofit" }

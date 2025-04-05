@@ -72,6 +72,9 @@ class ComposeFirstActivity : ComponentActivity() {
                         composable("screenles") {
                             ScreenLes()
                         }
+                        composable("comil") {
+                            Comil()
+                        }
                         composable("navStart") {
                             Column(
                                 modifier =
@@ -93,7 +96,9 @@ class ComposeFirstActivity : ComponentActivity() {
                                             nhc.navigate("screenles")
                                         }
 
-                                        2 -> {}
+                                        2 -> {
+                                            nhc.navigate("comil")
+                                        }
                                         else -> {}
                                     }
                                 }

@@ -124,6 +124,10 @@ dependencies {
     implementation(libs.ui.graphics)
     implementation(libs.ui.tooling.preview)
 
+    implementation(libs.coil.compose)
+    implementation(libs.coil.ktor)
+    implementation(libs.ktor.android)
+
     //test
 //    implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation(libs.lifecycle.viewmodel.ktx)
