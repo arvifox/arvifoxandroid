@@ -20,7 +20,6 @@ fun maybeWrapQuotes(s: String): String {
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
-    alias(libs.plugins.kapt)
     id("kotlin-parcelize")
     id("com.google.devtools.ksp")
     alias(libs.plugins.kotlin.compose)
@@ -159,7 +158,6 @@ dependencies {
     //lifecycler
     // ViewModel and LiveData
     implementation(libs.androidx.lifecycle.extensions)
-    //kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version" // For Kotlin use kapt instead of annotationProcessor
     // alternately - if using Java8, use the following instead of lifecycle-compiler
     implementation(libs.androidx.lifecycle.common.java8)
     // optional - ReactiveStreams support for LiveData
@@ -181,7 +179,6 @@ dependencies {
 
     implementation(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler)
-    // For Kotlin use kapt instead of annotationProcessor
     // optional - Kotlin Extensions and Coroutines support for Room
     implementation(libs.androidx.room.ktx)
     // optional - Guava support for Room, including Optional and ListenableFuture
@@ -200,7 +197,6 @@ dependencies {
 
     //moshi
 //    implementation("com.squareup.moshi:moshi-kotlin:1.14.0")
-//    kapt("com.squareup.moshi:moshi-kotlin-codegen:1.9.2")
 
     //implementation 'org.jetbrains.kotlinx:kotlinx-datetime:0.1.0'
 

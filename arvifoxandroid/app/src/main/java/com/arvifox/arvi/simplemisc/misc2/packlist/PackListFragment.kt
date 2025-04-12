@@ -18,15 +18,23 @@ import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat.getSystemService
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Text
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.arvifox.arvi.BR
-import com.arvifox.arvi.R
-import com.arvifox.arvi.simplemisc.recybind.SimpleAdapter
 import com.arvifox.arvi.utils.FormatUtils.showToast
-import java.util.*
+import java.util.SortedMap
+import java.util.TreeMap
 
 /**
  * A simple [Fragment] subclass.
@@ -43,18 +51,44 @@ class PackListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
+        return ComposeView(requireContext()).apply {
+            setContent {
+                val listData: List<PackListItem> = getGetGet()
+                val sc = rememberScrollState()
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(12.dp)
+                        .verticalScroll(sc)
+                ) {
+                    for (item in listData) {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .wrapContentHeight()
+                        ) {
+                            Text(item.title)
+                            Text(item.name)
+                            Text(item.ver)
+                        }
+                        HorizontalDivider(Modifier.height(4.dp))
+                    }
+                }
+            }
+        }
+
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_pack_list, container, false)
-        val rv = view.findViewById<RecyclerView>(R.id.rvPackList)
-        rv.setHasFixedSize(true)
-        rv.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        rv.adapter =
-            SimpleAdapter(
-                R.layout.item_pack_list,
-                getGetGet(),
-                BR.varPackListItem,
-                BR.varPackListItemOnClick,
-            ) { v, i, p -> }
+//        val view = inflater.inflate(R.layout.fragment_pack_list, container, false)
+//        val rv = view.findViewById<RecyclerView>(R.id.rvPackList)
+//        rv.setHasFixedSize(true)
+//        rv.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+//        rv.adapter =
+//            SimpleAdapter(
+//                R.layout.item_pack_list,
+//                getGetGet(),
+//                BR.varPackListItem,
+//                BR.varPackListItemOnClick,
+//            ) { v, i, p -> }
         val intent = Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS)
         startActivity(intent)
         return view
@@ -147,7 +181,8 @@ class PackListFragment : Fragment() {
     private fun sdlkfjlk() {
         val topPackageName: String
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
-            val mUsageStatsManager: UsageStatsManager = context?.getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
+            val mUsageStatsManager: UsageStatsManager =
+                context?.getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
             val time = System.currentTimeMillis()
             val stats: List<UsageStats> =
                 mUsageStatsManager.queryUsageStats(
@@ -161,7 +196,8 @@ class PackListFragment : Fragment() {
                     mySortedMap.put(usageStats.getLastTimeUsed(), usageStats)
                 }
                 if (!mySortedMap.isEmpty()) {
-                    topPackageName = mySortedMap.get(mySortedMap.lastKey())?.getPackageName().orEmpty()
+                    topPackageName =
+                        mySortedMap.get(mySortedMap.lastKey())?.getPackageName().orEmpty()
                 }
             }
         }

@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.arvifox.arvi.BR
 import com.arvifox.arvi.R
 import com.arvifox.arvi.databinding.FragmentRecySimpBinBinding
 import com.arvifox.arvi.utils.FormatUtils.showToast
@@ -24,8 +23,10 @@ class RecySimpBinFragment : Fragment() {
                 listOf(
                     RecySimpleData("", ""),
                 ),
-                BR.varRecyItemSimple,
-                BR.varSimpleOnItemClick,
+//                BR.varRecyItemSimple,
+                123,
+//                BR.varSimpleOnItemClick,
+                321,
             ) { v, i, p ->
                 activity?.showToast("${v.id} - $i - $p")
             }

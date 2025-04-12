@@ -1,6 +1,6 @@
 [versions]
 agp = "8.9.1"
-kotlin = "2.1.10"
+kotlin = "2.1.20"
 billing = "7.1.1"
 biometric = "1.1.0"
 browser = "1.8.0"
@@ -30,10 +30,10 @@ lifecycle-viewmodel-compose = "2.8.7"
 lifecycle-common = "2.8.7"
 loggingInterceptor = "5.0.0-alpha.8"
 material = "1.12.0"
-coreKtx = "1.15.0"
+coreKtx = "1.16.0"
 activityCompose = "1.10.1"
-compose-bom = "2025.03.00"
-hilt = "2.52"
+compose-bom = "2025.04.00"
+hilt = "2.55"
 hiltnavcompose = "1.2.0"
 kotlinx-serialization-v = "1.8.0"
 navigationCompose = "2.8.9"
@@ -57,7 +57,7 @@ playServicesMaps = "19.0.0"
 retrofit = "2.11.0"
 retrofit2KotlinCoroutinesAdapter = "0.9.2"
 retrofitMock = "2.9.0"
-roomRuntime = "2.6.1"
+roomRuntime = "2.7.0"
 rules = "1.6.1"
 runner = "1.6.2"
 sceneformUx = "1.17.1"
@@ -165,7 +165,6 @@ androidApplication = { id = "com.android.application", version.ref = "agp" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
 kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
 jetbrainsKotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
