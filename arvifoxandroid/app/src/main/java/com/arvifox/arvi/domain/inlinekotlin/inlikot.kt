@@ -1,5 +1,37 @@
 package com.arvifox.arvi.domain.inlinekotlin
 
+import kotlin.random.Random
+
+fun main() {
+    DaveInline.process("Russia", "USA", "China", "Palestina", "Israel")
+}
+
+object DaveInline {
+    fun process(vararg recs: String) {
+        for (r in recs) {
+            doMeas(r) {
+//                if (r.startsWith("I")) return
+                check(r)
+            }
+        }
+    }
+
+    //    fun doMeas(label: String, block: () -> Unit) {
+    inline fun doMeas(label: String, crossinline block: () -> Unit) {
+        Thread {
+            val start = System.nanoTime()
+            block()
+            val end = System.nanoTime()
+            println("mea $label ${(end - start) / 1000000}")
+        }.start()
+    }
+
+    fun check(s: String) {
+        Thread.sleep(Random.nextLong(100, 300))
+        println("check $s")
+    }
+}
+
 /**
  * [https://www.baeldung.com/kotlin/inline-functions]
  */
