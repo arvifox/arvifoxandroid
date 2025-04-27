@@ -7,9 +7,23 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.gestures.detectDragGestures
+import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.gestures.draggable
+import androidx.compose.foundation.gestures.rememberDraggableState
+import androidx.compose.foundation.gestures.rememberScrollableState
+import androidx.compose.foundation.gestures.rememberTransformableState
+import androidx.compose.foundation.gestures.scrollable
+import androidx.compose.foundation.gestures.transformable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -19,7 +33,18 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clipToBounds
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.TransformOrigin
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
@@ -30,6 +55,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import coil3.compose.rememberAsyncImagePainter
 import com.arvifox.arvi.domain.connection.AndroidConnectivity
 import com.arvifox.arvi.domain.connection.Connectivity
 import com.arvifox.arvi.uicompose.ui.ArvifoxandroidTheme
@@ -114,6 +140,45 @@ class ComposeFirstActivity : ComponentActivity() {
                                         }
                                     }
                                 }) { Text("click") }
+                                ImaCom()
+                                Box(
+                                    modifier = Modifier
+                                        .clickable(enabled = true, onClick = {})
+                                        .draggable(
+                                            orientation = Orientation.Horizontal,
+                                            state = rememberDraggableState { delta -> },
+                                        )
+                                        .scrollable(
+                                            orientation = Orientation.Horizontal,
+                                            state = rememberScrollableState { delta -> delta },
+                                        )
+                                        .transformable(state = rememberTransformableState { a, b, c -> })
+//                                        .combinedClickable()
+                                        .pointerInput(Unit) {
+                                            detectTapGestures(
+                                                onDoubleTap = null,
+                                                onLongPress = null,
+                                                onPress = {
+
+                                                },
+                                                onTap = null,
+                                            )
+                                            detectDragGestures(
+                                                onDragStart = {},
+                                                onDragEnd = {},
+                                                onDragCancel = {},
+                                                onDrag = { change, dragAmount ->
+                                                },
+                                            )
+//                                            detectTransformGestures {  }
+//                                    detectDragGesturesAfterLongPress {  }
+//                                    detectHorizontalDragGestures {  }
+//                                    detectVerticalDragGestures {  }
+                                        }
+                                        .size(48.dp)
+                                        .background(color = Color.Blue)) {
+                                    Text("gesture")
+                                }
                                 Buro("btn 01", "btn 02", "btn 03") {
                                     when (it) {
                                         1 -> {
@@ -204,6 +269,34 @@ fun GreetingPreview() {
     ArvifoxandroidTheme {
         Greeting("Android")
     }
+}
+
+@Composable
+private fun ImaCom() {
+    var offset by remember { mutableStateOf(Offset.Zero) }
+    var zoom by remember { mutableFloatStateOf(1f) }
+    Image(
+        painter = rememberAsyncImagePainter("photo url"),
+        contentDescription = null,
+        modifier = Modifier
+            .clipToBounds()
+            .pointerInput(Unit) {
+                detectTapGestures(
+                    onDoubleTap = { tapOffset ->
+                        zoom = if (zoom > 1f) 1f else 2f
+                        offset = Offset(64f, 64f)
+                    },
+                )
+            }
+            .graphicsLayer {
+                translationX = -offset.x * zoom
+                translationY = -offset.y * zoom
+                scaleX = zoom
+                scaleY = zoom
+                transformOrigin = TransformOrigin(0f, 0f)
+            }
+            .aspectRatio(1f)
+    )
 }
 
 class ComposeFirstViewModel(
