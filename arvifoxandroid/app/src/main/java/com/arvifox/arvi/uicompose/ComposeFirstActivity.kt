@@ -58,6 +58,7 @@ import androidx.navigation.compose.rememberNavController
 import coil3.compose.rememberAsyncImagePainter
 import com.arvifox.arvi.domain.connection.AndroidConnectivity
 import com.arvifox.arvi.domain.connection.Connectivity
+import com.arvifox.arvi.uicompose.draw.DrawMainScree
 import com.arvifox.arvi.uicompose.ui.ArvifoxandroidTheme
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -116,6 +117,9 @@ class ComposeFirstActivity : ComponentActivity() {
                         composable("comil") {
                             Comil()
                         }
+                        composable("drava") {
+                            DrawMainScree()
+                        }
                         composable("navStart") {
                             val cvm = viewModel<ComposeFirstViewModel> {
                                 ComposeFirstViewModel(
@@ -140,7 +144,7 @@ class ComposeFirstActivity : ComponentActivity() {
                                         }
                                     }
                                 }) { Text("click") }
-                                ImaCom()
+                                //ImaCom()
                                 Box(
                                     modifier = Modifier
                                         .clickable(enabled = true, onClick = {})
@@ -189,7 +193,9 @@ class ComposeFirstActivity : ComponentActivity() {
                                             nhc.navigate("comil")
                                         }
 
-                                        else -> {}
+                                        else -> {
+                                            nhc.navigate("drava")
+                                        }
                                     }
                                 }
                                 Spacer(Modifier.size(4.dp))
@@ -312,21 +318,21 @@ class ComposeFirstViewModel(
 
     private val channel = Channel<String>()
     val cha = channel.consumeAsFlow()
-    private val cow = CopyOnWriteArrayList<Int>()
-    private val lhs = LinkedHashSet<Int>()
-    private val re = Result.success(987)
-
-    @OptIn(ExperimentalCoroutinesApi::class)
-    private val ml = cha.mapLatest {
-        "$it and $it"
-    }
-    val mss = cha.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5000),
-//        started = SharingStarted.Lazily,
-//        started = SharingStarted.Eagerly,
-        initialValue = "777",
-    )
+//    private val cow = CopyOnWriteArrayList<Int>()
+//    private val lhs = LinkedHashSet<Int>()
+//    private val re = Result.success(987)
+//
+//    @OptIn(ExperimentalCoroutinesApi::class)
+//    private val ml = cha.mapLatest {
+//        "$it and $it"
+//    }
+//    val mss = cha.stateIn(
+//        scope = viewModelScope,
+//        started = SharingStarted.WhileSubscribed(5000),
+////        started = SharingStarted.Lazily,
+////        started = SharingStarted.Eagerly,
+//        initialValue = "777",
+//    )
 
     val ss = MutableStateFlow(123)
 
