@@ -22,6 +22,7 @@ plugins {
     alias(libs.plugins.kotlinAndroid)
     id("kotlin-parcelize")
     id("com.google.devtools.ksp")
+    alias(libs.plugins.serialization)
     alias(libs.plugins.kotlin.compose)
 }
 

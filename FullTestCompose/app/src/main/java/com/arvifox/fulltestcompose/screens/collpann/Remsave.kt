@@ -1,7 +1,7 @@
 package com.arvifox.fulltestcompose.screens.collpann
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.material.Text
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -24,7 +24,7 @@ fun Remsave() {
 }
 
 @Composable
-fun Remsavein(title: String) {
+private fun Remsavein(title: String) {
     var data by remember { mutableStateOf("") }
 
     val updatedData by rememberUpdatedState(title)

@@ -58,21 +58,20 @@ import androidx.navigation.compose.rememberNavController
 import coil3.compose.rememberAsyncImagePainter
 import com.arvifox.arvi.domain.connection.AndroidConnectivity
 import com.arvifox.arvi.domain.connection.Connectivity
+import com.arvifox.arvi.uicompose.anima.Anima
+import com.arvifox.arvi.uicompose.anima.AnimaScreen
 import com.arvifox.arvi.uicompose.draw.DrawMainScree
 import com.arvifox.arvi.uicompose.ui.ArvifoxandroidTheme
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.consumeAsFlow
-import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.util.concurrent.CopyOnWriteArrayList
 
 class ComposeFirstActivity : ComponentActivity() {
     companion object {
@@ -111,6 +110,7 @@ class ComposeFirstActivity : ComponentActivity() {
                         navController = nhc,
                         startDestination = "navStart",
                     ) {
+                        this.Anima(nhc)
                         composable("screenles") {
                             ScreenLes()
                         }
@@ -199,9 +199,12 @@ class ComposeFirstActivity : ComponentActivity() {
                                     }
                                 }
                                 Spacer(Modifier.size(4.dp))
-                                Buro("btn 04", "btn 05", "btn 06") {
+                                Buro("aniuma", "btn 05", "btn 06") {
                                     when (it) {
-                                        1 -> {}
+                                        1 -> {
+                                            nhc.navigate(route = AnimaScreen)
+                                        }
+
                                         2 -> {}
                                         else -> {}
                                     }
