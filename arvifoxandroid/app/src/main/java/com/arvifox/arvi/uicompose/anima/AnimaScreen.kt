@@ -21,7 +21,6 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import kotlinx.coroutines.delay
 import kotlinx.serialization.Serializable
 
 @Serializable

@@ -10,7 +10,11 @@ import androidx.room.RoomDatabase
  * [https://developer.android.com/training/data-storage/room]
  * [https://developer.android.com/codelabs/android-room-with-a-view-kotlin]
  */
-@Database(entities = [User::class], version = 1)
+@Database(
+    entities = [User::class],
+    version = 1,
+    exportSchema = true,
+)
 abstract class UsersDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
 
