@@ -62,6 +62,8 @@ import com.arvifox.arvi.uicompose.anima.Anima
 import com.arvifox.arvi.uicompose.anima.AnimaScreen
 import com.arvifox.arvi.uicompose.draw.DrawMainScree
 import com.arvifox.arvi.uicompose.ui.ArvifoxandroidTheme
+import com.arvifox.arvi.uicompose.vertpager.VertPager
+import com.arvifox.arvi.uicompose.vertpager.VertPagerNav
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
@@ -111,6 +113,7 @@ class ComposeFirstActivity : ComponentActivity() {
                         startDestination = "navStart",
                     ) {
                         this.Anima(nhc)
+                        this.VertPager(nhc)
                         composable("screenles") {
                             ScreenLes()
                         }
@@ -199,13 +202,15 @@ class ComposeFirstActivity : ComponentActivity() {
                                     }
                                 }
                                 Spacer(Modifier.size(4.dp))
-                                Buro("aniuma", "btn 05", "btn 06") {
+                                Buro("aniuma", "vertpa", "btn 06") {
                                     when (it) {
                                         1 -> {
                                             nhc.navigate(route = AnimaScreen)
                                         }
 
-                                        2 -> {}
+                                        2 -> {
+                                            nhc.navigate(route = VertPagerNav)
+                                        }
                                         else -> {}
                                     }
                                 }
