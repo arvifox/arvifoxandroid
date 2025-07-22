@@ -4,6 +4,8 @@
 
     <queries>
         <package android:name="com.tocaboca.tocalifeworld"/>
+        <package android:name="com.pazugames.avatarworld"/>
+        <package android:name="com.pazugames.avatarworld1"/>
     </queries>
 
     <application

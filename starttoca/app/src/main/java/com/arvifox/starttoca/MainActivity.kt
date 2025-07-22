@@ -43,7 +43,7 @@ class MainActivity : ComponentActivity() {
                                     enabled = true,
                                     onClick = {
                                         val pn =
-                                            packageManager.getLaunchIntentForPackage("com.tocaboca.tocalifeworld")
+                                            packageManager.getLaunchIntentForPackage("com.pazugames.avatarworld")
                                         pn?.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                                         startActivity(pn)
                                     },
