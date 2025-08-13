@@ -3,18 +3,21 @@ package com.arvifox.arvi.utils
 import android.content.Context
 import android.content.res.Resources
 import android.graphics.Color
+import android.os.Build
 import android.util.TypedValue
 import androidx.annotation.AttrRes
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
-import com.arvifox.arvi.utils.ConvertUtils.dp
+import com.arvifox.arvi.utils.ConvertUtils.dpxx
 import kotlin.math.ceil
 
 object ConvertUtils {
+    @RequiresApi(Build.VERSION_CODES.S)
     fun Context.themeColor(
         @AttrRes a: Int,
     ) = obtainStyledAttributes(intArrayOf(a)).use { it.getColor(0, Color.RED) }
 
-    val Int.dp: Int
+    val Int.dpxx: Int
         get() =
             ceil(
                 TypedValue.applyDimension(
@@ -25,7 +28,7 @@ object ConvertUtils {
             )
                 .toInt()
 
-    val Float.dp: Float
+    val Float.dpxx: Float
         get() =
             TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP,
@@ -33,12 +36,12 @@ object ConvertUtils {
                 Resources.getSystem().displayMetrics,
             )
 
-    val Fragment.dp: Int.() -> Float
+    val Fragment.dpxx: Int.() -> Float
         get() = {
             TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP,
                 this.toFloat(),
-                this@dp.resources.displayMetrics,
+                this@dpxx.resources.displayMetrics,
             )
         }
 }
@@ -46,6 +49,6 @@ object ConvertUtils {
 class FooFragment : Fragment() {
     override fun onResume() {
         super.onResume()
-        val a = 345.dp()
+        val a = 345.dpxx()
     }
 }

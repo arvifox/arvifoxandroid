@@ -10,6 +10,8 @@
     <color name="gunmetal">#9988c6</color>
     <color name="mediumGrey">#ee88c6</color>
 
+    <color name="switch_body_night">#ee88c6</color>
+
     <color name="defaultLeftColor">#121212</color>
     <color name="defaultRightColor">#cd92c1</color>
     <color name="defaultDelimiterColor">#d1c734</color>

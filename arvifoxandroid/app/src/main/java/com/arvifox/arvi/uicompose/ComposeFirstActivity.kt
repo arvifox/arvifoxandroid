@@ -58,6 +58,8 @@ import androidx.navigation.compose.rememberNavController
 import coil3.compose.rememberAsyncImagePainter
 import com.arvifox.arvi.domain.connection.AndroidConnectivity
 import com.arvifox.arvi.domain.connection.Connectivity
+import com.arvifox.arvi.uicompose.anilikes.AniLikesRoute
+import com.arvifox.arvi.uicompose.anilikes.aniLikes
 import com.arvifox.arvi.uicompose.anima.Anima
 import com.arvifox.arvi.uicompose.anima.AnimaScreen
 import com.arvifox.arvi.uicompose.draw.DrawMainScree
@@ -114,6 +116,7 @@ class ComposeFirstActivity : ComponentActivity() {
                     ) {
                         this.Anima(nhc)
                         this.VertPager(nhc)
+                        this.aniLikes(nhc)
                         composable("screenles") {
                             ScreenLes()
                         }
@@ -202,7 +205,7 @@ class ComposeFirstActivity : ComponentActivity() {
                                     }
                                 }
                                 Spacer(Modifier.size(4.dp))
-                                Buro("aniuma", "vertpa", "btn 06") {
+                                Buro("aniuma", "vertpa", "likesani") {
                                     when (it) {
                                         1 -> {
                                             nhc.navigate(route = AnimaScreen)
@@ -211,7 +214,10 @@ class ComposeFirstActivity : ComponentActivity() {
                                         2 -> {
                                             nhc.navigate(route = VertPagerNav)
                                         }
-                                        else -> {}
+
+                                        else -> {
+                                            nhc.navigate(route = AniLikesRoute)
+                                        }
                                     }
                                 }
                             }

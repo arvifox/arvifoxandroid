@@ -32,11 +32,11 @@ kotlin {
 
 android {
     namespace = "com.arvifox.arvi"
-    compileSdk = 35
+    compileSdk = 36
     defaultConfig {
         applicationId = "com.arvifox.arvi"
-        minSdk = 24
-        targetSdk = 35
+        minSdk = 26
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -135,6 +135,7 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.compose.navigation)
     implementation(libs.androidx.junit.ktx)
+    implementation(libs.androidx.compose.material)
 
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -237,6 +238,8 @@ dependencies {
     testImplementation(libs.coroutine.core)
     testImplementation(libs.coroutine.debug)
     testImplementation(libs.coroutine.test)
+
+    implementation(libs.kotlinx.immutable.collection)
 
     //picasso
     implementation("com.squareup.picasso:picasso:2.71828") {

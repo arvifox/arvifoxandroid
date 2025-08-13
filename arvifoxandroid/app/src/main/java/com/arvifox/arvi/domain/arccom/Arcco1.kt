@@ -9,14 +9,14 @@ import androidx.lifecycle.ViewModelProvider
 
 object Arcco1 {
     class Fra : Fragment() {
-        val vm by viewModels<Mvm> { SavedStateViewModelFactory(this.activity!!.application, this) }
+        val vm by viewModels<Mvm> { SavedStateViewModelFactory(this.requireActivity().application, this) }
 
         // val s: ViewModel by activityViewModels<Mvm> {ViewModelProvider.Factory}
 
         val vvv =
             ViewModelProvider(
                 this,
-                SavedStateViewModelFactory(this.activity!!.application, this),
+                SavedStateViewModelFactory(this.requireActivity().application, this),
             ).get(Mvm::class.java)
     }
 

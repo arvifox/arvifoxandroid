@@ -1,3 +1,5 @@
+package com.arvifox.arvi.uicompose
+
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -18,7 +20,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Divider
-
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -39,7 +40,8 @@ import androidx.wear.compose.material.ExperimentalWearMaterialApi
 import androidx.wear.compose.material.FractionalThreshold
 import androidx.wear.compose.material.rememberSwipeableState
 import androidx.wear.compose.material.swipeable
-import com.example.myapplication.ui.theme.MyApplicationTheme
+import com.arvifox.arvi.R
+import com.arvifox.arvi.uicompose.ui.ArvifoxandroidTheme
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 
@@ -47,7 +49,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MyApplicationTheme {
+            ArvifoxandroidTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
@@ -62,7 +64,6 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@OptIn(ExperimentalWearMaterialApi::class)
 @Composable
 fun Main() {
     Column(
@@ -76,10 +77,10 @@ fun Main() {
             height = 70.dp,
             width = 140.dp,
             circleButtonPadding = 4.dp,
-            outerBackgroundOnResource = R.drawable.switch_body_night,
-            outerBackgroundOffResource = R.drawable.switch_body_day,
-            circleBackgroundOnResource = R.drawable.switch_btn_moon,
-            circleBackgroundOffResource = R.drawable.switch_btn_sun,
+            outerBackgroundOnResource = R.drawable.ic_menu_send,
+            outerBackgroundOffResource = R.drawable.ic_menu_share,
+            circleBackgroundOnResource = R.drawable.ic_menu_camera,
+            circleBackgroundOffResource = R.drawable.ic_menu_manage,
             stateOn = 1,
             stateOff = 0,
             initialValue = 0,
@@ -92,10 +93,10 @@ fun Main() {
             height = 70.dp,
             width = 140.dp,
             circleButtonPadding = 4.dp,
-            outerBackgroundOnResource = R.drawable.switch_body_night,
-            outerBackgroundOffResource = R.drawable.switch_body_day,
-            circleBackgroundOnResource = R.drawable.switch_btn_moon,
-            circleBackgroundOffResource = R.drawable.switch_btn_sun,
+            outerBackgroundOnResource = R.drawable.ic_menu_send,
+            outerBackgroundOffResource = R.drawable.ic_menu_share,
+            circleBackgroundOnResource = R.drawable.ic_menu_camera,
+            circleBackgroundOffResource = R.drawable.ic_menu_manage,
             stateOn = 1,
             stateOff = 0,
             initialValue = 1,
@@ -109,10 +110,10 @@ fun Main() {
             height = 70.dp,
             width = 140.dp,
             circleButtonPadding = 4.dp,
-            outerBackgroundOnResource = R.drawable.switch_body_lemon,
-            outerBackgroundOffResource = R.drawable.switch_body_orange,
-            circleBackgroundOnResource = R.drawable.switch_btn_fruit_lemon,
-            circleBackgroundOffResource = R.drawable.switch_btn_fruit_orange,
+            outerBackgroundOnResource = R.drawable.ic_menu_send,
+            outerBackgroundOffResource = R.drawable.ic_menu_share,
+            circleBackgroundOnResource = R.drawable.ic_menu_camera,
+            circleBackgroundOffResource = R.drawable.ic_menu_manage,
             stateOn = 1,
             stateOff = 0,
             initialValue = 0,
@@ -125,10 +126,10 @@ fun Main() {
             height = 70.dp,
             width = 140.dp,
             circleButtonPadding = 4.dp,
-            outerBackgroundOnResource = R.drawable.switch_body_lemon,
-            outerBackgroundOffResource = R.drawable.switch_body_orange,
-            circleBackgroundOnResource = R.drawable.switch_btn_fruit_lemon,
-            circleBackgroundOffResource = R.drawable.switch_btn_fruit_orange,
+            outerBackgroundOnResource = R.drawable.ic_menu_send,
+            outerBackgroundOffResource = R.drawable.ic_menu_share,
+            circleBackgroundOnResource = R.drawable.ic_menu_camera,
+            circleBackgroundOffResource = R.drawable.ic_menu_manage,
             stateOn = 1,
             stateOff = 0,
             initialValue = 1,
@@ -142,7 +143,7 @@ fun Main() {
 @Preview
 @Composable
 fun MainPrev() {
-    MyApplicationTheme {
+    ArvifoxandroidTheme {
         Main()
     }
 }
@@ -245,15 +246,15 @@ fun CustomSwitch(
 @Preview
 @Composable
 fun CustomSwitchPreviewOff() {
-    MyApplicationTheme {
+    ArvifoxandroidTheme {
         CustomSwitch(
             height = 70.dp,
             width = 140.dp,
             circleButtonPadding = 4.dp,
-            outerBackgroundOnResource = R.drawable.switch_body_night,
-            outerBackgroundOffResource = R.drawable.switch_body_day,
-            circleBackgroundOnResource = R.drawable.switch_btn_moon,
-            circleBackgroundOffResource = R.drawable.switch_btn_sun,
+            outerBackgroundOnResource = R.drawable.ic_menu_send,
+            outerBackgroundOffResource = R.drawable.ic_menu_share,
+            circleBackgroundOnResource = R.drawable.ic_menu_camera,
+            circleBackgroundOffResource = R.drawable.ic_menu_manage,
             stateOn = 1,
             stateOff = 0,
             initialValue = 0,
@@ -266,15 +267,15 @@ fun CustomSwitchPreviewOff() {
 @Preview
 @Composable
 fun CustomSwitchPreviewOn() {
-    MyApplicationTheme {
+    ArvifoxandroidTheme {
         CustomSwitch(
             height = 70.dp,
             width = 140.dp,
             circleButtonPadding = 4.dp,
-            outerBackgroundOnResource = R.drawable.switch_body_night,
-            outerBackgroundOffResource = R.drawable.switch_body_day,
-            circleBackgroundOnResource = R.drawable.switch_btn_moon,
-            circleBackgroundOffResource = R.drawable.switch_btn_sun,
+            outerBackgroundOnResource = R.drawable.ic_menu_send,
+            outerBackgroundOffResource = R.drawable.ic_menu_share,
+            circleBackgroundOnResource = R.drawable.ic_menu_camera,
+            circleBackgroundOffResource = R.drawable.ic_menu_manage,
             stateOn = 1,
             stateOff = 0,
             initialValue = 1,

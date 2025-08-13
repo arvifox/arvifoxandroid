@@ -31,7 +31,7 @@ import kotlinx.serialization.Serializable
 object VertPagerNav
 
 @Serializable
-object VertPagerScreen
+private object VertPagerScreen
 
 fun NavGraphBuilder.VertPager(nhc: NavHostController) {
     this.navigation<VertPagerNav>(startDestination = VertPagerScreen) {

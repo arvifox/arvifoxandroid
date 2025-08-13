@@ -1,5 +1,5 @@
 [versions]
-agp = "8.11.0"
+agp = "8.12.0"
 kotlin = "2.1.20"
 billing = "7.1.1"
 biometric = "1.1.0"
@@ -66,8 +66,11 @@ workRuntimeKtx = "2.10.0"
 junitKtx = "1.2.1"
 coil = "3.1.0"
 ktor = "3.1.2"
+composeMaterial = "1.4.1"
+kotlinImmutableCollections = "0.4.0"
 
 [libraries]
+kotlinx-immutable-collection = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "kotlinImmutableCollections" }
 androidx-biometric = { module = "androidx.biometric:biometric", version.ref = "biometric" }
 androidx-browser = { module = "androidx.browser:browser", version.ref = "browser" }
 androidx-camera-camera2 = { module = "androidx.camera:camera-camera2", version.ref = "cameraCamera2" }
@@ -159,6 +162,7 @@ constraint-layout-compose = { group = "androidx.constraintlayout", name = "const
 constraint-layout-view = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintView" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "junitKtx" }
+androidx-compose-material = { group = "androidx.wear.compose", name = "compose-material", version.ref = "composeMaterial" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
