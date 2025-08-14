@@ -1,10 +1,13 @@
 package com.arvifox.arvi.uicompose.anilikes
 
+import android.animation.ValueAnimator
+import androidx.compose.runtime.MutableFloatState
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
-import kotlinx.collections.immutable.toPersistentList
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -21,34 +24,47 @@ class AniLikesViewModel() : ViewModel() {
 
     data class IconState(
         val id: Int,
-    )
+        val ofy: MutableFloatState = mutableFloatStateOf(0.0f),
+    ) {
+        fun setAni(va: ValueAnimator) {
+            va.addUpdateListener {
+                ofy.floatValue = it.animatedValue as Float
+            }
+            va.start()
+        }
+    }
 
     private var currentId = 0
+    private var yOff: Float = 0.0f
 
-    fun onStartAni(id: Int, target: Float) {
+    fun setUpAni(yOf: Float) {
+        yOff = yOf
     }
 
     fun onFinish(id: IconState) {
         _iconsState.update { ui ->
             ui.copy(
-                likes = ui.likes.toMutableList().let {
-                    it.remove(id)
-                    it.toPersistentList()
-                }
+                likes = ui.likes.remove(id)
             )
         }
     }
 
     fun showIcon() {
         viewModelScope.launch {
+            val vaan = ValueAnimator.ofFloat(0.0f, yOff).apply {
+                duration = 2000
+
+            }
             val newIcon = IconState(id = currentId++)
+            newIcon.setAni(vaan)
             _iconsState.update { ui ->
                 ui.copy(
-                    likes = ui.likes.toMutableList().let {
-                        it.add(newIcon)
-                        it.toPersistentList()
-                    }
+                    likes = ui.likes.add(newIcon)
                 )
+            }
+            launch {
+                delay(2000)
+                onFinish(newIcon)
             }
         }
     }

@@ -15,7 +15,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -57,7 +56,6 @@ fun NavGraphBuilder.aniLikes(nhc: NavHostController) {
                     Box(
                         modifier = Modifier.wrapContentSize(),
                     ) {
-                        var yOffset by remember { mutableFloatStateOf(0.0f) }
                         Icon(
                             painter = painterResource(android.R.drawable.star_on),
                             contentDescription = null,
@@ -65,7 +63,7 @@ fun NavGraphBuilder.aniLikes(nhc: NavHostController) {
                             modifier = Modifier
                                 .size(60.dp)
                                 .onGloballyPositioned {
-                                    yOffset = it.positionInRoot().y
+                                    vm.setUpAni(it.positionInRoot().y)
                                 }
                                 .clickable(
                                     onClick = { vm.showIcon() },
@@ -74,7 +72,7 @@ fun NavGraphBuilder.aniLikes(nhc: NavHostController) {
 
                         val state = vm.iconsState.collectAsStateWithLifecycle().value
                         state.likes.forEach { iconState ->
-                            Anili(id = iconState.id, -yOffset)
+                            IcoAni(iconState)
                         }
                     }
                     Icon(
@@ -91,6 +89,19 @@ fun NavGraphBuilder.aniLikes(nhc: NavHostController) {
             }
         }
     }
+}
+
+@Composable
+fun IcoAni(iconState: AniLikesViewModel.IconState) {
+    Icon(
+        imageVector = Icons.Filled.Done,
+        contentDescription = "Icon ${iconState.id}",
+        modifier = Modifier
+            .offset {
+                IntOffset(0, -iconState.ofy.floatValue.toInt())
+            }
+            .size(60.dp),
+    )
 }
 
 @Composable
