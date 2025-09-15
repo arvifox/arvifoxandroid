@@ -3,7 +3,7 @@ package com.arvifox.arvi.disp
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.TestCoroutineDispatcher
+import kotlinx.coroutines.test.TestDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.setMain
 import org.junit.rules.TestWatcher
@@ -15,7 +15,7 @@ https://proandroiddev.com/companion-object-invoke-operator-overloading-for-defau
 
 @ExperimentalCoroutinesApi
 class MainCoroutineRule(
-    val testDispatcher: TestCoroutineDispatcher = TestCoroutineDispatcher(),
+    val testDispatcher: TestDispatcher,
 ) : TestWatcher() {
     override fun starting(description: Description?) {
         super.starting(description)
@@ -25,7 +25,7 @@ class MainCoroutineRule(
     override fun finished(description: Description?) {
         super.finished(description)
         Dispatchers.resetMain()
-        testDispatcher.cleanupTestCoroutines()
+//        testDispatcher.cleanupTestCoroutines()
     }
 }
 
@@ -45,6 +45,6 @@ class CoroutineRule<T : CoroutineDispatcher>(
     override fun finished(description: Description?) {
         super.finished(description)
         Dispatchers.resetMain()
-        (dispatcher as? TestCoroutineDispatcher)?.cleanupTestCoroutines()
+//        (dispatcher as? TestDispatcher)?.claseanupTestCoroutines()
     }
 }
