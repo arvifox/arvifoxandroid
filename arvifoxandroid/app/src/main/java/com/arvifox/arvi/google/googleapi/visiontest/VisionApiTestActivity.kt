@@ -12,8 +12,9 @@ import com.arvifox.arvi.R
 import com.arvifox.arvi.databinding.ActivityVisionApiTestBinding
 import com.arvifox.arvi.utils.FormatUtils.takeByteArray
 import com.arvifox.arvi.utils.Logger
-import com.google.api.client.extensions.android.http.AndroidHttp
+//import com.google.api.client.extensions.androidroid.http.AndroidHttp
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential
+import com.google.api.client.http.javanet.NetHttpTransport
 import com.google.api.client.json.gson.GsonFactory
 import com.google.api.services.vision.v1.Vision
 import com.google.api.services.vision.v1.model.*
@@ -62,10 +63,11 @@ class VisionApiTestActivity : AppCompatActivity() {
     private fun makeRequest() {
         runCatching {
             val credential = GoogleCredential().setAccessToken(mainToken)
-            val httpTransport = AndroidHttp.newCompatibleTransport()
+//            val httpTransport = AndroidHttp.newCompatibleTransport()
             val jsonFactory = GsonFactory.getDefaultInstance()
 
-            val builder = Vision.Builder(httpTransport, jsonFactory, credential)
+//            val builder = Vision.Builder(httpTransport, jsonFactory, credential)
+            val builder = Vision.Builder(NetHttpTransport(), jsonFactory, credential)
             val vision = builder.build()
 
             val featureList = ArrayList<Feature>()
