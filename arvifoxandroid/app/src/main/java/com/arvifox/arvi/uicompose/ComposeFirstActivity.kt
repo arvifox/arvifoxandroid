@@ -62,6 +62,7 @@ import com.arvifox.arvi.uicompose.anilikes.AniLikesRoute
 import com.arvifox.arvi.uicompose.anilikes.aniLikes
 import com.arvifox.arvi.uicompose.anima.Anima
 import com.arvifox.arvi.uicompose.anima.AnimaScreen
+import com.arvifox.arvi.uicompose.compose202508.Compose202508
 import com.arvifox.arvi.uicompose.draw.DrawMainScree
 import com.arvifox.arvi.uicompose.ui.ArvifoxandroidTheme
 import com.arvifox.arvi.uicompose.vertpager.VertPager
@@ -73,6 +74,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.consumeAsFlow
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -125,6 +127,9 @@ class ComposeFirstActivity : ComponentActivity() {
                         }
                         composable("drava") {
                             DrawMainScree()
+                        }
+                        composable("compose202508") {
+                            Compose202508(modifier = Modifier.fillMaxSize())
                         }
                         composable("navStart") {
                             val cvm = viewModel<ComposeFirstViewModel> {
@@ -217,6 +222,22 @@ class ComposeFirstActivity : ComponentActivity() {
 
                                         else -> {
                                             nhc.navigate(route = AniLikesRoute)
+                                        }
+                                    }
+                                }
+                                Spacer(Modifier.size(4.dp))
+                                Buro("compose202508", "vertpa", "likesani") {
+                                    when (it) {
+                                        1 -> {
+                                            nhc.navigate(route = "compose202508")
+                                        }
+
+                                        2 -> {
+//                                            nhc.navigate(route = VertPagerNav)
+                                        }
+
+                                        else -> {
+//                                            nhc.navigate(route = AniLikesRoute)
                                         }
                                     }
                                 }
@@ -331,7 +352,8 @@ class ComposeFirstViewModel(
         )
 
     private val channel = Channel<String>()
-    val cha = channel.consumeAsFlow()
+    val cha = channel.receiveAsFlow()
+//    val cha = channel.consumeAsFlow()
 //    private val cow = CopyOnWriteArrayList<Int>()
 //    private val lhs = LinkedHashSet<Int>()
 //    private val re = Result.success(987)
