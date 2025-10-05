@@ -32,11 +32,11 @@ kotlin {
 
 android {
     namespace = "com.arvifox.arvi"
-    compileSdk = 36
+    compileSdk = 37
     defaultConfig {
         applicationId = "com.arvifox.arvi"
         minSdk = 26
-        targetSdk = 36
+        targetSdk = 37
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -133,6 +133,8 @@ dependencies {
     implementation(libs.lifecycle.viewmodel.ktx)
     implementation(libs.activity.compose)
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.material.icons)
+    implementation(libs.androidx.material.icons.extended)
     implementation(libs.compose.navigation)
     implementation(libs.androidx.junit.ktx)
     implementation(libs.androidx.compose.material)

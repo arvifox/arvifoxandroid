@@ -117,7 +117,7 @@ fun Anili(
     )
     if (yOffset > targetY) {
         Icon(
-            imageVector = Icons.Filled.Done,
+            imageVector = Icons.Filled.Done, // ImageVector.vectorResource(R.drawable.ic_heart_white_60dp),
             contentDescription = "Icon $id",
             modifier = Modifier
                 .offset {

@@ -5,8 +5,8 @@ plugins {
     alias(libs.plugins.kotlinAndroid) apply false
     alias(libs.plugins.serialization) apply false
     alias(libs.plugins.kover) apply false
-    id("org.jetbrains.dokka") version "2.0.0" apply false
-    id("com.google.devtools.ksp") version "2.1.20-2.0.0" apply false
+    id("org.jetbrains.dokka") version "2.2.0" apply false
+    id("com.google.devtools.ksp") version "2.3.8" apply false
 //    alias(libs.plugins.jetbrainsKotlinJvm) apply false
     alias(libs.plugins.kotlin.compose) apply false
 }
